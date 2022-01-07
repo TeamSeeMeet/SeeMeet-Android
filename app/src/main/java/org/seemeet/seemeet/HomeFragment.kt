@@ -1,10 +1,7 @@
 package org.seemeet.seemeet
 
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -28,12 +25,13 @@ class HomeFragment : Fragment() {
         initNaviDrawer()
     }
 
+
     private fun initClickListener(){
-        binding.btnFriend.setOnClickListener {
+        binding.ivHomeFriend.setOnClickListener {
             FriendActivity.start(requireContext())
         }
 
-        binding.btnMypageOpen.setOnClickListener{
+        binding.ivMypageMenu.setOnClickListener{
             binding.dlHomeMypage.openDrawer(GravityCompat.START)
         }
         binding.nvMypage.ivMypageBack.setOnClickListener {
@@ -49,7 +47,5 @@ class HomeFragment : Fragment() {
         binding.dlHomeMypage.addDrawerListener(toggle)
         toggle.syncState()
 
-
     }
-
 }
