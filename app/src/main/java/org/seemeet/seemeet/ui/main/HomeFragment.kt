@@ -1,10 +1,13 @@
-package org.seemeet.seemeet
+package org.seemeet.seemeet.ui.main
 
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import org.seemeet.seemeet.ui.notification.NotificationActivity
+import org.seemeet.seemeet.R
+import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {

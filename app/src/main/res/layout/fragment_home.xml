@@ -2,7 +2,7 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".HomeFragment"
+    tools:context=".ui.main.HomeFragment"
     android:id="@+id/dl_home_mypage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -97,7 +97,7 @@
                     android:gravity="center_vertical"
                     android:textSize="26sp"
                     android:textColor="@color/white"
-                    android:layout_marginStart="60sp"
+                    android:layout_marginStart="56sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -195,4 +195,3 @@
 
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
-

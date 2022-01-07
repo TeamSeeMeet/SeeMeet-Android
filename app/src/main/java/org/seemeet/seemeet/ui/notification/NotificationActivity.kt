@@ -1,9 +1,10 @@
-package org.seemeet.seemeet
+package org.seemeet.seemeet.ui.notification
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import org.seemeet.seemeet.R
 
 class NotificationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

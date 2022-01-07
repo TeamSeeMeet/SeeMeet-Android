@@ -1,9 +1,9 @@
-package org.seemeet.seemeet
+package org.seemeet.seemeet.ui.registration
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import org.seemeet.seemeet.MainActivity
 import org.seemeet.seemeet.databinding.ActivityLoginBinding
-import org.seemeet.seemeet.databinding.ActivityMainBinding
 
 class LoginActivity : AppCompatActivity() {
     private val binding: ActivityLoginBinding by lazy {

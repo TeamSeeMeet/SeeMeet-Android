@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.seemeet.seemeet.databinding.ActivityLoginBinding
 import org.seemeet.seemeet.databinding.ActivityMainBinding
+import org.seemeet.seemeet.ui.apply.ApplyActivity
+import org.seemeet.seemeet.ui.main.CalendarFragment
+import org.seemeet.seemeet.ui.main.HomeFragment
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
