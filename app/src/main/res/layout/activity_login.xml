@@ -6,14 +6,83 @@
     android:layout_height="match_parent"
     tools:context=".ui.registration.LoginActivity">
 
-    <Button
-        android:id="@+id/btn_login"
+    <ImageView
+        android:id="@+id/iv_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/label_login"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="150dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="20dp"
+        android:drawableLeft="@android:drawable/ic_partial_secure"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_logo" />
+
+    <EditText
+        android:id="@+id/et_pw"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:drawableLeft="@android:drawable/ic_partial_secure"
+        android:ems="10"
+        android:hint="@string/pw"
+        android:inputType="textPassword"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/et_email"
+        app:layout_constraintStart_toStartOf="@+id/et_email"
+        app:layout_constraintTop_toBottomOf="@+id/et_email" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/login"
+        app:layout_constraintEnd_toEndOf="@+id/et_pw"
+        app:layout_constraintStart_toStartOf="@+id/et_pw"
+        app:layout_constraintTop_toBottomOf="@+id/et_pw" />
+
+    <TextView
+        android:id="@+id/tv_member_yet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/login_member_yet"
+        app:layout_constraintEnd_toStartOf="@+id/tv_register"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+
+    <TextView
+        android:id="@+id/tv_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_member_yet"
+        app:layout_constraintTop_toTopOf="@+id/tv_member_yet" />
+
+    <TextView
+        android:id="@+id/tv_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/login_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_member_yet" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">SeeMeet</string>
 
+    <!-- Common -->
+    <string name="email">이메일</string>
+    <string name="pw">비밀번호</string>
+    <string name="login">로그인</string>
+
     <!-- Login -->
-    <string name="label_login">LogIn</string>
+    <string name="login_member_yet">아직 회원이 아니신가요?</string>
+    <string name="login_register"><u>회원가입</u></string>
+    <string name="login_search"><u>아이디/비밀번호 찾기</u></string>
 
     <!-- Main -->
     <string name="label_home">Home</string>
