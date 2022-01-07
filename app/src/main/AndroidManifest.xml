@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SeeMeet">
         <activity
-            android:name=".FriendActivity"
+            android:name=".ui.friend.FriendActivity"
             android:exported="true" />
         <activity
-            android:name=".ApplyActivity"
+            android:name=".ui.apply.ApplyActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name="org.seemeet.seemeet.ui.registration.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name="org.seemeet.seemeet.MainActivity" />
     </application>
 
 </manifest>

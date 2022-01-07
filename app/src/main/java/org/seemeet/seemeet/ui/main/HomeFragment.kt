@@ -1,10 +1,11 @@
-package org.seemeet.seemeet
+package org.seemeet.seemeet.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
