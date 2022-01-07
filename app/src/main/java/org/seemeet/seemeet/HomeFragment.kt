@@ -30,6 +30,9 @@ class HomeFragment : Fragment() {
         binding.ivHomeFriend.setOnClickListener {
             FriendActivity.start(requireContext())
         }
+        binding.ivHomeNoti.setOnClickListener {
+            NotificationActivity.start(requireContext())
+        }
 
         binding.ivMypageMenu.setOnClickListener{
             binding.dlHomeMypage.openDrawer(GravityCompat.START)
