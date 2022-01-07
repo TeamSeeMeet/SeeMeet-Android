@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- 임시 컬러 -->
+    <color name="gallery">#EFEFEF</color>
+    <color name="silver_chalice">#9E9E9E</color>
+
 </resources>

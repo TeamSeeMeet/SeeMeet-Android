@@ -7,9 +7,107 @@
     tools:context=".ui.friend.FriendActivity">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="친구"/>
+        android:id="@+id/tv_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="16sp"
+        android:text="@string/friend_friend"
+        android:textColor="@color/black"/>
+
+    <ImageView
+        android:id="@+id/iv_add_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_friend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.767"
+        app:layout_constraintStart_toEndOf="@+id/tv_friend"
+        app:layout_constraintTop_toTopOf="@+id/tv_friend" />
+
+
+    <EditText
+        android:id="@+id/et_search_friend"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:background="@drawable/rectangle_gray_radius_20"
+        android:paddingStart="40dp"
+        android:textSize="16sp"
+        android:hint="@string/friend_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_friend" />
+
+    <ImageView
+        android:id="@+id/iv_search_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_search"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_search_friend"
+        app:layout_constraintStart_toStartOf="@+id/et_search_friend"
+        app:layout_constraintTop_toTopOf="@+id/et_search_friend" />
+
+    <TextView
+        android:id="@+id/tv_friend_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/friend_request"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_search_friend" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_friend_request"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_friend_request"
+        tools:itemCount="1" />
+
+    <TextView
+        android:id="@+id/tv_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/friend_favorite"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_friend_request" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_favorite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_favorite"
+        tools:itemCount="1"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_friend"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_favorite"
+        tools:itemCount="1"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
