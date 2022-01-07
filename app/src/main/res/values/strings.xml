@@ -10,4 +10,9 @@
     <string name="label_calendar">Calendar</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- home -->
+    <string name="home_drawer_open">drawer open</string>
+    <string name="home_drawer_close">drawer close</string>
+    <string name="home_mypage">MY PAGE</string>
 </resources>
