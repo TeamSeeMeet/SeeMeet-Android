@@ -17,7 +17,8 @@
         android:id="@+id/bnv_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/main_bottom_navigation_menu"></com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/main_bottom_navigation_menu"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

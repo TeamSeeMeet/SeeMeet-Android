@@ -15,13 +15,16 @@
             android:label="@string/title_activity_register"
             android:theme="@style/Theme.SeeMeet.NoActionBar" />
         <activity
+            android:name=".ui.notification.NotificationActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.friend.FriendActivity"
             android:exported="true" />
         <activity
             android:name=".ui.apply.ApplyActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.registration.LoginActivity"
+            android:name="org.seemeet.seemeet.ui.registration.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name="org.seemeet.seemeet.MainActivity" />
     </application>
 
 </manifest>
