@@ -1,10 +1,12 @@
 package org.seemeet.seemeet.ui.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import org.seemeet.seemeet.ui.notification.NotificationActivity
+import org.seemeet.seemeet.R
 import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.databinding.FragmentHomeBinding
 
@@ -23,11 +25,33 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initClickListener()
+        initNaviDrawer()
     }
 
+
     private fun initClickListener(){
-        binding.btnFriend.setOnClickListener {
+        binding.ivHomeFriend.setOnClickListener {
             FriendActivity.start(requireContext())
         }
+        binding.ivHomeNoti.setOnClickListener {
+            NotificationActivity.start(requireContext())
+        }
+
+        binding.ivMypageMenu.setOnClickListener{
+            binding.dlHomeMypage.openDrawer(GravityCompat.START)
+        }
+        binding.nvMypage.ivMypageBack.setOnClickListener {
+            binding.dlHomeMypage.closeDrawer(GravityCompat.START)
+        }
+    }
+
+    private fun initNaviDrawer(){
+        val toggle = ActionBarDrawerToggle(
+            this.activity, binding.dlHomeMypage, R.string.home_drawer_open, R.string.home_drawer_close
+        )
+
+        binding.dlHomeMypage.addDrawerListener(toggle)
+        toggle.syncState()
+
     }
 }

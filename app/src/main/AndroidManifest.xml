@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SeeMeet">
         <activity
+            android:name=".ui.notification.NotificationActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.friend.FriendActivity"
             android:exported="true" />
         <activity
