@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import org.seemeet.seemeet.MainActivity
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityRegisterBinding
 
@@ -18,5 +19,12 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        RegisterBtn()
+    }
+
+    fun RegisterBtn(){
+        binding.btnRegister.setOnClickListener {
+            MainActivity.start(this)
+        }
     }
 }

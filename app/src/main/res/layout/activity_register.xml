@@ -32,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:layout_marginTop="21dp"
+        android:background="#D6D6D6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_previous" />
@@ -41,7 +42,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         android:text="@string/register_name"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,6 @@
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="9dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/rectangle_gray_radius_20"
         android:ems="10"
@@ -65,7 +64,6 @@
         android:id="@+id/tv_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:text="@string/register_id"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/tv_name"
@@ -75,7 +73,6 @@
         android:id="@+id/et_id"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginTop="9dp"
         android:background="@drawable/rectangle_gray_radius_20"
         android:ems="10"
         android:inputType="textPersonName"
@@ -87,66 +84,71 @@
         android:id="@+id/tv_sex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:text="@string/register_sex"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/tv_name"
         app:layout_constraintTop_toBottomOf="@+id/et_id" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button"
+        android:id="@+id/btn_man"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="1dp"
+        android:background="@drawable/rectangle_gray_radius_20"
+        android:text="@string/register_male"
+        app:layout_constraintEnd_toStartOf="@+id/btn_female"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sex" />
+
+    <View
+        android:id="@+id/view_sex_line"
+        android:layout_width="1dp"
+        android:layout_height="56dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_man"
+        app:layout_constraintEnd_toEndOf="@+id/btn_man"
+        app:layout_constraintStart_toEndOf="@+id/btn_man"
+        app:layout_constraintTop_toTopOf="@+id/btn_man" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_female"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="1dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/rectangle_gray_radius_20"
         android:text="@string/register_female"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_sex"
-        app:layout_constraintTop_toTopOf="@+id/btn_sex" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_sex"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="5dp"
-        android:background="@drawable/rectangle_gray_radius_20"
-        android:text="@string/register_male"
-        app:layout_constraintEnd_toStartOf="@+id/button"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_sex" />
+        app:layout_constraintStart_toEndOf="@+id/btn_man"
+        app:layout_constraintTop_toTopOf="@+id/btn_man" />
 
     <TextView
         android:id="@+id/tv_birth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="@string/register_birth"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/tv_sex"
-        app:layout_constraintTop_toBottomOf="@+id/btn_sex" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_man" />
 
     <EditText
         android:id="@+id/et_birth"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginTop="10dp"
         android:background="@drawable/rectangle_gray_radius_20"
         android:ems="10"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="@+id/et_id"
-        app:layout_constraintStart_toStartOf="@+id/btn_sex"
+        app:layout_constraintStart_toStartOf="@+id/btn_man"
         app:layout_constraintTop_toBottomOf="@+id/tv_birth" />
 
     <TextView
         android:id="@+id/tv_pw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="@string/pw"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/tv_birth"
@@ -156,7 +158,6 @@
         android:id="@+id/et_pw"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginTop="10dp"
         android:background="@drawable/rectangle_gray_radius_20"
         android:ems="10"
         android:inputType="textPassword"
@@ -169,7 +170,6 @@
         android:id="@+id/tv_checkpw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="@string/register_checkpw"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/tv_pw"
@@ -179,7 +179,6 @@
         android:id="@+id/et_checkpw"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginTop="10dp"
         android:background="@drawable/rectangle_gray_radius_20"
         android:ems="10"
         android:inputType="textPassword"
@@ -191,7 +190,6 @@
         android:id="@+id/btn_register"
         android:layout_width="0dp"
         android:layout_height="54dp"
-        android:layout_marginTop="32dp"
         android:background="@drawable/rectangle_orange_radius_20"
         android:text="@string/register_register"
         android:textColor="@color/white"
