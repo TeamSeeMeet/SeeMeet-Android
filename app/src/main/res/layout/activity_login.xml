@@ -6,14 +6,95 @@
     android:layout_height="match_parent"
     tools:context=".ui.registration.LoginActivity">
 
-    <Button
-        android:id="@+id/btn_login"
+    <ImageView
+        android:id="@+id/iv_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/label_login"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_seemeet_logo" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rectangle_gray_radius_20"
+        android:drawableLeft="@drawable/ic_user"
+        android:drawablePadding="10dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:paddingStart="20dp"
+        android:textColor="#5A5A5A"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_logo" />
+
+    <EditText
+        android:id="@+id/et_pw"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/rectangle_gray_radius_20"
+        android:drawableLeft="@drawable/ic_lock"
+        android:drawablePadding="10dp"
+        android:hint="@string/pw"
+        android:inputType="textPassword"
+        android:paddingStart="20dp"
+        android:textColor="#5A5A5A"
+        app:layout_constraintEnd_toEndOf="@+id/et_email"
+        app:layout_constraintStart_toStartOf="@+id/et_email"
+        app:layout_constraintTop_toBottomOf="@+id/et_email" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_login"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/rectangle_orange_radius_20"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/et_pw"
+        app:layout_constraintStart_toStartOf="@+id/et_pw"
+        app:layout_constraintTop_toBottomOf="@+id/et_pw" />
+
+    <TextView
+        android:id="@+id/tv_member_yet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="33dp"
+        android:text="@string/login_member_yet"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/tv_register"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+
+    <TextView
+        android:id="@+id/tv_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:text="@string/login_register"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_member_yet"
+        app:layout_constraintTop_toTopOf="@+id/tv_member_yet" />
+
+    <TextView
+        android:id="@+id/tv_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/login_search"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_member_yet" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
