@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.registration.LoginActivity">
+
+    <ImageView
+        android:id="@+id/iv_previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="21dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_previous" />
+
+    <TextView
+        android:id="@+id/tv_register_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_register"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_previous"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_previous" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="21dp"
+        android:background="#D6D6D6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_previous" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/register_name"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_line" />
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rectangle_gray_radius_20"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+    <TextView
+        android:id="@+id/tv_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_id"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/tv_name"
+        app:layout_constraintTop_toBottomOf="@+id/et_name" />
+
+    <EditText
+        android:id="@+id/et_id"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@drawable/rectangle_gray_radius_20"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/et_name"
+        app:layout_constraintStart_toStartOf="@+id/et_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_id" />
+
+    <TextView
+        android:id="@+id/tv_sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_sex"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/tv_name"
+        app:layout_constraintTop_toBottomOf="@+id/et_id" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_man"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="1dp"
+        android:background="@drawable/rectangle_gray_radius_20"
+        android:text="@string/register_male"
+        app:layout_constraintEnd_toStartOf="@+id/btn_female"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sex" />
+
+    <View
+        android:id="@+id/view_sex_line"
+        android:layout_width="1dp"
+        android:layout_height="56dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_man"
+        app:layout_constraintEnd_toEndOf="@+id/btn_man"
+        app:layout_constraintStart_toEndOf="@+id/btn_man"
+        app:layout_constraintTop_toTopOf="@+id/btn_man" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_female"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rectangle_gray_radius_20"
+        android:text="@string/register_female"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_man"
+        app:layout_constraintTop_toTopOf="@+id/btn_man" />
+
+    <TextView
+        android:id="@+id/tv_birth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_birth"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/tv_sex"
+        app:layout_constraintTop_toBottomOf="@+id/btn_man" />
+
+    <EditText
+        android:id="@+id/et_birth"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@drawable/rectangle_gray_radius_20"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="@+id/et_id"
+        app:layout_constraintStart_toStartOf="@+id/btn_man"
+        app:layout_constraintTop_toBottomOf="@+id/tv_birth" />
+
+    <TextView
+        android:id="@+id/tv_pw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pw"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/tv_birth"
+        app:layout_constraintTop_toBottomOf="@+id/et_birth" />
+
+    <EditText
+        android:id="@+id/et_pw"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@drawable/rectangle_gray_radius_20"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/et_birth"
+        app:layout_constraintStart_toStartOf="@+id/et_birth"
+        app:layout_constraintTop_toBottomOf="@+id/tv_pw" />
+
+    <TextView
+        android:id="@+id/tv_checkpw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_checkpw"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/tv_pw"
+        app:layout_constraintTop_toBottomOf="@+id/et_pw" />
+
+    <EditText
+        android:id="@+id/et_checkpw"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@drawable/rectangle_gray_radius_20"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/et_pw"
+        app:layout_constraintStart_toStartOf="@+id/et_pw"
+        app:layout_constraintTop_toBottomOf="@+id/tv_checkpw" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_register"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:background="@drawable/rectangle_orange_radius_20"
+        android:text="@string/register_register"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/et_pw"
+        app:layout_constraintStart_toStartOf="@+id/et_pw"
+        app:layout_constraintTop_toBottomOf="@+id/et_checkpw" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SeeMeet">
         <activity
+            android:name=".ui.registration.RegisterActivity"
+            android:exported="false"
+            android:label="@string/title_activity_register"
+            android:theme="@style/Theme.SeeMeet.NoActionBar" />
+        <activity
             android:name=".ui.notification.NotificationActivity"
             android:exported="false" />
         <activity
