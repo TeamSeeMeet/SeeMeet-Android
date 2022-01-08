@@ -14,17 +14,13 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        LoginBtn()
-        RegisterBtn()
+        initClickListener()
     }
 
-    fun LoginBtn() {
+    fun initClickListener() {
         binding.btnLogin.setOnClickListener {
             MainActivity.start(this)
         }
-    }
-
-    fun RegisterBtn() {
         binding.tvRegister.setOnClickListener {
             val nextIntent = Intent(this, RegisterActivity::class.java)
             startActivity(nextIntent)

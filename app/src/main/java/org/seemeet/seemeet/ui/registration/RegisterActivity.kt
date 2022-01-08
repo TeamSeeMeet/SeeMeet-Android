@@ -19,10 +19,10 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        RegisterBtn()
+        initClickListener()
     }
 
-    fun RegisterBtn(){
+    fun initClickListener(){
         binding.btnRegister.setOnClickListener {
             MainActivity.start(this)
         }
