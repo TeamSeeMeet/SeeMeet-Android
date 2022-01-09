@@ -22,11 +22,10 @@
         android:id="@+id/iv_add_friend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
         android:src="@drawable/ic_plus"
         app:layout_constraintBottom_toBottomOf="@+id/tv_friend"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.767"
-        app:layout_constraintStart_toEndOf="@+id/tv_friend"
         app:layout_constraintTop_toTopOf="@+id/tv_friend" />
 
 
