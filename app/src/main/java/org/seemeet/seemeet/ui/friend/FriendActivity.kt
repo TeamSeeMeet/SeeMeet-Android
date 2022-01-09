@@ -22,6 +22,7 @@ class FriendActivity : AppCompatActivity() {
         initFriendAdapter()
         initFriendFavoriteAdapter()
         initFriendRequestAdapter()
+        initClickListener()
     }
 
     companion object {
@@ -65,5 +66,12 @@ class FriendActivity : AppCompatActivity() {
             )
         )
         friendRequestAdapter.notifyDataSetChanged()
+    }
+
+    private fun initClickListener(){
+        binding.ivAddFriend.setOnClickListener {
+            val nextIntent = Intent(this, AddFriendActivity::class.java)
+            startActivity(nextIntent)
+        }
     }
 }
