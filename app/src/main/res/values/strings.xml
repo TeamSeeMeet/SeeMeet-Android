@@ -34,6 +34,9 @@
     <string name="friend_confirm">확인</string>
     <string name="friend_delete">삭제</string>
 
+    <!-- AddFriend -->
+    <string name="friend_add">친구 추가</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
