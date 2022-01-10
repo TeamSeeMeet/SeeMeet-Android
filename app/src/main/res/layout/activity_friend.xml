@@ -38,7 +38,7 @@
         android:layout_marginTop="50dp"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
-        android:background="@drawable/rectangle_gray_radius_20"
+        android:background="@drawable/rectangle_gallery_radius_20"
         android:paddingStart="40dp"
         android:textSize="16sp"
         android:hint="@string/friend_search"
