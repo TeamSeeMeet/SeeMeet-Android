@@ -24,10 +24,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setBottomNavigation() {
+        //가운데 플로팅 버튼 클릭 시
+        binding.fabMain.setOnClickListener {
+            ApplyActivity.start(this)
+        }
+
+        //양 옆 네비게이션 버튼 클릭 시
         binding.bnvMain.setOnItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.menu_home -> changeFragment(getString(R.string.label_home))
-                    R.id.menu_apply -> ApplyActivity.start(this)
+                    //R.id.menu_apply -> ApplyActivity.start(this)
                     R.id.menu_calendar -> changeFragment(getString(R.string.label_calendar))
                 }
                 true
