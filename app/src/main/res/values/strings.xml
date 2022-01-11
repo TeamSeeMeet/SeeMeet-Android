@@ -57,10 +57,14 @@
     <string name="noti_send_msg_wait2">명의 답변을 기다리고 있어요!</string>
     <string name="noti_receive">받은 요청</string>
     <string name="noti_receive_day">1일전</string>
+    <string name="noti_receive_msg">친구의 요청에 답해보세요!</string>
     <string name="noti_in_progress">진행 중</string>
     <string name="noti_in_progress2">이에요</string>
-    <string name="noti_in_progress_num">2</string>
-    <string name="noti_in_progress_num2">건</string>
+    <string name="noti_in_progress_num">6</string>
+    <string name="noti_done_num">4</string>
+    <string name="noti_num">건</string>
+    <string name="noti_done2">되었어요</string>
+
 
 
 
