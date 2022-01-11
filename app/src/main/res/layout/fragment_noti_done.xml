@@ -7,12 +7,12 @@
     tools:context=".ui.notification.inprogress.NotiInProgressFragment">
 
     <TextView
-        android:id="@+id/tv_in_progress"
+        android:id="@+id/tv_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/noti_in_progress"
+        android:text="@string/noti_done"
         android:textSize="24dp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -20,12 +20,12 @@
         android:layout_marginTop="25dp" />
 
     <TextView
-        android:id="@+id/tv_in_progress2"
+        android:id="@+id/tv_done2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_in_progress"
+        app:layout_constraintStart_toEndOf="@id/tv_done"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/noti_in_progress2"
+        android:text="@string/noti_done2"
         android:textSize="24dp"
         android:textColor="@color/black"
         android:layout_marginTop="25dp" />
@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginRight="20dp"
-        android:text="@string/noti_in_progress_num2"
+        android:text="@string/noti_num"
         android:textSize="24dp"
         android:textColor="@color/black"
         android:layout_marginTop="25dp" />
@@ -58,7 +58,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_in_progress"
+        app:layout_constraintTop_toBottomOf="@+id/tv_done"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" >
 
@@ -70,8 +70,6 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
