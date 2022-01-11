@@ -33,7 +33,10 @@ class HomeFragment : Fragment() {
         initClickListener()
         initNaviDrawer()
 
+        // (1) 더미데이터 셋팅 _ 이후 서버통신 시 교체
         viewmodel.setReminderList()
+
+        // (2) 어뎁터와 옵저버 셋팅
         setReminderAdapter()
         setReminderObserve()
     }
@@ -68,15 +71,18 @@ class HomeFragment : Fragment() {
 
     }
 
+    // 어댑터
     private fun setReminderAdapter() {
         val reminderListAdapter = ReminderListAdapter()
 
         binding.rvHomeReminder.adapter = reminderListAdapter
     }
 
+    // 옵저버 _ 위에서 (1)로 데이터 넣을 경우 옵저버가 관찰하다가 업데이트함.
     private fun setReminderObserve() {
         viewmodel.reminderList.observe(viewLifecycleOwner){
             reminderList-> with(binding.rvHomeReminder.adapter as ReminderListAdapter){
+                //어댑터 내에서 notifyDataSetChanged() 해주는 역할의 함수
                 setReminder(reminderList)
              }
         }

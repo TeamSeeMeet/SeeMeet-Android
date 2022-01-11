@@ -14,6 +14,7 @@ class ReminderListAdapter :RecyclerView.Adapter<ReminderListAdapter.ReminderView
         private val binding : ItemHomeReminderBinding
     ): RecyclerView.ViewHolder(binding.root){
         fun bind(reminderData: ReminderData){
+            // item home reminder 레이아웃에 있는 data 값에 해당 데이터 삽입 (data Binding)
             binding.reminderData = reminderData
         }
     }

@@ -9,10 +9,13 @@ import org.seemeet.seemeet.data.local.ReminderData
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
+    //리싸이클러뷰에 들어갈 리스트 변수
     private val _reminderList = MutableLiveData<List<ReminderData>>()
     val reminderList : LiveData<List<ReminderData>>
         get() = _reminderList
 
+
+    //임시로 넣을 더미데이터 셋팅. < 위의 리스트에 대입
     fun setReminderList() {
         _reminderList.value = mutableListOf(
             ReminderData(
