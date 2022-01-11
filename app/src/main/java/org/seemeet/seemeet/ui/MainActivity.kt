@@ -1,9 +1,10 @@
-package org.seemeet.seemeet
+package org.seemeet.seemeet.ui
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityMainBinding
 import org.seemeet.seemeet.ui.apply.ApplyActivity
 import org.seemeet.seemeet.ui.main.CalendarFragment
