@@ -1,61 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_home_reminder_bg"
-    android:layout_width="150dp"
-    android:layout_height="216dp"
-    android:layout_marginEnd="10dp"
-    android:background="@drawable/rectangle_white_20"
-    android:elevation="10dp">
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <!-- 여기에 보통 (item의 경우 adapter)에서 받은 데이터 값이 들어감 _ 아래에서 @{reminderData.~} 값으로 내용 삽입가능.-->
+        <variable
+            name="reminderData"
+            type="org.seemeet.seemeet.data.local.ReminderData" />
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_home_reminder_bg"
+        android:layout_width="150dp"
+        android:layout_height="216dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/rectangle_white_20"
+        android:elevation="10dp">
 
 
-    <TextView
-        android:id="@+id/tv_home_reminder_dday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rectangle_pink_50"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textColor="@color/white"
-        android:text="D-5"
-        app:layout_constraintEnd_toEndOf="@id/cl_home_reminder_bg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/cl_home_reminder_bg" />
+        <TextView
+            android:id="@+id/tv_home_reminder_dday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle_pink_50"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/white"
+            android:text="@{reminderData.dday}"
+            app:layout_constraintEnd_toEndOf="@id/cl_home_reminder_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cl_home_reminder_bg" />
 
-    <ImageView
-        android:id="@+id/iv_home_reminder"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/circle_black"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="@id/cl_home_reminder_bg"
-        app:layout_constraintStart_toStartOf="@id/cl_home_reminder_bg"
-        app:layout_constraintTop_toBottomOf="@id/tv_home_reminder_dday"/>
+        <ImageView
+            android:id="@+id/iv_home_reminder"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            setSrc="@{reminderData.img}"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="@id/cl_home_reminder_bg"
+            app:layout_constraintStart_toStartOf="@id/cl_home_reminder_bg"
+            app:layout_constraintTop_toBottomOf="@id/tv_home_reminder_dday"/>
 
-    <TextView
-        android:id="@+id/tv_home_reminder_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="이 아이템 감으로 그림"
-        android:textSize="12sp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/iv_home_reminder"
-        app:layout_constraintStart_toStartOf="@+id/iv_home_reminder"
-        app:layout_constraintTop_toBottomOf="@id/iv_home_reminder" />
-
-
-    <TextView
-        android:id="@+id/tv_home_reminder_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="디자인 확정 시 갈아엎어."
-        android:textSize="12sp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="@+id/iv_home_reminder"
-        app:layout_constraintStart_toStartOf="@+id/iv_home_reminder"
-        app:layout_constraintTop_toBottomOf="@id/tv_home_reminder_name" />
+        <TextView
+            android:id="@+id/tv_home_reminder_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{reminderData.title}"
+            android:textSize="12sp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_home_reminder"
+            app:layout_constraintStart_toStartOf="@+id/iv_home_reminder"
+            app:layout_constraintTop_toBottomOf="@id/iv_home_reminder" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_home_reminder_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{reminderData.date}"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_home_reminder"
+            app:layout_constraintStart_toStartOf="@+id/iv_home_reminder"
+            app:layout_constraintTop_toBottomOf="@id/tv_home_reminder_name" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
