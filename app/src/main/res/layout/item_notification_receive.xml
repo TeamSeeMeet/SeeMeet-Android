@@ -28,11 +28,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
-        android:text="@string/noti_send_day"
+        android:text="@string/noti_day"
         android:textSize="13dp"
-        app:layout_constraintBottom_toBottomOf="@id/tv_send"
+        app:layout_constraintBottom_toBottomOf="@id/tv_receive"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_send" />
+        app:layout_constraintTop_toTopOf="@id/tv_receive" />
 
     <TextView
         android:id="@+id/tv_receive_msg"
