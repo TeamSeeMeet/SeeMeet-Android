@@ -6,13 +6,54 @@
     android:layout_height="match_parent"
     tools:context=".ui.notification.NotificationActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="334dp"
-        android:text="Notification"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_noti_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_noti_top_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="5dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="21dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/noti_title"
+            android:textSize="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="10dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tl_noti"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/cl_noti_topbar"
+        app:tabIconTint="@null"
+        app:tabIndicatorColor="@color/black"
+        app:tabRippleColor="@null"
+        app:tabSelectedTextColor="@color/pink"
+        app:tabTextColor="@color/gallery"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_noti"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tl_noti" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
