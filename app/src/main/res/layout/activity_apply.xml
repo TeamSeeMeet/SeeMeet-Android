@@ -6,28 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".ui.apply.ApplyActivity">
 
+
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_apply"
         android:layout_width="wrap_content"
         android:layout_height="58dp"
+        android:gravity="center_vertical"
         android:text="약속 신청"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv_x"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:clickable="true"
         android:padding="17dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_close" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/container_navHost_apply"
+        android:id="@+id/container_apply"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -35,7 +40,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/tv_apply"
         app:navGraph="@navigation/nav_apply" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
