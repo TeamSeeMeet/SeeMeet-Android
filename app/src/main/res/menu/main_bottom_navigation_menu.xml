@@ -7,8 +7,7 @@
         android:title="@string/label_home" />
     <item
         android:id="@+id/menu_apply"
-        android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:enabled="false"
         android:title="@string/label_apply" />
     <item
         android:id="@+id/menu_calendar"
