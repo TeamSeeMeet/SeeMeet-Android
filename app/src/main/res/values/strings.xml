@@ -48,7 +48,7 @@
 
     <!--noti -->
     <string name="noti_title">약속 내역</string>
-    <string name="noti_inprogress">진행 중</string>
+    <string name="noti_in_progress">진행 중</string>
     <string name="noti_done">완료</string>
     <string name="noti_send">보낸 요청</string>
     <string name="noti_day">n일전</string>
@@ -57,7 +57,6 @@
     <string name="noti_send_msg_wait2">명의 답변을 기다리고 있어요!</string>
     <string name="noti_receive">받은 요청</string>
     <string name="noti_receive_msg">친구의 요청에 답해보세요!</string>
-    <string name="noti_in_progress">진행 중</string>
     <string name="noti_in_progress2">이에요</string>
     <string name="noti_in_progress_num">6</string>
     <string name="noti_done_num">4</string>

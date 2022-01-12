@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="20dp"
-    android:layout_marginBottom="25dp"
-    android:background="@drawable/rectangle_white_20"
-    android:elevation="10dp">
+    android:layout_marginBottom="20dp"
+    android:background="@drawable/rectangle_white_10"
+    android:elevation="5dp">
 
 
     <TextView
@@ -17,8 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:text="@string/noti_send"
-        android:textSize="18dp"
-        android:textStyle="bold"
+        android:textSize="18sp"
+        android:fontFamily="@font/spoqa_han_sans_neo_bold"
         android:textColor="@color/pink"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,9 +27,10 @@
         android:id="@+id/tv_send_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
         android:text="@string/noti_day"
-        android:textSize="13dp"
+        android:textColor="@color/gray04"
+        android:textSize="13sp"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
         app:layout_constraintBottom_toBottomOf="@id/tv_send"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_send" />
@@ -40,8 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="@string/noti_send_msg_wait"
-        android:textColor="@color/black"
-        android:textSize="16dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:textColor="@color/gray06"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/tv_send"
         app:layout_constraintStart_toStartOf="@id/tv_send"
         />
@@ -50,10 +52,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:text="@string/noti_send_msg_wait_num"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:textColor="@color/pink"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/tv_send"
         app:layout_constraintStart_toEndOf="@id/tv_send_msg_wait"
         />
@@ -64,8 +67,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="@string/noti_send_msg_wait2"
-        android:textColor="@color/black"
-        android:textSize="16dp"
+        android:textColor="@color/gray06"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/tv_send"
         app:layout_constraintStart_toEndOf="@id/tv_send_msg_wait_num"
         />
@@ -74,7 +78,6 @@
         android:id="@+id/rv_send_friend_list"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
