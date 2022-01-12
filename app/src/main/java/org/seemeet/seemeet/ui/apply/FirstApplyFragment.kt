@@ -7,16 +7,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.gson.internal.bind.ArrayTypeAdapter
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.local.FriendData
 import org.seemeet.seemeet.databinding.FragmentFirstApplyBinding
+import java.util.ArrayList
 
 
 class FirstApplyFragment : Fragment() {
 
     private var _binding: FragmentFirstApplyBinding? = null
     val binding get() = _binding!!
+    private var friendlist // 데이터를 넣은 리스트변수
+            : MutableList<String>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,10 +35,37 @@ class FirstApplyFragment : Fragment() {
             findNavController().navigate(R.id.action_firstApplyFragment_to_secondApplyFragment)
         }
 
+        // 리스트를 생성한다.
+        friendlist = ArrayList()
+
+        // 리스트에 검색될 데이터(단어)를 추가한다.
+        settingList()
+        val autoCompleteTextView =
+            binding.autoEtToWho as AutoCompleteTextView
+
+        // AutoCompleteTextView 에 아답터를 연결한다.
+        var adapter = activity?.let {
+            ArrayAdapter<String>(it, android.R.layout.simple_dropdown_item_1line,
+                friendlist as ArrayList<String>
+            )}
+        autoCompleteTextView.setAdapter(adapter)
+
         initFocusBackground()
         initTextChangedListener()
 
         return binding.root
+    }
+
+    // 검색에 사용될 데이터를 리스트에 추가한다.
+    private fun settingList() {
+        friendlist!!.add("박수빈")
+        friendlist!!.add("박지현")
+        friendlist!!.add("박승윤")
+        friendlist!!.add("박나은")
+        friendlist!!.add("박주혁")
+        friendlist!!.add("박예림")
+        friendlist!!.add("박한빈")
+        friendlist!!.add("박수현")
     }
 
     fun initFocusBackground(){
@@ -55,7 +89,7 @@ class FirstApplyFragment : Fragment() {
     }
 
     fun initTextChangedListener() {
-        binding.etToWho.addTextChangedListener(object : TextWatcher {
+        binding.autoEtToWho.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -94,7 +128,7 @@ class FirstApplyFragment : Fragment() {
     }
 
     private fun isNullOrBlank(): Boolean {
-        return binding.etDetail.text.isNullOrBlank() || binding.etId.text.isNullOrBlank() || binding.etToWho.text.isNullOrBlank()
+        return binding.etDetail.text.isNullOrBlank() || binding.etId.text.isNullOrBlank() || binding.autoEtToWho.text.isNullOrBlank()
     }
 
     private fun activeBtn() {
