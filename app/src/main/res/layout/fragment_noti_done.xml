@@ -6,66 +6,78 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.notification.inprogress.NotiInProgressFragment">
 
-    <TextView
-        android:id="@+id/tv_done"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_noti_done_topbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/noti_done"
-        android:textSize="24dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tv_done2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_done"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/noti_done2"
-        android:textSize="24dp"
-        android:textColor="@color/black"
-        android:layout_marginTop="25dp" />
+        <TextView
+            android:id="@+id/tv_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginVertical="30dp"
+            android:text="@string/noti_done"
+            android:textColor="@color/gray06"
+            android:textSize="24sp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_in_progress_num2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginRight="20dp"
-        android:text="@string/noti_num"
-        android:textSize="24dp"
-        android:textColor="@color/black"
-        android:layout_marginTop="25dp" />
+        <TextView
+            android:id="@+id/tv_done2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/noti_done2"
+            android:textColor="@color/gray06"
+            android:textSize="24sp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_done"
+            app:layout_constraintStart_toEndOf="@id/tv_done"
+            app:layout_constraintTop_toTopOf="@+id/tv_done" />
 
-    <TextView
-        android:id="@+id/tv_in_progress_num"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@id/tv_in_progress_num2"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/noti_in_progress_num"
-        android:textSize="24dp"
-        android:textColor="@color/pink"
-        android:layout_marginTop="25dp" />
+        <TextView
+            android:id="@+id/tv_done_num2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="16dp"
+            android:text="@string/noti_num"
+            android:textSize="24sp"
+            android:textColor="@color/gray06"
+            android:fontFamily="@font/din_pro_regular"
+            android:layout_marginTop="30dp" />
+
+        <TextView
+            android:id="@+id/tv_done_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/noti_done_num"
+            android:textColor="@color/pink"
+            android:textSize="24sp"
+            android:fontFamily="@font/din_pro_bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_done_num2"
+            app:layout_constraintEnd_toStartOf="@id/tv_done_num2"
+            app:layout_constraintTop_toTopOf="@+id/tv_done_num2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_done"
+        app:layout_constraintTop_toBottomOf="@+id/cl_noti_done_topbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="0dp"
@@ -76,7 +88,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/item_notification_done" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
