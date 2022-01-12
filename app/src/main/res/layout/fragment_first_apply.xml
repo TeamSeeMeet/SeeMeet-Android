@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="top"
+    tools:context=".ui.apply.FirstApplyFragment">
+
+    <TextView
+        android:id="@+id/apply_apply"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="약속 신청할 "
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/apply_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="친구"
+        android:textColor="@color/pink"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/apply_apply"
+        app:layout_constraintTop_toTopOf="@+id/apply_apply" />
+
+    <TextView
+        android:id="@+id/apply_pick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="를 선택하세요"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/apply_friend"
+        app:layout_constraintTop_toTopOf="@+id/apply_friend" />
+
+    <EditText
+        android:id="@+id/et_to_who"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/selector_apply_search"
+        android:drawableLeft="@drawable/ic_search_black"
+        android:drawablePadding="2dp"
+        android:ems="10"
+        android:hint="받는 사람 :"
+        android:inputType="textPersonName"
+        android:paddingLeft="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/apply_apply"
+        app:layout_constraintTop_toBottomOf="@+id/apply_apply" />
+
+
+    <TextView
+        android:id="@+id/apply_appointment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:text="약속의 "
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/apply_apply"
+        app:layout_constraintTop_toBottomOf="@+id/et_to_who" />
+
+    <TextView
+        android:id="@+id/apply_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="내용"
+        android:textColor="@color/pink"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/apply_appointment"
+        app:layout_constraintTop_toTopOf="@+id/apply_appointment" />
+
+    <TextView
+        android:id="@+id/apply_write"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="을 작성하세요"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/apply_content"
+        app:layout_constraintTop_toTopOf="@+id/apply_content" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_content"
+        android:layout_width="match_parent"
+        android:layout_height="255dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/rectangle_gray_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/apply_appointment">
+
+        <!--
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="제목"
+            android:inputType="textPersonName"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:paddingLeft="19dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="13dp"
+            android:paddingBottom="9dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+            -->
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="19dp"
+            android:paddingEnd="13dp"
+            android:paddingBottom="9dp"
+            app:endIconDrawable="@drawable/ic_btn_remove"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="제목"
+                android:inputType="textPersonName"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_title" />
+
+        <EditText
+            android:id="@+id/et_detail"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="12dp"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="약속 상세 내용"
+            android:inputType="textMultiLine|textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/cl_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/apply_line"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="86dp"
+        android:background="#e7e7e7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_content" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_next"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/rectangle_gray_radius_10"
+        android:clickable="true"
+        android:enabled="false"
+        android:text="다음"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/apply_line" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

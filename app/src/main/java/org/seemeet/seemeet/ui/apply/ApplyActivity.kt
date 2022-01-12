@@ -4,12 +4,23 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.seemeet.seemeet.R
+import org.seemeet.seemeet.databinding.ActivityApplyBinding
 
 class ApplyActivity : AppCompatActivity() {
+    private val binding: ActivityApplyBinding by lazy {
+        ActivityApplyBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_apply)
+        setContentView(binding.root)
+        initClickListener()
+    }
+
+    private fun initClickListener() {
+        binding.ivX.setOnClickListener {
+            finish()
+        }
     }
 
     companion object {
