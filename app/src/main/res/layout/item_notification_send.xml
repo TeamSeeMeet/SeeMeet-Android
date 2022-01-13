@@ -39,7 +39,7 @@
         android:id="@+id/tv_send_msg_wait"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="18dp"
         android:text="@string/noti_send_msg_wait"
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:textColor="@color/gray06"
@@ -47,38 +47,37 @@
         app:layout_constraintTop_toBottomOf="@id/tv_send"
         app:layout_constraintStart_toStartOf="@id/tv_send"
         />
+
     <TextView
         android:id="@+id/tv_send_msg_wait_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_marginStart="5dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_bold"
         android:text="@string/noti_send_msg_wait_num"
-        android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:textColor="@color/pink"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/tv_send"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_send_msg_wait"
         app:layout_constraintStart_toEndOf="@id/tv_send_msg_wait"
-        />
+        app:layout_constraintTop_toTopOf="@+id/tv_send_msg_wait" />
 
     <TextView
         android:id="@+id/tv_send_msg_wait2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:text="@string/noti_send_msg_wait2"
         android:textColor="@color/gray06"
-        android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/tv_send"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_send_msg_wait_num"
         app:layout_constraintStart_toEndOf="@id/tv_send_msg_wait_num"
-        />
+        app:layout_constraintTop_toTopOf="@+id/tv_send_msg_wait_num" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_send_friend_list"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="7dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +85,5 @@
         app:layout_constraintTop_toBottomOf="@id/tv_send_msg_wait"
         tools:listitem="@layout/item_notification_send_friend_list"
         tools:itemCount="3"/>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
