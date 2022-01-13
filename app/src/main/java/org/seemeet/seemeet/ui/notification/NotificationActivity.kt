@@ -9,13 +9,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.forEachIndexed
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityNotificationBinding
 import org.seemeet.seemeet.ui.notification.adapter.PagerFragmentStateAdapter
-import org.seemeet.seemeet.ui.notification.done.NotiDoneFragment
-import org.seemeet.seemeet.ui.notification.inprogress.NotiInProgressFragment
 
 class NotificationActivity : AppCompatActivity() {
     private var _binding : ActivityNotificationBinding? = null
@@ -32,6 +31,7 @@ class NotificationActivity : AppCompatActivity() {
 
         initTab()
         initClickListener()
+        initViewPager()
     }
 
     private fun initTab() {
@@ -88,6 +88,10 @@ class NotificationActivity : AppCompatActivity() {
         binding.ivNotiTopBack.setOnClickListener {
             Log.d("************notiback", "press back")
         }
+    }
+
+    private fun initViewPager(){
+        binding.vpNoti.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
     }
 
     fun TextView.setTextBold(isBold: Boolean) {
