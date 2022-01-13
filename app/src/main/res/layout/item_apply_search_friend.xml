@@ -5,7 +5,7 @@
     android:id="@+id/item_apply_searcch_friend"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-<!--    <ImageView
+   <ImageView
         android:id="@+id/iv_apply_profile"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -16,21 +16,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/ic_launcher_background" />
--->
+
     <TextView
         android:id="@+id/tv_apply_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="20dp"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <!--
-    app:layout_constraintBottom_toBottomOf="@+id/iv_apply_profile"
 
-    app:layout_constraintStart_toEndOf="@id/iv_apply_profile"
-    app:layout_constraintTop_toTopOf="@+id/iv_apply_profile"-->
+        app:layout_constraintBottom_toBottomOf="@+id/iv_apply_profile"
+
+        app:layout_constraintStart_toEndOf="@+id/iv_apply_profile"
+        app:layout_constraintTop_toTopOf="@+id/iv_apply_profile"
         tools:text="김준희" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

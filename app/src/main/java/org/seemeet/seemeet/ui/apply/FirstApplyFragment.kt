@@ -50,7 +50,7 @@ class FirstApplyFragment : Fragment() {
         // AutoCompleteTextView 에 아답터를 연결한다.
         var adapter = activity?.let {
             ArrayAdapter<String>(
-                it, android.R.layout.simple_dropdown_item_1line,R.id.tv_apply_name,
+                it, R.layout.item_apply_search_friend,R.id.tv_apply_name,
                 friendlist as ArrayList<String>
             )
         }
