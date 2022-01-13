@@ -104,6 +104,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/auto_et_to_who" >
+
+        </com.google.android.material.chip.ChipGroup>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -149,26 +160,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/apply_appointment">
-
-        <!--
-        <EditText
-            android:id="@+id/et_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="제목"
-            android:inputType="textPersonName"
-            android:maxLength="20"
-            android:maxLines="1"
-            android:paddingLeft="19dp"
-            android:paddingTop="15dp"
-            android:paddingEnd="13dp"
-            android:paddingBottom="9dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-            -->
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/et_title"

@@ -1,5 +1,6 @@
 package org.seemeet.seemeet.ui.apply
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,11 +12,12 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.gson.internal.bind.ArrayTypeAdapter
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipDrawable
+import com.google.android.material.chip.ChipGroup
 import org.seemeet.seemeet.R
-import org.seemeet.seemeet.data.local.FriendData
 import org.seemeet.seemeet.databinding.FragmentFirstApplyBinding
-import java.util.ArrayList
+import java.util.*
 
 
 class FirstApplyFragment : Fragment() {
@@ -24,6 +26,7 @@ class FirstApplyFragment : Fragment() {
     val binding get() = _binding!!
     private var friendlist // 데이터를 넣은 리스트변수
             : MutableList<String>? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +38,7 @@ class FirstApplyFragment : Fragment() {
             findNavController().navigate(R.id.action_firstApplyFragment_to_secondApplyFragment)
         }
 
+
         // 리스트를 생성한다.
         friendlist = ArrayList()
 
@@ -45,17 +49,51 @@ class FirstApplyFragment : Fragment() {
 
         // AutoCompleteTextView 에 아답터를 연결한다.
         var adapter = activity?.let {
-            ArrayAdapter<String>(it, android.R.layout.simple_dropdown_item_1line,
+            ArrayAdapter<String>(
+                it, android.R.layout.simple_dropdown_item_1line,R.id.tv_apply_name,
                 friendlist as ArrayList<String>
-            )}
+            )
+        }
         autoCompleteTextView.setAdapter(adapter)
 
         initFocusBackground()
         initTextChangedListener()
 
+        /*binding.autoEtToWho.setOnClickListener {
+            val string = binding.autoEtToWho.text
+            Log.d("test", string.toString())
+            if (!string.isNullOrEmpty()) {
+                Log.d("test", "if문")
+                binding.chipGroup.addView(Chip(context).apply {
+                    Log.d("test", "apply")
+                    text = string
+                    setOnCloseIconClickListener { binding.chipGroup.removeView(this) }
+                })
+            }
+        }*/
+        binding.autoEtToWho.setOnClickListener { //todo 사실 여기서 autoEtToWho를 클릭했을 때가 아니라 아이템을 눌렀을 경우여야함
+            val string = binding.autoEtToWho.text
+            Log.d("test", string.toString())
+            if (!string.isNullOrEmpty()) {
+                Log.d("test", "if문")
+                binding.chipGroup.addChip(context!!,"") //todo 여기 부분에서 에러
+            }
+        }
+
         return binding.root
     }
-
+    // create chip programmatically and add it to chip group
+    fun ChipGroup.addChip(context: Context, label: String){
+        Chip(context).apply {
+            id = View.generateViewId()
+            text = label
+            isClickable = true
+            isCheckable = true
+            isCheckedIconVisible = false
+            isFocusable = true
+            addView(this)
+        }
+    }
     // 검색에 사용될 데이터를 리스트에 추가한다.
     private fun settingList() {
         friendlist!!.add("박수빈")
@@ -68,7 +106,8 @@ class FirstApplyFragment : Fragment() {
         friendlist!!.add("박수현")
     }
 
-    fun initFocusBackground(){
+
+    fun initFocusBackground() {
         binding.etId.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
                 binding.clContent.setBackgroundResource(R.drawable.rectangle_gray_10_stroke_pink)

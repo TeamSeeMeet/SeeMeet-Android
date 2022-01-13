@@ -23,7 +23,7 @@ class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendVi
 
     class ApplyFriendViewHolder(private val binding: ItemApplySearchFriendBinding) : RecyclerView.ViewHolder(binding.root){
         fun onBind(data: ApplyFriendData) {
-            binding.ivApplyProfile.setImageResource(R.drawable.ic_x)
+            //binding.ivApplyProfile.setImageResource(R.drawable.ic_x)
             binding.tvApplyName.text = data.name
         }
     }
