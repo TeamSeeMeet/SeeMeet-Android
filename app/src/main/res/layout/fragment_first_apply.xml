@@ -161,29 +161,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/apply_appointment">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
             android:id="@+id/et_title"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingLeft="19dp"
-            android:paddingEnd="13dp"
-            android:paddingBottom="9dp"
-            app:endIconDrawable="@drawable/ic_btn_remove"
-            app:endIconMode="clear_text"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:hint="제목"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:paddingStart="19dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            app:layout_constraintEnd_toStartOf="@+id/iv_title_clear"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:hint="제목"
-                android:inputType="textPersonName"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
 
+        <ImageView
+            android:id="@+id/iv_title_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:clickable="true"
+            android:src="@drawable/ic_btn_remove"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/apply_content_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/apply_content_view"
@@ -218,26 +222,26 @@
         android:id="@+id/apply_line"
         android:layout_width="0dp"
         android:layout_height="0.5dp"
-        android:layout_marginTop="86dp"
+        android:layout_marginBottom="16dp"
         android:background="#e7e7e7"
+        app:layout_constraintBottom_toTopOf="@+id/btn_next"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_content" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_next"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="28dp"
         android:background="@drawable/rectangle_gray_radius_10"
         android:clickable="true"
         android:enabled="false"
         android:text="다음"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/apply_line" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

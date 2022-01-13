@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
@@ -17,6 +19,7 @@ import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.FragmentFirstApplyBinding
+import java.io.UnsupportedEncodingException
 import java.util.*
 
 
@@ -59,7 +62,7 @@ class FirstApplyFragment : Fragment() {
         initFocusBackground()
         initTextChangedListener()
 
-        /*binding.autoEtToWho.setOnClickListener {
+        binding.autoEtToWho.setOnClickListener {
             val string = binding.autoEtToWho.text
             Log.d("test", string.toString())
             if (!string.isNullOrEmpty()) {
@@ -70,7 +73,8 @@ class FirstApplyFragment : Fragment() {
                     setOnCloseIconClickListener { binding.chipGroup.removeView(this) }
                 })
             }
-        }*/
+        }
+        /*
         binding.autoEtToWho.setOnClickListener { //todo 사실 여기서 autoEtToWho를 클릭했을 때가 아니라 아이템을 눌렀을 경우여야함
             val string = binding.autoEtToWho.text
             Log.d("test", string.toString())
@@ -79,21 +83,10 @@ class FirstApplyFragment : Fragment() {
                 binding.chipGroup.addChip(context!!,"") //todo 여기 부분에서 에러
             }
         }
-
+*/
         return binding.root
     }
-    // create chip programmatically and add it to chip group
-    fun ChipGroup.addChip(context: Context, label: String){
-        Chip(context).apply {
-            id = View.generateViewId()
-            text = label
-            isClickable = true
-            isCheckable = true
-            isCheckedIconVisible = false
-            isFocusable = true
-            addView(this)
-        }
-    }
+
     // 검색에 사용될 데이터를 리스트에 추가한다.
     private fun settingList() {
         friendlist!!.add("박수빈")
@@ -108,10 +101,10 @@ class FirstApplyFragment : Fragment() {
 
 
     fun initFocusBackground() {
-        binding.etId.setOnFocusChangeListener { view, hasFocus ->
+        binding.etTitle.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
                 binding.clContent.setBackgroundResource(R.drawable.rectangle_gray_10_stroke_pink)
-                binding.etId.setHint(null)
+                binding.etTitle.setHint(null)
 
             } else {
                 binding.clContent.setBackgroundResource(R.drawable.rectangle_gray_10)
@@ -128,46 +121,59 @@ class FirstApplyFragment : Fragment() {
     }
 
     fun initTextChangedListener() {
-        binding.autoEtToWho.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (isNullOrBlank()) {
-                    unactiveBtn()
-                } else {
-                    activeBtn()
+        binding.autoEtToWho.addTextChangedListener  {
+            if (isNullOrBlank()) {
+                unactiveBtn()
+            } else {
+                activeBtn()
+            }
+        }
+        binding.etTitle.addTextChangedListener{
+            if(binding.etTitle.text.isNullOrBlank()){ //공백일 때
+                Log.d("test","if문!!")
+                binding.ivTitleClear.visibility = View.INVISIBLE
+                binding.etTitle.setHint("제목")
+            }
+            else{ //뭐가 있을 때
+                Log.d("test","else문!!")
+                binding.ivTitleClear.visibility = View.VISIBLE
+            }
+            if (isNullOrBlank()) {
+                unactiveBtn()
+            } else {
+                activeBtn()
+            }
+        }
+        binding.etDetail.addTextChangedListener{
+            if (isNullOrBlank()) {
+                unactiveBtn()
+            } else {
+                activeBtn()
+            }
+        }
+
+        binding.ivTitleClear.setOnClickListener {
+            binding.etTitle.setText(null)
+            binding.ivTitleClear.visibility = View.INVISIBLE
+        }
+/*
+        binding.etTitle.addTextChangedListener{
+            if (binding.etTitle.isFocusable()) {
+                try {
+                    val bytetext: ByteArray = binding.etTitle.text.toString().toByteArray(Charsets.UTF_8)
+                    if(bytetext.size >= 40) {
+                        binding.etTitle.isEnabled = false
+
+                    }
+                } catch (e: UnsupportedEncodingException) {
+                    e.printStackTrace()
                 }
             }
-        })
-
-        binding.etId.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (isNullOrBlank()) {
-                    unactiveBtn()
-                } else {
-                    activeBtn()
-                }
-            }
-        })
-
-        binding.etDetail.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (isNullOrBlank()) {
-                    unactiveBtn()
-                } else {
-                    activeBtn()
-                }
-            }
-        })
-
+        }*/
     }
 
     private fun isNullOrBlank(): Boolean {
-        return binding.etDetail.text.isNullOrBlank() || binding.etId.text.isNullOrBlank() || binding.autoEtToWho.text.isNullOrBlank()
+        return binding.etDetail.text.isNullOrBlank() || binding.etTitle.text.isNullOrBlank() || binding.autoEtToWho.text.isNullOrBlank()
     }
 
     private fun activeBtn() {
