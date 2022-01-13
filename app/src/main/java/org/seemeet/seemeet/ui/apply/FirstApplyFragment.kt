@@ -1,27 +1,17 @@
 package org.seemeet.seemeet.ui.apply
 
-import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipDrawable
-import com.google.android.material.chip.ChipGroup
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.FragmentFirstApplyBinding
-import java.io.UnsupportedEncodingException
 import java.util.*
-
 
 class FirstApplyFragment : Fragment() {
 
@@ -30,61 +20,67 @@ class FirstApplyFragment : Fragment() {
     private var friendlist // 데이터를 넣은 리스트변수
             : MutableList<String>? = null
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentFirstApplyBinding.inflate(layoutInflater)
 
+        initClickListener()
+        initAutiComletetv()
+        initFocusBackground()
+        initTextChangedListener()
+
+        return binding.root
+    }
+
+    private fun initClickListener() {
         binding.btnNext.setOnClickListener {
             findNavController().navigate(R.id.action_firstApplyFragment_to_secondApplyFragment)
         }
 
+        binding.autoEtToWho.setOnClickListener { //todo 사실 여기서 autoEtToWho를 클릭했을 때가 아니라 아이템을 눌렀을 경우여야함
+            val string = binding.autoEtToWho.text
+            if (!string.isNullOrEmpty()) {
+                binding.chipGroup.addView(Chip(context).apply {
+                    text = string
+                    this.setChipBackgroundColorResource(R.color.chipbackground) //container color
+                    this.setTextAppearance(R.style.ChipTextAppearance) //글자 색, 글자 크기 적용
 
+                    this.setCloseIconResource(R.drawable.ic_friend_btn_remove) //TODO closebtn (이게 적용이 안되고 있음)
+
+                    binding.autoEtToWho.setText(null)
+                    this.setCloseIconVisible(true)
+                    setOnCloseIconClickListener { binding.chipGroup.removeView(this) }
+                })
+            }
+        }
+
+        binding.ivTitleClear.setOnClickListener {
+            binding.etTitle.setText(null)
+            binding.ivTitleClear.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun initAutiComletetv() {
         // 리스트를 생성한다.
         friendlist = ArrayList()
 
         // 리스트에 검색될 데이터(단어)를 추가한다.
         settingList()
-        val autoCompleteTextView =
-            binding.autoEtToWho as AutoCompleteTextView
 
-        // AutoCompleteTextView 에 아답터를 연결한다.
+        val autoCompleteTextView =
+            binding.autoEtToWho
+
+        // AutoCompleteTextView 에 어댑터를 연결한다.
         var adapter = activity?.let {
-            ArrayAdapter<String>(
-                it, R.layout.item_apply_search_friend,R.id.tv_apply_name,
+            ArrayAdapter(
+                it, R.layout.item_apply_search_friend, R.id.tv_apply_name,
                 friendlist as ArrayList<String>
             )
         }
         autoCompleteTextView.setAdapter(adapter)
 
-        initFocusBackground()
-        initTextChangedListener()
-
-        binding.autoEtToWho.setOnClickListener {
-            val string = binding.autoEtToWho.text
-            Log.d("test", string.toString())
-            if (!string.isNullOrEmpty()) {
-                Log.d("test", "if문")
-                binding.chipGroup.addView(Chip(context).apply {
-                    Log.d("test", "apply")
-                    text = string
-                    setOnCloseIconClickListener { binding.chipGroup.removeView(this) }
-                })
-            }
-        }
-        /*
-        binding.autoEtToWho.setOnClickListener { //todo 사실 여기서 autoEtToWho를 클릭했을 때가 아니라 아이템을 눌렀을 경우여야함
-            val string = binding.autoEtToWho.text
-            Log.d("test", string.toString())
-            if (!string.isNullOrEmpty()) {
-                Log.d("test", "if문")
-                binding.chipGroup.addChip(context!!,"") //todo 여기 부분에서 에러
-            }
-        }
-*/
-        return binding.root
     }
 
     // 검색에 사용될 데이터를 리스트에 추가한다.
@@ -98,7 +94,6 @@ class FirstApplyFragment : Fragment() {
         friendlist!!.add("박한빈")
         friendlist!!.add("박수현")
     }
-
 
     fun initFocusBackground() {
         binding.etTitle.setOnFocusChangeListener { view, hasFocus ->
@@ -121,21 +116,18 @@ class FirstApplyFragment : Fragment() {
     }
 
     fun initTextChangedListener() {
-        binding.autoEtToWho.addTextChangedListener  {
+        binding.autoEtToWho.addTextChangedListener {
             if (isNullOrBlank()) {
                 unactiveBtn()
             } else {
                 activeBtn()
             }
         }
-        binding.etTitle.addTextChangedListener{
-            if(binding.etTitle.text.isNullOrBlank()){ //공백일 때
-                Log.d("test","if문!!")
+        binding.etTitle.addTextChangedListener {//TODO 버그 발견: 제목 tv 클릭하고 아무것도 안 입력하고 내용 tv 누르면 제목 hint 사라짐
+            if (binding.etTitle.text.isNullOrBlank()) { //공백일 때
                 binding.ivTitleClear.visibility = View.INVISIBLE
                 binding.etTitle.setHint("제목")
-            }
-            else{ //뭐가 있을 때
-                Log.d("test","else문!!")
+            } else { //뭐가 있을 때
                 binding.ivTitleClear.visibility = View.VISIBLE
             }
             if (isNullOrBlank()) {
@@ -144,36 +136,17 @@ class FirstApplyFragment : Fragment() {
                 activeBtn()
             }
         }
-        binding.etDetail.addTextChangedListener{
+        binding.etDetail.addTextChangedListener {
             if (isNullOrBlank()) {
                 unactiveBtn()
             } else {
                 activeBtn()
             }
         }
-
-        binding.ivTitleClear.setOnClickListener {
-            binding.etTitle.setText(null)
-            binding.ivTitleClear.visibility = View.INVISIBLE
-        }
-/*
-        binding.etTitle.addTextChangedListener{
-            if (binding.etTitle.isFocusable()) {
-                try {
-                    val bytetext: ByteArray = binding.etTitle.text.toString().toByteArray(Charsets.UTF_8)
-                    if(bytetext.size >= 40) {
-                        binding.etTitle.isEnabled = false
-
-                    }
-                } catch (e: UnsupportedEncodingException) {
-                    e.printStackTrace()
-                }
-            }
-        }*/
     }
 
     private fun isNullOrBlank(): Boolean {
-        return binding.etDetail.text.isNullOrBlank() || binding.etTitle.text.isNullOrBlank() || binding.autoEtToWho.text.isNullOrBlank()
+        return binding.chipGroup.childCount == 0 || binding.etTitle.text.isNullOrBlank() || binding.autoEtToWho.text.isNullOrBlank()
     }
 
     private fun activeBtn() {

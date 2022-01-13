@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1b7554c9-2973-4cba-b99c-facac8a64b85" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../drawable/ic_friend_btn_remove.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/org/seemeet/seemeet/ui/apply/FirstApplyFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/org/seemeet/seemeet/ui/apply/FirstApplyFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/org/seemeet/seemeet/ui/apply/adapter/ApplyFriendAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/org/seemeet/seemeet/ui/apply/adapter/ApplyFriendAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../color/chipbackground.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../color/chipbackground.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layout/fragment_first_apply.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../layout/fragment_first_apply.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layout/item_apply_search_friend.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../layout/item_apply_search_friend.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layout/layout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../values/themes.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../.." />
+  </component>
+  <component name="ProjectId" id="23edHX9ILNzB51wUEILIOqEDptn" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1b7554c9-2973-4cba-b99c-facac8a64b85" name="Default Changelist" comment="" />
+      <created>1642098399531</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1642098399531</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

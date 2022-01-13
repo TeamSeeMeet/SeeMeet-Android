@@ -13,10 +13,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="29dp"
         android:text="약속 신청할 "
-        android:textColor="@color/black"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+        android:textStyle="normal"
         android:textSize="18sp"
+        android:textColor="#1c1c1c"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,8 +28,9 @@
         android:layout_height="wrap_content"
         android:text="친구"
         android:textColor="@color/pink"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+        android:textStyle="normal"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/apply_apply"
         app:layout_constraintTop_toTopOf="@+id/apply_apply" />
 
@@ -38,50 +41,16 @@
         android:text="를 선택하세요"
         android:textColor="@color/black"
         android:textSize="18sp"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+        android:textStyle="normal"
         app:layout_constraintStart_toEndOf="@+id/apply_friend"
         app:layout_constraintTop_toTopOf="@+id/apply_friend" />
-<!--
-    <EditText
-        android:id="@+id/et_to_who"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/selector_apply_search"
-        android:drawableLeft="@drawable/ic_search_black"
-        android:drawablePadding="2dp"
-        android:ems="10"
-        android:hint="받는 사람 :"
-        android:inputType="textPersonName"
-        android:paddingLeft="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/apply_apply"
-        app:layout_constraintTop_toBottomOf="@+id/apply_apply" />
--->
-    <!--
-    <LinearLayout
-        android:layout_width="368dp"
-        android:layout_height="300dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:completionThreshold="1"
-            android:gravity="center_vertical"
-            android:textColorHint="#555555" />
-    </LinearLayout>
--->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/et_to_who"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="11dp"
         android:layout_marginEnd="16dp"
 
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,12 +64,16 @@
             android:background="@drawable/selector_apply_search"
             android:completionThreshold="1"
             android:drawableLeft="@drawable/ic_search_black"
-            android:drawablePadding="2dp"
+            android:drawablePadding="14dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:gravity="center_vertical"
             android:hint="받는 사람 :"
             android:inputType="textPersonName"
             android:maxLines="1"
-            android:textColorHint="#555555"
+            android:paddingStart="8dp"
+            android:textColorHint="#a3a3a3"
+            android:textSize="14sp"
+            android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -109,9 +82,10 @@
             android:id="@+id/chip_group"
             android:layout_width="0dp"
             android:layout_height="50dp"
+            android:layout_marginStart="46dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/auto_et_to_who" >
+            app:layout_constraintTop_toTopOf="@+id/auto_et_to_who">
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -121,10 +95,12 @@
         android:id="@+id/apply_appointment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="43dp"
         android:text="약속의 "
-        android:textColor="@color/black"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+        android:textStyle="normal"
         android:textSize="18sp"
+        android:textColor="#1c1c1c"
         app:layout_constraintStart_toStartOf="@+id/apply_apply"
         app:layout_constraintTop_toBottomOf="@+id/et_to_who" />
 
@@ -134,8 +110,9 @@
         android:layout_height="wrap_content"
         android:text="내용"
         android:textColor="@color/pink"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+        android:textStyle="normal"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/apply_appointment"
         app:layout_constraintTop_toTopOf="@+id/apply_appointment" />
 
@@ -144,8 +121,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="을 작성하세요"
-        android:textColor="@color/black"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+        android:textStyle="normal"
         android:textSize="18sp"
+        android:textColor="#1c1c1c"
         app:layout_constraintStart_toEndOf="@+id/apply_content"
         app:layout_constraintTop_toTopOf="@+id/apply_content" />
 
@@ -154,7 +133,7 @@
         android:layout_width="match_parent"
         android:layout_height="255dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/rectangle_gray_10"
         app:layout_constraintEnd_toEndOf="parent"
@@ -166,12 +145,16 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:background="@null"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:hint="제목"
-            android:maxLength="20"
+            android:maxLength="23"
             android:maxLines="1"
-            android:paddingStart="19dp"
+            android:paddingStart="25dp"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
+            android:textColorHint="#a3a3a3"
+            android:textSize="14sp"
+            android:textStyle="normal"
             app:layout_constraintEnd_toStartOf="@+id/iv_title_clear"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -180,7 +163,7 @@
         <ImageView
             android:id="@+id/iv_title_clear"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginBottom="2dp"
             android:clickable="true"
             android:src="@drawable/ic_btn_remove"
@@ -204,13 +187,20 @@
             android:id="@+id/et_detail"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="19dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="3dp"
             android:layout_marginEnd="12dp"
             android:background="@null"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:gravity="top"
             android:hint="약속 상세 내용"
             android:inputType="textMultiLine|textPersonName"
+            android:paddingStart="16dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="8dp"
+            android:textColorHint="#a3a3a3"
+            android:textSize="14sp"
+            android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/cl_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -231,7 +221,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_next"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="28dp"
@@ -239,7 +229,10 @@
         android:clickable="true"
         android:enabled="false"
         android:text="다음"
-        android:textColor="@color/white"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+        android:textStyle="normal"
+        android:textSize="16sp"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

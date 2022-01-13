@@ -21,12 +21,12 @@
         android:id="@+id/tv_apply_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-
+        android:layout_marginStart="18dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:textColor="#1c1c1c"
         app:layout_constraintBottom_toBottomOf="@+id/iv_apply_profile"
-
         app:layout_constraintStart_toEndOf="@+id/iv_apply_profile"
         app:layout_constraintTop_toTopOf="@+id/iv_apply_profile"
         tools:text="김준희" />
