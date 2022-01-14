@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.notification.inprogress.NotiInProgressFragment">
+    tools:context=".ui.notification.NotiInProgressFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_noti_done_topbar"
@@ -80,9 +80,11 @@
             android:layout_height="match_parent" >
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_done_list"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
