@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.notification.inprogress.NotiInProgressFragment">
+    tools:context=".ui.notification.NotiInProgressFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_noti_ing_topbar"
@@ -78,6 +78,7 @@
             android:layout_height="match_parent" >
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_ing_list"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -87,9 +88,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/item_notification_send" />
-                <!-- 멀티뷰 리사이클러뷰로 생각하고 아이템 두 가지로 만들었습니다 -->
-                tools:listitem="@layout/item_notification_send"
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
