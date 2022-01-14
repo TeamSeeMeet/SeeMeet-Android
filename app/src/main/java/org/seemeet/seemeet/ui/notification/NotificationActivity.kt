@@ -3,7 +3,6 @@ package org.seemeet.seemeet.ui.notification
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -86,7 +85,7 @@ class NotificationActivity : AppCompatActivity() {
 
     private fun initClickListener(){
         binding.ivNotiTopBack.setOnClickListener {
-            Log.d("************notiback", "press back")
+            finish()
         }
     }
 
