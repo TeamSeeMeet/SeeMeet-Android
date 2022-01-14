@@ -53,4 +53,11 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!-- recieve -->
+    <string name="recieve_top_msg">새로운 초대장</string>
+    <string name="recieve_together_msg">나와 함께 받은 사람</string>
+    <string name="recieve_choice_msg">내 일정과 비교하며\n날짜를 선택해보세요!</string>
+    <string name="recieve_btn_yes">수락</string>
+    <string name="recieve_btn_no">거절</string>
 </resources>
