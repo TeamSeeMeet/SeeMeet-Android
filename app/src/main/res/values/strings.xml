@@ -44,7 +44,10 @@
     <string name="home_drawer_open">drawer open</string>
     <string name="home_drawer_close">drawer close</string>
     <string name="home_mypage">MY PAGE</string>
+    <string name="home_msg_tmp">아싸 오늘은\n 친구 만나는 날이다!</string>
     <string name="title_activity_register">RegisterActivity</string>
+
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
