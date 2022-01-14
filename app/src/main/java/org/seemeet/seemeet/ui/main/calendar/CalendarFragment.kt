@@ -4,17 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
-import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.kizitonwose.calendarview.model.CalendarDay
-import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
-import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
+import com.kizitonwose.calendarview.utils.next
+import com.kizitonwose.calendarview.utils.previous
 import com.kizitonwose.calendarview.utils.yearMonth
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.CalendarDateItemBinding
@@ -26,11 +23,10 @@ import org.seemeet.seemeet.util.setTextColorRes
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
 import java.util.*
 
 class CalendarFragment : Fragment() {
-    private var _binding : FragmentCalendarBinding? = null
+    private var _binding: FragmentCalendarBinding? = null
     val binding get() = _binding!!
 
     private val eventsAdapter = CalendarEventAdapter {
@@ -83,6 +79,14 @@ class CalendarFragment : Fragment() {
                 view.setOnClickListener {
                     if (day.owner == DayOwner.THIS_MONTH) {
                         selectDate(day.date)
+                    } else if (day.owner == DayOwner.NEXT_MONTH) {
+                        this@CalendarFragment.binding.calendar.findFirstVisibleMonth()?.let {
+                            this@CalendarFragment.binding.calendar.smoothScrollToMonth(it.yearMonth.next)
+                        }
+                    } else {
+                        this@CalendarFragment.binding.calendar.findFirstVisibleMonth()?.let {
+                            this@CalendarFragment.binding.calendar.smoothScrollToMonth(it.yearMonth.previous)
+                        }
                     }
                 }
             }
