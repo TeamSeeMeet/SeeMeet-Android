@@ -81,5 +81,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     //Calendar
-    implementation 'com.github.kizitonwose:CalendarView:1.0.0'
+    implementation 'com.github.kizitonwose:CalendarView:1.0.4'
 }
