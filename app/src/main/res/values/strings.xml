@@ -28,7 +28,7 @@
 
     <!-- Friend -->
     <string name="friend_friend">친구</string>
-    <string name="friend_search">검색</string>
+    <string name="friend_search">친구 검색</string>
     <string name="friend_request">친구 요청</string>
     <string name="friend_favorite">즐겨찾기</string>
     <string name="friend_confirm">확인</string>
