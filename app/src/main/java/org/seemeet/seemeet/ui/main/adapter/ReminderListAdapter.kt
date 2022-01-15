@@ -1,6 +1,7 @@
 package org.seemeet.seemeet.ui.main.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.data.local.ReminderData
@@ -31,6 +32,9 @@ class ReminderListAdapter :RecyclerView.Adapter<ReminderListAdapter.ReminderView
 
     override fun onBindViewHolder(holder: ReminderViewHolder, position: Int) {
         holder.bind(reminderList[position])
+        holder.itemView.setOnClickListener {
+            itemClickListener.onClick(it, position)
+        }
     }
 
     override fun getItemCount(): Int = reminderList.size
@@ -39,4 +43,14 @@ class ReminderListAdapter :RecyclerView.Adapter<ReminderListAdapter.ReminderView
         this.reminderList = reminderList
         notifyDataSetChanged()
     }
+
+    interface OnItemClickListener {
+        fun onClick(v: View, position: Int)
+    }
+
+    fun setItemClickListener(onItemClickListener: OnItemClickListener) {
+        this.itemClickListener = onItemClickListener
+    }
+
+    private lateinit var itemClickListener : OnItemClickListener
 }
