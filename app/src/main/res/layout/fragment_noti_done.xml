@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.notification.NotiInProgressFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,12 +16,12 @@
             android:id="@+id/tv_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginVertical="30dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
             android:text="@string/noti_done"
             android:textColor="@color/gray06"
             android:textSize="24sp"
-            android:fontFamily="@font/spoqa_han_sans_neo_bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,10 +30,10 @@
             android:id="@+id/tv_done2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:text="@string/noti_done2"
             android:textColor="@color/gray06"
             android:textSize="24sp"
-            android:fontFamily="@font/spoqa_han_sans_neo_regular"
             app:layout_constraintBottom_toBottomOf="@+id/tv_done"
             app:layout_constraintStart_toEndOf="@id/tv_done"
             app:layout_constraintTop_toTopOf="@+id/tv_done" />
@@ -42,56 +42,86 @@
             android:id="@+id/tv_done_num2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/noti_num"
-            android:textSize="24sp"
-            android:textColor="@color/gray06"
             android:fontFamily="@font/din_pro_regular"
-            android:layout_marginTop="30dp" />
+            android:text="@string/noti_num"
+            android:textColor="@color/gray06"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_done_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/noti_done_num"
+            android:fontFamily="@font/din_pro_bold"
             android:textColor="@color/pink"
             android:textSize="24sp"
-            android:fontFamily="@font/din_pro_bold"
             app:layout_constraintBottom_toBottomOf="@+id/tv_done_num2"
             app:layout_constraintEnd_toStartOf="@id/tv_done_num2"
             app:layout_constraintTop_toTopOf="@+id/tv_done_num2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_noti_done_null"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cl_noti_done_topbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="164dp"
+            android:layout_height="164dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_launcher_background"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_done_list"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/item_notification_done" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/noti_in_progress_null"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textColor="@color/gray05"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView3" app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_noti_done_topbar">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_done_list"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/item_notification_done" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

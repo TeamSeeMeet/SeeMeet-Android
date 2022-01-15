@@ -12,14 +12,19 @@ import org.seemeet.seemeet.databinding.ItemNotificationDoneBinding
 
 class NotiDoneListAdapter :RecyclerView.Adapter<NotiDoneListAdapter.NotiDoneViewHolder>() {
 
-    private var doneList = emptyList<NotificationDoneData>()
+    private var doneList = mutableListOf<NotificationDoneData>()
     private var context : Context? = null
 
     inner class NotiDoneViewHolder(
         private val binding : ItemNotificationDoneBinding
     ): RecyclerView.ViewHolder(binding.root){
+
         fun bind(doneData: NotificationDoneData) {
             binding.doneData = doneData
+
+            binding.ivDeleteList.setOnClickListener {
+                Log.d("*************************", "클릭")
+            }
 
             doneData.nameList.forEach{
                 binding.cgDoneFriendList.addView(Chip(context).apply{
@@ -34,7 +39,7 @@ class NotiDoneListAdapter :RecyclerView.Adapter<NotiDoneListAdapter.NotiDoneView
                         setChipStrokeColorResource(R.color.gray04)
                     }
                     isCheckable = false
-
+                    isClickable = false
                 })
                 Log.d("**********************받은이", it.name)
             }
@@ -58,8 +63,9 @@ class NotiDoneListAdapter :RecyclerView.Adapter<NotiDoneListAdapter.NotiDoneView
 
     override fun getItemCount(): Int = doneList.size
 
-    fun setDone(doneList : List<NotificationDoneData>){
+    fun setDone(doneList : MutableList<NotificationDoneData>){
         this.doneList = doneList
         notifyDataSetChanged()
     }
+
 }

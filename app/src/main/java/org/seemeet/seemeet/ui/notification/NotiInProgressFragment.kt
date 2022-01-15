@@ -43,7 +43,6 @@ class NotiInProgressFragment : Fragment() {
     // 어댑터
     private fun setIngAdapter() {
         val ingListAdapter = NotiIngListAdapter()
-
         binding.rvIngList.adapter = ingListAdapter
     }
 
@@ -52,7 +51,14 @@ class NotiInProgressFragment : Fragment() {
         viewmodel.ingList.observe(viewLifecycleOwner){
             ingList -> with(binding.rvIngList.adapter as NotiIngListAdapter){
             setIng(ingList)
+            binding.tvInProgressNum.text = "${ingList.size}"
+
+            if(ingList.isEmpty()) {
+                binding.clNotiIngNull.visibility = View.VISIBLE
+            }else {
+                binding.clNotiIngNull.visibility = View.GONE
             }
+        }
         }
     }
 }

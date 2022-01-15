@@ -81,7 +81,7 @@ class NotiIngListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         setChipStrokeColorResource(R.color.pink01)
                     }
                     isCheckable = false
-
+                    isClickable = false
                 })
                 Log.d("**********************받은이", it.name)
             }
@@ -99,6 +99,7 @@ class NotiIngListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     setChipBackgroundColorResource(R.color.gray06)
                     setTextAppearance(R.style.chipTextWhiteStyle)
                     isCheckable = false
+                    isClickable = false
                 })
                 Log.d("**********************받은이", it.name)
             }
