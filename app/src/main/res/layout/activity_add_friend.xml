@@ -6,65 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".ui.friend.AddFriendActivity">
 
-    <TextView
-        android:id="@+id/tv_add_friend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_friend_add_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/gray06"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="16sp"
-        android:text="@string/friend_add"
-        android:textColor="@color/black"/>
+        app:layout_constraintTop_toTopOf="parent" >
 
+        <TextView
+            android:id="@+id/tv_friend_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:text="@string/friend_add"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_marginTop="42dp"
+            android:layout_marginBottom="17dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:src="@drawable/ic_close"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_add_friend"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_add_friend" />
+        <ImageView
+            android:id="@+id/iv_friend_add_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="7dp"
+            android:src="@drawable/ic_close_friend"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_friend_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_friend_add" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
         android:id="@+id/et_search_friend"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="50dp"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
-        android:paddingStart="40dp"
-        android:textSize="16sp"
+        android:layout_marginTop="14dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/selector_search_friend"
+        android:hint="@string/friend_add_search"
+        android:paddingStart="46dp"
+        android:paddingVertical="16dp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_add_friend" />
+        app:layout_constraintTop_toBottomOf="@id/cl_friend_add_top_bar" />
 
     <ImageView
         android:id="@+id/iv_search_friend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:src="@drawable/ic_search"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/et_search_friend"
         app:layout_constraintStart_toStartOf="@+id/et_search_friend"
         app:layout_constraintTop_toTopOf="@+id/et_search_friend" />
-
-    <ImageView
-        android:id="@+id/iv_delete_all"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_close"
-        app:tint="@color/silver_chalice"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_search_friend"
-        app:layout_constraintEnd_toEndOf="@id/et_search_friend"
-        app:layout_constraintTop_toTopOf="@+id/iv_search_friend" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
