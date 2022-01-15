@@ -46,50 +46,68 @@
         app:layout_constraintStart_toEndOf="@+id/apply_friend"
         app:layout_constraintTop_toTopOf="@+id/apply_friend" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/et_to_who"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="16dp"
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lay"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/apply_apply"
-        app:layout_constraintTop_toBottomOf="@+id/apply_apply">
+        app:layout_constraintTop_toBottomOf="@id/apply_pick">
 
-        <AutoCompleteTextView
-            android:id="@+id/auto_et_to_who"
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/flex_box_layout"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:background="@drawable/selector_apply_search"
-            android:completionThreshold="1"
-            android:drawableLeft="@drawable/ic_search_black"
-            android:drawablePadding="14dp"
-            android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            android:gravity="center_vertical"
-            android:hint="받는 사람 :"
-            android:inputType="textPersonName"
-            android:maxLines="1"
-            android:paddingStart="8dp"
-            android:textColorHint="#a3a3a3"
-            android:textSize="14sp"
-            android:textStyle="normal"
+            app:alignContent="stretch"
+            app:alignItems="stretch"
+            app:flexWrap="wrap"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
+            <AutoCompleteTextView
+                android:id="@+id/auto_et_to_who"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="@drawable/selector_apply_search"
+                android:completionThreshold="1"
+                android:drawableLeft="@drawable/ic_search_black"
+                android:drawablePadding="14dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                android:gravity="center_vertical"
+                android:hint="받는 사람 :"
+                android:imeOptions="actionDone"
+                android:inputType="text|textCapWords|textPersonName"
+                android:maxLines="1"
+                android:paddingStart="8dp"
+                android:singleLine="true"
+
+                android:textColorHint="#a3a3a3"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+
+
+                app:layout_constraintStart_toStartOf="@id/lay"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_flexGrow="1" />
+
+            <!--
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginStart="46dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/flex_box_layout"
             app:layout_constraintTop_toTopOf="@+id/auto_et_to_who">
 
         </com.google.android.material.chip.ChipGroup>
-
+        -->
+        </com.google.android.flexbox.FlexboxLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <TextView
         android:id="@+id/apply_appointment"
@@ -102,7 +120,7 @@
         android:textSize="18sp"
         android:textColor="#1c1c1c"
         app:layout_constraintStart_toStartOf="@+id/apply_apply"
-        app:layout_constraintTop_toBottomOf="@+id/et_to_who" />
+        app:layout_constraintTop_toBottomOf="@+id/lay" />
 
     <TextView
         android:id="@+id/apply_content"
