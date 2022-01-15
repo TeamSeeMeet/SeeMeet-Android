@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="doneData"
+            type="org.seemeet.seemeet.data.local.NotificationDoneData" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_noti_done_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:elevation="10dp">
+
+        <TextView
+            android:id="@+id/tv_done_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+            android:text="@{doneData.day}"
+            android:textColor="@color/gray04"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_confirm_or_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+            android:text="@{doneData.confirmOrDelete}"
+            android:textColor="@color/pink"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_done_day"
+            app:layout_constraintStart_toEndOf="@id/tv_done_day"
+            app:layout_constraintTop_toTopOf="@id/tv_done_day" />
+
+        <ImageView
+            android:id="@+id/iv_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_done_title"
+            app:layout_constraintStart_toEndOf="@+id/tv_done_title"
+            app:layout_constraintTop_toTopOf="@+id/tv_done_title"
+            app:srcCompat="@drawable/ic_arrow_right" />
+
+        <TextView
+            android:id="@+id/tv_done_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:text="@{doneData.appointmentTitle}"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/tv_done_day"
+            app:layout_constraintTop_toBottomOf="@id/tv_done_day" />
+
+        <ImageView
+            android:id="@+id/iv_delete_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_close_48" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cg_done_friend_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_done_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_done_title" >
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <!--
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray02"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+            -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
