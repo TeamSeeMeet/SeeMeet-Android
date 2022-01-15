@@ -7,6 +7,8 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.time.temporal.WeekFields
 import java.util.*
 
@@ -33,6 +35,18 @@ fun View.makeInVisible() {
 
 fun View.makeGone() {
     visibility = View.GONE
+}
+
+fun String.TimeParsing(): String {
+    return if (this.split(":")[0].toInt() > 11)
+        "오후 $this"
+    else
+        "오전 $this"
+}
+
+fun LocalDate.stringParsing() : String {
+    val formatter = DateTimeFormatter.ofPattern("yyyy:MMM:d")
+    return formatter.format(this)
 }
 
 internal fun Context.getDrawableCompat(@DrawableRes drawable: Int) =

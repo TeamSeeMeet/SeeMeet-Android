@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SeeMeet" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="Theme.SeeMeet" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -17,6 +17,15 @@
     <style name="Theme.SeeMeet.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="calendarChipTextPinkStyle">
+        <item name="android:textColor">@color/pink01</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingExtra">13sp</item>
+        <item name="android:letterSpacing">-0.01</item>
     </style>
 
     <style name="Theme.SeeMeet.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
