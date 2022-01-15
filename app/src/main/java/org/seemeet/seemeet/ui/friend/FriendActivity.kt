@@ -7,12 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import org.seemeet.seemeet.data.local.FriendData
 import org.seemeet.seemeet.databinding.ActivityFriendBinding
 import org.seemeet.seemeet.ui.friend.adapter.FriendAdapter
-import org.seemeet.seemeet.ui.friend.adapter.FriendRequestAdapter
 
 class FriendActivity : AppCompatActivity() {
     private lateinit var binding : ActivityFriendBinding
     private lateinit var friendAdapter: FriendAdapter
-    private lateinit var friendRequestAdapter: FriendRequestAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,8 +18,6 @@ class FriendActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initFriendAdapter()
-        initFriendFavoriteAdapter()
-        initFriendRequestAdapter()
         initClickListener()
     }
 
@@ -46,6 +42,7 @@ class FriendActivity : AppCompatActivity() {
         friendAdapter.notifyDataSetChanged()
     }
 
+    /* 즐겨찾기
     private fun initFriendFavoriteAdapter(){
         friendAdapter = FriendAdapter()
         binding.rvFavorite.adapter = friendAdapter
@@ -56,22 +53,16 @@ class FriendActivity : AppCompatActivity() {
         )
         friendAdapter.notifyDataSetChanged()
     }
-
-    private fun initFriendRequestAdapter(){
-        friendRequestAdapter = FriendRequestAdapter()
-        binding.rvFriendRequest.adapter = friendRequestAdapter
-        friendRequestAdapter.friendRequestList.addAll(
-            listOf(
-                FriendData("오수린"),
-            )
-        )
-        friendRequestAdapter.notifyDataSetChanged()
-    }
+     */
 
     private fun initClickListener(){
         binding.ivAddFriend.setOnClickListener {
             val nextIntent = Intent(this, AddFriendActivity::class.java)
             startActivity(nextIntent)
+        }
+
+        binding.ivFriendBack.setOnClickListener {
+            finish()
         }
     }
 }
