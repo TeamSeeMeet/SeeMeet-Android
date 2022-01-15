@@ -22,7 +22,7 @@ class NotiDoneListAdapter :RecyclerView.Adapter<NotiDoneListAdapter.NotiDoneView
             binding.doneData = doneData
 
             doneData.nameList.forEach{
-                binding.cgSendFriendList.addView(Chip(context).apply{
+                binding.cgDoneFriendList.addView(Chip(context).apply{
                     text = it.name
                     if(it.response){
                         setChipBackgroundColorResource(R.color.gray02)

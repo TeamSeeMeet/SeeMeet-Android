@@ -5,4 +5,5 @@ data class NotificationIngData(
     val requestTitle : String,
     val msg : String,
     val viewType : Int,
+    val nameList : List<NotificationFriendData>,
 )

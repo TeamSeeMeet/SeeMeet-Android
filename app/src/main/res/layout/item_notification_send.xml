@@ -16,7 +16,9 @@
         android:id="@+id/cl_noti_send_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/rectangle_white_10"
         android:elevation="5dp"
         android:padding="20dp">
@@ -58,18 +60,14 @@
             app:layout_constraintStart_toStartOf="@id/tv_send"
             app:layout_constraintTop_toBottomOf="@id/tv_send" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_send_friend_list"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cg_send_friend_list"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_send_msg_wait"
-            tools:itemCount="3"
-            tools:listitem="@layout/item_notification_send_friend_list" />
-
+            app:layout_constraintTop_toBottomOf="@id/tv_send_msg_wait">
+        </com.google.android.material.chip.ChipGroup>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
