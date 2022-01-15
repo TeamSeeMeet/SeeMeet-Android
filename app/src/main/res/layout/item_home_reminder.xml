@@ -9,46 +9,67 @@
             type="org.seemeet.seemeet.data.local.ReminderData" />
 
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_home_reminder_bg"
-        android:layout_width="150dp"
-        android:layout_height="216dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/rectangle_white_20"
-        android:elevation="10dp">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_home_reminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/iv_home_reminder_bg"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_main_card"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_home_reminder_dday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/rectangle_pink_50"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textColor="@color/white"
+            android:paddingTop="2dp"
+            android:paddingHorizontal="15dp"
+            android:orientation="vertical"
+            android:paddingBottom="3dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:text="@{reminderData.dday}"
-            app:layout_constraintEnd_toEndOf="@id/cl_home_reminder_bg"
+            android:textColor="@color/white"
+            tools:text="D-5"
+            app:layout_constraintEnd_toEndOf="@id/iv_home_reminder_bg"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cl_home_reminder_bg" />
+            app:layout_constraintTop_toTopOf="@id/iv_home_reminder_bg" />
 
         <ImageView
             android:id="@+id/iv_home_reminder"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
             setSrc="@{reminderData.img}"
+            tools:srcCompat="@drawable/circle_black"
+            android:layout_width="82dp"
+            android:layout_height="82dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="@id/cl_home_reminder_bg"
-            app:layout_constraintStart_toStartOf="@id/cl_home_reminder_bg"
-            app:layout_constraintTop_toBottomOf="@id/tv_home_reminder_dday"/>
+            app:layout_constraintEnd_toEndOf="@id/iv_home_reminder_bg"
+            app:layout_constraintStart_toStartOf="@id/iv_home_reminder_bg"
+            app:layout_constraintTop_toBottomOf="@id/tv_home_reminder_dday" />
 
         <TextView
             android:id="@+id/tv_home_reminder_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
             android:text="@{reminderData.title}"
-            android:textSize="12sp"
-            android:layout_marginTop="10dp"
+            android:textSize="14sp"
+            tools:text="대방어 데이"
+            android:textColor="@color/gray06"
+            android:textAlignment="center"
+            android:letterSpacing="-0.08"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
             app:layout_constraintEnd_toEndOf="@+id/iv_home_reminder"
             app:layout_constraintStart_toStartOf="@+id/iv_home_reminder"
             app:layout_constraintTop_toBottomOf="@id/iv_home_reminder" />
@@ -58,9 +79,16 @@
             android:id="@+id/tv_home_reminder_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{reminderData.date}"
-            android:textSize="12sp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="22dp"
+            android:text="@{reminderData.date}"
+            android:textSize="14sp"
+            tools:text="1월 15일"
+            android:textColor="@color/gray06"
+            android:textAlignment="center"
+            android:letterSpacing="-0.08"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/iv_home_reminder"
             app:layout_constraintStart_toStartOf="@+id/iv_home_reminder"
             app:layout_constraintTop_toBottomOf="@id/tv_home_reminder_name" />

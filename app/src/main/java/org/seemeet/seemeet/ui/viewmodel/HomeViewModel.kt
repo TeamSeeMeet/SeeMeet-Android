@@ -14,6 +14,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val reminderList : LiveData<List<ReminderData>>
         get() = _reminderList
 
+    private val _home_msg = MutableLiveData<String>()
+    val homeMsg : LiveData<String>
+        get() = _home_msg
 
     //임시로 넣을 더미데이터 셋팅. < 위의 리스트에 대입
     fun setReminderList() {
@@ -30,6 +33,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         )
     }
+
+    fun setHomeMsg() {
+        _home_msg.value = "아싸 오늘은\n 친구 만나는 날이다!"
+   }
 
 
 }
