@@ -16,7 +16,7 @@ class AddFriendActivity : AppCompatActivity() {
     }
 
     private fun initClickListener(){
-        binding.ivClose.setOnClickListener {
+        binding.ivFriendAddBack.setOnClickListener {
             finish()
         }
     }
