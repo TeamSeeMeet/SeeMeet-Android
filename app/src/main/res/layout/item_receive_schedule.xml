@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="scheduleData"
+            type="org.seemeet.seemeet.data.local.ScheduleData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_receive_schedule"
+        android:layout_width="236dp"
+        android:layout_height="141dp"
+        android:background="@drawable/bg_receive_card_white">
+
+        <ImageView
+            android:id="@+id/iv_receive_schedule_bar"
+            android:layout_width="12dp"
+            android:layout_height="141dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/bg_receive_card_black"/>
+        <TextView
+            android:id="@+id/tv_receive_s_title"
+           android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="대방어데이"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:textSize="16sp"
+            android:textColor="#1c1c1c"
+            android:letterSpacing="-0.01"
+            android:gravity="center_horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="16dp" />
+
+        <ImageView
+            android:id="@+id/iv_receive_schedule_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:src="@drawable/line_dddddd"
+            app:layout_constraintTop_toBottomOf="@id/tv_receive_s_title"
+            app:layout_constraintStart_toEndOf="@id/iv_receive_schedule_bar"
+            android:layout_marginTop="13dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/tv_receive_schedule_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="오전 10 : 00 ~ 오후 13 : 00"
+            android:layout_marginStart="16dp"
+            android:textSize="14sp"
+            android:textColor="@color/gray06"
+            android:textAlignment="center"
+            android:letterSpacing="-0.08"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            app:layout_constraintStart_toEndOf="@id/iv_receive_schedule_bar"
+            app:layout_constraintTop_toBottomOf="@id/iv_receive_schedule_line"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cg_recieve_together"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_receive_schedule_time"
+            app:layout_constraintStart_toEndOf="@id/iv_receive_schedule_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

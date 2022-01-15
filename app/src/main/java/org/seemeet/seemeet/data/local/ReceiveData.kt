@@ -9,11 +9,20 @@ data class ReceiveData(
     val flag : Boolean
 )
 data class CheckboxData(
+    val id : Int,
     val date : String,
     val time : String,
-    val flag : Boolean
+    var flag : Boolean
 )
 data class ReceiverData(
     val name : String,
     val response : Boolean
+)
+
+data class ScheduleData(
+    val id : Int,
+    val date: String,
+    val title : String,
+    val together : List<String>,
+    val time : String
 )

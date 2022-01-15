@@ -6,6 +6,9 @@
         <variable
             name="checkboxData"
             type="org.seemeet.seemeet.data.local.CheckboxData"/>
+        <variable
+            name="viewModel"
+            type="org.seemeet.seemeet.ui.viewmodel.ReceiveViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

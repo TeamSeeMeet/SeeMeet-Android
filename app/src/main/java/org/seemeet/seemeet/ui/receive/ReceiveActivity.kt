@@ -19,9 +19,13 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.local.ReminderData
 import org.seemeet.seemeet.databinding.ActivityReceiveBinding
 import org.seemeet.seemeet.ui.MainActivity
+import org.seemeet.seemeet.ui.detail.DetailActivity
+import org.seemeet.seemeet.ui.main.adapter.ReminderListAdapter
 import org.seemeet.seemeet.ui.receive.adapter.ReceiveCheckListAdapter
+import org.seemeet.seemeet.ui.receive.adapter.ReceiveSchduleListAdapter
 import org.seemeet.seemeet.ui.viewmodel.ReceiveViewModel
 
 class ReceiveActivity : AppCompatActivity() {
@@ -32,16 +36,19 @@ class ReceiveActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_receive)
-
-
         binding.viewModel = viewModel
         viewModel.setReceiveData()
         Log.d("**********************왜 안찍히냐", "dfjklafd")
 
         setSingleChoice()
+
         setCheckBoxAdapter()
+        setClickedAdapter()
+
         setListObserver()
         setTextColorSpan()
+
+        initButtonClick()
 
     }
 
@@ -60,6 +67,8 @@ class ReceiveActivity : AppCompatActivity() {
 
     //리싸이클러 뷰 단일 선택 용 함수
     private fun setSingleChoice(){
+
+
         binding.rvReceiveCheckbox.addOnItemTouchListener(object :
             RecyclerView.OnItemTouchListener{
             override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
@@ -70,6 +79,8 @@ class ReceiveActivity : AppCompatActivity() {
                         val view = rv.layoutManager?.findViewByPosition(position)
                         view?.setBackgroundResource(R.drawable.rectangle_with_blackline)
                         Log.d("*******************tag", viewModel.checkboxList.value!![position].time)
+
+                        viewModel.setSheduleListData()
 
                         for(i in 0..rv.adapter!!.itemCount){
                             val otherView = rv.layoutManager?.findViewByPosition(i)
@@ -94,41 +105,77 @@ class ReceiveActivity : AppCompatActivity() {
 
     // 어댑터
     private fun setCheckBoxAdapter() {
-        val checkboxListAdapter = ReceiveCheckListAdapter()
+        val checkboxListAdapter = ReceiveCheckListAdapter( onClickCheckbox = {viewModel.setIsClicked(it)} )
 
         binding.rvReceiveCheckbox.adapter = checkboxListAdapter
+    }
+
+    private fun setClickedAdapter() {
+        val clickedAdapter = ReceiveSchduleListAdapter()
+
+        binding.rvReceiveSchdule.adapter = clickedAdapter
     }
 
     // 옵저버
     private fun setListObserver() {
         viewModel.checkboxList.observe(this, Observer {
-            checkboxList -> with(binding.rvReceiveCheckbox.adapter as ReceiveCheckListAdapter){
+            checkboxList ->
+            with(binding.rvReceiveCheckbox.adapter as ReceiveCheckListAdapter){
                 setCheckBox(checkboxList)
-            }   
+            }
         })
         viewModel.recieverList.observe(this, Observer {
-            receiverList -> 
-            //TODO : 여기에 list 가지고 chipgroup 그리기
+            receiverList ->
             receiverList.forEach {
                 binding.cgRecieve.addView(Chip(this).apply{
                     text = it.name
                     if(it.response){
                         setChipBackgroundColorResource(R.color.pink01)
                         setTextAppearance(R.style.chipTextWhiteStyle)
+                        isCheckable = false
                     } else {
                         setChipBackgroundColorResource(R.color.white)
                         setTextAppearance(R.style.chipTextPinkStyle)
                         chipStrokeWidth = 1.0F
                         setChipStrokeColorResource(R.color.pink01)
+                        isCheckable = false
                     }
-                    isCheckable = false
-
                 })
                 Log.d("**********************받은이", it.name)
             }
 
         })
 
+        viewModel.clickedList.observe(this, Observer {
+            clickedList -> with(binding.rvReceiveSchdule.adapter as ReceiveSchduleListAdapter){
+                setSchedule(clickedList)
+             }
+        })
+
+        viewModel.isClicked.observe(this, Observer {
+            it ->
+            Log.d("***************isClicked", it.toString())
+            if(it > 0) {
+
+                binding.btnReceiveYes.isClickable = true
+                binding.btnReceiveYes.setBackgroundColor(Color.GREEN)
+            }
+            else {
+                binding.btnReceiveYes.isClickable = false
+                binding.btnReceiveYes.setBackgroundColor(Color.GRAY)
+            }
+        })
+
     }
+
+    private fun initButtonClick(){
+        binding.btnReceiveYes.setOnClickListener {
+            (binding.rvReceiveCheckbox.adapter as ReceiveCheckListAdapter).getCheckBoxList().forEach {
+                if(it.flag)
+                    Log.d("************button click", it.time)
+            }
+        }
+    }
+
 
 }

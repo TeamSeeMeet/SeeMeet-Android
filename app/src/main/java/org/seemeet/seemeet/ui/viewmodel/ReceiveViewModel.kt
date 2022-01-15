@@ -4,9 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import org.seemeet.seemeet.data.local.CheckboxData
-import org.seemeet.seemeet.data.local.ReceiveData
-import org.seemeet.seemeet.data.local.ReceiverData
+import org.seemeet.seemeet.data.local.*
+import org.seemeet.seemeet.ui.receive.adapter.ReceiveCheckListAdapter
 
 class ReceiveViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -30,20 +29,39 @@ class ReceiveViewModel(application: Application) : AndroidViewModel(application)
     val content : LiveData<String>
         get() = _content
 
+    private val _flag = MutableLiveData<Boolean>()
+    val flag : LiveData<Boolean>
+        get() = _flag
+
+    private val _clickedList = MutableLiveData<List<ScheduleData>>()
+    val clickedList : LiveData<List<ScheduleData>>
+        get() = _clickedList
+
+    var isClicked : MutableLiveData<Int> = MutableLiveData(0)
+
+    fun setIsClicked(cb : CheckboxData){
+        if(cb.flag)
+            isClicked.value = (isClicked.value)?.plus(1)
+        else
+            isClicked.value = (isClicked.value)?.minus(1)
+    }
+
+
     fun setReceiveData(){
         _checkboxList.value = mutableListOf(
             CheckboxData(
+                1,
             "2021.12.23", "오전 11 : 00 ~ 오후 04 : 00",
-            true),
-            CheckboxData(
+            false),
+            CheckboxData(2,
                 "2021.12.23", "오전 12 : 00 ~ 오후 05 : 00",
-                true),
-            CheckboxData(
+                false),
+            CheckboxData(3,
                 "2021.12.23", "오전 10 : 00 ~ 오후 03 : 00",
-                true),
-            CheckboxData(
+                false),
+            CheckboxData(4,
                 "2021.12.23", "오전 09 : 00 ~ 오후 02 : 00",
-                true)
+                false)
         )
 
         _receiverList.value = mutableListOf(
@@ -66,6 +84,34 @@ class ReceiveViewModel(application: Application) : AndroidViewModel(application)
         _title.value = mutableSetOf<String>("대방어데이").toString()
         _content.value = mutableSetOf<String>("야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들").toString()
         _request.value =  mutableSetOf<String>("김준희").toString()
+        _flag.value =  false
+
+    }
+
+    fun setSheduleListData(){
+        _clickedList.value = mutableListOf(
+            ScheduleData(
+                1, "2021.12.23",
+                "대방어데이1", mutableListOf("김준희1", "김준희2", "김준희3"),
+                "오전 11 : 00 ~ 오후 04 : 00"
+            ),
+            ScheduleData(
+                1, "2021.12.23",
+                "대방어데이2", mutableListOf("김준희4", "김준희5", "김준희6"),
+                "오전 11 : 00 ~ 오후 04 : 00"
+            ),
+
+            ScheduleData(
+                2, "2021.12.23",
+                "대방어데이3", mutableListOf("김준희1", "김준희2", "김준희3"),
+                "오전 11 : 00 ~ 오후 04 : 00"
+            ),
+            ScheduleData(
+                2, "2021.12.23",
+                "대방어데이4", mutableListOf("김준희4", "김준희5", "김준희6"),
+                "오전 11 : 00 ~ 오후 04 : 00"
+            )
+        )
 
     }
 }
