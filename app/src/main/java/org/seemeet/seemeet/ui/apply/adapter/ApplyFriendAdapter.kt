@@ -1,21 +1,23 @@
 package org.seemeet.seemeet.ui.apply.adapter
 
 import android.content.Context
-import android.widget.ArrayAdapter
 import org.seemeet.seemeet.data.local.ApplyFriendData
 import org.seemeet.seemeet.data.local.FriendData
 import java.util.ArrayList
 import androidx.annotation.NonNull
 
 import android.R
-
-import android.widget.TextView
+import android.icu.util.UniversalTimeScale.toLong
 
 import android.view.LayoutInflater
 import android.view.View
 
 import android.view.ViewGroup
+import android.widget.*
+import androidx.annotation.LayoutRes
 import androidx.annotation.Nullable
+import org.seemeet.seemeet.databinding.FragmentFirstApplyBinding
+import org.seemeet.seemeet.databinding.ItemApplySearchFriendBinding
 
 
 /*
@@ -134,5 +136,115 @@ class AutoCompleteAdapter(context: Context, countryList: List<ApplyFriendData?>)
 
     init {
         countryListFull = ArrayList<Any?>(countryList)
+    }
+}*/
+
+/*
+class ApplyFriendAdapter(context: Context, countryList: List<ApplyFriendData?>) :
+    ArrayAdapter<ApplyFriendData?>(context, 0, countryList) {
+    //데이터를 넣을 리스트
+    //private val countryListFull: List<ApplyFriendData>
+    private var _binding: ItemApplySearchFriendBinding? = null
+    val binding get() = _binding!!
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        var convertView = convertView
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(
+                org.seemeet.seemeet.R.layout.item_apply_search_friend, parent, false
+            )
+        }
+
+        //getItem(position) 코드로 자동완성 될 아이템을 가져온다
+        val countryItem: ApplyFriendData? = getItem(position)
+        if (countryItem != null) {
+            binding.tvApplyName.setText(countryItem.name)
+            binding.ivApplyProfile.setImageResource(countryItem.profile)
+        }
+        return convertView!!
+    }
+}
+*/
+
+/*
+    //-------------------------- 이 아래는 자동완성을 위한 검색어를 찾아주는 코드이다 --------------------------
+    override fun getFilter(): Filter {
+        return countryFilter
+    }
+
+    private val countryFilter: Filter = object : Filter() {
+        protected fun performFiltering(constraint: CharSequence?): FilterResults {
+            val results = FilterResults()
+            val suggestions: MutableList<ApplyFriendData> = ArrayList<ApplyFriendData>()
+            if (constraint == null || constraint.length == 0) {
+                suggestions.addAll(countryListFull)
+            } else {
+                val filterPattern = constraint.toString().toLowerCase().trim { it <= ' ' }
+                for (item in countryListFull) {
+                    if (item.getCountryName().toLowerCase().contains(filterPattern)) {
+                        suggestions.add(item)
+                    }
+                }
+            }
+            results.values = suggestions
+            results.count = suggestions.size
+            return results
+        }
+
+        protected fun publishResults(constraint: CharSequence?, results: FilterResults) {
+            clear()
+            addAll(results.values as List<*>)
+            notifyDataSetChanged()
+        }
+
+        fun convertResultToString(resultValue: Any): CharSequence {
+            return (resultValue as ApplyFriendData).getCountryName()
+        }
+    }
+
+    init {
+        countryListFull = ArrayList<Any?>(countryList)
+    }
+}*/
+/*
+class PoiAdapter(context: Context, @LayoutRes private val layoutResource: Int, private val allPois: List<ApplyFriendData>):
+    ArrayAdapter<ApplyFriendData>(context, layoutResource, allPois),
+    Filterable {
+    private var mPois: List<ApplyFriendData> = allPois
+
+    override fun getCount(): Int {
+        return mPois.size
+    }
+
+    override fun getItem(p0: Int): ApplyFriendData? {
+        return mPois.get(p0)
+    }
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        val view: TextView = convertView as TextView? ?: LayoutInflater.from(context).inflate(layoutResource, parent, false) as TextView
+        view.text = "${mPois[position].name}"
+        return view
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun publishResults(charSequence: CharSequence?, filterResults: Filter.FilterResults) {
+                mPois = filterResults.values as List<ApplyFriendData>
+                notifyDataSetChanged()
+            }
+
+            override fun performFiltering(charSequence: CharSequence?): Filter.FilterResults {
+                val queryString = charSequence?.toString()?.toLowerCase()
+
+                val filterResults = Filter.FilterResults()
+                filterResults.values = if (queryString==null || queryString.isEmpty())
+                    allPois
+                else
+                    allPois.filter {
+                        it.name.toLowerCase().contains(queryString)
+                    }
+                return filterResults
+            }
+        }
     }
 }*/
