@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:foreground="@drawable/ic_btn_send_message"
     tools:context=".ui.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
@@ -43,7 +42,7 @@
             app:elevation="0dp"
             app:fabCustomSize="63dp"
             app:layout_anchor="@id/bnv_main"
-            app:layout_anchorGravity="center_horizontal"
+            app:layout_anchorGravity="center"
             app:maxImageSize="55dp"
             app:backgroundTint="@color/black"
             app:tint="@color/white"

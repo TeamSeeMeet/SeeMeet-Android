@@ -92,7 +92,7 @@ class ReceiveViewModel(application: Application) : AndroidViewModel(application)
         _clickedList.value = mutableListOf(
             ScheduleData(
                 1, "2021.12.23",
-                "대방어데이1", mutableListOf("김준희1", "김준희2", "김준희3"),
+                "대방어데이1", mutableListOf("김준희", "김준희", "김준희"),
                 "오전 11 : 00 ~ 오후 04 : 00"
             ),
             ScheduleData(
@@ -100,7 +100,6 @@ class ReceiveViewModel(application: Application) : AndroidViewModel(application)
                 "대방어데이2", mutableListOf("김준희4", "김준희5", "김준희6"),
                 "오전 11 : 00 ~ 오후 04 : 00"
             ),
-
             ScheduleData(
                 2, "2021.12.23",
                 "대방어데이3", mutableListOf("김준희1", "김준희2", "김준희3"),
@@ -112,6 +111,6 @@ class ReceiveViewModel(application: Application) : AndroidViewModel(application)
                 "오전 11 : 00 ~ 오후 04 : 00"
             )
         )
-
     }
+
 }

@@ -23,7 +23,7 @@ class ReceiveSchduleListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>()
     ): RecyclerView.ViewHolder(binding.root){
         fun bind(scheduleData: ScheduleData) {
             binding.scheduleData = scheduleData
-
+            binding.cgRecieveTogether.removeAllViews()
             scheduleData.together.forEach{
                 binding.cgRecieveTogether.addView(Chip(context).apply{
                     text = it
@@ -32,7 +32,7 @@ class ReceiveSchduleListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>()
                     setTextAppearance(R.style.chipTextPinkStyle)
                     chipStrokeWidth = 1.0F
                     isCheckable = false
-                    setChipStrokeColorResource(R.color.gray04)
+                    setChipStrokeColorResource(R.color.pink01)
 
                 })
             }

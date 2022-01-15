@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
@@ -38,7 +39,6 @@ class ReceiveActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_receive)
         binding.viewModel = viewModel
         viewModel.setReceiveData()
-        Log.d("**********************왜 안찍히냐", "dfjklafd")
 
         setSingleChoice()
 
@@ -81,6 +81,7 @@ class ReceiveActivity : AppCompatActivity() {
                         Log.d("*******************tag", viewModel.checkboxList.value!![position].time)
 
                         viewModel.setSheduleListData()
+                        binding.tvReceiveSMsg.visibility = View.GONE
 
                         for(i in 0..rv.adapter!!.itemCount){
                             val otherView = rv.layoutManager?.findViewByPosition(i)
@@ -133,12 +134,15 @@ class ReceiveActivity : AppCompatActivity() {
                         setChipBackgroundColorResource(R.color.pink01)
                         setTextAppearance(R.style.chipTextWhiteStyle)
                         isCheckable = false
+                        isEnabled = false
+
                     } else {
                         setChipBackgroundColorResource(R.color.white)
                         setTextAppearance(R.style.chipTextPinkStyle)
                         chipStrokeWidth = 1.0F
                         setChipStrokeColorResource(R.color.pink01)
                         isCheckable = false
+                        isEnabled = false
                     }
                 })
                 Log.d("**********************받은이", it.name)
@@ -149,6 +153,12 @@ class ReceiveActivity : AppCompatActivity() {
         viewModel.clickedList.observe(this, Observer {
             clickedList -> with(binding.rvReceiveSchdule.adapter as ReceiveSchduleListAdapter){
                 setSchedule(clickedList)
+                if(clickedList.isEmpty()) {
+                    binding.tvReceiveSMsg.text = "약속이 없어요."
+                    binding.tvReceiveSMsg.visibility = View.VISIBLE
+                }else {
+                    binding.tvReceiveSMsg.visibility = View.GONE
+                }
              }
         })
 
@@ -156,13 +166,14 @@ class ReceiveActivity : AppCompatActivity() {
             it ->
             Log.d("***************isClicked", it.toString())
             if(it > 0) {
-
                 binding.btnReceiveYes.isClickable = true
-                binding.btnReceiveYes.setBackgroundColor(Color.GREEN)
+                binding.btnReceiveYes.isEnabled = true
+                binding.btnReceiveYes.background = resources.getDrawable(R.drawable.rectangle_pink01_10)
             }
             else {
                 binding.btnReceiveYes.isClickable = false
-                binding.btnReceiveYes.setBackgroundColor(Color.GRAY)
+                binding.btnReceiveYes.isEnabled = false
+                binding.btnReceiveYes.background = resources.getDrawable(R.drawable.rectangle_gray02_10)
             }
         })
 

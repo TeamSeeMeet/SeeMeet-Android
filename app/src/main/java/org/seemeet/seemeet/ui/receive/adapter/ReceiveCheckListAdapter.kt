@@ -1,16 +1,11 @@
 package org.seemeet.seemeet.ui.receive.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.data.local.CheckboxData
 import org.seemeet.seemeet.databinding.ItemReceiveCheckboxBinding
 import android.widget.CheckBox
-import androidx.activity.viewModels
-import org.seemeet.seemeet.ui.viewmodel.ReceiveViewModel
-
 
 class ReceiveCheckListAdapter(  val onClickCheckbox : (checkboxData : CheckboxData) -> Unit )
     : RecyclerView.Adapter<ReceiveCheckListAdapter.RecieveTimeListViewHolder>() {
