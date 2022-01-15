@@ -43,7 +43,6 @@ class NotiDoneFragment : Fragment() {
     // 어댑터
     private fun setDoneAdapter() {
         val doneListAdapter = NotiDoneListAdapter()
-
         binding.rvDoneList.adapter = doneListAdapter
     }
 

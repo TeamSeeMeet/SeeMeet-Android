@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="14dp"
-            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:text="@{doneData.day}"
             android:textColor="@color/gray04"
             android:textSize="14sp"
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:text="@{doneData.confirmOrDelete}"
             android:textColor="@color/pink"
             android:textSize="14sp"
@@ -73,6 +73,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_close_48" />
 
+        <!--
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_send_friend_list"
             android:layout_width="0dp"
@@ -88,6 +89,21 @@
             app:layout_constraintTop_toBottomOf="@id/tv_done_title"
             tools:itemCount="3"
             tools:listitem="@layout/item_notification_done_friend_list" />
+            -->
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cg_send_friend_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_done_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_done_title" >
+
+        </com.google.android.material.chip.ChipGroup>
 
         <View
             android:id="@+id/divider"
