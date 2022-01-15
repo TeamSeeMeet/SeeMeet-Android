@@ -14,13 +14,9 @@ object BindingAdapters {
         imageView.setImageResource(imgId)
     }
 
-<<<<<<< HEAD
     @JvmStatic
     @BindingAdapter("localDate")
-    fun convertLocalDate(textview: TextView, text : String) {
+    fun convertLocalDate(textview: TextView, text: String) {
         textview.text = text.TimeParsing()
     }
-=======
-
->>>>>>> develop
 }

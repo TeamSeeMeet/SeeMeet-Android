@@ -21,7 +21,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-<<<<<<< HEAD
     <style name="calendarChipTextPinkStyle">
         <item name="android:textColor">@color/pink01</item>
         <item name="android:textSize">12sp</item>
@@ -29,7 +28,7 @@
         <item name="android:textStyle">normal</item>
         <item name="android:lineSpacingExtra">13sp</item>
         <item name="android:letterSpacing">-0.01</item>
-=======
+    </style>
     <style name="chipTextPinkStyle">
         <item name="android:textColor">@color/pink01</item>
         <item name="android:textSize">13sp</item>
@@ -53,7 +52,6 @@
         <item name="android:textColor">@color/gray06</item>
         <item name="android:textSize">13sp</item>
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
->>>>>>> develop
     </style>
 
     <style name="Theme.SeeMeet.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
