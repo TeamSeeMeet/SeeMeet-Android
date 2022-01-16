@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
+    android:id="@+id/cl_first_apply"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="top"
@@ -14,11 +14,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="29dp"
-        android:text="약속 신청할 "
         android:fontFamily="@font/spoqa_han_sans_neo_medium"
-        android:textStyle="normal"
-        android:textSize="18sp"
+        android:text="약속 신청할 "
         android:textColor="#1c1c1c"
+        android:textSize="18sp"
+        android:textStyle="normal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,11 +26,11 @@
         android:id="@+id/apply_friend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
         android:text="친구"
         android:textColor="@color/pink"
-        android:fontFamily="@font/spoqa_han_sans_neo_medium"
-        android:textStyle="normal"
         android:textSize="18sp"
+        android:textStyle="normal"
         app:layout_constraintStart_toEndOf="@+id/apply_apply"
         app:layout_constraintTop_toTopOf="@+id/apply_apply" />
 
@@ -38,181 +38,35 @@
         android:id="@+id/apply_pick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
         android:text="를 선택하세요"
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:fontFamily="@font/spoqa_han_sans_neo_medium"
         android:textStyle="normal"
         app:layout_constraintStart_toEndOf="@+id/apply_friend"
         app:layout_constraintTop_toTopOf="@+id/apply_friend" />
-<!--
 
-    <TextView
-        android:id="@+id/lay"
+
+    <EditText
+        android:id="@+id/et_to_who"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/selector_apply_search"
-        android:completionThreshold="1"
-        android:drawableLeft="@drawable/ic_search_black"
-        android:drawablePadding="14dp"
-        android:enabled="false"
         android:fontFamily="@font/spoqa_han_sans_neo_medium"
         android:gravity="center_vertical"
-        android:hint="받는 사람 :"
-        android:maxLines="1"
-        android:paddingStart="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/apply_apply"
-        app:layout_constraintTop_toBottomOf="@id/apply_pick" />
-
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/flex_box_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginStart="50dp"
-        app:alignContent="stretch"
-        app:alignItems="stretch"
-        app:flexWrap="wrap"
-        app:layout_constraintBottom_toBottomOf="@+id/lay"
-        app:layout_constraintStart_toStartOf="@+id/lay"
-        app:layout_constraintTop_toTopOf="@+id/lay">
-
-        <AutoCompleteTextView
-            android:id="@+id/auto_et_to_who"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:completionThreshold="1"
-            android:drawablePadding="14dp"
-            android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            android:gravity="center_vertical"
-            android:imeOptions="actionDone"
-            android:inputType="text|textCapWords|textPersonName"
-            android:maxLines="1"
-            android:paddingStart="8dp"
-            android:singleLine="true"
-            android:background="@android:color/transparent"
-            android:textColorHint="#a3a3a3"
-            android:textSize="14sp"
-            android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="parent"
-
-
-            app:layout_constraintStart_toStartOf="@id/lay"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_flexGrow="1" />
-
-    </com.google.android.flexbox.FlexboxLayout>
-    -->
-        <!--
-        <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/flex_box_layout"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            app:alignContent="stretch"
-            app:alignItems="stretch"
-            app:flexWrap="wrap"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <AutoCompleteTextView
-                android:id="@+id/auto_et_to_who"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:background="@drawable/selector_apply_search"
-                android:completionThreshold="1"
-                android:drawableLeft="@drawable/ic_search_black"
-                android:drawablePadding="14dp"
-                android:fontFamily="@font/spoqa_han_sans_neo_medium"
-                android:gravity="center_vertical"
-                android:hint="받는 사람 :"
-                android:imeOptions="actionDone"
-                android:inputType="text|textCapWords|textPersonName"
-                android:maxLines="1"
-                android:paddingStart="8dp"
-                android:singleLine="true"
-
-                android:textColorHint="#a3a3a3"
-                android:textSize="14sp"
-                android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="parent"
-
-
-                app:layout_constraintStart_toStartOf="@id/lay"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_flexGrow="1" />
-
-        </com.google.android.flexbox.FlexboxLayout>
-        -->
-<!--
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/flex_box_layout"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        app:alignContent="stretch"
-        app:alignItems="stretch"
-        app:flexWrap="wrap"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/apply_pick">
-
-        <AutoCompleteTextView
-            android:id="@+id/auto_et_to_who"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:background="@drawable/selector_apply_search"
-            android:completionThreshold="1"
-            android:drawableLeft="@drawable/ic_search_black"
-            android:drawablePadding="14dp"
-            android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            android:gravity="center_vertical"
-            android:hint="받는 사람 :"
-            android:imeOptions="actionDone"
-            android:inputType="text|textCapWords|textPersonName"
-            android:maxLines="1"
-            android:paddingStart="8dp"
-            android:singleLine="true"
-
-            android:textColorHint="#a3a3a3"
-            android:textSize="14sp"
-            android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="parent"
-
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_flexGrow="1" />
-
-    </com.google.android.flexbox.FlexboxLayout>
--->
-
-
-    <AutoCompleteTextView
-        android:id="@+id/auto_et_to_who"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/selector_apply_search"
-        android:completionThreshold="1"
-        android:fontFamily="@font/spoqa_han_sans_neo_medium"
-        android:gravity="center_vertical"
-        android:imeOptions="actionDone"
         android:inputType="text|textCapWords|textPersonName"
-
+        android:imeOptions="actionDone"
         android:maxLines="1"
         android:paddingLeft="46dp"
         android:singleLine="true"
         android:textColorHint="#a3a3a3"
-
-
         android:textSize="14sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/apply_apply"
-        app:layout_constraintTop_toBottomOf="@+id/apply_pick"/>
+        app:layout_constraintTop_toBottomOf="@+id/apply_pick" />
 
 
     <ImageView
@@ -221,52 +75,52 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:src="@drawable/ic_search_black"
-        app:layout_constraintBottom_toBottomOf="@+id/auto_et_to_who"
-        app:layout_constraintStart_toStartOf="@+id/auto_et_to_who"
-        app:layout_constraintTop_toTopOf="@+id/auto_et_to_who" />
+        app:layout_constraintBottom_toBottomOf="@+id/et_to_who"
+        app:layout_constraintStart_toStartOf="@+id/et_to_who"
+        app:layout_constraintTop_toTopOf="@+id/et_to_who" />
 
     <TextView
         android:id="@+id/tv_who"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:text="받는 사람 :"
         app:layout_constraintBottom_toBottomOf="@+id/iv_search"
         app:layout_constraintStart_toEndOf="@+id/iv_search"
+        app:layout_constraintStart_toStartOf="@+id/chipGroup"
         app:layout_constraintTop_toTopOf="@+id/iv_search" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/auto_et_to_who"
-        app:layout_constraintEnd_toEndOf="@+id/auto_et_to_who"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_to_who"
+        app:layout_constraintEnd_toEndOf="@+id/et_to_who"
         app:layout_constraintStart_toEndOf="@+id/iv_search"
-        app:layout_constraintStart_toStartOf="@+id/tv_who"
-        app:layout_constraintTop_toTopOf="@+id/auto_et_to_who" />
+        app:layout_constraintTop_toTopOf="@+id/et_to_who" />
 
     <TextView
         android:id="@+id/apply_appointment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="43dp"
-        android:text="약속의 "
         android:fontFamily="@font/spoqa_han_sans_neo_medium"
-        android:textStyle="normal"
-        android:textSize="18sp"
+        android:text="약속의 "
         android:textColor="#1c1c1c"
+        android:textSize="18sp"
+        android:textStyle="normal"
         app:layout_constraintStart_toStartOf="@+id/apply_apply"
-        app:layout_constraintTop_toBottomOf="@+id/auto_et_to_who" />
+        app:layout_constraintTop_toBottomOf="@+id/et_to_who" />
 
     <TextView
         android:id="@+id/apply_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
         android:text="내용"
         android:textColor="@color/pink"
-        android:fontFamily="@font/spoqa_han_sans_neo_medium"
-        android:textStyle="normal"
         android:textSize="18sp"
+        android:textStyle="normal"
         app:layout_constraintStart_toEndOf="@+id/apply_appointment"
         app:layout_constraintTop_toTopOf="@+id/apply_appointment" />
 
@@ -274,11 +128,11 @@
         android:id="@+id/apply_write"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="을 작성하세요"
         android:fontFamily="@font/spoqa_han_sans_neo_medium"
-        android:textStyle="normal"
-        android:textSize="18sp"
+        android:text="을 작성하세요"
         android:textColor="#1c1c1c"
+        android:textSize="18sp"
+        android:textStyle="normal"
         app:layout_constraintStart_toEndOf="@+id/apply_content"
         app:layout_constraintTop_toTopOf="@+id/apply_content" />
 
@@ -303,6 +157,9 @@
             android:hint="제목"
             android:maxLength="23"
             android:maxLines="1"
+            android:inputType="text"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
             android:paddingStart="25dp"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
@@ -362,33 +219,44 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_friend"
+        android:layout_width="0dp"
+        android:layout_height="196dp"
+        android:visibility="invisible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="@+id/et_to_who"
+        app:layout_constraintStart_toStartOf="@+id/et_to_who"
+        app:layout_constraintTop_toBottomOf="@+id/et_to_who"
+        tools:listitem="@layout/item_apply_search_friend" />
+
     <View
         android:id="@+id/apply_line"
         android:layout_width="0dp"
         android:layout_height="0.5dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="85dp"
         android:background="#e7e7e7"
-        app:layout_constraintBottom_toTopOf="@+id/btn_next"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_content" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_next"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="28dp"
         android:background="@drawable/rectangle_gray_radius_10"
         android:clickable="true"
         android:enabled="false"
-        android:text="다음"
         android:fontFamily="@font/spoqa_han_sans_neo_medium"
-        android:textStyle="normal"
-        android:textSize="16sp"
+        android:text="다음"
         android:textColor="#ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="16sp"
+        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/apply_line" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
