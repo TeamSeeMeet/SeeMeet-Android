@@ -9,10 +9,13 @@ import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.widget.ImageView
 import android.widget.TextView
+
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.databinding.BindingAdapter
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.ui.main.calendar.CalendarEvent
+import java.time.LocalDate
 
 object BindingAdapters {
     //더미용
@@ -21,7 +24,7 @@ object BindingAdapters {
     fun setSrc(imageView: ImageView, imgId: Int) {
         imageView.setImageResource(imgId)
     }
-
+    
     @BindingAdapter("setDate")
     @JvmStatic
     fun setDate(textView: TextView, date : String){
@@ -40,5 +43,12 @@ object BindingAdapters {
         ss.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         ss.setSpan(RelativeSizeSpan(1.2f), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         textView.text = ss
+    }
+
+    @JvmStatic
+    @BindingAdapter("localDate")
+    fun convertLocalDate(textview: TextView, text: String) {
+        textview.text = text.TimeParsing()
+
     }
 }
