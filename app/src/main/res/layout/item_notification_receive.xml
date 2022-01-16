@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="ingData"
+            type="org.seemeet.seemeet.data.local.NotificationIngData" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_noti_receive_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/rectangle_white_10"
+        android:elevation="5dp"
+        android:padding="20dp">
+
+
+        <TextView
+            android:id="@+id/tv_receive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:text="@{ingData.requestTitle}"
+            android:textColor="@color/gray06"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_receive_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@{ingData.day}"
+            android:textColor="@color/gray04"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_receive"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_receive" />
+
+        <TextView
+            android:id="@+id/tv_receive_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@{ingData.msg}"
+            android:textColor="@color/gray06"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/tv_receive"
+            app:layout_constraintTop_toBottomOf="@id/cg_receive_friend_list" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cg_receive_friend_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_receive" >
+            </com.google.android.material.chip.ChipGroup>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

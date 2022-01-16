@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityMainBinding
 import org.seemeet.seemeet.ui.apply.ApplyActivity
-import org.seemeet.seemeet.ui.main.CalendarFragment
+import org.seemeet.seemeet.ui.main.calendar.CalendarFragment
 import org.seemeet.seemeet.ui.main.HomeFragment
 
 class MainActivity : AppCompatActivity() {
