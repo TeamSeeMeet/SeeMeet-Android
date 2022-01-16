@@ -7,9 +7,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityFriendBinding
 import org.seemeet.seemeet.ui.friend.adapter.FriendListAdapter
 import org.seemeet.seemeet.ui.viewmodel.FriendViewModel
@@ -21,8 +19,9 @@ class FriendActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_friend)
-        binding.viewModel = viewModel
+        binding = ActivityFriendBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         viewModel.setFriendList()
 
         setFriendAdapter()
@@ -30,6 +29,7 @@ class FriendActivity : AppCompatActivity() {
         initClickListener()
     }
 
+    // 어댑터
     private fun setFriendAdapter() {
         binding.rvFriend.adapter = friendAdapter
     }
@@ -62,7 +62,7 @@ class FriendActivity : AppCompatActivity() {
 
         binding.etSearchFriend.addTextChangedListener {
             if (binding.etSearchFriend.text.isNullOrBlank()) { //공백일 때
-                binding.ivFriendRemoveAll.visibility = View.INVISIBLE
+                binding.ivFriendRemoveAll.visibility = View.GONE
             } else {
                 binding.ivFriendRemoveAll.visibility = View.VISIBLE
                 binding.ivFriendRemoveAll.setOnClickListener {

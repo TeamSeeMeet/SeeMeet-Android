@@ -2,11 +2,7 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-        <variable
-            name="viewModel"
-            type="org.seemeet.seemeet.ui.viewmodel.FriendViewModel" />
-    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -86,7 +82,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_btn_remove"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/et_search_friend"
             app:layout_constraintEnd_toEndOf="@+id/et_search_friend"
             app:layout_constraintTop_toTopOf="@+id/et_search_friend" />
