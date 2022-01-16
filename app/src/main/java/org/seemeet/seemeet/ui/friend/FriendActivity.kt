@@ -15,7 +15,7 @@ import org.seemeet.seemeet.ui.friend.adapter.FriendListAdapter
 import org.seemeet.seemeet.ui.viewmodel.FriendViewModel
 
 class FriendActivity : AppCompatActivity() {
-
+    private val friendAdapter = FriendListAdapter()
     private lateinit var binding: ActivityFriendBinding
     private val viewModel: FriendViewModel by viewModels()
 
@@ -31,7 +31,6 @@ class FriendActivity : AppCompatActivity() {
     }
 
     private fun setFriendAdapter() {
-        val friendAdapter = FriendListAdapter()
         binding.rvFriend.adapter = friendAdapter
     }
 
@@ -70,6 +69,8 @@ class FriendActivity : AppCompatActivity() {
                     binding.etSearchFriend.setText(null)
                 }
             }
+            
+            friendAdapter.setSearchWord(binding.etSearchFriend.text.toString())
         }
     }
 
