@@ -254,11 +254,11 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cl_receive_click_day"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:background="@color/gray01"
-                        android:minHeight="261dp"
+                        app:layout_constraintDimensionRatio="18:13"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_editor_absoluteX="-71dp">
+                        app:layout_constraintBottom_toTopOf="@id/cl_receive_buttons">
 
                         <TextView
                             android:id="@+id/tv_receive_click_day"
@@ -266,8 +266,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
-                            android:text="21.12.03"
-                            android:textSize="16sp"
+                            tools:text="21.12.03"
+                            android:fontFamily="@font/din_pro_bold"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -306,6 +308,8 @@
                         android:id="@+id/cl_receive_buttons"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cl_receive_click_day">
 
                         <androidx.appcompat.widget.AppCompatButton
@@ -319,7 +323,6 @@
                             android:paddingTop="13dp"
                             android:paddingBottom="13dp"
                             android:layout_marginTop="15dp"
-                            android:layout_marginBottom="15dp"
                             android:textColor="@color/white"
                             android:layout_marginStart="0dp"
                             android:layout_marginEnd="0dp"

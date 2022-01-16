@@ -52,7 +52,7 @@ class ReceiveSchduleListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if(viewType == 1 ){
+       /* if(viewType == 1 ){
             val binding = ItemReceiveScheduleBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -68,19 +68,28 @@ class ReceiveSchduleListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>()
             )
             context = parent.context
             return ReceiveSchduleViewHolder2(binding)
-        }
+        }*/
+
+        val binding = ItemReceiveScheduleBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        context = parent.context
+        return ReceiveSchduleViewHolder1(binding)
 
     }
 
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(scheduleList[position].id){
+        /*when(scheduleList[position].id){
             OptionViewType.TOGETHER ->
                 (holder as ReceiveSchduleViewHolder1).bind(scheduleList[position])
             OptionViewType.ALONE ->
                 (holder as ReceiveSchduleViewHolder2).bind(scheduleList[position])
-        }
+        }*/
+        (holder as ReceiveSchduleViewHolder1).bind(scheduleList[position])
 
     }
 

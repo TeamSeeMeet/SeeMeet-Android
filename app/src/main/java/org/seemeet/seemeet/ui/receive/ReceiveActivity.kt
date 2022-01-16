@@ -28,6 +28,10 @@ import org.seemeet.seemeet.ui.main.adapter.ReminderListAdapter
 import org.seemeet.seemeet.ui.receive.adapter.ReceiveCheckListAdapter
 import org.seemeet.seemeet.ui.receive.adapter.ReceiveSchduleListAdapter
 import org.seemeet.seemeet.ui.viewmodel.ReceiveViewModel
+import android.os.Parcelable
+
+
+
 
 class ReceiveActivity : AppCompatActivity() {
 
@@ -68,7 +72,7 @@ class ReceiveActivity : AppCompatActivity() {
     //리싸이클러 뷰 단일 선택 용 함수
     private fun setSingleChoice(){
 
-
+        //체크박스 있는 리사이클러뷰 클릭 시  _ 아래에 있는 일정 리마인더에 데이터가 셋팅됨.
         binding.rvReceiveCheckbox.addOnItemTouchListener(object :
             RecyclerView.OnItemTouchListener{
             override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
@@ -80,6 +84,7 @@ class ReceiveActivity : AppCompatActivity() {
                         view?.setBackgroundResource(R.drawable.rectangle_with_blackline)
                         Log.d("*******************tag", viewModel.checkboxList.value!![position].time)
 
+                        // 지금은 일괄적으로 다 같은 데이터 넣고 있는데, 나중에 위의 체크박스에서 포지션 가지고 id 값 불러와서 서버에 해당 데이터 요청하기...
                         viewModel.setSheduleListData()
                         binding.tvReceiveSMsg.visibility = View.GONE
 
@@ -156,7 +161,9 @@ class ReceiveActivity : AppCompatActivity() {
                 if(clickedList.isEmpty()) {
                     binding.tvReceiveSMsg.text = "약속이 없어요."
                     binding.tvReceiveSMsg.visibility = View.VISIBLE
+                    binding.tvReceiveClickDay.visibility = View.GONE
                 }else {
+                    binding.tvReceiveClickDay.text = clickedList[0].date
                     binding.tvReceiveSMsg.visibility = View.GONE
                 }
              }
@@ -180,11 +187,29 @@ class ReceiveActivity : AppCompatActivity() {
     }
 
     private fun initButtonClick(){
+
+        //맨 아래 수락 버튼
         binding.btnReceiveYes.setOnClickListener {
-            (binding.rvReceiveCheckbox.adapter as ReceiveCheckListAdapter).getCheckBoxList().forEach {
-                if(it.flag)
-                    Log.d("************button click", it.time)
-            }
+            var dialogView = ReceiveYesDiagloFragment()
+            val bundle = Bundle()
+            val cblist = (binding.rvReceiveCheckbox.adapter as ReceiveCheckListAdapter).getCheckBoxList()
+
+            bundle.putParcelableArrayList("cblist", cblist as ArrayList<out Parcelable>)
+            dialogView.arguments = bundle
+
+
+            dialogView.setButtonClickListener( object : ReceiveYesDiagloFragment.OnButtonClickListener {
+                override fun onSendClicked() {
+                    //여기서 데이터 전송.
+                    //위의 cblist에서 flag가 true인 애들 아이디만 골라서 전송해주기.
+                }
+
+                override fun onCancelClicked() {
+
+                }
+            })
+
+            dialogView.show(supportFragmentManager, "send wish checkbox time")
         }
     }
 
