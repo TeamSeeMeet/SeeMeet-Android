@@ -3,10 +3,10 @@ package org.seemeet.seemeet.ui.friend
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.inputmethod.InputMethodManager
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import org.seemeet.seemeet.R
@@ -32,21 +32,26 @@ class FriendActivity : AppCompatActivity() {
 
     private fun setFriendAdapter() {
         val friendAdapter = FriendListAdapter()
-
         binding.rvFriend.adapter = friendAdapter
     }
 
     // 옵저버
     private fun setFriendObserver() {
-        viewModel.friendList.observe(this, Observer {
-            friendList -> with(binding.rvFriend.adapter as FriendListAdapter){
+        viewModel.friendList.observe(this, Observer { friendList ->
+            with(binding.rvFriend.adapter as FriendListAdapter) {
                 setFriendList(friendList)
+
+                if (friendList.isEmpty()) {
+                    binding.clFriendNull.visibility = View.VISIBLE
+                } else {
+                    binding.clFriendNull.visibility = View.GONE
+                }
             }
         })
 
     }
 
-    private fun initClickListener(){
+    private fun initClickListener() {
         binding.ivAddFriend.setOnClickListener {
             val nextIntent = Intent(this, AddFriendActivity::class.java)
             startActivity(nextIntent)
@@ -56,12 +61,15 @@ class FriendActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.etSearchFriend.setOnKeyListener { _, keyCode, event ->
-            if ((event.action== KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(binding.etSearchFriend.windowToken, 0)
+        binding.etSearchFriend.addTextChangedListener {
+            if (binding.etSearchFriend.text.isNullOrBlank()) { //공백일 때
+                binding.ivFriendRemoveAll.visibility = View.INVISIBLE
+            } else {
+                binding.ivFriendRemoveAll.visibility = View.VISIBLE
+                binding.ivFriendRemoveAll.setOnClickListener {
+                    binding.etSearchFriend.setText(null)
+                }
             }
-            true
         }
     }
 

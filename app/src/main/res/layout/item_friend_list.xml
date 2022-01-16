@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginVertical="13dp">
+    android:layout_height="wrap_content" >
 
     <ImageView
         android:id="@+id/iv_profile_image"
+        android:layout_marginVertical="13dp"
         android:layout_width="42dp"
         android:layout_height="42dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,12 +29,12 @@
         tools:text="김준희" />
 
     <ImageView
-        android:id="@+id/iv_favorite"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
+        android:id="@+id/iv_add_msg"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_launcher_background"/>
+        android:src="@drawable/ic_btn_add_message"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

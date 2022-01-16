@@ -3,8 +3,10 @@ package org.seemeet.seemeet.ui.friend
 import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import org.seemeet.seemeet.databinding.ActivityAddFriendBinding
 
 class AddFriendActivity : AppCompatActivity() {
@@ -29,6 +31,17 @@ class AddFriendActivity : AppCompatActivity() {
                 imm.hideSoftInputFromWindow(binding.etSearchFriendId.windowToken, 0)
             }
             true
+        }
+
+        binding.etSearchFriendId.addTextChangedListener {
+            if (binding.etSearchFriendId.text.isNullOrBlank()) { //공백일 때
+                binding.ivFriendIdRemoveAll.visibility = View.INVISIBLE
+            } else {
+                binding.ivFriendIdRemoveAll.visibility = View.VISIBLE
+                binding.ivFriendIdRemoveAll.setOnClickListener {
+                    binding.etSearchFriendId.setText(null)
+                }
+            }
         }
     }
 }

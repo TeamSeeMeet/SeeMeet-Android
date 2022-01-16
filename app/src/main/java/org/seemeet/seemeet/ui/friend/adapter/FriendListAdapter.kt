@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.data.local.FriendNameData
 import org.seemeet.seemeet.databinding.ItemFriendListBinding
 
-class FriendListAdapter : RecyclerView.Adapter<FriendListAdapter.FriendViewHolder>(){
+class FriendListAdapter : RecyclerView.Adapter<FriendListAdapter.FriendViewHolder>() {
     private var friendList = emptyList<FriendNameData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
