@@ -12,8 +12,8 @@ import android.widget.TextView
 
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
-import androidx.databinding.BindingAdapter
 import org.seemeet.seemeet.R
+import androidx.databinding.BindingAdapter
 import org.seemeet.seemeet.ui.main.calendar.CalendarEvent
 import java.time.LocalDate
 
@@ -31,6 +31,7 @@ object BindingAdapters {
 
     }
 
+
     @BindingAdapter("setNameBoldRecieved")
     @JvmStatic
     fun setNameBoldRecieved(textView: TextView, target: String) {
@@ -45,10 +46,10 @@ object BindingAdapters {
         textView.text = ss
     }
 
+
     @JvmStatic
     @BindingAdapter("localDate")
     fun convertLocalDate(textview: TextView, text: String) {
         textview.text = text.TimeParsing()
-
     }
 }
