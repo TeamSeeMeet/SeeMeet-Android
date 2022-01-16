@@ -1,59 +1,49 @@
 package org.seemeet.seemeet.ui.friend
 
+
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import org.seemeet.seemeet.data.local.FriendData
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityFriendBinding
-import org.seemeet.seemeet.ui.friend.adapter.FriendAdapter
+import org.seemeet.seemeet.ui.friend.adapter.FriendListAdapter
+import org.seemeet.seemeet.ui.viewmodel.FriendViewModel
 
 class FriendActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityFriendBinding
-    private lateinit var friendAdapter: FriendAdapter
+
+    private lateinit var binding: ActivityFriendBinding
+    private val viewModel: FriendViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityFriendBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_friend)
+        binding.viewModel = viewModel
+        viewModel.setFriendList()
 
-        initFriendAdapter()
+        setFriendAdapter()
+        setFriendObserver()
         initClickListener()
     }
 
-    companion object {
-        fun start(context: Context) {
-            val intent = Intent(context, FriendActivity::class.java)
-            context.startActivity(intent)
-        }
-    }
+    private fun setFriendAdapter() {
+        val friendAdapter = FriendListAdapter()
 
-    private fun initFriendAdapter(){
-        friendAdapter = FriendAdapter()
         binding.rvFriend.adapter = friendAdapter
-        friendAdapter.friendList.addAll(
-            listOf(
-                FriendData("오수린"),
-                FriendData("오수린"),
-                FriendData("오수린"),
-                FriendData("오수린"),
-            )
-        )
-        friendAdapter.notifyDataSetChanged()
     }
 
-    /* 즐겨찾기
-    private fun initFriendFavoriteAdapter(){
-        friendAdapter = FriendAdapter()
-        binding.rvFavorite.adapter = friendAdapter
-        friendAdapter.friendList.addAll(
-            listOf(
-                FriendData("오수린"),
-            )
-        )
-        friendAdapter.notifyDataSetChanged()
+    // 옵저버
+    private fun setFriendObserver() {
+        viewModel.friendList.observe(this, Observer {
+            friendList -> with(binding.rvFriend.adapter as FriendListAdapter){
+                setFriendList(friendList)
+            }
+        })
+
     }
-     */
 
     private fun initClickListener(){
         binding.ivAddFriend.setOnClickListener {
@@ -65,4 +55,12 @@ class FriendActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    companion object {
+        fun start(context: Context) {
+            val intent = Intent(context, FriendActivity::class.java)
+            context.startActivity(intent)
+        }
+    }
+
 }
