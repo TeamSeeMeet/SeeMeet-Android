@@ -1,0 +1,35 @@
+[33mcommit 651e53ed2cf9e2606ea99728639f2fa1be799b06[m[33m ([m[1;36mHEAD -> [m[1;32mfeature/loginView[m[33m, [m[1;31morigin/feature/loginView[m[33m)[m
+Author: yulim <yulim13sky@naver.com>
+Date:   Sat Jan 8 02:58:17 2022 +0900
+
+    [MOD] 회원가입 xml 수정
+
+[33mcommit c3579a3df8a31ffe3a23dadb6beb63bd11263f36[m
+Author: yulim <yulim13sky@naver.com>
+Date:   Sat Jan 8 01:11:06 2022 +0900
+
+    [MOD] 로그인 xml drawable 적용 및 text 색 변경
+
+[33mcommit 24dd9e7faeb57e546efcf8a12baf011f26e52090[m
+Author: yulim <yulim13sky@naver.com>
+Date:   Fri Jan 7 16:23:46 2022 +0900
+
+    [MOD] 로그인 xml 틀 구현
+
+[33mcommit 21f1883e6d109ebf27107f89ff53629331cd67c6[m[33m ([m[1;31morigin/develop[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mdevelop[m[33m)[m
+Author: Donggi Lee <rkdmf1026@naver.com>
+Date:   Fri Jan 7 13:55:28 2022 +0900
+
+    [Init] 패키지 구조 설계
+
+[33mcommit 13151fa26222e71b8b1845c251a2ab03fecadd39[m[33m ([m[1;31morigin/feature/homeView[m[33m, [m[1;32mfeature/homeView[m[33m)[m
+Author: Donggi Lee <rkdmf1026@naver.com>
+Date:   Fri Jan 7 13:44:12 2022 +0900
+
+    [Init] 프로젝트 초기 프레임워크 설계
+
+[33mcommit e5fbb67c9fd6a27f0edac83d735732a869e88171[m
+Author: Donggi Lee <rkdmf1026@naver.com>
+Date:   Fri Jan 7 11:48:39 2022 +0900
+
+    [INIT] 프로젝트 초기 세팅
