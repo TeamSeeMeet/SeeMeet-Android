@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="calendarEvent"
+            type="org.seemeet.seemeet.ui.main.calendar.CalendarEvent" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="223dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/rectangle_white_radius_10"
+        android:elevation="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_black_top_radius_10"
+            android:backgroundTint="@color/black"
+            android:paddingLeft="22dp"
+            android:paddingTop="15dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="15dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.01"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                android:text="@{calendarEvent.planTitle}"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="대방어데이이이이이이이이이이이이이이이이이이이" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_start_time"
+            localDate="@{calendarEvent.startTime}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="13dp"
+            android:fontFamily="@font/din_pro_regular"
+            android:letterSpacing="0.01"
+            android:textColor="@color/gray06"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_title" />
+
+        <TextView
+            android:id="@+id/tv_symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:fontFamily="@font/din_pro_regular"
+            android:letterSpacing="0.01"
+            android:text=" - "
+            android:textColor="@color/gray06"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toEndOf="@+id/tv_start_time"
+            app:layout_constraintTop_toBottomOf="@+id/layout_title" />
+
+        <TextView
+            localDate="@{calendarEvent.endTime}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:fontFamily="@font/din_pro_regular"
+            android:letterSpacing="0.01"
+            android:textColor="@color/gray06"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toEndOf="@+id/tv_symbol"
+            app:layout_constraintTop_toBottomOf="@+id/layout_title"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cg_friend_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="21dp"
+            android:layout_marginBottom="13dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_start_time"
+            app:singleLine="true">
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
