@@ -64,6 +64,9 @@
             android:paddingStart="46dp"
             android:paddingVertical="16dp"
             android:textSize="14sp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:imeOptions="actionSearch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_friend" />

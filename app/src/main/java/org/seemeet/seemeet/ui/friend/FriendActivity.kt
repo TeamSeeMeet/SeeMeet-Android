@@ -1,9 +1,10 @@
 package org.seemeet.seemeet.ui.friend
 
-
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -53,6 +54,14 @@ class FriendActivity : AppCompatActivity() {
 
         binding.ivFriendBack.setOnClickListener {
             finish()
+        }
+
+        binding.etSearchFriend.setOnKeyListener { _, keyCode, event ->
+            if ((event.action== KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(binding.etSearchFriend.windowToken, 0)
+            }
+            true
         }
     }
 

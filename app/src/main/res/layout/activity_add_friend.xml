@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout>
+    <data>
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -42,7 +46,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
-        android:id="@+id/et_search_friend"
+        android:id="@+id/et_search_friend_id"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
@@ -52,18 +56,22 @@
         android:paddingStart="46dp"
         android:paddingVertical="16dp"
         android:textSize="14sp"
+        android:inputType="text"
+        android:maxLines="1"
+        android:imeOptions="actionSearch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cl_friend_add_top_bar" />
 
-    <ImageView
-        android:id="@+id/iv_search_friend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:src="@drawable/ic_search"
-        app:layout_constraintBottom_toBottomOf="@+id/et_search_friend"
-        app:layout_constraintStart_toStartOf="@+id/et_search_friend"
-        app:layout_constraintTop_toTopOf="@+id/et_search_friend" />
+        <ImageView
+            android:id="@+id/iv_search_friend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@+id/et_search_friend_id"
+            app:layout_constraintStart_toStartOf="@+id/et_search_friend_id"
+            app:layout_constraintTop_toTopOf="@+id/et_search_friend_id" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
