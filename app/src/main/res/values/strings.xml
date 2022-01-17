@@ -28,11 +28,11 @@
 
     <!-- Friend -->
     <string name="friend_friend">친구</string>
-    <string name="friend_search">검색</string>
+    <string name="friend_search">친구 검색</string>
+    <string name="friend_add_search">친구 아이디</string>
     <string name="friend_request">친구 요청</string>
-    <string name="friend_favorite">즐겨찾기</string>
-    <string name="friend_confirm">확인</string>
-    <string name="friend_delete">삭제</string>
+    <string name="friend_null">등록된 친구가 없어요!\n친구를 추가해주세요</string>
+
 
     <!-- AddFriend -->
     <string name="friend_add">친구 추가</string>
