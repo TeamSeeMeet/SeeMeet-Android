@@ -68,9 +68,8 @@
     <string name="noti_in_progress_null">진행중인 약속이 없어요!</string>
     <string name="noti_done_null">완료된 약속이 없어요!</string>
 
-
-
-
+    <!-- detail -->
+    <string name="detail_day">2022년 11월 6일 일요일</string>
 
 
 

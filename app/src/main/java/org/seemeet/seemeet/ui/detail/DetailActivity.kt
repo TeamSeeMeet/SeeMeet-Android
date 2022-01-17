@@ -1,19 +1,23 @@
 package org.seemeet.seemeet.ui.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import org.seemeet.seemeet.R
+import androidx.appcompat.app.AppCompatActivity
+import org.seemeet.seemeet.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityDetailBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        var text01 : String? = intent?.getStringExtra("detail_title")
+        initClickListener()
+    }
 
-        if (text01 != null) {
-            Log.d("*****************Detail", text01)
+    private fun initClickListener() {
+        binding.ivDetailBack.setOnClickListener {
+            finish()
         }
     }
 }

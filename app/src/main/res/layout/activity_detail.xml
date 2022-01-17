@@ -6,12 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".ui.detail.DetailActivity">
 
-    <TextView
-        android:id="@+id/tv_detail_tmp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="50sp"
+    <data>
+        <variable
+            name="detailData"
+            type="org.seemeet.seemeet.data.local.NotificationDoneData" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_detail_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/gray06"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <TextView
+            android:id="@+id/tv_detail_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+            android:text="@string/friend_add"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_marginTop="42dp"
+            android:layout_marginBottom="17dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_detail_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_btn_back_white"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_detail_day"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_detail_day" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
