@@ -26,11 +26,11 @@
 
     <!-- Friend -->
     <string name="friend_friend">친구</string>
-    <string name="friend_search">검색</string>
+    <string name="friend_search">친구 검색</string>
+    <string name="friend_add_search">친구 아이디</string>
     <string name="friend_request">친구 요청</string>
-    <string name="friend_favorite">즐겨찾기</string>
-    <string name="friend_confirm">확인</string>
-    <string name="friend_delete">삭제</string>
+    <string name="friend_null">등록된 친구가 없어요!\n친구를 추가해주세요</string>
+
 
     <!-- AddFriend -->
     <string name="friend_add">친구 추가</string>
@@ -42,8 +42,39 @@
     <string name="home_drawer_open">drawer open</string>
     <string name="home_drawer_close">drawer close</string>
     <string name="home_mypage">MY PAGE</string>
+    <string name="home_msg_tmp">아싸 오늘은\n 친구 만나는 날이다!</string>
     <string name="title_activity_register">RegisterActivity</string>
+
+    <!--noti -->
+    <string name="noti_title">약속 내역</string>
+    <string name="noti_in_progress">진행 중</string>
+    <string name="noti_done">완료</string>
+    <string name="noti_send">보낸 요청</string>
+    <string name="noti_day">n일전</string>
+    <string name="noti_send_msg_wait">친구</string>
+    <string name="noti_send_msg_wait_num">3</string>
+    <string name="noti_send_msg_wait2">명의 답변을 기다리고 있어요!</string>
+    <string name="noti_receive">받은 요청</string>
+    <string name="noti_receive_msg">친구의 요청에 답해보세요!</string>
+    <string name="noti_in_progress2">이에요</string>
+    <string name="noti_in_progress_num">6</string>
+    <string name="noti_done_num">4</string>
+    <string name="noti_num">건</string>
+    <string name="noti_done2">되었어요</string>
+    <string name="noti_confirm_or_cancel">약속 확정</string>
+    <string name="noti_done_title">강화도 여행</string>
+    <string name="noti_in_progress_null">진행중인 약속이 없어요!</string>
+    <string name="noti_done_null">완료된 약속이 없어요!</string>
+
+
+
+
+
+
+
+
     <!-- Strings used for fragments for navigation -->
+
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
@@ -51,4 +82,11 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!-- recieve -->
+    <string name="recieve_top_msg">새로운 초대장</string>
+    <string name="recieve_together_msg">나와 함께 받은 사람</string>
+    <string name="recieve_choice_msg">내 일정과 비교하며\n날짜를 선택해보세요!</string>
+    <string name="recieve_btn_yes">수락</string>
+    <string name="recieve_btn_no">거절</string>
 </resources>
