@@ -1,10 +1,12 @@
 package org.seemeet.seemeet.ui.registration
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.seemeet.seemeet.MainActivity
 import org.seemeet.seemeet.databinding.ActivityLoginBinding
+import org.seemeet.seemeet.ui.MainActivity
+import org.seemeet.seemeet.ui.friend.FriendActivity
 
 class LoginActivity : AppCompatActivity() {
     private val binding: ActivityLoginBinding by lazy {
@@ -24,6 +26,13 @@ class LoginActivity : AppCompatActivity() {
         binding.tvRegister.setOnClickListener {
             val nextIntent = Intent(this, RegisterActivity::class.java)
             startActivity(nextIntent)
+        }
+    }
+
+    companion object {
+        fun start(context: Context) {
+            val intent = Intent(context, LoginActivity::class.java)
+            context.startActivity(intent)
         }
     }
 }

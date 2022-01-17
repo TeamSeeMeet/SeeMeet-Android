@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SeeMeet" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="Theme.SeeMeet" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -10,8 +10,10 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Theme.SeeMeet.NoActionBar">
@@ -19,7 +21,54 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="calendarChipTextPinkStyle">
+        <item name="android:textColor">@color/pink01</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingExtra">13sp</item>
+        <item name="android:letterSpacing">-0.01</item>
+    </style>
+
+    <style name="chipTextPinkStyle">
+        <item name="android:textColor">@color/pink01</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+    </style>
+
+    <style name="chipTextWhiteStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+
+    </style>
+
+    <style name="chipTextGrayStyle">
+        <item name="android:textColor">@color/gray04</item>
+        <item name="android:textSize">13sp</item>\
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+    </style>
+
+    <style name="chipTextBlackStyle">
+        <item name="android:textColor">@color/gray06</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+
     <style name="Theme.SeeMeet.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.SeeMeet.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ChipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>

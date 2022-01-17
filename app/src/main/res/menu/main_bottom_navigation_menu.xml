@@ -3,16 +3,15 @@
     <item
         android:id="@+id/menu_home"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_menu_home"
         android:title="@string/label_home" />
     <item
         android:id="@+id/menu_apply"
-        android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:enabled="false"
         android:title="@string/label_apply" />
     <item
         android:id="@+id/menu_calendar"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_menu_calendar"
         android:title="@string/label_calendar" />
 </menu>
