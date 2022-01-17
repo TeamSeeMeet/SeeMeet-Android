@@ -1,6 +1,7 @@
 package org.seemeet.seemeet.ui.notification.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import com.google.android.material.chip.Chip
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.local.NotificationDoneData
 import org.seemeet.seemeet.databinding.ItemNotificationDoneBinding
+import org.seemeet.seemeet.ui.detail.DetailActivity
 
 class NotiDoneListAdapter :RecyclerView.Adapter<NotiDoneListAdapter.NotiDoneViewHolder>() {
 
@@ -25,6 +27,11 @@ class NotiDoneListAdapter :RecyclerView.Adapter<NotiDoneListAdapter.NotiDoneView
 
             binding.ivDeleteList.setOnClickListener {
                 Log.d("*************************", "클릭")
+            }
+            
+            binding.ivDetail.setOnClickListener {
+                val intent = Intent( context, DetailActivity::class.java)
+                context?.startActivity(intent)
             }
 
             doneData.nameList.forEach{
