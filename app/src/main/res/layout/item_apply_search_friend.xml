@@ -2,8 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_apply_search_friend"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#ffffff">
 
     <ImageView
         android:id="@+id/iv_apply_profile"
@@ -22,10 +24,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
-        android:textColor="@color/black"
-        android:textSize="16sp"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+        android:textColor="#1c1c1c"
+        android:textSize="14sp"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/iv_apply_profile"
-        app:layout_constraintStart_toEndOf="@id/iv_apply_profile"
+        app:layout_constraintStart_toEndOf="@+id/iv_apply_profile"
         app:layout_constraintTop_toTopOf="@+id/iv_apply_profile"
         tools:text="김준희" />
 
