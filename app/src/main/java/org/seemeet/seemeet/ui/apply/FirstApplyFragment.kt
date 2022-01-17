@@ -135,6 +135,7 @@ class FirstApplyFragment : Fragment() {
                 activeBtn()
             }
             Log.d("test,", binding.chipGroup.childCount.toString())
+            adapter.setSearchWord(binding.etToWho.text.toString())
         }
 
         binding.etTitle.addTextChangedListener {
