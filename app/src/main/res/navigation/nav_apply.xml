@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_apply"
+    app:startDestination="@id/firstApplyFragment">
+
+    <fragment
+        android:id="@+id/firstApplyFragment"
+        android:name="org.seemeet.seemeet.ui.apply.FirstApplyFragment"
+        android:label="fragment_first_apply"
+        tools:layout="@layout/fragment_first_apply" >
+        <action
+            android:id="@+id/action_firstApplyFragment_to_secondApplyFragment"
+            app:destination="@id/secondApplyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/secondApplyFragment"
+        android:name="org.seemeet.seemeet.ui.apply.SecondApplyFragment"
+        android:label="fragment_second_apply"
+        tools:layout="@layout/fragment_second_apply" />
+</navigation>
