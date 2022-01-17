@@ -2,6 +2,7 @@ package org.seemeet.seemeet.ui.send
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -20,6 +21,10 @@ import org.seemeet.seemeet.data.local.ReminderData
 import org.seemeet.seemeet.databinding.ActivitySendBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
 import org.seemeet.seemeet.ui.main.adapter.ReminderListAdapter
+import org.seemeet.seemeet.ui.receive.ReceiveYesDiagloFragment
+import org.seemeet.seemeet.ui.receive.SendCancelDialogFragment
+import org.seemeet.seemeet.ui.receive.SendConfirmDialogFragment
+import org.seemeet.seemeet.ui.receive.adapter.ReceiveCheckListAdapter
 import org.seemeet.seemeet.ui.send.adapter.SendInvitationAdapter
 import org.seemeet.seemeet.ui.send.adapter.SendItemDetailsLookup
 import org.seemeet.seemeet.ui.viewmodel.SendViewModel
@@ -44,6 +49,7 @@ class SendActivity : AppCompatActivity() {
         setListObserver()
 
         setSingleChoiceTime()
+        initButtonClick()
 
     }
 
@@ -56,11 +62,13 @@ class SendActivity : AppCompatActivity() {
                     if(child != null){
                         val position = rv.getChildAdapterPosition(child)
                         val view = rv.layoutManager?.findViewByPosition(position)
+
                         view?.isActivated = true
                         Log.d("*******************tag", viewModel.inviList.value!![position].time)
                         choiceInvi = viewModel.inviList.value!![position]
 
-                        // 지금은 일괄적으로 다 같은 데이터 넣고 있는데, 나중에 위의 체크박스에서 포지션 가지고 id 값 불러와서 서버에 해당 데이터 요청하기...
+                        binding.btnSendDecide.isEnabled = true
+
                         binding.btnSendDecide.setBackground(resources.getDrawable(R.drawable.rectangle_pink01_10))
                         for(i in 0..rv.adapter!!.itemCount){
                             val otherView = rv.layoutManager?.findViewByPosition(i)
@@ -143,6 +151,76 @@ class SendActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+
+    private fun initButtonClick(){
+
+        //맨 아래 취소 버튼
+        binding.btnSendCancel.setOnClickListener {
+            var dialogView = SendCancelDialogFragment()
+            val bundle = Bundle()
+            val choice = choiceInvi
+
+            //서버 달 때 고치자. cancel 시에는 초대장 id가 있으면 될듯.
+            bundle.putSerializable("choice", choice)
+            dialogView.arguments = bundle
+
+            dialogView.setButtonClickListener( object : SendCancelDialogFragment.OnButtonClickListener {
+                override fun onCancelNoClicked() {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onCancelYesClicked() {
+                    //여기서 데이터 전송.
+                    //위의 cblist에서 flag가 true인 애들 아이디만 골라서 전송해주기.
+                }
+            })
+            dialogView.show(supportFragmentManager, "send wish checkbox time")
+        }
+
+        //맨 아래 수락 버튼
+        binding.btnSendDecide.setOnClickListener {
+            var dialogView = SendConfirmDialogFragment()
+            val bundle = Bundle()
+            val choice = choiceInvi
+
+            //서버 달 때 고치자. cancel 시에는 초대장 id가 있으면 될듯.
+            bundle.putSerializable("choice", choice)
+
+            //확정 시 상태에 따른 메세지 내용 값 1. 전부 답변 & 만장일치 선택. 2. 전부 답변, 만장일치x 3. 전부 답변 x
+            val responseCnt = viewModel.guestList.value?.count{ it.isResponse}
+            val respondent = viewModel.guestList.value?.size
+            val choiceCnt = choice?.respondent?.size
+
+            Log.d("*************수락버튼 클릭 시 차래로 rcn, rpt, cct", "$responseCnt, $respondent, $choiceCnt")
+
+            if(responseCnt != respondent){
+                bundle.putInt("check", 3)
+            } else if (responseCnt != choiceCnt){
+                bundle.putInt("check", 2)
+            } else {
+                bundle.putInt("check", 1)
+            }
+
+            dialogView.arguments = bundle
+
+            dialogView.setButtonClickListener( object : SendConfirmDialogFragment.OnButtonClickListener {
+                override fun onConfirmNoClicked() {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onConfirmYesClicked() {
+                    //여기서 데이터 전송.
+                    //위의 cblist에서 flag가 true인 애들 아이디만 골라서 전송해주기.
+                }
+            })
+            dialogView.show(supportFragmentManager, "send wish checkbox time")
+        }
+
+        binding.ivSendBack.setOnClickListener {
+            finish()
+        }
     }
 
 
