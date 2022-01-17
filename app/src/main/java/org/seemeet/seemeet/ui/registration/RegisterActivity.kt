@@ -30,6 +30,9 @@ class RegisterActivity : AppCompatActivity() {
             MainActivity.start(this)
         }
 
+        binding.ivRegisterBack.setOnClickListener {
+            finish()
+        }
         binding.etName.addTextChangedListener{
             if (isNullorBlank()) {
                 unactiveBtn()
@@ -56,6 +59,8 @@ class RegisterActivity : AppCompatActivity() {
             } else {
                 activeBtn()
             }
+            if(binding.etEmailRegister.text.isNullOrBlank())
+                binding.tvWarningEmail.visibility = View.INVISIBLE
         }
 
         binding.etPw.addTextChangedListener {
@@ -68,7 +73,8 @@ class RegisterActivity : AppCompatActivity() {
                     binding.tvWarningPw.visibility = View.VISIBLE
                 }else binding.tvWarningPw.visibility = View.INVISIBLE
             }
-
+            if(binding.etPw.text.isNullOrBlank())
+                binding.tvWarningPw.visibility = View.INVISIBLE
             if (isNullorBlank()) {
                 unactiveBtn()
             } else {
@@ -81,7 +87,7 @@ class RegisterActivity : AppCompatActivity() {
                 binding.tvWarningCheckpw.setText("비밀번호가 일치하지 않아요.")
                 binding.tvWarningCheckpw.visibility = View.VISIBLE
             }else binding.tvWarningCheckpw.visibility= View.INVISIBLE //일치할 경우 tv 안 뜨게
-
+            if(binding.etCheckpw.text.isNullOrBlank())binding.tvWarningCheckpw.visibility= View.INVISIBLE
             if (isNullorBlank()) {
                 unactiveBtn()
             } else {

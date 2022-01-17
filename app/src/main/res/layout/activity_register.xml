@@ -7,7 +7,7 @@
     tools:context=".ui.registration.LoginActivity">
 
     <ImageView
-        android:id="@+id/iv_previous"
+        android:id="@+id/iv_register_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -26,7 +26,7 @@
         android:textColor="#1c1c1c"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_previous" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_register_back" />
 
     <TextView
         android:id="@+id/tv_name"
