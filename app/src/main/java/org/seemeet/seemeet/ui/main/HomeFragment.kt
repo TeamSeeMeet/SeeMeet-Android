@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import org.seemeet.seemeet.ui.notification.NotificationActivity
@@ -36,7 +37,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-       _binding = FragmentHomeBinding.inflate(layoutInflater)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
         return binding.root
     }
@@ -128,5 +129,10 @@ class HomeFragment : Fragment() {
 
         //TODO : 메인 홈 일러스트 따로 뷰모델 적용시키는 것 안 했음 << 나중에 나오면 할께요.
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
