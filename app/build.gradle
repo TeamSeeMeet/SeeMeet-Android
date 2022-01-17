@@ -86,4 +86,8 @@ dependencies {
 
     //Calendar
     implementation 'com.github.kizitonwose:CalendarView:1.0.4'
+
+    //Recycler Selection
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.recyclerview:recyclerview-selection:1.2.0-alpha01'
 }
