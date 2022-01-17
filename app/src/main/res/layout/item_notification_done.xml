@@ -15,7 +15,7 @@
         android:id="@+id/cl_noti_done_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:elevation="10dp">
 
         <TextView
@@ -37,7 +37,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            android:text="@{doneData.confirmOrDelete}"
             android:textColor="@color/pink"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_done_day"
