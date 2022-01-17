@@ -16,7 +16,11 @@ class NotiDoneViewModel(application: Application) : AndroidViewModel(application
 
     fun setDoneList() {
         _doneList.value = mutableListOf(
-
+            NotificationDoneData(
+                "1일전", "받은 요청","친구의 요청에 답해보세요!", mutableListOf(
+                    NotificationFriendData("김준희", true),
+                )
+            ),
         )
     }
 }
