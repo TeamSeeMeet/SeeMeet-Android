@@ -52,20 +52,30 @@
         app:layout_constraintStart_toStartOf="@+id/et_email"
         app:layout_constraintTop_toBottomOf="@+id/et_email" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/et_pw"
+        app:layout_constraintEnd_toEndOf="@+id/et_pw"
+        app:layout_constraintTop_toTopOf="@+id/et_pw"
+        app:srcCompat="@drawable/ic_pw_show" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_login"
         android:layout_width="0dp"
         android:layout_height="54dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/rectangle_pink_10"
+        android:layout_marginBottom="265dp"
+        android:background="@drawable/rectangle_gray04_10"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
         android:text="@string/login"
         android:textColor="@color/white"
-        android:fontFamily="@font/spoqa_han_sans_neo_medium"
-        android:textStyle="normal"
         android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/et_pw"
-        app:layout_constraintStart_toStartOf="@+id/et_pw"
-        app:layout_constraintTop_toBottomOf="@+id/et_pw" />
+        app:layout_constraintStart_toStartOf="@+id/et_pw" />
 
     <ImageView
         android:id="@+id/iv_small_logo"
