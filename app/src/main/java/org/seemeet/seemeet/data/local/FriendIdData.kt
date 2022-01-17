@@ -1,5 +1,6 @@
 package org.seemeet.seemeet.data.local
 
-data class FriendData(
+data class FriendIdData(
     val name : String,
+    val id : String
 )

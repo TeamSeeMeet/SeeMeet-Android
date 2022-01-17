@@ -2,50 +2,40 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_friend_list"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content" >
 
     <ImageView
         android:id="@+id/iv_profile_image"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginVertical="13dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_launcher_background" />
+        android:src="@drawable/ic_img_profile" />
 
     <TextView
         android:id="@+id/tv_friend_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
+        android:layout_marginStart="18dp"
         android:textColor="@color/black"
         android:textSize="16sp"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
         app:layout_constraintBottom_toBottomOf="@+id/iv_profile_image"
         app:layout_constraintStart_toEndOf="@id/iv_profile_image"
         app:layout_constraintTop_toTopOf="@+id/iv_profile_image"
         tools:text="김준희" />
 
     <ImageView
-        android:id="@+id/iv_apply"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginRight="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_favorite"
-        app:layout_constraintEnd_toStartOf="@+id/iv_favorite"
-        app:layout_constraintTop_toTopOf="@+id/iv_favorite"
-        tools:src="@drawable/ic_launcher_background" />
-
-    <ImageView
-        android:id="@+id/iv_favorite"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginRight="10dp"
+        android:id="@+id/iv_add_msg"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_launcher_background"/>
+        android:src="@drawable/ic_btn_add_message"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
