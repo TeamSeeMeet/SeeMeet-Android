@@ -82,6 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_btn_remove"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/et_search_friend"
             app:layout_constraintEnd_toEndOf="@+id/et_search_friend"
             app:layout_constraintTop_toTopOf="@+id/et_search_friend" />
