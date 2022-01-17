@@ -1,6 +1,7 @@
 package org.seemeet.seemeet.ui.notification.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,6 +11,8 @@ import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.local.NotificationIngData
 import org.seemeet.seemeet.databinding.ItemNotificationReceiveBinding
 import org.seemeet.seemeet.databinding.ItemNotificationSendBinding
+import org.seemeet.seemeet.ui.receive.ReceiveActivity
+import org.seemeet.seemeet.ui.send.SendActivity
 
 class NotiIngListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -68,6 +71,11 @@ class NotiIngListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(ingData: NotificationIngData) {
             binding.ingData = ingData
 
+            binding.clNotiSendBg.setOnClickListener{
+                val intent = Intent( context, SendActivity::class.java)
+                context?.startActivity(intent)
+            }
+
             ingData.nameList.forEach{
                 binding.cgSendFriendList.addView(Chip(context).apply{
                     text = it.name
@@ -92,6 +100,11 @@ class NotiIngListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(ingData: NotificationIngData) {
             binding.ingData = ingData
+
+            binding.clNotiReceiveBg.setOnClickListener{
+                val intent = Intent( context, ReceiveActivity::class.java)
+                context?.startActivity(intent)
+            }
 
             ingData.nameList.forEach{
                 binding.cgReceiveFriendList.addView(Chip(context).apply{

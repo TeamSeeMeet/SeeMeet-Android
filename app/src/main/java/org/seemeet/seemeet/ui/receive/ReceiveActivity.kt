@@ -1,9 +1,11 @@
 package org.seemeet.seemeet.ui.receive
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
@@ -13,18 +15,17 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityReceiveBinding
+import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.ui.receive.adapter.ReceiveCheckListAdapter
 import org.seemeet.seemeet.ui.receive.adapter.ReceiveSchduleListAdapter
 import org.seemeet.seemeet.ui.viewmodel.ReceiveViewModel
-import android.os.Parcelable
-
-
 
 
 class ReceiveActivity : AppCompatActivity() {
@@ -235,5 +236,10 @@ class ReceiveActivity : AppCompatActivity() {
     }
 
 
-
+    companion object {
+        fun start(context: Context) {
+            val intent = Intent(context, FriendActivity::class.java)
+            context.startActivity(intent)
+        }
+    }
 }
