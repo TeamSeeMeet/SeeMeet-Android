@@ -1,19 +1,14 @@
 package org.seemeet.seemeet.ui.receive
 
 import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Parcelable
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import androidx.fragment.app.DialogFragment
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.local.CheckboxData
-import org.seemeet.seemeet.databinding.FragmentHomeBinding
 import org.seemeet.seemeet.databinding.DialogReceiveYesDiagloBinding
 
 class ReceiveYesDiagloFragment : DialogFragment() {

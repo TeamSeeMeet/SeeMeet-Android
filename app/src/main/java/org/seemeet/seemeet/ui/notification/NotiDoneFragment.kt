@@ -29,7 +29,6 @@ class NotiDoneFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initClickListener()
 
         // (1) 더미데이터 셋팅 _ 이후 서버통신 시 교체
         viewmodel.setDoneList()
@@ -37,10 +36,6 @@ class NotiDoneFragment : Fragment() {
         // (2) 어뎁터와 옵저버 셋팅
         setDoneAdapter()
         setDoneObserve()
-    }
-
-    private fun initClickListener(){
-
     }
 
     // 어댑터

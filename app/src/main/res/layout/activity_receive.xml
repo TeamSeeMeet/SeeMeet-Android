@@ -21,6 +21,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/iv_receive_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
@@ -83,9 +84,10 @@
                         app:layout_constraintStart_toStartOf="parent"/>
 
                     <ImageView
-                        android:layout_width="110dp"
-                        android:layout_height="82dp"
-                        android:background="@color/gray04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img_illust_11"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="24dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
@@ -129,7 +131,7 @@
                             android:textColor="@color/gray06"
                             android:letterSpacing="-0.01"
                             android:lineSpacingExtra="18sp"
-                            android:text="@{viewModel.title.toString()}"
+                            removeSquareBrackets="@{viewModel.title.toString()}"
                             tools:text="가나다라마바사아자차가나다라마바사아자차"/>
 
                         <androidx.core.widget.NestedScrollView
@@ -154,7 +156,7 @@
                                 android:textColor="@color/gray06"
                                 android:letterSpacing="-0.01"
                                 android:lineSpacingExtra="10sp"
-                                android:text="@{viewModel.content.toString()}"
+                                removeSquareBrackets="@{viewModel.content.toString()}"
                                 tools:text="야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들"/>
 
                         </androidx.core.widget.NestedScrollView>

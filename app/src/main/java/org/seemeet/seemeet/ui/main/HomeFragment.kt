@@ -3,28 +3,29 @@ package org.seemeet.seemeet.ui.main
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.fonts.FontFamily
 import android.os.Bundle
 import android.text.Spannable
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import org.seemeet.seemeet.ui.notification.NotificationActivity
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.local.ReminderData
-import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.databinding.FragmentHomeBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
+import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.ui.main.adapter.ReminderListAdapter
+import org.seemeet.seemeet.ui.notification.NotificationActivity
+import org.seemeet.seemeet.ui.registration.LoginActivity
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
@@ -73,6 +74,10 @@ class HomeFragment : Fragment() {
             }
             nvMypage.ivMypageBack.setOnClickListener {
                 binding.dlHomeMypage.closeDrawer(GravityCompat.START)
+            }
+
+            nvMypage.clMypageLogin.setOnClickListener{
+                LoginActivity.start(requireContext())
             }
         }
     }

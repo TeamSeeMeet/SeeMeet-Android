@@ -26,7 +26,6 @@ class NotiInProgressFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initClickListener()
 
         // (1) 더미데이터 셋팅 _ 이후 서버통신 시 교체
         viewmodel.setIngList()
@@ -34,10 +33,6 @@ class NotiInProgressFragment : Fragment() {
         // (2) 어뎁터와 옵저버 셋팅
         setIngAdapter()
         setIngObserve()
-    }
-
-    private fun initClickListener(){
-
     }
 
     // 어댑터
