@@ -26,6 +26,16 @@
     <string name="label_apply">Apply</string>
     <string name="label_calendar">Calendar</string>
 
+    <!-- My page -->
+    <string name="mypage_login_msg">SeeMeet에서 친구와 약속을 잡아보세요!</string>
+    <string name="mypage_notice">공지사항</string>
+    <string name="mypage_setting">설정</string>
+    <string name="mypage_more">더보기</string>
+    <string name="mypage_terms_of_use">이용약관</string>
+    <string name="mypage_privacy_policy">개인정보 정책</string>
+    <string name="mypage_open_source">오픈소스</string>
+
+
     <!-- Friend -->
     <string name="friend_friend">친구</string>
     <string name="friend_search">친구 검색</string>
@@ -68,12 +78,6 @@
     <string name="noti_done_title">강화도 여행</string>
     <string name="noti_in_progress_null">진행중인 약속이 없어요!</string>
     <string name="noti_done_null">완료된 약속이 없어요!</string>
-
-
-
-
-
-
 
 
     <!-- Strings used for fragments for navigation -->

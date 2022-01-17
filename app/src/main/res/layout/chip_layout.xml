@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/Widget.MaterialComponents.Chip.Entry"
+    android:layout_height="wrap_content"
+    android:layout_width="82dp"
+    app:closeIconTint="@null"
+    app:closeIcon="@drawable/ic_friend_btn_remove"
+    app:closeIconSize="26dp"
+    app:closeIconEndPadding="-5dp"
+    app:closeIconEnabled="true" />
