@@ -39,5 +39,10 @@ class AddFriendActivity : AppCompatActivity() {
                 }
             }
         }
+
+        binding.ivAddFriendList.setOnClickListener {
+            binding.ivAddFriendList.isSelected = binding.ivAddFriendList.isSelected != true
+        }
+
     }
 }
