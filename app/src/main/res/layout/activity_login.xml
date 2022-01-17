@@ -70,6 +70,8 @@
         android:layout_height="54dp"
         android:layout_marginBottom="265dp"
         android:background="@drawable/rectangle_gray04_10"
+        android:clickable="false"
+        android:enabled="false"
         android:fontFamily="@font/spoqa_han_sans_neo_medium"
         android:text="@string/login"
         android:textColor="@color/white"
