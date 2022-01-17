@@ -46,16 +46,16 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun initClickListener() {
-        binding.btnLogin.setOnClickListener {//버튼 눌렀을 때 아이디 틀림, 비번 틀림
-            /*
-            if (!binding.etPw.text.equals("0000")) {
-                CustomToast.createToast(this, "비밀번호가 틀렸습니다.")?.show()
-            }
-            if (!binding.etEmail.text.equals("hi@")) {
+        binding.btnLogin.setOnClickListener {
+            if (!binding.etEmail.text.toString().equals("hi@nate.com")) { //아이디 틀렸을 때
                 CustomToast.createToast(this, "등록되지 않은 유저입니다.")?.show()
-            }*/
-            if (!binding.etPw.text.isNullOrBlank() && !binding.etEmail.text.isNullOrBlank()) {
-                MainActivity.start(this)
+            }else{ //아이디는 맞음
+                if (!binding.etPw.text.toString().equals("1234567i")) {
+                    CustomToast.createToast(this, "비밀번호가 틀렸습니다.")?.show()
+                }
+                else{ //비밀번호까지 다 맞을 때
+                    MainActivity.start(this)
+                }
             }
         }
         binding.tvRegister.setOnClickListener {
