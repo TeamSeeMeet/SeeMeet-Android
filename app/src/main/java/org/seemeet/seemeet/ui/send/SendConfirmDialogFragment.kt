@@ -3,58 +3,54 @@ package org.seemeet.seemeet.ui.receive
 import android.app.Dialog
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.local.CheckboxData
-import org.seemeet.seemeet.databinding.DialogReceiveYesDiagloBinding
+import org.seemeet.seemeet.data.local.InviData
+import org.seemeet.seemeet.databinding.DialogSendConfirmBinding
 
-class ReceiveYesDiagloFragment : DialogFragment() {
 
-    private var _binding : DialogReceiveYesDiagloBinding? = null
+class SendConfirmDialogFragment : DialogFragment() {
+
+    private var _binding : DialogSendConfirmBinding? = null
     val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = DialogReceiveYesDiagloBinding.inflate(
+        _binding = DialogSendConfirmBinding.inflate(
             inflater, container, false)
 
 
         val bundle = arguments
-        val cblist : ArrayList<CheckboxData> = bundle?.getParcelableArrayList<Parcelable>("cblist") as ArrayList<CheckboxData>
-        var cnt : Int = 0
-        cblist.forEach{
-            if(it.flag){
-                when(cnt){
-                    0 -> {
-                        binding.tvReceiDateWish1.text = it.date
-                        binding.tvReceiTimeWish1.text = it.time
-                        cnt++
-                    }
-                    1 -> {
-                        binding.tvReceiDateWish2.text = it.date
-                        binding.tvReceiTimeWish2.text = it.time
-                        cnt++
-                    }
-                    2 -> {
-                        binding.tvReceiDateWish3.text = it.date
-                        binding.tvReceiTimeWish3.text = it.time
-                        cnt++
-                    }
-                    3 -> {
-                        binding.tvReceiDateWish4.text = it.date
-                        binding.tvReceiTimeWish4.text = it.time
-                        cnt++
-                    }
+        val choice = bundle?.getSerializable("choice") as InviData
+        val check = bundle.getInt("check")
+        Log.d("*******sendConfirmDialog", choice.time + "," + check.toString())
 
-                }
+        when(check){
+            1 -> {
+                binding.tvSendCheck1.visibility = View.VISIBLE
+                binding.tvSendCheck2.visibility = View.GONE
+            }
+            2 -> {
+                binding.tvSendCheck2.text = "만날 수 없는 친구가 있어요.\n확정할까요?"
+                binding.tvSendCheck1.visibility = View.GONE
+                binding.tvSendCheck2.visibility = View.VISIBLE
+            }
+            3 -> {
+                binding.tvSendCheck2.text = "답변하지 않은 친구가 있어요.\n확정할까요?"
+                binding.tvSendCheck1.visibility = View.GONE
+                binding.tvSendCheck2.visibility = View.VISIBLE
             }
         }
 
+        binding.tvSendDateConfirm.text = choice.date
+        binding.tvSendTimeConfirm.text = choice.time
 
         return binding.root
     }
@@ -62,12 +58,12 @@ class ReceiveYesDiagloFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnReceiDiaSend.setOnClickListener {
-            buttonClickListener.onSendClicked()
+        binding.btnSendDiaConfirmYes.setOnClickListener {
+            buttonClickListener.onConfirmYesClicked()
             dismiss()
         }
-        binding.btnReceiDiaCancel.setOnClickListener {
-            buttonClickListener.onCancelClicked()
+        binding.btnSendDiaConfirmNo.setOnClickListener {
+            buttonClickListener.onConfirmNoClicked()
             dismiss()
         }
 
@@ -87,8 +83,8 @@ class ReceiveYesDiagloFragment : DialogFragment() {
 
     // 인터페이스
     interface OnButtonClickListener {
-        fun onCancelClicked()
-        fun onSendClicked()
+        fun onConfirmNoClicked()
+        fun onConfirmYesClicked()
     }
 
     // 클릭 이벤트 실행
