@@ -1,11 +1,9 @@
 package org.seemeet.seemeet.ui.apply
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -17,8 +15,7 @@ import org.seemeet.seemeet.ui.apply.adapter.ApplyFriendAdapter
 
 class FirstApplyFragment : Fragment() {
 
-    private lateinit var callback: OnBackPressedCallback
-
+//    private lateinit var callback: OnBackPressedCallback
     private var _binding: FragmentFirstApplyBinding? = null
     val binding get() = _binding!!
     private lateinit var adapter: ApplyFriendAdapter
@@ -94,8 +91,18 @@ class FirstApplyFragment : Fragment() {
                     setOnCloseIconClickListener {
                         binding.chipGroup.removeView(this)
                         binding.etToWho.setPadding(binding.etToWho.paddingLeft - 250, 0, 0, 0)
+                        if (isNullorBlank()) { //셋 중 하나라도 작성 안 됐을 때
+                            unactiveBtn()
+                        } else { //셋 다 작성했을 때
+                            activeBtn()
+                        }
                     }
                 })
+            if (isNullorBlank()) { //셋 중 하나라도 작성 안 됐을 때
+                unactiveBtn()
+            } else { //셋 다 작성했을 때
+                activeBtn()
+            }
         }
     }
 
@@ -104,8 +111,16 @@ class FirstApplyFragment : Fragment() {
             if (hasFocus) {
                 binding.tvWho.visibility = View.INVISIBLE
                 binding.rvFriend.visibility = View.VISIBLE
+                binding.applyAppointment.visibility = View.INVISIBLE
+                binding.applyContent.visibility = View.INVISIBLE
+                binding.applyWrite.visibility = View.INVISIBLE
+                binding.clContent.visibility = View.INVISIBLE
             } else {
                 binding.rvFriend.visibility = View.INVISIBLE
+                binding.applyAppointment.visibility = View.VISIBLE
+                binding.applyContent.visibility = View.VISIBLE
+                binding.applyWrite.visibility = View.VISIBLE
+                binding.clContent.visibility = View.VISIBLE
             }
         }
 
@@ -134,7 +149,6 @@ class FirstApplyFragment : Fragment() {
             } else { //셋 다 작성했을 때
                 activeBtn()
             }
-            Log.d("test,", binding.chipGroup.childCount.toString())
             adapter.setSearchWord(binding.etToWho.text.toString())
         }
 
@@ -181,7 +195,7 @@ class FirstApplyFragment : Fragment() {
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                binding.tvWho.visibility = View.INVISIBLE
+                binding.rvFriend.visibility = View.INVISIBLE
 
             }
         }

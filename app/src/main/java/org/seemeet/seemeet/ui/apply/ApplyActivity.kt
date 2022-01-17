@@ -22,6 +22,10 @@ class ApplyActivity : AppCompatActivity() {
             finish()
         }
     }
+/*
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }*/
 
     companion object {
         fun start(context: Context) {

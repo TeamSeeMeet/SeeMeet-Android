@@ -63,5 +63,4 @@ class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendVi
         searchWord = text
         notifyDataSetChanged()
     }
-
 }
