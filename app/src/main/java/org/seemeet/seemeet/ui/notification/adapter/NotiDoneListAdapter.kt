@@ -3,6 +3,7 @@ package org.seemeet.seemeet.ui.notification.adapter
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
@@ -42,6 +43,13 @@ class NotiDoneListAdapter :RecyclerView.Adapter<NotiDoneListAdapter.NotiDoneView
                     isClickable = false
                 })
                 Log.d("**********************받은이", it.name)
+            }
+
+            if(doneData.isCanceled){
+                binding.tvConfirmOrCancel.text = context?.getResources()?.getString(R.string.noti_cancel)
+                binding.ivDetail.visibility = View.GONE
+            } else{
+                binding.tvConfirmOrCancel.text = context?.getResources()?.getString(R.string.noti_confirm)
             }
         }
     }
