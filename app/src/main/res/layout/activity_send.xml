@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-
+        <variable
+            name="viewModel"
+            type="org.seemeet.seemeet.ui.viewmodel.SendViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -84,7 +86,8 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_send"
                         android:layout_marginTop="24dp"
                         android:layout_marginEnd="16dp"
-                        android:text="2/3"
+                        setResponseCnt="@{viewModel.guestCnt}"
+                        tools:text="2/3"
                         android:fontFamily="@font/din_pro_regular"
                         android:textSize="30sp"
                         android:textColor="@color/gray06"
@@ -153,6 +156,7 @@
                         android:textSize="14sp"
                         android:textColor="@color/gray06"
                         android:letterSpacing="-0.01"
+                        android:text="@{viewModel.inviTitle}"
                         tools:text="대방어데이"/>
 
 
@@ -185,7 +189,10 @@
                             android:textSize="14sp"
                             android:textColor="@color/gray06"
                             android:letterSpacing="-0.01"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginStart="25dp"
                             android:lineSpacingExtra="10sp"
+                            android:text="@{viewModel.desc}"
                             tools:text="야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들
 야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들"/>
 

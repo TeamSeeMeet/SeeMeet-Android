@@ -2,8 +2,11 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable
+            name="inviData"
+            type="org.seemeet.seemeet.data.local.InviData" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -11,7 +14,7 @@
 
         <ImageView
             android:id="@+id/iv_send_time_bg"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -27,7 +30,8 @@
             android:id="@+id/tv_send_time_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2021.12.03"
+            tools:text="2021.12.03"
+            android:text="@{inviData.date}"
             app:layout_constraintStart_toStartOf="@id/iv_send_time_bg"
             app:layout_constraintTop_toTopOf="@id/iv_send_time_bg"
             android:layout_marginTop="20dp"
@@ -48,6 +52,7 @@
             android:textColor="@drawable/selector_send_time_color"
             android:letterSpacing="-0.01"
             android:gravity="end"
+            android:text="@{inviData.time}"
             tools:text="오전 11:00 ~ 오후 04:00"
             app:layout_constraintEnd_toEndOf="@id/iv_send_time_bg"
             app:layout_constraintStart_toEndOf="@id/tv_send_time_date"
@@ -69,7 +74,8 @@
             android:id="@+id/tv_send_time_cnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3"
+            android:text="@{String.valueOf(inviData.respondent.size())}"
+            tools:text="3"
             app:layout_constraintEnd_toStartOf="@id/tv_send_time_respone"
             app:layout_constraintTop_toTopOf="@id/tv_send_time_respone"
             android:layout_marginEnd="7dp"/>
@@ -78,6 +84,7 @@
             android:id="@+id/tv_send_time_respone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            setUserList="@{inviData.respondent}"
             android:text="김준희   김준희   김준희"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:textSize="13sp"
