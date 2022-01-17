@@ -17,6 +17,20 @@ class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendVi
         this.listener = listener
     }
 
+    var mPosition =0
+    fun getPosition(): Int{
+        return mPosition
+    }
+    fun addItem(data: ApplyFriendData){
+        applyfriendList.add(data)
+        notifyDataSetChanged()
+    }
+    fun removeItem(position:Int){
+        if(position>=0){
+            applyfriendList.removeAt(position)
+            notifyDataSetChanged()
+        }
+    }
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -39,14 +53,13 @@ class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendVi
         fun onBind(data: ApplyFriendData) {
             binding.ivApplyProfile.setImageResource(data.profile)
             binding.tvApplyName.text = data.name
-
             val pos = adapterPosition
             if (pos != RecyclerView.NO_POSITION) {
                 itemView.setOnClickListener {
+                    mPosition = pos
                     listener?.invoke(data.name)
                 }
             }
-
 
             if(data.name.startsWith(searchWord)) {
                 binding.itemApplySearchFriend.visibility= View.VISIBLE

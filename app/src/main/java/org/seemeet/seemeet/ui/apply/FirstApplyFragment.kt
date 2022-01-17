@@ -15,7 +15,6 @@ import org.seemeet.seemeet.ui.apply.adapter.ApplyFriendAdapter
 
 class FirstApplyFragment : Fragment() {
 
-//    private lateinit var callback: OnBackPressedCallback
     private var _binding: FragmentFirstApplyBinding? = null
     val binding get() = _binding!!
     private lateinit var adapter: ApplyFriendAdapter
@@ -75,9 +74,9 @@ class FirstApplyFragment : Fragment() {
             false
         }
 
-        //아이템을 클릭했을 때 //TODO 리스트에서 삭제돼야함
+        //아이템을 클릭했을 때
         adapter.setOnItemClickListener {
-            binding.chipGroup.addView(
+           binding.chipGroup.addView(
                 (layoutInflater.inflate(
                     R.layout.chip_layout,
                     null,
@@ -96,6 +95,7 @@ class FirstApplyFragment : Fragment() {
                         } else { //셋 다 작성했을 때
                             activeBtn()
                         }
+                        adapter.addItem(ApplyFriendData(R.drawable.ic_btn_remove,this.text.toString())) //TODO: 아이템 순서대로 들어가게 해야함(이름 순) -> 지금은 그냥 뒤로 차례로 들어감
                     }
                 })
             if (isNullorBlank()) { //셋 중 하나라도 작성 안 됐을 때
@@ -103,6 +103,7 @@ class FirstApplyFragment : Fragment() {
             } else { //셋 다 작성했을 때
                 activeBtn()
             }
+            adapter.removeItem(adapter.getPosition())
         }
     }
 
@@ -173,7 +174,7 @@ class FirstApplyFragment : Fragment() {
         }
     }
 
-    //여기서 하나라도 성립하면 true 반환 //TODO 칩 그룹 개수 버그 생김 수정 필요
+    //여기서 하나라도 성립하면 true 반환
     private fun isNullorBlank(): Boolean {
         return binding.chipGroup.childCount == 0 || binding.etTitle.text.isNullOrBlank() || binding.etDetail.text.isNullOrBlank() || (!binding.etToWho.text.isNullOrBlank()) //TODO 여기 chip 개수 !!!!
     }
