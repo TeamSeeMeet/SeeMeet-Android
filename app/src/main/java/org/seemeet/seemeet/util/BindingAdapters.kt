@@ -33,12 +33,32 @@ object BindingAdapters {
     }
 
 
+    @BindingAdapter("removeSquareBrackets")
+    @JvmStatic
+    fun removeSquareBrackets(textView: TextView, target: String) {
+        var text = target
+        if(target.startsWith("["))
+            text = text.substring(1)
+
+        if(target.endsWith("]"))
+            text = text.substring(0, text.length -1);
+
+        textView.text = text
+    }
+
     @BindingAdapter("setNameBoldRecieved")
     @JvmStatic
     fun setNameBoldRecieved(textView: TextView, target: String) {
-        val string = target + "님이 보냈어요"
-        val word = target
-        val start = 1
+        var text = target
+        if(target.startsWith("["))
+            text = text.substring(1)
+
+        if(target.endsWith("]"))
+            text = text.substring(0, text.length -1);
+
+        val string = text + "님이 보냈어요"
+        val word = text
+        val start = 0
         val end = start + word.length
 
         val ss = SpannableStringBuilder(string)
