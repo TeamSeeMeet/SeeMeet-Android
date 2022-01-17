@@ -55,6 +55,13 @@
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+
     <style name="Theme.SeeMeet.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.SeeMeet.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
