@@ -71,7 +71,8 @@
     <string name="noti_done_num">4</string>
     <string name="noti_num">건</string>
     <string name="noti_done2">되었어요</string>
-    <string name="noti_confirm_or_cancel">약속 확정</string>
+    <string name="noti_confirm">약속 확정</string>
+    <string name="noti_cancel">약속 취소</string>
     <string name="noti_done_title">강화도 여행</string>
     <string name="noti_in_progress_null">진행중인 약속이 없어요!</string>
     <string name="noti_done_null">완료된 약속이 없어요!</string>

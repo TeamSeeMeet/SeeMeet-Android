@@ -1,8 +1,11 @@
 package org.seemeet.seemeet.ui.registration
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Patterns
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -115,4 +118,22 @@ class RegisterActivity : AppCompatActivity() {
     private fun isNullorBlank(): Boolean { //하나라도 성립하면 true 반환 (= 4개 중에 하나라도 이상한게 있을 때)
         return binding.etName.text.isNullOrBlank() || binding.tvWarningEmail.isVisible || binding.tvWarningCheckpw.isVisible || binding.tvWarningPw.isVisible || binding.etEmailRegister.text.isNullOrBlank() || binding.etPw.text.isNullOrBlank() || binding.etCheckpw.text.isNullOrBlank()
     }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val focusView = currentFocus
+        if (focusView != null && ev != null) {
+            val rect = Rect()
+            focusView.getGlobalVisibleRect(rect)
+            val x = ev.x.toInt()
+            val y = ev.y.toInt()
+
+            if (!rect.contains(x, y)) {
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm?.hideSoftInputFromWindow(focusView.windowToken, 0)
+                focusView.clearFocus()
+            }
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
 }
