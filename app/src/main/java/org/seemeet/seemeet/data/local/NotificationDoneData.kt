@@ -5,12 +5,5 @@ data class NotificationDoneData(
     val isCanceled : Boolean,
     val appointmentTitle : String,
     val nameList : List<NotificationFriendData>,
-) {
-    data class DetailData(
-        val date : String,
-        val time : String,
-        val title : String,
-        val contents : String,
-    )
-}
+)
 
