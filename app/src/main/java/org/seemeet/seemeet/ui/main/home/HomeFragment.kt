@@ -48,8 +48,7 @@ class HomeFragment : Fragment() {
         SeeMeetSharedPreference.clearStorage()
         SeeMeetSharedPreference.setLogin(true)
         SeeMeetSharedPreference.setUserId(6)
-        SeeMeetSharedPreference.setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhbmRyb2lkMDFAYW5kcm9pZC5jb20iLCJuYW1lIjpudWxsLCJpZEZpcmViYXNlIjoiODlqaVprRlFMYVVPV2dSSzB6TU94NXFHeVY1MyIsImlhdCI6MTY0MjUxMjcyNSwiZXhwIjoxNjQ1MTA0NzI1LCJpc3MiOiJ3ZXNvcHQifQ.mxZIoUuwMYlRV9wkVq_BJAfypbsyuMqFksaRVrnqdtM")
-
+        SeeMeetSharedPreference.setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhbmRyb2lkMDFAYW5kcm9pZC5jb20iLCJuYW1lIjpudWxsLCJpZEZpcmViYXNlIjoiODlqaVprRlFMYVVPV2dSSzB6TU94NXFHeVY1MyIsImlhdCI6MTY0MjUxNjUzNywiZXhwIjoxNjQ1MTA4NTM3LCJpc3MiOiJ3ZXNvcHQifQ.lIGJGaaWExXwYO9wS1j4okvuXb_aoAlkuFNlxmwmbk8")
         return binding.root
     }
 
