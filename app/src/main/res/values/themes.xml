@@ -14,6 +14,8 @@
         <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
         <item name="android:includeFontPadding">false</item>
+
+        <item name="android:timePickerStyle">@style/TimePickerTheme</item>
     </style>
 
     <style name="Theme.SeeMeet.NoActionBar">
@@ -71,4 +73,7 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="TimePickerTheme" parent="android:Widget.Material.Light.TimePicker">
+        <item name="android:timePickerMode">spinner</item>
+    </style>
 </resources>
