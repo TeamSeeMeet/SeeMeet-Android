@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.data.local.ApplyFriendData
 import org.seemeet.seemeet.databinding.ItemApplySearchFriendBinding
-import java.util.*
 
 class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendViewHolder>() {
 
@@ -25,6 +24,11 @@ class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendVi
 
     fun addItem(data: ApplyFriendData) {
         applyfriendList.add(data)
+        notifyDataSetChanged()
+    }
+
+    fun sortItem(data: ApplyFriendData) {
+        applyfriendList.sortBy { it.name }
         notifyDataSetChanged()
     }
 

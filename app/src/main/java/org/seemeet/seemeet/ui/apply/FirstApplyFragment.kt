@@ -104,7 +104,14 @@ class FirstApplyFragment : Fragment() {
                                 R.drawable.ic_btn_remove,
                                 this.text.toString()
                             )
-                        ) //TODO: 아이템 순서대로 들어가게 해야함(이름 순) -> 지금은 그냥 뒤로 차례로 들어감
+                        )
+                        adapter.sortItem(
+                            ApplyFriendData(
+                                R.drawable.ic_btn_remove,
+                                this.text.toString()
+                            )
+                        )
+                    //TODO: 아이템 순서대로 들어가게 해야함(이름 순) -> 지금은 그냥 뒤로 차례로 들어감
                     }
                 })
             if (isNullorBlank()) { //셋 중 하나라도 작성 안 됐을 때
