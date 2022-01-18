@@ -6,31 +6,35 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.data.local.ApplyFriendData
 import org.seemeet.seemeet.databinding.ItemApplySearchFriendBinding
+import java.util.*
 
 class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendViewHolder>() {
 
     val applyfriendList = mutableListOf<ApplyFriendData>()
-    private var searchWord : String = ""
+    private var searchWord: String = ""
 
     private var listener: ((String) -> Unit)? = null
     fun setOnItemClickListener(listener: ((String) -> Unit)?) {
         this.listener = listener
     }
 
-    var mPosition =0
-    fun getPosition(): Int{
+    var mPosition = 0
+    fun getPosition(): Int {
         return mPosition
     }
-    fun addItem(data: ApplyFriendData){
+
+    fun addItem(data: ApplyFriendData) {
         applyfriendList.add(data)
         notifyDataSetChanged()
     }
-    fun removeItem(position:Int){
-        if(position>=0){
+
+    fun removeItem(position: Int) {
+        if (position >= 0) {
             applyfriendList.removeAt(position)
             notifyDataSetChanged()
         }
     }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -61,18 +65,18 @@ class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendVi
                 }
             }
 
-            if(data.name.startsWith(searchWord)) {
-                binding.itemApplySearchFriend.visibility= View.VISIBLE
-                binding.itemApplySearchFriend.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            }
-            else {
+            if (data.name.startsWith(searchWord)) {
+                binding.itemApplySearchFriend.visibility = View.VISIBLE
+                binding.itemApplySearchFriend.layoutParams.height =
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            } else {
                 binding.itemApplySearchFriend.visibility = View.GONE
                 binding.itemApplySearchFriend.layoutParams.height = 0
             }
         }
     }
 
-    fun setSearchWord(text : String) {
+    fun setSearchWord(text: String) {
         searchWord = text
         notifyDataSetChanged()
     }

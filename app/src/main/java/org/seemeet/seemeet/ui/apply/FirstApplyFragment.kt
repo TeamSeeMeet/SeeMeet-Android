@@ -69,7 +69,7 @@ class FirstApplyFragment : Fragment() {
         //키보드에서 완료 버튼 누르면
         binding.etToWho.setOnEditorActionListener { textView, i, keyEvent ->
 
-            if(!binding.etToWho.text.isNullOrBlank()){
+            if (!binding.etToWho.text.isNullOrBlank()) {
                 binding.etToWho.text.clear()
             }
             binding.tvWho.visibility = View.VISIBLE
@@ -80,7 +80,7 @@ class FirstApplyFragment : Fragment() {
 
         //아이템을 클릭했을 때
         adapter.setOnItemClickListener {
-           binding.chipGroup.addView(
+            binding.chipGroup.addView(
                 (layoutInflater.inflate(
                     R.layout.chip_layout,
                     null,
@@ -99,7 +99,12 @@ class FirstApplyFragment : Fragment() {
                         } else { //셋 다 작성했을 때
                             activeBtn()
                         }
-                        adapter.addItem(ApplyFriendData(R.drawable.ic_btn_remove,this.text.toString())) //TODO: 아이템 순서대로 들어가게 해야함(이름 순) -> 지금은 그냥 뒤로 차례로 들어감
+                        adapter.addItem(
+                            ApplyFriendData(
+                                R.drawable.ic_btn_remove,
+                                this.text.toString()
+                            )
+                        ) //TODO: 아이템 순서대로 들어가게 해야함(이름 순) -> 지금은 그냥 뒤로 차례로 들어감
                     }
                 })
             if (isNullorBlank()) { //셋 중 하나라도 작성 안 됐을 때
@@ -156,9 +161,9 @@ class FirstApplyFragment : Fragment() {
             }
             adapter.setSearchWord(binding.etToWho.text.toString())
 
-            if(binding.etToWho.text.isNullOrBlank()){
+            if (binding.etToWho.text.isNullOrBlank()) {
                 binding.tvWho.visibility = View.VISIBLE
-            }else binding.tvWho.visibility = View.INVISIBLE
+            } else binding.tvWho.visibility = View.INVISIBLE
         }
 
         binding.etTitle.addTextChangedListener {
