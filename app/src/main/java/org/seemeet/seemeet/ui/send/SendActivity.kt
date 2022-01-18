@@ -197,7 +197,7 @@ class SendActivity : AppCompatActivity() {
 
             dialogView.setButtonClickListener( object : SendConfirmDialogFragment.OnButtonClickListener {
                 override fun onConfirmNoClicked() {
-                    TODO("Not yet implemented")
+
                 }
 
                 override fun onConfirmYesClicked() {

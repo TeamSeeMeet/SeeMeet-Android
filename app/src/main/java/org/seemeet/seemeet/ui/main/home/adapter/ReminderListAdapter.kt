@@ -1,4 +1,4 @@
-package org.seemeet.seemeet.ui.main.adapter
+package org.seemeet.seemeet.ui.main.home.adapter
 
 import android.view.LayoutInflater
 import android.view.View
