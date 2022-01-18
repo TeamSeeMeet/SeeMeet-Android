@@ -12,11 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityLoginBinding
-<<<<<<< HEAD
 import org.seemeet.seemeet.ui.main.MainActivity
-=======
-import org.seemeet.seemeet.ui.MainActivity
->>>>>>> 77bc34388c57d53b2e15eaa31ae53c051d6d829d
+
 
 class LoginActivity : AppCompatActivity() {
     private val binding: ActivityLoginBinding by lazy {

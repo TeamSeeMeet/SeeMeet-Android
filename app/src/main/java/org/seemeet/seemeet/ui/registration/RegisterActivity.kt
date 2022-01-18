@@ -7,14 +7,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-<<<<<<< HEAD
 import org.seemeet.seemeet.ui.main.MainActivity
-=======
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import org.seemeet.seemeet.R
-import org.seemeet.seemeet.ui.MainActivity
->>>>>>> 77bc34388c57d53b2e15eaa31ae53c051d6d829d
 import org.seemeet.seemeet.databinding.ActivityRegisterBinding
 import java.util.regex.Pattern
 
