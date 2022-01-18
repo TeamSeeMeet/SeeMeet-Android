@@ -2,7 +2,7 @@ package org.seemeet.seemeet.ui.registration
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.seemeet.seemeet.ui.MainActivity
+import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.databinding.ActivityRegisterBinding
 
 class RegisterActivity : AppCompatActivity() {

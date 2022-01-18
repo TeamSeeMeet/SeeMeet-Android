@@ -1,14 +1,18 @@
-package org.seemeet.seemeet.ui
+package org.seemeet.seemeet.ui.main
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.databinding.ActivityMainBinding
 import org.seemeet.seemeet.ui.apply.ApplyActivity
+import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.ui.main.calendar.CalendarFragment
-import org.seemeet.seemeet.ui.main.HomeFragment
+import org.seemeet.seemeet.ui.main.home.HomeFragment
+import org.seemeet.seemeet.ui.receive.DialogHomeNoLoginFragment
+import org.seemeet.seemeet.ui.registration.LoginActivity
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
@@ -27,7 +31,10 @@ class MainActivity : AppCompatActivity() {
     private fun setBottomNavigation() {
         //가운데 플로팅 버튼 클릭 시
         binding.fabMain.setOnClickListener {
-            ApplyActivity.start(this)
+            if(SeeMeetSharedPreference.getLogin())
+                ApplyActivity.start(this)
+            else
+                setNoLoginDailog()
         }
 
         //양 옆 네비게이션 버튼 클릭 시
@@ -66,6 +73,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         transaction.commit()
+    }
+
+    private fun setNoLoginDailog(){
+
+        val dialogView = DialogHomeNoLoginFragment()
+        val context = this
+        dialogView.setButtonClickListener( object :  DialogHomeNoLoginFragment.OnButtonClickListener {
+            override fun onCancelClicked() {
+
+            }
+
+            override fun onLoginClicked() {
+                LoginActivity.start(context)
+            }
+
+        })
+        dialogView.show(supportFragmentManager, "send wish checkbox time")
+
     }
 
     companion object {

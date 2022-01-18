@@ -5,8 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import org.seemeet.seemeet.databinding.ActivityLoginBinding
-import org.seemeet.seemeet.ui.MainActivity
-import org.seemeet.seemeet.ui.friend.FriendActivity
+import org.seemeet.seemeet.ui.main.MainActivity
 
 class LoginActivity : AppCompatActivity() {
     private val binding: ActivityLoginBinding by lazy {
