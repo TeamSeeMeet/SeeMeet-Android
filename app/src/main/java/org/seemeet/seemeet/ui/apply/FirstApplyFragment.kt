@@ -68,6 +68,10 @@ class FirstApplyFragment : Fragment() {
 
         //키보드에서 완료 버튼 누르면
         binding.etToWho.setOnEditorActionListener { textView, i, keyEvent ->
+
+            if(!binding.etToWho.text.isNullOrBlank()){
+                binding.etToWho.text.clear()
+            }
             binding.tvWho.visibility = View.VISIBLE
             binding.etToWho.clearFocus()
             binding.rvFriend.visibility = View.INVISIBLE
@@ -110,7 +114,6 @@ class FirstApplyFragment : Fragment() {
     fun initFocusBackground() {
         binding.etToWho.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
-                binding.tvWho.visibility = View.INVISIBLE
                 binding.rvFriend.visibility = View.VISIBLE
                 binding.applyAppointment.visibility = View.INVISIBLE
                 binding.applyContent.visibility = View.INVISIBLE
@@ -147,10 +150,15 @@ class FirstApplyFragment : Fragment() {
         binding.etToWho.addTextChangedListener {
             if (isNullorBlank()) { //셋 중 하나라도 작성 안 됐을 때
                 unactiveBtn()
+
             } else { //셋 다 작성했을 때
                 activeBtn()
             }
             adapter.setSearchWord(binding.etToWho.text.toString())
+
+            if(binding.etToWho.text.isNullOrBlank()){
+                binding.tvWho.visibility = View.VISIBLE
+            }else binding.tvWho.visibility = View.INVISIBLE
         }
 
         binding.etTitle.addTextChangedListener {
