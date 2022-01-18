@@ -7,9 +7,7 @@
     <string name="login">로그인</string>
 
     <!-- Login -->
-    <string name="login_member_yet">아직 회원이 아니신가요?</string>
-    <string name="login_register"><u>회원가입</u></string>
-    <string name="login_search"><u>아이디/비밀번호 찾기</u></string>
+    <string name="login_register">회원가입</string>
 
     <!-- Register -->
     <string name="register_name">이름</string>
