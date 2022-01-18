@@ -1,9 +1,9 @@
 package org.seemeet.seemeet.ui.registration
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
-import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import android.view.MotionEvent
 import android.view.View
@@ -53,11 +53,10 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             if (!binding.etEmail.text.toString().equals("hi@nate.com")) { //아이디 틀렸을 때
                 CustomToast.createToast(this, "등록되지 않은 유저입니다.")?.show()
-            }else{ //아이디는 맞음
+            } else { //아이디는 맞음
                 if (!binding.etPw.text.toString().equals("1234567i")) {
                     CustomToast.createToast(this, "비밀번호가 틀렸습니다.")?.show()
-                }
-                else{ //비밀번호까지 다 맞을 때
+                } else { //비밀번호까지 다 맞을 때
                     MainActivity.start(this)
                 }
             }
@@ -111,5 +110,12 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         return super.dispatchTouchEvent(ev)
+    }
+
+    companion object {
+        fun start(context: Context) {
+            val intent = Intent(context, LoginActivity::class.java)
+            context.startActivity(intent)
+        }
     }
 }
