@@ -1,9 +1,13 @@
 package org.seemeet.seemeet.ui.registration
 
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
+import android.text.InputType
 import android.text.method.PasswordTransformationMethod
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import org.seemeet.seemeet.R
@@ -90,5 +94,22 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setBackgroundResource(R.drawable.rectangle_gray04_10)
         binding.btnLogin.isClickable = false // 버튼 클릭할수 없게
         binding.btnLogin.isEnabled = false // 버튼 비활성화
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val focusView = currentFocus
+        if (focusView != null && ev != null) {
+            val rect = Rect()
+            focusView.getGlobalVisibleRect(rect)
+            val x = ev.x.toInt()
+            val y = ev.y.toInt()
+
+            if (!rect.contains(x, y)) {
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm?.hideSoftInputFromWindow(focusView.windowToken, 0)
+                focusView.clearFocus()
+            }
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }
