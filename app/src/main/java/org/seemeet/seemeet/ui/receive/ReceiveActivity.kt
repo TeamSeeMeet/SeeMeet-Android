@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityReceiveBinding
-import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.ui.receive.adapter.ReceiveCheckListAdapter
 import org.seemeet.seemeet.ui.receive.adapter.ReceiveSchduleListAdapter
 import org.seemeet.seemeet.ui.viewmodel.ReceiveViewModel
@@ -238,7 +237,7 @@ class ReceiveActivity : AppCompatActivity() {
 
     companion object {
         fun start(context: Context) {
-            val intent = Intent(context, FriendActivity::class.java)
+            val intent = Intent(context, ReceiveActivity::class.java)
             context.startActivity(intent)
         }
     }

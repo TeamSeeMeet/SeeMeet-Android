@@ -7,9 +7,7 @@
     <string name="login">로그인</string>
 
     <!-- Login -->
-    <string name="login_member_yet">아직 회원이 아니신가요?</string>
-    <string name="login_register"><u>회원가입</u></string>
-    <string name="login_search"><u>아이디/비밀번호 찾기</u></string>
+    <string name="login_register">회원가입</string>
 
     <!-- Register -->
     <string name="register_name">이름</string>
@@ -79,6 +77,8 @@
     <string name="noti_in_progress_null">진행중인 약속이 없어요!</string>
     <string name="noti_done_null">완료된 약속이 없어요!</string>
 
+    <!-- detail -->
+    <string name="detail_day">2022년 11월 6일 일요일</string>
 
     <!-- Strings used for fragments for navigation -->
 

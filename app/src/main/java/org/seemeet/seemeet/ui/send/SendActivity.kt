@@ -14,7 +14,6 @@ import com.google.android.material.chip.Chip
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.local.InviData
 import org.seemeet.seemeet.databinding.ActivitySendBinding
-import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.ui.receive.SendCancelDialogFragment
 import org.seemeet.seemeet.ui.receive.SendConfirmDialogFragment
 import org.seemeet.seemeet.ui.send.adapter.SendInvitationAdapter
@@ -216,7 +215,7 @@ class SendActivity : AppCompatActivity() {
 
     companion object {
         fun start(context: Context) {
-            val intent = Intent(context, FriendActivity::class.java)
+            val intent = Intent(context, SendActivity::class.java)
             context.startActivity(intent)
         }
     }
