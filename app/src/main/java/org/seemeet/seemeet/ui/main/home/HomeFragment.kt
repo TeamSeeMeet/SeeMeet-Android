@@ -94,17 +94,10 @@ class HomeFragment : Fragment() {
 
         binding.apply{
             ivHomeFriend.setOnClickListener {
-                if(getLogin())
-                    FriendActivity.start(requireContext())
-                else
-                    setNoLoginDailog()
-
+                FriendActivity.start(requireContext())
             }
             ivHomeNoti.setOnClickListener {
-                if(getLogin())
-                    NotificationActivity.start(requireContext())
-                else
-                    setNoLoginDailog()
+                NotificationActivity.start(requireContext())
             }
 
             ivMypageMenu.setOnClickListener{
@@ -221,15 +214,19 @@ class HomeFragment : Fragment() {
         var text = ""
         var white = ""
         var imgId = 0
-
+        var random = (1..2).random()
         if(day == -1 ){
             flag = if(getLogin() && friendCnt != 0 ) 2
                     else 1
         } else {
-            if(day == 0 ) flag = 3
-            else if (day <= 14) flag = 4
-            else if (day <= 21) flag = 5
-            else flag = 6
+            if(random == 1) {
+                if (day == 0) flag = 3
+                else if (day <= 14) flag = 4
+                else if (day <= 21) flag = 5
+                else flag = 6
+            }else {
+                flag = 2
+            }
         }
 
         when(flag){

@@ -42,13 +42,14 @@ class MainActivity : AppCompatActivity() {
     private fun setBottomNavigation() {
         //가운데 플로팅 버튼 클릭 시
         binding.fabMain.setOnClickListener {
+
             if(SeeMeetSharedPreference.getLogin() && friendCnt != 0)
                 ApplyActivity.start(this)
-            else if (friendCnt == 0){
+            else if (!SeeMeetSharedPreference.getLogin()){
+                setNoLoginDailog()
+            } else {
                 val toast = Toast.makeText(applicationContext, "친구를 먼저 추가해보세요", Toast.LENGTH_LONG)
                 toast.show()
-            } else {
-                setNoLoginDailog()
             }
 
         }
@@ -112,7 +113,7 @@ class MainActivity : AppCompatActivity() {
     private fun setFriendListObserver() {
         viewmodel.friendList.observe(this){
                 friendList ->
-            Log.d("***********HOME_FIREND_COUNT", friendList.data.size.toString())
+            Log.d("***********HOME_FIREND_COUNT2", friendList.data.size.toString())
             friendCnt = friendList.data.size
         }
     }
