@@ -36,7 +36,8 @@ class FirstApplyFragment : Fragment() {
 
     private fun initClickListener() {
         binding.btnNext.setOnClickListener {
-            findNavController().navigate(R.id.action_firstApplyFragment_to_secondApplyFragment)
+            //findNavController().navigate(R.id.action_firstApplyFragment_to_secondApplyFragment)
+            SecondApplyActivity.start(requireContext())
         }
 
         binding.ivTitleClear.setOnClickListener {
