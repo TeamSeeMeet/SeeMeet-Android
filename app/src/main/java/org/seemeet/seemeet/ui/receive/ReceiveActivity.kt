@@ -35,6 +35,10 @@ class ReceiveActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_receive)
+
+        val invitationId =  intent.getIntExtra("invitationId", -1)
+        Log.d("********RECEIVE_INVITATION_ID", invitationId.toString())
+
         binding.viewModel = viewModel
         viewModel.setReceiveData()
 

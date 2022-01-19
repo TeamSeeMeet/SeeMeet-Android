@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -32,6 +33,9 @@ class SendActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_send)
         binding.viewModel = viewModel
 
+        val invitationId =  intent.getIntExtra("invitationId", -1)
+        Log.d("********SEND_INVITATION_ID", invitationId.toString())
+        
 
         viewModel.setSendInvitationList()
 

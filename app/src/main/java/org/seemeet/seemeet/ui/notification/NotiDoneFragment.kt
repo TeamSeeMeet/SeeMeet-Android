@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.seemeet.seemeet.data.local.NotificationDoneData
 import org.seemeet.seemeet.databinding.FragmentNotiDoneBinding
 import org.seemeet.seemeet.ui.notification.adapter.NotiDoneListAdapter
-import org.seemeet.seemeet.ui.viewmodel.NotiDoneViewModel
+import org.seemeet.seemeet.ui.viewmodel.NotiViewModel
 
 class NotiDoneFragment : Fragment() {
     private var _binding : FragmentNotiDoneBinding? = null
     val binding get() = _binding!!
 
-    private val viewmodel : NotiDoneViewModel by activityViewModels()
+    private val viewmodel : NotiViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
