@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.databinding.ActivityFriendBinding
 import org.seemeet.seemeet.ui.friend.adapter.FriendListAdapter
 import org.seemeet.seemeet.ui.viewmodel.FriendViewModel
@@ -25,8 +26,11 @@ class FriendActivity : AppCompatActivity() {
         binding = ActivityFriendBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.setFriendList()
-
+        if(SeeMeetSharedPreference.getLogin()) {
+            viewModel.requestFriendList()
+        } else {
+            setNullFriendList()
+        }
         setFriendAdapter()
         setFriendObserver()
         initClickListener()
@@ -54,13 +58,15 @@ class FriendActivity : AppCompatActivity() {
         binding.rvFriend.adapter = friendAdapter
     }
 
+
+
     // 옵저버
     private fun setFriendObserver() {
         viewModel.friendList.observe(this, Observer { friendList ->
             with(binding.rvFriend.adapter as FriendListAdapter) {
-                setFriendList(friendList)
+                setFriendList(friendList.data)
 
-                if (friendList.isEmpty()) {
+                if (friendList.data.isEmpty()) {
                     binding.clFriendNull.visibility = View.VISIBLE
                 } else {
                     binding.clFriendNull.visibility = View.GONE
@@ -68,6 +74,10 @@ class FriendActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    private fun setNullFriendList() {
+        binding.clFriendNull.visibility = View.VISIBLE
     }
 
     private fun initClickListener() {
