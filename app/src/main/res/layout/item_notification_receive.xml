@@ -52,7 +52,7 @@
             android:id="@+id/tv_receive_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:text="@{ingData.msg}"
             android:textColor="@color/gray06"
@@ -64,9 +64,8 @@
             android:id="@+id/cg_receive_friend_list"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_receive_msg"
             app:layout_constraintTop_toBottomOf="@id/tv_receive" >
             </com.google.android.material.chip.ChipGroup>
     </androidx.constraintlayout.widget.ConstraintLayout>
