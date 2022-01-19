@@ -180,7 +180,7 @@ class HomeFragment : Fragment() {
 
         viewmodel.lastPlan.observe(viewLifecycleOwner){
             lastPlan ->
-                if(lastPlan.date.isBlank()){
+                if(lastPlan.date.isNullOrEmpty()){
                     setHomeBanner(-1)
                 } else {
                     setHomeBanner(lastPlan.date.calDday())
@@ -236,7 +236,7 @@ class HomeFragment : Fragment() {
                 imgId = R.drawable.img_illust_5
             }
             2 -> {
-                text = "친구가 당신의 약속신청을\n 기다리고 있어요!"
+                text = "친구가 당신의 약속 신청을\n 기다리고 있어요!"
                 white = "약속 신청"
                 imgId = R.drawable.img_illust_4
             }
@@ -266,7 +266,7 @@ class HomeFragment : Fragment() {
         val start = text.indexOf(white)
         val end = start + white.length
 
-        Log.d("*************HOME_BANNER_SETTING_INDEX", "$start, $end, ${text.length}")
+        Log.d("*************HOME_BANNER_SETTING_INDEX", "$flag, $start, $end, ${text.length}")
         val ss = SpannableStringBuilder(text)
         ss.setSpan(ForegroundColorSpan(Color.WHITE), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
         ss.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

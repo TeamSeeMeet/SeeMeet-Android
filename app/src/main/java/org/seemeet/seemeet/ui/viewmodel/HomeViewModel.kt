@@ -81,8 +81,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         try {
             val month = YearMonth.now().monthValue
             val year = YearMonth.now().year
-           /* val day = LocalDate.now().dayOfMonth*/
-            val day = 22
+            val day = LocalDate.now().dayOfMonth
             _lastPlan.postValue(RetrofitBuilder.planService.getLastPlan(year, month, day, getToken()).data)
         } catch (e: HttpException) {
             e.printStackTrace()
