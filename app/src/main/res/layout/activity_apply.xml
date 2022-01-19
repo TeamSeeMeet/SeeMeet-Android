@@ -23,6 +23,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/tv_start_timepicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_gallery_radius_20"
+        android:clickable="true"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/tv_timepicker"
+        app:layout_constraintTop_toBottomOf="@+id/tv_timepicker" />
+
     <ImageView
         android:id="@+id/iv_x"
         android:layout_width="wrap_content"
@@ -33,6 +43,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_x" />
+
+    <TextView
+        android:id="@+id/tv_timepicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_gallery_radius_20"
+        android:clickable="true"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/container_apply"
+        app:layout_constraintEnd_toStartOf="@+id/tv_apply"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container_apply"
