@@ -3,120 +3,165 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_apply"
-            android:layout_width="wrap_content"
-            android:layout_height="58dp"
-            android:fontFamily="@font/spoqa_han_sans_neo_bold"
-            android:gravity="center_vertical"
-            android:letterSpacing="-0.01"
-            android:lineSpacingExtra="14sp"
-            android:text="약속 신청"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_x"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:clickable="true"
-            android:padding="17dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_x" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_apply"
+                android:layout_width="wrap_content"
+                android:layout_height="58dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                android:gravity="center_vertical"
+                android:letterSpacing="-0.01"
+                android:lineSpacingExtra="14sp"
+                android:text="약속 신청"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:padding="17dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_x" />
+
+            <TextView
+                android:id="@+id/tv_top_date"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="2022.01.06 오전 11:00 - 오전 11:00"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_add"
+                app:layout_constraintEnd_toStartOf="@+id/btn_add"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btn_add" />
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_apply">
+
+            </Button>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray02"
+                app:layout_constraintTop_toBottomOf="@id/tv_top_date">
+
+                <TextView
+                    android:id="@+id/tv_current_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/din_pro_bold"
+                    android:textColor="@color/pink"
+                    android:textSize="22sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="2019년" />
+
+                <TextView
+                    android:id="@+id/tv_current_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/din_pro_bold"
+                    android:textColor="@color/pink"
+                    android:textSize="22sp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_current_year"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1월" />
+
+                <com.kizitonwose.calendarview.CalendarView
+                    android:id="@+id/calendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    app:cv_dayViewResource="@layout/item_picker_date"
+                    app:cv_inDateStyle="allMonths"
+                    app:cv_maxRowCount="1"
+                    app:cv_orientation="horizontal"
+                    app:cv_outDateStyle="none"
+                    app:cv_scrollMode="paged"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_current_month">
+
+                </com.kizitonwose.calendarview.CalendarView>
+
+                <TextView
+                    android:id="@+id/tv_selected_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                    android:textAllCaps="true"
+                    android:textColor="@color/gray06"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/calendar"
+                    tools:text="1월 14일 목요일" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_calendar_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_selected_day" />
+
+                <TextView
+                    android:id="@+id/tv_empty_promise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                    android:text="일정이없어요!"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_selected_day" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            layout="@layout/apply_bottom_sheet"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gray02"
-            app:layout_constraintTop_toBottomOf="@id/tv_apply">
+            android:layout_gravity="bottom"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <TextView
-                android:id="@+id/tv_current_year"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/din_pro_bold"
-                android:textColor="@color/pink"
-                android:textSize="22sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="2019년" />
-
-            <TextView
-                android:id="@+id/tv_current_month"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/din_pro_bold"
-                android:textColor="@color/pink"
-                android:textSize="22sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_current_year"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="1월" />
-
-            <com.kizitonwose.calendarview.CalendarView
-                android:id="@+id/calendar"
+            <Button
+                android:id="@+id/btn_apply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="17dp"
-                android:layout_marginRight="17dp"
-                app:cv_dayViewResource="@layout/item_picker_date"
-                app:cv_inDateStyle="allMonths"
-                app:cv_maxRowCount="1"
-                app:cv_orientation="horizontal"
-                app:cv_outDateStyle="none"
-                app:cv_scrollMode="paged"
-                app:layout_constraintTop_toBottomOf="@+id/tv_current_month">
-
-            </com.kizitonwose.calendarview.CalendarView>
-
-            <TextView
-                android:id="@+id/tv_selected_day"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:fontFamily="@font/spoqa_han_sans_neo_bold"
-                android:textAllCaps="true"
-                android:textColor="@color/gray06"
-                android:textSize="16sp"
-                app:layout_constraintTop_toBottomOf="@+id/calendar"
-                tools:text="1월 14일 목요일" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_calendar_event"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_selected_day" />
-
-            <TextView
-                android:id="@+id/tv_empty_promise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                android:text="일정이없어요!"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_selected_day" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

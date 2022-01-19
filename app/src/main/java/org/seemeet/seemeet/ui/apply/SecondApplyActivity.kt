@@ -5,16 +5,20 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.kizitonwose.calendarview.utils.yearMonth
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.local.StartEndDateData
 import org.seemeet.seemeet.databinding.ActivitySecondApplyBinding
 import org.seemeet.seemeet.databinding.ItemPickerDateBinding
 import org.seemeet.seemeet.ui.apply.adapter.PickerEventAdapter
+import org.seemeet.seemeet.ui.apply.adapter.SelectedDateAdapter
 import org.seemeet.seemeet.ui.main.calendar.CalendarEvent
 import org.seemeet.seemeet.ui.main.calendar.UserData
 import org.seemeet.seemeet.util.daysOfWeekFromLocale
@@ -31,7 +35,11 @@ class SecondApplyActivity : AppCompatActivity() {
         ActivitySecondApplyBinding.inflate(layoutInflater)
     }
 
+    private val bottomSheet : ConstraintLayout by lazy { findViewById<ConstraintLayout>(R.id.bottom_sheet) }
+    lateinit var sheetBehavior : BottomSheetBehavior<ConstraintLayout>
+
     private val eventsAdapter = PickerEventAdapter()
+    private val selectedAdapter = SelectedDateAdapter()
 
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
@@ -45,14 +53,20 @@ class SecondApplyActivity : AppCompatActivity() {
     private val events = dummyDate().groupBy { it.date }
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        sheetBehavior=BottomSheetBehavior.from(bottomSheet)
 
         initClickListener()
 
         binding.apply {
             rvCalendarEvent.adapter = eventsAdapter
+            btnAdd.setOnClickListener {
+                addSelectedDate()
+            }
         }
 
         val daysOfWeek = daysOfWeekFromLocale()
@@ -201,6 +215,10 @@ class SecondApplyActivity : AppCompatActivity() {
         list.add(CalendarEvent(1, "대방어대방어", "2022-01-19", "11:00", "13:00", userData))
         list.add(CalendarEvent(1, "대방어대방어", "2022-01-19", "11:00", "13:00", userData))
         return list
+    }
+
+    private fun addSelectedDate() {
+        selectedAdapter.addItem(StartEndDateData("2022-01-20", "11:00", "13:00"))
     }
 
     companion object {
