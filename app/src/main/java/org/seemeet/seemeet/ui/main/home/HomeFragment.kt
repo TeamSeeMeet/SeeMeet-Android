@@ -53,11 +53,14 @@ class HomeFragment : Fragment() {
         SeeMeetSharedPreference.setLogin(true)
         SeeMeetSharedPreference.setUserId(6)
 
-        //김안드 토큰
+        //김안드 토큰 친구 있 _ id 6
         SeeMeetSharedPreference.setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhbmRyb2lkMDFAYW5kcm9pZC5jb20iLCJuYW1lIjpudWxsLCJpZEZpcmViYXNlIjoiODlqaVprRlFMYVVPV2dSSzB6TU94NXFHeVY1MyIsImlhdCI6MTY0MjUxNjUzNywiZXhwIjoxNjQ1MTA4NTM3LCJpc3MiOiJ3ZXNvcHQifQ.lIGJGaaWExXwYO9wS1j4okvuXb_aoAlkuFNlxmwmbk8")
 
-        //이코트 토큰
+        //이코트 토큰 친구 없 _ id 7
         //SeeMeetSharedPreference.setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJhbmRyb2lkMDJAYW5kcm9pZC5jb20iLCJuYW1lIjpudWxsLCJpZEZpcmViYXNlIjoiMzJ3SkN3S0dBYVB5RFU4eVRxczN5TGlUeTJiMiIsImlhdCI6MTY0MjUxMjk0NSwiZXhwIjoxNjQ1MTA0OTQ1LCJpc3MiOiJ3ZXNvcHQifQ.Tyuqdf3PYswKJcVekUJZ0KZ2SA2mZ1kevTJEENhthl8")
+
+        //최구글 토큰 친구 없, 약속 없 id 8
+        //SeeMeetSharedPreference.setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJhbmRyb2lkMDNAYW5kcm9pZC5jb20iLCJuYW1lIjpudWxsLCJpZEZpcmViYXNlIjoiR21xMUF5cElFNFRVWHR2SDYzSFNGdmxibE9OMiIsImlhdCI6MTY0MjUxMzAyNywiZXhwIjoxNjQ1MTA1MDI3LCJpc3MiOiJ3ZXNvcHQifQ._XKs792zcgzL47RjGTyQDaeVnHS_thz2euerMg1Nnzw")
 
         return binding.root
     }
@@ -68,7 +71,7 @@ class HomeFragment : Fragment() {
         initNaviDrawer()
         // (1) 더미데이터 셋팅 _ 이후 서버통신 시 교체
 
-        if(SeeMeetSharedPreference.getLogin()) {
+        if(getLogin()) {
             //로그인 했을 경우 이것저것 서버통신 후 뷰모델 쪽에서 homebanner도 호출하자..
             //viewmodel.setReminderList()
             viewmodel.requestFriendList()
@@ -91,14 +94,14 @@ class HomeFragment : Fragment() {
 
         binding.apply{
             ivHomeFriend.setOnClickListener {
-                if(SeeMeetSharedPreference.getLogin())
+                if(getLogin())
                     FriendActivity.start(requireContext())
                 else
                     setNoLoginDailog()
 
             }
             ivHomeNoti.setOnClickListener {
-                if(SeeMeetSharedPreference.getLogin())
+                if(getLogin())
                     NotificationActivity.start(requireContext())
                 else
                     setNoLoginDailog()
@@ -170,11 +173,11 @@ class HomeFragment : Fragment() {
             }
         }
 
-        viewmodel.friendList.observe(viewLifecycleOwner){
+        /*viewmodel.friendList.observe(viewLifecycleOwner){
             friendList ->
                 Log.d("***********HOME_FIREND_COUNT", friendList.data.size.toString())
                 friendCnt = friendList.data.size
-        }
+        }*/
 
 
 

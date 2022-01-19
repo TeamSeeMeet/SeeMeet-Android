@@ -40,10 +40,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         get() = _lastPlan
 
 
-    private val _lastConfirmedInvitation = MutableLiveData<ConfirmedAndCanceld>()
-    val lastConfirmedInvitation : LiveData<ConfirmedAndCanceld>
-        get() = _lastConfirmedInvitation
-
 
     //서버통신
     //  친구 수 가져오기.
@@ -66,15 +62,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // 확정된 약속 중 최근 거 하나 가져오기.
-    fun requestLastConfirmedInvitation() = viewModelScope.launch (Dispatchers.IO){
-        try {
-            _lastConfirmedInvitation.postValue(RetrofitBuilder.invitationService.
-            getAllInvitationList(getToken()).data.confirmedAndCanceld[0])
-        } catch (e: HttpException) {
-            e.printStackTrace()
-        }
-    }
 
     // 마지막 약속 가지고 오기
     fun requestLastPlanData() = viewModelScope.launch (Dispatchers.IO){
