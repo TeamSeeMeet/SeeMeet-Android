@@ -102,130 +102,153 @@
             android:layout_marginStart="4dp"
             app:layout_constraintBottom_toBottomOf="@+id/et_to_who"
             app:layout_constraintEnd_toEndOf="@+id/et_to_who"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/iv_search"
-            app:layout_constraintTop_toTopOf="@+id/et_to_who" />
-
-        <TextView
-            android:id="@+id/apply_appointment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="43dp"
-            android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            android:text="약속의 "
-            android:textColor="#1c1c1c"
-            android:textSize="18sp"
-            android:textStyle="normal"
-            app:layout_constraintStart_toStartOf="@+id/apply_apply"
-            app:layout_constraintTop_toBottomOf="@+id/et_to_who" />
-
-        <TextView
-            android:id="@+id/apply_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            android:text="내용"
-            android:textColor="@color/pink"
-            android:textSize="18sp"
-            android:textStyle="normal"
-            app:layout_constraintStart_toEndOf="@+id/apply_appointment"
-            app:layout_constraintTop_toTopOf="@+id/apply_appointment" />
-
-        <TextView
-            android:id="@+id/apply_write"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            android:text="을 작성하세요"
-            android:textColor="#1c1c1c"
-            android:textSize="18sp"
-            android:textStyle="normal"
-            app:layout_constraintStart_toEndOf="@+id/apply_content"
-            app:layout_constraintTop_toTopOf="@+id/apply_content" />
+            app:layout_constraintTop_toTopOf="@+id/et_to_who"
+            app:layout_constraintVertical_bias="0.0" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_content"
+            android:id="@+id/cl_content_bg"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="328:255"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/rectangle_gray_10"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/apply_appointment">
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/et_to_who">
 
-            <EditText
-                android:id="@+id/et_title"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:background="@null"
+            <TextView
+                android:id="@+id/apply_appointment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="43dp"
                 android:fontFamily="@font/spoqa_han_sans_neo_medium"
-                android:hint="제목"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:maxLength="20"
-                android:maxLines="1"
-                android:paddingStart="25dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:singleLine="true"
-                android:textColorHint="#a3a3a3"
-                android:textSize="14sp"
+                android:text="약속의 "
+                android:textColor="#1c1c1c"
+                android:textSize="18sp"
                 android:textStyle="normal"
-                app:layout_constraintEnd_toStartOf="@+id/iv_title_clear"
+                android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-            <ImageView
-                android:id="@+id/iv_title_clear"
+            <TextView
+                android:id="@+id/apply_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                android:text="내용"
+                android:textColor="@color/pink"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                app:layout_constraintStart_toEndOf="@+id/apply_appointment"
+                app:layout_constraintTop_toTopOf="@+id/apply_appointment" />
+
+            <TextView
+                android:id="@+id/apply_write"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                android:text="을 작성하세요"
+                android:textColor="#1c1c1c"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                app:layout_constraintStart_toEndOf="@+id/apply_content"
+                app:layout_constraintTop_toTopOf="@+id/apply_content" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_content"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginBottom="2dp"
-                android:clickable="true"
-                android:src="@drawable/ic_btn_remove"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toTopOf="@+id/apply_content_view"
+                app:layout_constraintDimensionRatio="328:255"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="85dp"
+                android:background="@drawable/rectangle_gray_10"
+                app:layout_constraintBottom_toBottomOf="@id/apply_line"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/apply_appointment">
+
+                <EditText
+                    android:id="@+id/et_title"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:background="@null"
+                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                    android:hint="제목"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:paddingStart="25dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColorHint="#a3a3a3"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_title_clear"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <ImageView
+                    android:id="@+id/iv_title_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="2dp"
+                    android:clickable="true"
+                    android:src="@drawable/ic_btn_remove"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toTopOf="@+id/apply_content_view"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/apply_content_view"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="14dp"
+                    android:background="#e7e7e7"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_title" />
+
+                <EditText
+                    android:id="@+id/et_detail"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@null"
+                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                    android:gravity="top"
+                    android:hint="약속 상세 내용"
+                    android:inputType="textMultiLine|textPersonName"
+                    android:paddingStart="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="8dp"
+                    android:scrollbars="vertical"
+                    android:textColorHint="#a3a3a3"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/cl_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/apply_content_view" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
-                android:id="@+id/apply_content_view"
+                android:id="@+id/apply_line"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_marginStart="14dp"
-                android:layout_marginEnd="14dp"
                 android:background="#e7e7e7"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_title" />
-
-            <EditText
-                android:id="@+id/et_detail"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="9dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="12dp"
-                android:background="@null"
-                android:fontFamily="@font/spoqa_han_sans_neo_medium"
-                android:gravity="top"
-                android:hint="약속 상세 내용"
-                android:inputType="textMultiLine|textPersonName"
-                android:paddingStart="16dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="8dp"
-                android:scrollbars="vertical"
-                android:textColorHint="#a3a3a3"
-                android:textSize="14sp"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/cl_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/apply_content_view" />
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_friend"
@@ -238,34 +261,28 @@
             app:layout_constraintTop_toBottomOf="@+id/et_to_who"
             tools:listitem="@layout/item_apply_search_friend" />
 
-        <View
-            android:id="@+id/apply_line"
-            android:layout_width="0dp"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="85dp"
-            android:background="#e7e7e7"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_content" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_next"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="28dp"
             android:background="@drawable/rectangle_gray_radius_10"
             android:clickable="true"
             android:enabled="false"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:text="다음"
             android:textColor="#ffffff"
             android:textSize="16sp"
             android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/apply_line" />
-
+            app:layout_constraintTop_toBottomOf="@id/cl_content_bg" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
