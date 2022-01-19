@@ -2,6 +2,7 @@ package org.seemeet.seemeet.data.model.response.friend
 
 import com.google.gson.annotations.SerializedName
 
+//친구 목록 요청
 data class ResponseFriendList(
 
     @SerializedName("data")

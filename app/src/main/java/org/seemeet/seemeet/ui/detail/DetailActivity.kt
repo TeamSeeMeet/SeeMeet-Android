@@ -3,6 +3,7 @@ package org.seemeet.seemeet.ui.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -19,6 +20,10 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // 넘어온 planId 가지고 서버랑 통신하기.
+        val planId =  intent.getIntExtra("planId", -1)
+        Log.d("********DETAIL_PLANID", planId.toString())
 
         viewModel.setDetailFriendList()
         initClickListener()

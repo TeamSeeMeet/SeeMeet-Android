@@ -5,8 +5,8 @@
     <data>
         <!-- 여기에 보통 (item의 경우 adapter)에서 받은 데이터 값이 들어감 _ 아래에서 @{reminderData.~} 값으로 내용 삽입가능.-->
         <variable
-            name="reminderData"
-            type="org.seemeet.seemeet.data.local.ReminderData" />
+            name="comePlanData"
+            type="org.seemeet.seemeet.data.model.response.plan.ComePlanData" />
 
     </data>
 
@@ -42,7 +42,7 @@
             android:paddingBottom="3dp"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:text="@{reminderData.dday}"
+            setDday="@{comePlanData.date}"
             android:textColor="@color/white"
             tools:text="D-5"
             android:layout_marginBottom="10dp"
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="11dp"
-            android:text="@{reminderData.title}"
+            android:text="@{comePlanData.invitationTitle}"
             android:textSize="14sp"
             tools:text="대방어 데이"
             android:textColor="@color/gray06"
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="25dp"
-            android:text="@{reminderData.date}"
+            setMonthDayDate="@{comePlanData.date}"
             android:textSize="14sp"
             tools:text="1월 15일"
             android:textColor="@color/gray06"
