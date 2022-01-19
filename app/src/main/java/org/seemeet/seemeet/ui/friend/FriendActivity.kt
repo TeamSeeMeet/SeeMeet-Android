@@ -14,6 +14,8 @@ import androidx.lifecycle.Observer
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.databinding.ActivityFriendBinding
 import org.seemeet.seemeet.ui.friend.adapter.FriendListAdapter
+import org.seemeet.seemeet.ui.receive.DialogHomeNoLoginFragment
+import org.seemeet.seemeet.ui.registration.LoginActivity
 import org.seemeet.seemeet.ui.viewmodel.FriendViewModel
 
 class FriendActivity : AppCompatActivity() {
@@ -59,7 +61,6 @@ class FriendActivity : AppCompatActivity() {
     }
 
 
-
     // 옵저버
     private fun setFriendObserver() {
         viewModel.friendList.observe(this, Observer { friendList ->
@@ -82,8 +83,13 @@ class FriendActivity : AppCompatActivity() {
 
     private fun initClickListener() {
         binding.ivAddFriend.setOnClickListener {
-            val nextIntent = Intent(this, AddFriendActivity::class.java)
-            startActivity(nextIntent)
+
+            if(SeeMeetSharedPreference.getLogin()){
+                val nextIntent = Intent(this, AddFriendActivity::class.java)
+                startActivity(nextIntent)
+            }
+            else
+                setNoLoginDailog()
         }
 
         binding.ivFriendBack.setOnClickListener {
@@ -104,7 +110,21 @@ class FriendActivity : AppCompatActivity() {
         }
     }
 
+    private fun setNoLoginDailog(){
 
+        val dialogView = DialogHomeNoLoginFragment()
+
+        dialogView.setButtonClickListener( object :  DialogHomeNoLoginFragment.OnButtonClickListener {
+            override fun onCancelClicked() {
+            }
+            override fun onLoginClicked() {
+                val nextIntent = Intent(this@FriendActivity, LoginActivity::class.java)
+                startActivity(nextIntent)
+            }
+        })
+        dialogView.show(supportFragmentManager, "send wish checkbox time")
+
+    }
 
     companion object {
         fun start(context: Context) {
