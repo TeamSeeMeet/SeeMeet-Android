@@ -13,5 +13,6 @@ object RetrofitBuilder {
 
     val planService: PlanService = seeMeetRetrofit.create(PlanService::class.java)
     val friendService: FriendService = seeMeetRetrofit.create(FriendService::class.java)
+    val invitationService : InvitationService = seeMeetRetrofit.create(InvitationService::class.java)
 
 }
