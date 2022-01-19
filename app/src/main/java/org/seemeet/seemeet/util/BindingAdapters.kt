@@ -99,4 +99,26 @@ object BindingAdapters {
         textview.text = text.TimeParsing()
     }
 
+    @JvmStatic
+    @BindingAdapter("setMonthDayDate")
+    fun setMonthDayDate(textview: TextView, text: String) {
+        // O월 O일 꼴로 파싱함.
+        textview.text = text.monthDayParsing()
+    }
+
+    @JvmStatic
+    @BindingAdapter("setDday")
+    fun setDday(textview: TextView, text: String) {
+        text.calDday().run{
+            if(text.calDday() == 0)
+                textview.text = "D-DAY"
+            else
+                textview.text = "D-$this"
+        }
+
+
+    }
+
+
+
 }

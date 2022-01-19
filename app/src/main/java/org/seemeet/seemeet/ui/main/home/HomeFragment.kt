@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.SeeMeetSharedPreference.getLogin
 import org.seemeet.seemeet.data.local.ReminderData
 import org.seemeet.seemeet.databinding.FragmentHomeBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
@@ -30,12 +31,15 @@ import org.seemeet.seemeet.ui.receive.DialogHomeNoLoginFragment
 import org.seemeet.seemeet.ui.receive.ReceiveNoDialogFragment
 import org.seemeet.seemeet.ui.registration.LoginActivity
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
+import org.seemeet.seemeet.util.calDday
+import java.time.YearMonth
 
 class HomeFragment : Fragment() {
     private var _binding : FragmentHomeBinding? = null
     val binding get() = _binding!!
 
     private val viewmodel : HomeViewModel by activityViewModels()
+    var friendCnt : Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +52,13 @@ class HomeFragment : Fragment() {
         SeeMeetSharedPreference.clearStorage()
         SeeMeetSharedPreference.setLogin(true)
         SeeMeetSharedPreference.setUserId(6)
+
+        //김안드 토큰
         SeeMeetSharedPreference.setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhbmRyb2lkMDFAYW5kcm9pZC5jb20iLCJuYW1lIjpudWxsLCJpZEZpcmViYXNlIjoiODlqaVprRlFMYVVPV2dSSzB6TU94NXFHeVY1MyIsImlhdCI6MTY0MjUxNjUzNywiZXhwIjoxNjQ1MTA4NTM3LCJpc3MiOiJ3ZXNvcHQifQ.lIGJGaaWExXwYO9wS1j4okvuXb_aoAlkuFNlxmwmbk8")
+
+        //이코트 토큰
+        //SeeMeetSharedPreference.setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJhbmRyb2lkMDJAYW5kcm9pZC5jb20iLCJuYW1lIjpudWxsLCJpZEZpcmViYXNlIjoiMzJ3SkN3S0dBYVB5RFU4eVRxczN5TGlUeTJiMiIsImlhdCI6MTY0MjUxMjk0NSwiZXhwIjoxNjQ1MTA0OTQ1LCJpc3MiOiJ3ZXNvcHQifQ.Tyuqdf3PYswKJcVekUJZ0KZ2SA2mZ1kevTJEENhthl8")
+
         return binding.root
     }
 
@@ -60,12 +70,13 @@ class HomeFragment : Fragment() {
 
         if(SeeMeetSharedPreference.getLogin()) {
             //로그인 했을 경우 이것저것 서버통신 후 뷰모델 쪽에서 homebanner도 호출하자..
-            viewmodel.setReminderList()
+            //viewmodel.setReminderList()
             viewmodel.requestFriendList()
-            viewmodel.setHomeBanner(2)
+            viewmodel.requestComePlanList()
+            viewmodel.requestLastPlanData()
         } else {
             //안 했을 경우.
-            viewmodel.setHomeBanner(1)
+            setHomeBanner(-1)
             setNoReminderList()
         }
 
@@ -124,9 +135,10 @@ class HomeFragment : Fragment() {
         reminderListAdapter.setItemClickListener(object: ReminderListAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
                 Log.d("****************home_reminder_title_click_position", "${v.id}/${position}")
-                val rd : ReminderData = viewmodel.reminderList.value!!.get(position)
+                //val rd : ReminderData = viewmodel.reminderList.value!!.get(position)
+                val comePlanId = viewmodel.comePlanList.value!!.data.get(position).planId
                 val intent = Intent(requireContext(), DetailActivity::class.java)
-                intent.putExtra("detail_title", rd.title)
+                intent.putExtra("planId", comePlanId)
                 startActivity(intent)
             }
         })
@@ -136,7 +148,7 @@ class HomeFragment : Fragment() {
 
     // 옵저버 _ 위에서 (1)로 데이터 넣을 경우 옵저버가 관찰하다가 업데이트함.
     private fun setViewModelObserve() {
-        viewmodel.reminderList.observe(viewLifecycleOwner){
+        /*viewmodel.reminderList.observe(viewLifecycleOwner){
             reminderList-> with(binding.rvHomeReminder.adapter as ReminderListAdapter){
                 //어댑터 내에서 notifyDataSetChanged() 해주는 역할의 함수
                 setReminder(reminderList)
@@ -145,17 +157,34 @@ class HomeFragment : Fragment() {
                     setNoReminderList()
                 }
              }
+        }*/
+        viewmodel.comePlanList.observe(viewLifecycleOwner) { comePlanList ->
+            with(binding.rvHomeReminder.adapter as ReminderListAdapter) {
+                //어댑터 내에서 notifyDataSetChanged() 해주는 역할의 함수
+
+                setReminder(comePlanList.data)
+
+                if (comePlanList.data.isEmpty()) {
+                    setNoReminderList()
+                }
+            }
         }
 
         viewmodel.friendList.observe(viewLifecycleOwner){
             friendList ->
                 Log.d("***********HOME_FIREND_COUNT", friendList.data.size.toString())
+                friendCnt = friendList.data.size
         }
 
-        viewmodel.homeBanner.observe(viewLifecycleOwner){
-            homeBanner->
-            Log.d("*************HOME_BANNER", homeBanner.toString())
-            setHomeBanner(homeBanner, 0)
+
+
+        viewmodel.lastPlan.observe(viewLifecycleOwner){
+            lastPlan ->
+                if(lastPlan.date.isBlank()){
+                    setHomeBanner(-1)
+                } else {
+                    setHomeBanner(lastPlan.date.calDday())
+                }
         }
 
     }
@@ -183,10 +212,23 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun setHomeBanner(flag : Int, day : Int){
+    private fun setHomeBanner(day : Int){
+
+        var flag = -1
         var text = ""
         var white = ""
         var imgId = 0
+
+        if(day == -1 ){
+            flag = if(getLogin() && friendCnt != 0 ) 2
+                    else 1
+        } else {
+            if(day == 0 ) flag = 3
+            else if (day <= 14) flag = 4
+            else if (day <= 21) flag = 5
+            else flag = 6
+        }
+
         when(flag){
             1 -> {
                 text = "씨밋과 함께\n약속을 잡아볼까요?"

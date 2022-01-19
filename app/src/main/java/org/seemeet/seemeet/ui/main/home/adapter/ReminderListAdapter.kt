@@ -5,18 +5,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.data.local.ReminderData
+import org.seemeet.seemeet.data.model.response.plan.ComePlanData
 import org.seemeet.seemeet.databinding.ItemHomeReminderBinding
 
 class ReminderListAdapter :RecyclerView.Adapter<ReminderListAdapter.ReminderViewHolder>() {
 
-    private var reminderList = emptyList<ReminderData>()
+    private var reminderList = emptyList<ComePlanData>()
 
     class ReminderViewHolder(
         private val binding : ItemHomeReminderBinding
     ): RecyclerView.ViewHolder(binding.root){
-        fun bind(reminderData: ReminderData){
+        /*fun bind(reminderData: ReminderData){
             // item home reminder 레이아웃에 있는 data 값에 해당 데이터 삽입 (data Binding)
             binding.reminderData = reminderData
+        }*/
+        fun bind(comePlanData: ComePlanData){
+            // item home reminder 레이아웃에 있는 data 값에 해당 데이터 삽입 (data Binding)
+            binding.comePlanData= comePlanData
         }
     }
 
@@ -39,8 +44,8 @@ class ReminderListAdapter :RecyclerView.Adapter<ReminderListAdapter.ReminderView
 
     override fun getItemCount(): Int = reminderList.size
 
-    fun setReminder(reminderList : List<ReminderData>){
-        this.reminderList = reminderList
+    fun setReminder(comePlanList : List<ComePlanData>){
+        this.reminderList = comePlanList
         notifyDataSetChanged()
     }
 
