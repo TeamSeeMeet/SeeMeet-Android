@@ -1,7 +1,7 @@
 package org.seemeet.seemeet.data.api
 
 import org.seemeet.seemeet.data.model.request.friend.RequestAddFriendData
-import org.seemeet.seemeet.data.model.request.friend.RequestUserList
+import org.seemeet.seemeet.data.model.request.friend.RequestUserData
 import org.seemeet.seemeet.data.model.response.friend.ResponseAddFriendData
 import org.seemeet.seemeet.data.model.response.friend.ResponseFriendList
 import org.seemeet.seemeet.data.model.response.friend.ResponseUserList
@@ -21,7 +21,7 @@ interface FriendService {
     @POST("friend/search")
     suspend fun searchUserList(
         @Header("accesstoken") token : String,
-        @Body body: RequestUserList
+        @Body body: RequestUserData
     ): ResponseUserList
 
     @POST("friend/addFriend")

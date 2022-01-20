@@ -9,7 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
-import org.seemeet.seemeet.data.local.FriendNameData
 import org.seemeet.seemeet.data.model.response.friend.ResponseFriendList
 import retrofit2.HttpException
 
@@ -31,11 +30,12 @@ class FriendViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    /*
     // 더미
     //리싸이클러뷰에 들어갈 리스트 변수
-    private val _nullFriendList = MutableLiveData<List<FriendNameData>>()
-    val nullFriendList : LiveData<List<FriendNameData>>
-        get() = _nullFriendList
+    private val _friendList = MutableLiveData<List<FriendNameData>>()
+    val friendList : LiveData<List<FriendNameData>>
+        get() = _friendList
 
 
     //임시로 넣을 더미데이터 셋팅. < 위의 리스트에 대입
@@ -57,6 +57,6 @@ class FriendViewModel(application: Application) : AndroidViewModel(application) 
             FriendNameData("정재용"),
             FriendNameData("최유림"),
         )
-    }
+    }*/
 
 }
