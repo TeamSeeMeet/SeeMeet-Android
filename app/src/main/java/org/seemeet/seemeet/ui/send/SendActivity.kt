@@ -2,9 +2,17 @@ package org.seemeet.seemeet.ui.send
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.MotionEvent
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -12,9 +20,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.local.InviData
+import org.seemeet.seemeet.data.model.response.invitation.SendInvitationDate
 import org.seemeet.seemeet.databinding.ActivitySendBinding
-import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.ui.receive.SendCancelDialogFragment
 import org.seemeet.seemeet.ui.receive.SendConfirmDialogFragment
 import org.seemeet.seemeet.ui.send.adapter.SendInvitationAdapter
@@ -24,17 +33,24 @@ class SendActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySendBinding
     private val viewModel: SendViewModel by viewModels() //위임초기화
-    private var choiceInvi : InviData? = null
+    private var choiceInvi : SendInvitationDate? = null
+    private var invitationId = -1
 
     //private var tracker: SelectionTracker<Long>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_send)
+        binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
 
-        viewModel.setSendInvitationList()
+        invitationId =  intent.getIntExtra("invitationId", -1)
+        
+        if(invitationId != -1){
+            Log.d("********SEND_INVITATION_ID", invitationId.toString())
+            viewModel.requestSendInvitationData(invitationId)
+        }
 
         setInviAdapter()
         setListObserver()
@@ -55,8 +71,8 @@ class SendActivity : AppCompatActivity() {
                         val view = rv.layoutManager?.findViewByPosition(position)
 
                         view?.isActivated = true
-                        Log.d("*******************tag", viewModel.inviList.value!![position].time)
-                        choiceInvi = viewModel.inviList.value!![position]
+                        Log.d("*******************tag", viewModel.sendInvitationDateList.value!![position].start)
+                        choiceInvi = viewModel.sendInvitationDateList.value!![position]
 
                         binding.btnSendDecide.isEnabled = true
 
@@ -86,36 +102,30 @@ class SendActivity : AppCompatActivity() {
         val sendInviAdapter = SendInvitationAdapter()
 
         binding.rvSendTimelist.adapter = sendInviAdapter
-/*
-        tracker = SelectionTracker.Builder<Long>(
-            "sendInvitationId",
-            binding.rvSendTimelist,
-            SendInvitationAdapter.SelectionKeyProvider(binding.rvSendTimelist),
-            SendItemDetailsLookup(binding.rvSendTimelist),
-            StorageStrategy.createLongStorage()
-        ).withSelectionPredicate(
-            SendInvitationAdapter.SelectionPredicate(binding.rvSendTimelist)
-        ).build().apply{
-            addObserver(object : SelectionTracker.SelectionObserver<Long>() {
-                override fun onSelectionChanged() {
-                    super.onSelectionChanged()
-                    //선택이 바뀔 경우.
-                }
-            })
-        }
-
-        sendInviAdapter.tracker = tracker*/
-
 
     }
 
     private fun setListObserver(){
-        viewModel.guestList.observe(this, Observer { guestList ->
+        viewModel.sendInvitation.observe(this, Observer {
+            sendInvitation ->
+            viewModel.setSendInvitationData()
+            viewModel.setSendInvitationDateList()
+        })
 
-            viewModel.setGuestCount(guestList.count{ it.isResponse }, guestList.size)
+        viewModel.sendInvitationData.observe(this, Observer {
+            invitation ->
 
-            guestList.forEach{
-                binding.cgSendList.addView(Chip(this).apply{
+            val word = invitation.guests.count{it.isResponse}.toString() + "/" + invitation.guests.size.toString()
+            val start = 0
+            val end = 1
+
+            val ss = SpannableStringBuilder(word)
+            ss.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            ss.setSpan(ForegroundColorSpan(Color.parseColor("#FA555C")), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+            binding.tvSendCount.text = ss
+
+            invitation.guests.forEach{
+                binding.cgSendList.addView(Chip(this).apply {
                     text = it.username
                     if(it.isResponse){
                         setChipBackgroundColorResource(R.color.pink01)
@@ -132,13 +142,12 @@ class SendActivity : AppCompatActivity() {
                         isEnabled = false
                     }
                 })
-
             }
         })
 
-        viewModel.inviList.observe(this, Observer { inviList->
-            with(binding.rvSendTimelist.adapter as SendInvitationAdapter){
-                setInviList(inviList)
+        viewModel.sendInvitationDateList.observe(this, Observer {
+            dateList -> with(binding.rvSendTimelist.adapter as SendInvitationAdapter){
+                setInviList(dateList)
             }
         })
 
@@ -150,12 +159,8 @@ class SendActivity : AppCompatActivity() {
         //맨 아래 취소 버튼
         binding.btnSendCancel.setOnClickListener {
             var dialogView = SendCancelDialogFragment()
-            val bundle = Bundle()
-            val choice = choiceInvi
 
             //서버 달 때 고치자. cancel 시에는 초대장 id가 있으면 될듯.
-            bundle.putSerializable("choice", choice)
-            dialogView.arguments = bundle
 
             dialogView.setButtonClickListener( object : SendCancelDialogFragment.OnButtonClickListener {
                 override fun onCancelNoClicked() {
@@ -163,8 +168,10 @@ class SendActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelYesClicked() {
-                    //여기서 데이터 전송.
-                    //위의 cblist에서 flag가 true인 애들 아이디만 골라서 전송해주기.
+                    if (invitationId != -1) {
+                        viewModel.requestSendCancelInvitation(invitationId)
+                        finish()
+                    }
                 }
             })
             dialogView.show(supportFragmentManager, "send wish checkbox time")
@@ -180,8 +187,8 @@ class SendActivity : AppCompatActivity() {
             bundle.putSerializable("choice", choice)
 
             //확정 시 상태에 따른 메세지 내용 값 1. 전부 답변 & 만장일치 선택. 2. 전부 답변, 만장일치x 3. 전부 답변 x
-            val responseCnt = viewModel.guestList.value?.count{ it.isResponse}
-            val respondent = viewModel.guestList.value?.size
+            val responseCnt = viewModel.sendInvitationData.value?.guests?.count{it.isResponse}
+            val respondent = viewModel.sendInvitationData.value?.guests?.size
             val choiceCnt = choice?.respondent?.size
 
             Log.d("*************수락버튼 클릭 시 차래로 rcn, rpt, cct", "$responseCnt, $respondent, $choiceCnt")
@@ -198,12 +205,15 @@ class SendActivity : AppCompatActivity() {
 
             dialogView.setButtonClickListener( object : SendConfirmDialogFragment.OnButtonClickListener {
                 override fun onConfirmNoClicked() {
-                    TODO("Not yet implemented")
+
                 }
 
                 override fun onConfirmYesClicked() {
                     //여기서 데이터 전송.
-                    //위의 cblist에서 flag가 true인 애들 아이디만 골라서 전송해주기.
+                    if (choice != null) {
+                        viewModel.requestSendConfirmInvitation(choice.invitationId, choice.id )
+                        finish()
+                    }
                 }
             })
             dialogView.show(supportFragmentManager, "send wish checkbox time")
@@ -216,7 +226,7 @@ class SendActivity : AppCompatActivity() {
 
     companion object {
         fun start(context: Context) {
-            val intent = Intent(context, FriendActivity::class.java)
+            val intent = Intent(context, SendActivity::class.java)
             context.startActivity(intent)
         }
     }
