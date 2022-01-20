@@ -94,17 +94,10 @@ class HomeFragment : Fragment() {
 
         binding.apply{
             ivHomeFriend.setOnClickListener {
-                if(getLogin())
-                    FriendActivity.start(requireContext())
-                else
-                    setNoLoginDailog()
-
+                FriendActivity.start(requireContext())
             }
             ivHomeNoti.setOnClickListener {
-                if(getLogin())
-                    NotificationActivity.start(requireContext())
-                else
-                    setNoLoginDailog()
+                NotificationActivity.start(requireContext())
             }
 
             ivMypageMenu.setOnClickListener{
@@ -221,15 +214,19 @@ class HomeFragment : Fragment() {
         var text = ""
         var white = ""
         var imgId = 0
-
+        var random = (1..2).random()
         if(day == -1 ){
             flag = if(getLogin() && friendCnt != 0 ) 2
                     else 1
         } else {
-            if(day == 0 ) flag = 3
-            else if (day <= 14) flag = 4
-            else if (day <= 21) flag = 5
-            else flag = 6
+            if(random == 1) {
+                if (day == 0) flag = 3
+                else if (day <= 14) flag = 4
+                else if (day <= 21) flag = 5
+                else flag = 6
+            }else {
+                flag = 2
+            }
         }
 
         when(flag){
@@ -283,6 +280,22 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if(getLogin()) {
+            //로그인 했을 경우 이것저것 서버통신 후 뷰모델 쪽에서 homebanner도 호출하자..
+            //viewmodel.setReminderList()
+            viewmodel.requestFriendList()
+            viewmodel.requestComePlanList()
+            viewmodel.requestLastPlanData()
+        } else {
+            //안 했을 경우.
+            setHomeBanner(-1)
+            setNoReminderList()
+        }
     }
 
 }

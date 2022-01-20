@@ -7,17 +7,14 @@ import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getColor
-import org.seemeet.seemeet.R
 import androidx.databinding.BindingAdapter
 import org.seemeet.seemeet.data.local.UserData
-import org.seemeet.seemeet.ui.main.calendar.CalendarEvent
-import java.time.LocalDate
+import org.seemeet.seemeet.data.model.response.invitation.Guest
+import org.seemeet.seemeet.data.model.response.invitation.GuestX
+import org.seemeet.seemeet.data.model.response.invitation.SendRespondent
 
 object BindingAdapters {
     //더미용
@@ -84,10 +81,10 @@ object BindingAdapters {
 
     @BindingAdapter("setUserList")
     @JvmStatic
-    fun setRespondents(textView: TextView, list : List<UserData>) {
+    fun setRespondents(textView: TextView, list : List<SendRespondent>) {
         var text : String = " "
         list.forEach {
-            text += it.name + "   "
+            text += it.username + "   "
         }
         textView.text = text
     }
@@ -119,6 +116,55 @@ object BindingAdapters {
 
     }
 
+    @JvmStatic
+    @BindingAdapter("setNotiDay")
+    fun setNotiday(textview: TextView, text: String) {
+         textview.text = "${text.setBetweenDays()}일 전"
 
+    }
+
+    @JvmStatic
+    @BindingAdapter("setNotiSendMsg")
+    fun setNotiSendMsg(textview: TextView, guests : List<GuestX>) {
+        if(guests.size == 1){
+            if(guests[0].isResponse)
+                textview.text = "친구가 답변을 완료하였어요!"
+            else
+                textview.text = "친구의 답변을 기다리고 있어요!"
+        }else {
+            val response = guests.filter { it.isResponse }.size
+            if(guests.size == response){
+                textview.text = "친구가 모두 답변을 완료하였어요!"
+            } else {
+                var text = "친구 ${guests.size - response}명의 답변을 기다리고 있어요!"
+                val start = text.indexOf("${guests.size - response}")
+                val end = start + 1
+
+                val ss = SpannableStringBuilder(text)
+                ss.setSpan(ForegroundColorSpan(Color.parseColor("#FA555C")), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+
+                textview.text = ss
+            }
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setNotiReceiveMsg")
+    fun setNotiReceiveMsg(textView: TextView, flag : Boolean){
+        if(flag){
+            textView.text = "친구의 요청에 답했어요!"
+        } else {
+            textView.text = "친구의 요청에 답해보세요!"
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setStartTime", "setEndTime")
+    fun setStartEndTimeText(textView: TextView, start : String, end : String){
+        val start = start.TimeParsing()
+        val end = end.TimeParsing()
+
+        textView.text = "$start ~ $end"
+    }
 
 }
