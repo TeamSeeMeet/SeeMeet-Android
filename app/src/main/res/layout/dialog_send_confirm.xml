@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+    </data>
+    <FrameLayout
+        tools:context=".ui.send.SendConfirmDialogFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_send_confirm_dialog_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray01"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_send_dialog_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="25dp"
+                    android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                    android:letterSpacing="-0.01"
+                    android:text="확정 날짜"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_sned_confirm_dialog_times"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="26dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="25dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="232:120"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_send_dialog_confirm">
+
+                    <TextView
+                        android:id="@+id/tv_send_date_confirm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="72dp"
+                        android:layout_marginTop="34dp"
+                        android:layout_marginEnd="72dp"
+                        android:fontFamily="@font/din_pro_bold"
+                        android:letterSpacing="-0.01"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="2021.12.23" />
+
+                    <TextView
+                        android:id="@+id/tv_send_time_confirm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="48dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="49dp"
+                        android:layout_marginBottom="35dp"
+                        android:fontFamily="@font/din_pro_regular"
+                        android:gravity="end"
+                        android:letterSpacing="-0.01"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_send_date_confirm"
+                        tools:text="오전 11:00 ~  오후 4:00 " />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:src="@color/gray02"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_send_dialog_bottom"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="280:132"
+                android:background="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_send_confirm_dialog_top">
+
+                <TextView
+                    android:id="@+id/tv_send_check1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                    android:textStyle="normal"
+                    android:textSize="16sp"
+                    android:textColor="@color/gray05"
+                    android:letterSpacing="-0.01"
+                    android:text="약속을 확정하시겠어요?"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="35dp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/tv_send_check2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                    android:textStyle="normal"
+                    android:textSize="16sp"
+                    android:textColor="@color/gray05"
+                    android:letterSpacing="-0.01"
+                    android:text="답변하지 않은 친구가 있어요.\n확정할까요?"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="23dp" />
+
+                <TextView
+                    android:id="@+id/btn_send_dia_confirm_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                    android:textStyle="normal"
+                    android:textSize="16sp"
+                    android:textColor="@color/gray06"
+                    android:letterSpacing="-0.01"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="6dp"
+                    android:paddingBottom="14dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="14dp"
+                    android:paddingTop="14dp"
+                    android:text="취소"
+                    app:layout_constraintEnd_toStartOf="@id/btn_send_dia_confirm_yes"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <TextView
+                    android:id="@+id/btn_send_dia_confirm_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                    android:textStyle="normal"
+                    android:textSize="16sp"
+                    android:textColor="@color/pink01"
+                    android:letterSpacing="-0.01"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="14dp"
+                    android:paddingEnd="9dp"
+                    android:paddingStart="11dp"
+                    android:paddingTop="14dp"
+                    android:layout_marginBottom="6dp"
+                    android:text="보내기"
+                    android:layout_marginEnd="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+</layout>

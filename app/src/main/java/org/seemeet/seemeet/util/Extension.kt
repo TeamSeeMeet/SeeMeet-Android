@@ -6,9 +6,13 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import java.text.SimpleDateFormat
 import java.time.DayOfWeek
+import java.time.Duration
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import java.time.temporal.WeekFields
 import java.util.*
 
@@ -76,3 +80,25 @@ internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getCol
 
 internal fun TextView.setTextColorRes(@ColorRes color: Int) =
     setTextColor(context.getColorCompat(color))
+
+fun String.monthDayParsing() : String {
+   val date = this.split("-")
+    return "${date[1]}월 ${date[2]}일"
+}
+fun String.calDday() : Int {
+    val today = LocalDate.now().dayOfMonth
+    val date = this.split("-")[2].toInt()
+
+    return date - today
+}
+
+fun String.dateParsingIso() : LocalDateTime {
+    val transFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    return LocalDateTime.parse(this, transFormat)
+}
+fun String.setBetweenDays() : Long {
+    val created = this.dateParsingIso()
+    val today = LocalDateTime.now()
+
+     return ChronoUnit.DAYS.between(created, today)
+}

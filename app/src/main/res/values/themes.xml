@@ -41,7 +41,12 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">13sp</item>
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+    </style>
 
+    <style name="chipTextWhiteStyle2">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
     </style>
 
     <style name="chipTextGrayStyle">
@@ -55,6 +60,13 @@
         <item name="android:textSize">13sp</item>
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
     </style>
+
+    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
 
     <style name="Theme.SeeMeet.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

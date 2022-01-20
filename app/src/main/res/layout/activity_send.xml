@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="org.seemeet.seemeet.ui.viewmodel.SendViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray01"
+        tools:context=".ui.send.SendActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_send_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_send_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_btn_back48"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv_send"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:fadeScrollbars="false"
+            android:fillViewport="true"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_send_top">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_send_response"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_send"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="52dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                        android:textStyle="bold"
+                        android:textSize="24sp"
+                        android:textColor="@color/gray06"
+                        android:letterSpacing="-0.01"
+                        android:text="약속을 확정해 주세요"/>
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/cg_send_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_send"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:singleLine="true"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="7dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_send_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_send"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        tools:text="2/3"
+                        android:fontFamily="@font/din_pro_regular"
+                        android:textSize="30sp"
+                        android:textColor="@color/gray06"
+                        android:letterSpacing="-0.01"
+                        android:gravity="end"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_send_timelist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="25dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    tools:listitem="@layout/item_send_timelist"
+                    app:layout_constraintTop_toBottomOf="@id/cl_send_response"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_send_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/rv_send_timelist"
+                    android:layout_marginTop="40dp">
+
+                    <TextView
+                        android:id="@+id/tv_send_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="보낸 신청 내용"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/gray06"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                    
+                    <ImageView
+                        android:id="@+id/iv_send_content_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintDimensionRatio="328:255"
+                        app:layout_constraintTop_toBottomOf="@id/tv_send_content"
+                        android:layout_marginTop="13dp"
+                        android:src="@drawable/bg_send_content"
+                        android:layout_marginBottom="60dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_send_content_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@id/iv_send_content_bg"
+                        app:layout_constraintTop_toTopOf="@id/iv_send_content_bg"
+                        app:layout_constraintEnd_toEndOf="@id/iv_send_content_bg"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="24dp"
+                        android:gravity="start"
+                        android:layout_marginEnd="13dp"
+                        android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="@color/gray06"
+                        android:letterSpacing="-0.01"
+                        android:text="@{viewModel.sendInvitationData.invitationTitle}"
+                        tools:text="대방어데이"/>
+
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toStartOf="@id/iv_send_content_bg"
+                        app:layout_constraintEnd_toEndOf="@id/iv_send_content_bg"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginBottom="18dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="30dp"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        android:fadeScrollbars="false"
+                        android:fillViewport="true"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_send_content_title">
+
+                        <TextView
+                            android:id="@+id/tv_send_content_desc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:gravity="start"
+                            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                            android:textSize="14sp"
+                            android:textColor="@color/gray06"
+                            android:letterSpacing="-0.01"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginStart="25dp"
+                            android:lineSpacingExtra="10sp"
+                            android:text="@{viewModel.sendInvitationData.invitationDesc}"
+                            tools:text="야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들
+야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들"/>
+
+                    </androidx.core.widget.NestedScrollView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_send_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="28dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_send_content">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_send_cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:background="@drawable/rectangle_gray04_10"
+                        android:paddingStart="63dp"
+                        android:paddingEnd="63dp"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="14dp"
+                        android:layout_marginTop="15dp"
+                        android:textColor="@color/white"
+                        android:layout_margin="2dp"
+                        android:text="취소"
+                        app:layout_constraintEnd_toStartOf="@id/btn_send_decide"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_send_decide"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rectangle_gray02_10"
+                        android:text="확정"
+                        android:paddingStart="63dp"
+                        android:paddingEnd="63dp"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="14dp"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:enabled="false"
+                        android:layout_margin="2dp"
+                        app:layout_constraintBottom_toBottomOf="@id/btn_send_cancel"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintStart_toEndOf="@id/btn_send_cancel"
+                        app:layout_constraintTop_toTopOf="@id/btn_send_cancel" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

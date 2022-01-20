@@ -7,7 +7,7 @@
     <data>
         <variable
             name="doneData"
-            type="org.seemeet.seemeet.data.local.NotificationDoneData" />
+            type="org.seemeet.seemeet.data.model.response.invitation.Invitation" />
 
     </data>
 
@@ -15,7 +15,7 @@
         android:id="@+id/cl_noti_done_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:elevation="10dp">
 
         <TextView
@@ -25,7 +25,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="14dp"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            android:text="@{doneData.day}"
+            setNotiDay="@{doneData.createdAt}"
             android:textColor="@color/gray04"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            android:text="@{doneData.confirmOrDelete}"
             android:textColor="@color/pink"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_done_day"
@@ -59,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/spoqa_han_sans_neo_bold"
-            android:text="@{doneData.appointmentTitle}"
+            android:text="@{doneData.invitationTitle}"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@id/tv_done_day"

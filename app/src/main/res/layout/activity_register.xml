@@ -7,55 +7,54 @@
     tools:context=".ui.registration.LoginActivity">
 
     <ImageView
-        android:id="@+id/iv_previous"
+        android:id="@+id/iv_register_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_previous" />
+        app:srcCompat="@drawable/ic_btn_back" />
 
     <TextView
         android:id="@+id/tv_register_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="17dp"
         android:text="@string/register_register"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_previous"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/spoqa_han_sans_neo_bold"
+        android:textColor="#1c1c1c"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/iv_previous" />
-
-    <View
-        android:id="@+id/view_line"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_marginTop="21dp"
-        android:background="#D6D6D6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_previous" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_register_back" />
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
         android:text="@string/register_name"
-        android:textColor="@color/black"
+        android:textColor="#1c1c1c"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_line" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_register_register" />
 
     <EditText
         android:id="@+id/et_name"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/rectangle_gray_radius_10"
-        android:ems="10"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/selector_apply_search"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:hint="@string/register_name"
         android:inputType="textPersonName"
+        android:paddingStart="12dp"
+        android:textColor="#1c1c1c"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
@@ -64,114 +63,94 @@
         android:id="@+id/tv_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/register_id"
-        android:textColor="@color/black"
+        android:layout_marginTop="42dp"
+        android:text="이메일"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+        android:textSize="14sp"
+        android:textColor="#1c1c1c"
         app:layout_constraintStart_toStartOf="@+id/tv_name"
         app:layout_constraintTop_toBottomOf="@+id/et_name" />
 
     <EditText
-        android:id="@+id/et_id"
+        android:id="@+id/et_email_register"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:background="@drawable/rectangle_gray_radius_10"
-        android:ems="10"
-        android:inputType="textPersonName"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/selector_apply_search"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:hint="이메일"
+        android:inputType="none|textEmailAddress"
+        android:paddingStart="12dp"
+        android:textColor="#1c1c1c"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/et_name"
         app:layout_constraintStart_toStartOf="@+id/et_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_id" />
 
     <TextView
-        android:id="@+id/tv_sex"
+        android:id="@+id/tv_warning_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/register_sex"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/tv_name"
-        app:layout_constraintTop_toBottomOf="@+id/et_id" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_man"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="1dp"
-        android:background="@drawable/rectangle_gray_radius_10"
-        android:text="@string/register_male"
-        app:layout_constraintEnd_toStartOf="@+id/btn_female"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_sex" />
-
-    <View
-        android:id="@+id/view_sex_line"
-        android:layout_width="1dp"
-        android:layout_height="56dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_man"
-        app:layout_constraintEnd_toEndOf="@+id/btn_man"
-        app:layout_constraintStart_toEndOf="@+id/btn_man"
-        app:layout_constraintTop_toTopOf="@+id/btn_man" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_female"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/rectangle_gray_radius_10"
-        android:text="@string/register_female"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_man"
-        app:layout_constraintTop_toTopOf="@+id/btn_man" />
-
-    <TextView
-        android:id="@+id/tv_birth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/register_birth"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/tv_sex"
-        app:layout_constraintTop_toBottomOf="@+id/btn_man" />
-
-    <EditText
-        android:id="@+id/et_birth"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:background="@drawable/rectangle_gray_radius_10"
-        android:ems="10"
-        android:inputType="date"
-        app:layout_constraintEnd_toEndOf="@+id/et_id"
-        app:layout_constraintStart_toStartOf="@+id/btn_man"
-        app:layout_constraintTop_toBottomOf="@+id/tv_birth" />
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:text="TextView"
+        android:textColor="#ff0000"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/et_email_register"
+        app:layout_constraintTop_toBottomOf="@+id/et_email_register" />
 
     <TextView
         android:id="@+id/tv_pw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
         android:text="@string/pw"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/tv_birth"
-        app:layout_constraintTop_toBottomOf="@+id/et_birth" />
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+        android:textSize="14sp"
+        android:textColor="#1c1c1c"
+        app:layout_constraintStart_toStartOf="@+id/tv_id"
+        app:layout_constraintTop_toBottomOf="@+id/et_email_register" />
 
     <EditText
         android:id="@+id/et_pw"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:background="@drawable/rectangle_gray_radius_10"
-        android:ems="10"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/selector_apply_search"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:hint="@string/pw"
         android:inputType="textPassword"
-        android:paddingStart="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/et_birth"
-        app:layout_constraintStart_toStartOf="@+id/et_birth"
+        android:maxLength="16"
+        android:paddingStart="12dp"
+        android:textColor="#1c1c1c"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_email_register"
+        app:layout_constraintStart_toStartOf="@+id/et_email_register"
         app:layout_constraintTop_toBottomOf="@+id/tv_pw" />
+
+    <TextView
+        android:id="@+id/tv_warning_pw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:text="TextView"
+        android:textColor="#ff0000"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/et_email_register"
+        app:layout_constraintTop_toBottomOf="@+id/et_pw" />
 
     <TextView
         android:id="@+id/tv_checkpw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
         android:text="@string/register_checkpw"
-        android:textColor="@color/black"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+        android:textSize="14sp"
+        android:textColor="#1c1c1c"
         app:layout_constraintStart_toStartOf="@+id/tv_pw"
         app:layout_constraintTop_toBottomOf="@+id/et_pw" />
 
@@ -179,22 +158,66 @@
         android:id="@+id/et_checkpw"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:background="@drawable/rectangle_gray_radius_10"
-        android:ems="10"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/selector_apply_search"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:hint="@string/register_checkpw"
         android:inputType="textPassword"
+        android:paddingStart="12dp"
+        android:textColor="#1c1c1c"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/et_pw"
         app:layout_constraintStart_toStartOf="@+id/et_pw"
         app:layout_constraintTop_toBottomOf="@+id/tv_checkpw" />
+
+    <TextView
+        android:id="@+id/tv_warning_checkpw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:text="TextView"
+        android:textColor="#ff0000"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/et_email_register"
+        app:layout_constraintTop_toBottomOf="@+id/et_checkpw" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="24dp"
+        android:background="#e7e7e7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_checkpw" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_register"
         android:layout_width="0dp"
         android:layout_height="54dp"
-        android:background="@drawable/rectangle_orange_radius_20"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/rectangle_gray02_10"
+        android:clickable="false"
+        android:enabled="false"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
         android:text="@string/register_register"
         android:textColor="@color/white"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/et_pw"
         app:layout_constraintStart_toStartOf="@+id/et_pw"
-        app:layout_constraintTop_toBottomOf="@+id/et_checkpw" />
+        app:layout_constraintTop_toBottomOf="@+id/view_line" />
 
+
+<!--
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="63dp"
+        android:layout_centerHorizontal="true"
+        android:timePickerMode="spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_register_register" />
+        -->
 </androidx.constraintlayout.widget.ConstraintLayout>

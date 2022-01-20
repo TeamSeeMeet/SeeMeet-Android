@@ -1,10 +1,11 @@
 package org.seemeet.seemeet.ui.receive
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
@@ -14,23 +15,16 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
-import androidx.core.content.res.ResourcesCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import org.seemeet.seemeet.R
-import org.seemeet.seemeet.data.local.ReminderData
 import org.seemeet.seemeet.databinding.ActivityReceiveBinding
-import org.seemeet.seemeet.ui.MainActivity
-import org.seemeet.seemeet.ui.detail.DetailActivity
-import org.seemeet.seemeet.ui.main.adapter.ReminderListAdapter
 import org.seemeet.seemeet.ui.receive.adapter.ReceiveCheckListAdapter
 import org.seemeet.seemeet.ui.receive.adapter.ReceiveSchduleListAdapter
 import org.seemeet.seemeet.ui.viewmodel.ReceiveViewModel
-import android.os.Parcelable
-
-
 
 
 class ReceiveActivity : AppCompatActivity() {
@@ -41,6 +35,10 @@ class ReceiveActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_receive)
+
+        val invitationId =  intent.getIntExtra("invitationId", -1)
+        Log.d("********RECEIVE_INVITATION_ID", invitationId.toString())
+
         binding.viewModel = viewModel
         viewModel.setReceiveData()
 
@@ -188,6 +186,29 @@ class ReceiveActivity : AppCompatActivity() {
 
     private fun initButtonClick(){
 
+        //맨 아래 취소 버튼
+        binding.btnReceiveNo.setOnClickListener {
+            var dialogView = ReceiveNoDialogFragment()
+            val bundle = Bundle()
+
+            //서버 달 때 고치자. cancel 시에는 초대장 id가 있으면 될듯.
+
+
+            dialogView.arguments = bundle
+
+            dialogView.setButtonClickListener( object :  ReceiveNoDialogFragment.OnButtonClickListener {
+                override fun onCancelNoClicked() {
+
+                }
+
+                override fun onCancelYesClicked() {
+                    //여기서 데이터 전송.
+                    //위의 cblist에서 flag가 true인 애들 아이디만 골라서 전송해주기.
+                }
+            })
+            dialogView.show(supportFragmentManager, "send wish checkbox time")
+        }
+
         //맨 아래 수락 버튼
         binding.btnReceiveYes.setOnClickListener {
             var dialogView = ReceiveYesDiagloFragment()
@@ -211,7 +232,17 @@ class ReceiveActivity : AppCompatActivity() {
 
             dialogView.show(supportFragmentManager, "send wish checkbox time")
         }
+
+        binding.ivReceiveBack.setOnClickListener {
+            finish()
+        }
     }
 
 
+    companion object {
+        fun start(context: Context) {
+            val intent = Intent(context, ReceiveActivity::class.java)
+            context.startActivity(intent)
+        }
+    }
 }
