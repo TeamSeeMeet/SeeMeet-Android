@@ -67,4 +67,16 @@ class NotiInProgressFragment : Fragment() {
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        if(SeeMeetSharedPreference.getLogin()){
+            // (1) 더미데이터 셋팅 _ 이후 서버통신 시 교체
+            viewmodel.requestAllInvitaionList()
+
+        } else {
+            binding.clNotiIngNull.visibility = View.VISIBLE
+            binding.tvInProgressNum.text = "0"
+        }
+    }
 }

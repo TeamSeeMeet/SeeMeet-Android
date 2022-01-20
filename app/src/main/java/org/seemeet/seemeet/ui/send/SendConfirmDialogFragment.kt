@@ -11,7 +11,9 @@ import androidx.fragment.app.DialogFragment
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.local.CheckboxData
 import org.seemeet.seemeet.data.local.InviData
+import org.seemeet.seemeet.data.model.response.invitation.SendInvitationDate
 import org.seemeet.seemeet.databinding.DialogSendConfirmBinding
+import org.seemeet.seemeet.util.TimeParsing
 
 
 class SendConfirmDialogFragment : DialogFragment() {
@@ -28,9 +30,9 @@ class SendConfirmDialogFragment : DialogFragment() {
 
 
         val bundle = arguments
-        val choice = bundle?.getSerializable("choice") as InviData
+        val choice = bundle?.getSerializable("choice") as SendInvitationDate
         val check = bundle.getInt("check")
-        Log.d("*******sendConfirmDialog", choice.time + "," + check.toString())
+        Log.d("*******sendConfirmDialog", choice.start + "," + check.toString())
 
         when(check){
             1 -> {
@@ -50,7 +52,7 @@ class SendConfirmDialogFragment : DialogFragment() {
         }
 
         binding.tvSendDateConfirm.text = choice.date
-        binding.tvSendTimeConfirm.text = choice.time
+        binding.tvSendTimeConfirm.text = choice.start.TimeParsing() + " ~ " + choice.end.TimeParsing()
 
         return binding.root
     }

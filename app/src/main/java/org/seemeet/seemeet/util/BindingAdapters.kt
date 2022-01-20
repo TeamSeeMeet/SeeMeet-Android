@@ -12,7 +12,9 @@ import android.widget.TextView
 
 import androidx.databinding.BindingAdapter
 import org.seemeet.seemeet.data.local.UserData
+import org.seemeet.seemeet.data.model.response.invitation.Guest
 import org.seemeet.seemeet.data.model.response.invitation.GuestX
+import org.seemeet.seemeet.data.model.response.invitation.SendRespondent
 
 object BindingAdapters {
     //더미용
@@ -79,10 +81,10 @@ object BindingAdapters {
 
     @BindingAdapter("setUserList")
     @JvmStatic
-    fun setRespondents(textView: TextView, list : List<UserData>) {
+    fun setRespondents(textView: TextView, list : List<SendRespondent>) {
         var text : String = " "
         list.forEach {
-            text += it.name + "   "
+            text += it.username + "   "
         }
         textView.text = text
     }
@@ -156,5 +158,13 @@ object BindingAdapters {
         }
     }
 
+    @JvmStatic
+    @BindingAdapter("setStartTime", "setEndTime")
+    fun setStartEndTimeText(textView: TextView, start : String, end : String){
+        val start = start.TimeParsing()
+        val end = end.TimeParsing()
+
+        textView.text = "$start ~ $end"
+    }
 
 }

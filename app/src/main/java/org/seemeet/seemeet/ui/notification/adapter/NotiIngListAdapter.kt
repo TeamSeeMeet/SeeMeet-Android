@@ -79,6 +79,7 @@ class NotiIngListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 context?.startActivity(intent)
             }
 
+            binding.cgSendFriendList.removeAllViews()
             ingData.guests.forEach{
                 binding.cgSendFriendList.addView(Chip(context).apply{
                     text = it.username
@@ -110,7 +111,7 @@ class NotiIngListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 context?.startActivity(intent)
             }
 
-
+            binding.cgReceiveFriendList.removeAllViews()
             binding.cgReceiveFriendList.addView(Chip(context).apply{
                 text = ingData.host.username
                 setChipBackgroundColorResource(R.color.gray06)
