@@ -129,16 +129,13 @@ class FirstApplyFragment : Fragment() {
         binding.etToWho.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
                 binding.rvFriend.visibility = View.VISIBLE
-                binding.applyAppointment.visibility = View.INVISIBLE
-                binding.applyContent.visibility = View.INVISIBLE
-                binding.applyWrite.visibility = View.INVISIBLE
-                binding.clContent.visibility = View.INVISIBLE
             } else {
                 binding.rvFriend.visibility = View.INVISIBLE
+                /*
                 binding.applyAppointment.visibility = View.VISIBLE
                 binding.applyContent.visibility = View.VISIBLE
                 binding.applyWrite.visibility = View.VISIBLE
-                binding.clContent.visibility = View.VISIBLE
+                binding.clContent.visibility = View.VISIBLE*/
             }
         }
 
