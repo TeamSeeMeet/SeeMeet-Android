@@ -1,13 +1,14 @@
 package org.seemeet.seemeet.ui.apply
 
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.TextView
 import androidx.core.view.isVisible
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
@@ -25,18 +26,17 @@ import org.seemeet.seemeet.util.daysOfWeekFromLocale
 import org.seemeet.seemeet.util.makeInVisible
 import org.seemeet.seemeet.util.makeVisible
 import org.seemeet.seemeet.util.setTextColorRes
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 class SecondApplyActivity : AppCompatActivity() {
 
-    private val binding : ActivitySecondApplyBinding by lazy {
+    private val binding: ActivitySecondApplyBinding by lazy {
         ActivitySecondApplyBinding.inflate(layoutInflater)
     }
-
-    private val bottomSheet : ConstraintLayout by lazy { findViewById<ConstraintLayout>(R.id.bottom_sheet) }
-    lateinit var sheetBehavior : BottomSheetBehavior<ConstraintLayout>
 
     private val eventsAdapter = PickerEventAdapter()
     private val selectedAdapter = SelectedDateAdapter()
@@ -44,7 +44,7 @@ class SecondApplyActivity : AppCompatActivity() {
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
 
-    private val dateFormatter = DateTimeFormatter.ofPattern("dd")
+    private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     private val dayFormatter = DateTimeFormatter.ofPattern("EEE")
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val selectionFormatter = DateTimeFormatter.ofPattern("MMM d일 EEE요일")
@@ -52,18 +52,25 @@ class SecondApplyActivity : AppCompatActivity() {
     //private val events = mutableMapOf<LocalDate, List<CalendarEvent>>()
     private val events = dummyDate().groupBy { it.date }
 
-
+    private var applyDate = today.toString()
+    private var applyStartTime = defaultTime(0,3)
+    private var applyEndTime = defaultTime(1,3)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        sheetBehavior=BottomSheetBehavior.from(bottomSheet)
+        binding.tvSelectedDateTop.text = today.toString()
+        binding.tvStartTimeTop.text = defaultTime(0,2)
+        binding.tvEndTimeTop.text = defaultTime(1,2)
 
+        binding.tvStartTimepicker.text = defaultTime(0,1) //처음 딱 들어갔을 때는 디폴트 타임으로 띄우기
+        binding.tvFinishTimepicker.text = defaultTime(1,1)
         initClickListener()
 
         binding.apply {
             rvCalendarEvent.adapter = eventsAdapter
+            rvSelectedDate.adapter = selectedAdapter
             btnAdd.setOnClickListener {
                 addSelectedDate()
             }
@@ -120,11 +127,13 @@ class SecondApplyActivity : AppCompatActivity() {
                             textDate.setTextColorRes(R.color.white)
                             textDay.setTextColorRes(R.color.white)
                             layoutDate.setBackgroundResource(R.drawable.rectangle_pink_10)
+                            dotView.isVisible = events[day.date.toString()].orEmpty().isNotEmpty()
                         }
                         selectedDate -> {
                             textDate.setTextColorRes(R.color.white)
                             textDay.setTextColorRes(R.color.white)
-                            layoutDate.setBackgroundResource(R.drawable.rectangle_black_radius_16)
+                            layoutDate.setBackgroundResource(R.drawable.rectangle_black_radius_10)
+                            dotView.isVisible = events[day.date.toString()].orEmpty().isNotEmpty()
                         }
                         else -> {
                             textDate.setTextColorRes(R.color.black)
@@ -175,6 +184,64 @@ class SecondApplyActivity : AppCompatActivity() {
         binding.ivX.setOnClickListener {
             finish()
         }
+        //  스위치를 클릭했을때
+        binding.switchAllday.setOnCheckedChangeListener { CompoundButton, onSwitch ->
+            //  스위치가 켜지면
+            if (onSwitch) {
+                binding.tvStartTimepicker.text = "오전 00 : 00"
+                binding.tvFinishTimepicker.text = "오후 11 : 59"
+                binding.tvStartTimeTop.text = "오전 00:00"
+                binding.tvEndTimeTop.text = "오후 11:59"
+                applyStartTime = "00:00"
+                applyEndTime = "23:59"
+            }
+            //  스위치가 꺼지면
+            else {
+                binding.tvStartTimepicker.text = defaultTime(0,1) //처음 딱 들어갔을 때는 디폴트 타임으로 띄우기
+                binding.tvFinishTimepicker.text = defaultTime(1,1)
+                binding.tvStartTimeTop.text = defaultTime(0,2)
+                binding.tvEndTimeTop.text = defaultTime(1,2)
+                applyStartTime = defaultTime(0,3)
+                applyEndTime = defaultTime(1,3)
+            }
+        }
+
+        binding.tvStartTimepicker.setOnClickListener {
+
+            var ampm = binding.tvStartTimepicker.text.substring(0, 2)
+            var hour = binding.tvStartTimepicker.text.substring(3, 5)
+            var min = binding.tvStartTimepicker.text.substring(8, 10)
+            if (ampm.equals("오후")) {
+                if (!hour.equals("12")) {
+                    hour = (hour.toInt() + 12).toString()
+                }
+            } else {
+                if (hour.equals("12")) {
+                    hour = "0"
+                }
+            }
+            Log.d("tests", ampm + "  " + hour + "  " + min)
+            getTime(binding.tvStartTimepicker, this@SecondApplyActivity, hour, min, 0)
+
+        }
+
+        binding.tvFinishTimepicker.setOnClickListener {
+            var ampm = binding.tvFinishTimepicker.text.substring(0, 2)
+            var hour = binding.tvFinishTimepicker.text.substring(3, 5)
+            var min = binding.tvFinishTimepicker.text.substring(8, 10)
+            if (ampm.equals("오후")) {
+                if (!hour.equals("12")) {
+                    hour = (hour.toInt() + 12).toString()
+                }
+            } else {
+                if (hour.equals("12")) {
+                    hour = "0"
+                }
+            }
+            Log.d("tests", ampm + "  " + hour + "  " + min)
+            getTime(binding.tvFinishTimepicker, this@SecondApplyActivity, hour, min, 1)
+
+        }
     }
 
     private fun selectDate(date: LocalDate) {
@@ -184,7 +251,76 @@ class SecondApplyActivity : AppCompatActivity() {
             oldDate?.let { binding.calendar.notifyDateChanged(it) }
             binding.calendar.notifyDateChanged(date)
             updateAdapterForDate(date)
+
+            applyDate = dateFormatter.format(date)
+            binding.tvSelectedDateTop.text = dateFormatter.format(date)
         }
+    }
+
+    //맨 첨에 현재 시간에 따라 디폴트 시작 시간, 종료 시간 setting
+    fun defaultTime(i: Int, type: Int): String {
+        val cal = Calendar.getInstance() //
+        val hour = cal.get(Calendar.HOUR_OF_DAY)
+        val minutes = cal.get(Calendar.MINUTE)
+        //현재 시간이 cal에 있음
+
+        if (i == 0) {
+            if (minutes >= 0 && minutes < 30) {
+                //시간을 1 더하고 분은 00
+                //11시부터 11시 29까지 -> 12시 00분
+                cal.set(Calendar.HOUR_OF_DAY, hour + 1)
+                cal.set(Calendar.MINUTE, 0)
+            } else {
+                //시간을 1 더하고 분은 30
+                //11시 30분부터 11시 59분까지 -> 12시 30분
+                cal.set(Calendar.HOUR_OF_DAY, hour + 1)
+                cal.set(Calendar.MINUTE, 30)
+            }
+        } else if (i == 1) {
+            if (minutes >= 0 && minutes < 30) {
+                //시간을 1 더하고 분은 00
+                //11시부터 11시 29까지 -> 12시 00분
+                cal.set(Calendar.HOUR_OF_DAY, hour + 2)
+                cal.set(Calendar.MINUTE, 0)
+            } else {
+                //시간을 1 더하고 분은 30
+                //11시 30분부터 11시 59분까지 -> 12시 30분
+                cal.set(Calendar.HOUR_OF_DAY, hour + 2)
+                cal.set(Calendar.MINUTE, 30)
+            }
+        }
+        return if (type == 1) SimpleDateFormat("aa hh : mm").format(cal.time)
+        else if(type ==2) SimpleDateFormat("aa hh:mm").format(cal.time)
+        else SimpleDateFormat("hh:mm").format(cal.time)
+    }
+
+    fun getTime(textView: TextView, context: Context, hour: String, min: String, i: Int) {
+        val cal = Calendar.getInstance()
+
+        val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+
+            cal.set(Calendar.HOUR_OF_DAY, hour)
+            cal.set(Calendar.MINUTE, minute)
+
+            if (hour == 0) {
+                textView.text = "오전 00 : " + minute.toString()
+                //타임피커에서 선택한 시간 받아서 텍스트에 넣어줌
+            } else {
+                textView.text =
+                    SimpleDateFormat("aa hh : mm").format(cal.time) //타임피커에서 선택한 시간 받아서 텍스트에 넣어줌
+            }
+        }
+
+        val tp = TimePickerDialog(context, timeSetListener, hour.toInt(), min.toInt(), false)
+        if (i == 0) {//다이얼로그 위치 조정
+            tp.window?.attributes?.x = 100
+            tp.window?.attributes?.y = 98
+        } else {
+            tp.window?.attributes?.x = 100
+            tp.window?.attributes?.y = 160
+        }
+        tp.show()//타임피커 다이얼로그 띄우
+
     }
 
     private fun updateAdapterForDate(date: LocalDate) {
@@ -211,14 +347,17 @@ class SecondApplyActivity : AppCompatActivity() {
         userData.add(UserData(2, "이동기"))
         userData.add(UserData(3, "이동기"))
 
-        list.add(CalendarEvent(1, "대방어대방어", "2022-01-18", "11:00", "13:00", userData))
-        list.add(CalendarEvent(1, "대방어대방어", "2022-01-19", "11:00", "13:00", userData))
-        list.add(CalendarEvent(1, "대방어대방어", "2022-01-19", "11:00", "13:00", userData))
+        list.add(CalendarEvent(1, "대방어대방어", "2022-01-20", "11:00", "13:00", userData))
+        list.add(CalendarEvent(1, "대방어대방어", "2022-01-20", "11:00", "13:00", userData))
+        list.add(CalendarEvent(1, "대방어대방어", "2022-01-20", "11:00", "13:00", userData))
+        list.add(CalendarEvent(1, "대방어대방어", "2022-01-20", "11:00", "13:00", userData))
+        list.add(CalendarEvent(1, "대방어대방어", "2022-01-21", "11:00", "13:00", userData))
         return list
     }
 
     private fun addSelectedDate() {
-        selectedAdapter.addItem(StartEndDateData("2022-01-20", "11:00", "13:00"))
+        selectedAdapter.addItem(StartEndDateData(applyDate,applyStartTime,applyEndTime))
+        binding.tvSelectedCount.text = selectedAdapter.selectedDateList.size.toString()
     }
 
     companion object {

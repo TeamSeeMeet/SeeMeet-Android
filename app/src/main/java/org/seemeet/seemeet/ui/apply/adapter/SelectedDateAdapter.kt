@@ -1,6 +1,7 @@
 package org.seemeet.seemeet.ui.apply.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -50,6 +51,7 @@ class SelectedDateAdapter() : RecyclerView.Adapter<SelectedDateAdapter.ViewHolde
     fun removeItem(position : Int){
         selectedDateList.removeAt(position)
         notifyDataSetChanged()
+
     }
 
     fun addItem(item : StartEndDateData) {
