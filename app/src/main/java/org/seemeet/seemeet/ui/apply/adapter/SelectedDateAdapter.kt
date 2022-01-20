@@ -7,11 +7,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.data.local.StartEndDateData
 import org.seemeet.seemeet.databinding.ItemSelectedDateBinding
-import org.seemeet.seemeet.util.TimeParsing
+import org.seemeet.seemeet.util.dateToTime
 
 class SelectedDateAdapter() : RecyclerView.Adapter<SelectedDateAdapter.ViewHolder>() {
+    private var deleteListener: (() -> Unit)? = null
     val selectedDateList = mutableListOf<StartEndDateData>()
     private var context: Context? = null
+
+    fun setDeleteListener(listener: (() -> Unit)) {
+        deleteListener = listener
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -27,7 +32,7 @@ class SelectedDateAdapter() : RecyclerView.Adapter<SelectedDateAdapter.ViewHolde
     }
 
     override fun onBindViewHolder(viewHolder: SelectedDateAdapter.ViewHolder, position: Int) {
-        viewHolder.bind(selectedDateList[position],position)
+        viewHolder.bind(selectedDateList[position], position)
     }
 
     override fun getItemCount(): Int = selectedDateList.size
@@ -36,25 +41,26 @@ class SelectedDateAdapter() : RecyclerView.Adapter<SelectedDateAdapter.ViewHolde
     inner class ViewHolder(private val binding: ItemSelectedDateBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(date: StartEndDateData,position: Int) {
+        fun bind(date: StartEndDateData, position: Int) {
             binding.apply {
                 startEndDate = date
                 imgRemove.setOnClickListener {
                     removeItem(position)
                 }
-                tvStartTime.text = date.start.TimeParsing()
-                tvEndTime.text = date.end.TimeParsing()
+                tvStartTime.text = date.start.dateToTime()
+                tvEndTime.text = date.end.dateToTime()
             }
         }
     }
 
-    fun removeItem(position : Int){
+    fun removeItem(position: Int) {
         selectedDateList.removeAt(position)
+        deleteListener?.invoke()
         notifyDataSetChanged()
 
     }
 
-    fun addItem(item : StartEndDateData) {
+    fun addItem(item: StartEndDateData) {
         selectedDateList.add(item)
         notifyDataSetChanged()
     }

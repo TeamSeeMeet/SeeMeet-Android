@@ -50,6 +50,6 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("localDate")
     fun convertLocalDate(textview: TextView, text: String) {
-        textview.text = text.TimeParsing()
+        textview.text = text.dateToTime()
     }
 }

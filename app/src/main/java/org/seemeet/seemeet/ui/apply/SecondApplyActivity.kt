@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.kizitonwose.calendarview.model.CalendarDay
@@ -22,9 +23,7 @@ import org.seemeet.seemeet.ui.apply.adapter.PickerEventAdapter
 import org.seemeet.seemeet.ui.apply.adapter.SelectedDateAdapter
 import org.seemeet.seemeet.ui.main.calendar.CalendarEvent
 import org.seemeet.seemeet.ui.main.calendar.UserData
-import org.seemeet.seemeet.util.daysOfWeekFromLocale
-import org.seemeet.seemeet.util.makeInVisible
-import org.seemeet.seemeet.util.makeVisible
+import org.seemeet.seemeet.util.*
 import org.seemeet.seemeet.util.setTextColorRes
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -71,6 +70,11 @@ class SecondApplyActivity : AppCompatActivity() {
         binding.apply {
             rvCalendarEvent.adapter = eventsAdapter
             rvSelectedDate.adapter = selectedAdapter
+
+            selectedAdapter.setDeleteListener {
+                binding.tvSelectedCount.text = selectedAdapter.selectedDateList.size.toString()
+            }
+
             btnAdd.setOnClickListener {
                 addSelectedDate()
             }
@@ -95,6 +99,8 @@ class SecondApplyActivity : AppCompatActivity() {
             val binding = ItemPickerDateBinding.bind(view)
 
             init {
+                view.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+
                 view.setOnClickListener {
                     when (day.owner) {
                         DayOwner.THIS_MONTH -> {
@@ -110,6 +116,7 @@ class SecondApplyActivity : AppCompatActivity() {
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) {
                 container.day = day
+
                 val textDate = container.binding.tvDate
                 val textDay = container.binding.tvDay
                 val layoutDate = container.binding.layoutDate
@@ -302,12 +309,35 @@ class SecondApplyActivity : AppCompatActivity() {
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, minute)
 
+            var min_to_string = minute.toString()
             if (hour == 0) {
-                textView.text = "오전 00 : " + minute.toString()
+                if(minute<10) {
+                    min_to_string = "0" + minute.toString()
+                }
+                textView.text = "오전 00 : " + min_to_string
+
+                if(i==0) {
+                    binding.tvStartTimeTop.text = "오전 00:00"
+                    applyStartTime = "00:00"
+                }else{
+                    binding.tvEndTimeTop.text = "오전 00:00"
+                    applyEndTime = "00:00"
+                }
                 //타임피커에서 선택한 시간 받아서 텍스트에 넣어줌
             } else {
                 textView.text =
                     SimpleDateFormat("aa hh : mm").format(cal.time) //타임피커에서 선택한 시간 받아서 텍스트에 넣어줌
+
+                //TODO : 상단 시간팅 텍스트뷰 세팅 및, 시간변수 세팅
+
+               if(i==0) {
+                    binding.tvStartTimeTop.text = SimpleDateFormat("aa hh:mm").format(cal.time)
+                    applyStartTime = SimpleDateFormat("hh:mm").format(cal.time).timeToDate(SimpleDateFormat("aaa").format(cal.time))
+                }else{
+                    binding.tvEndTimeTop.text = SimpleDateFormat("aa hh:mm").format(cal.time)
+                    applyEndTime = SimpleDateFormat("hh:mm").format(cal.time).timeToDate(SimpleDateFormat("aaa").format(cal.time))
+                }
+
             }
         }
 
@@ -356,8 +386,10 @@ class SecondApplyActivity : AppCompatActivity() {
     }
 
     private fun addSelectedDate() {
-        selectedAdapter.addItem(StartEndDateData(applyDate,applyStartTime,applyEndTime))
-        binding.tvSelectedCount.text = selectedAdapter.selectedDateList.size.toString()
+        if (selectedAdapter.selectedDateList.size<4) {
+            selectedAdapter.addItem(StartEndDateData(applyDate, applyStartTime, applyEndTime))
+            binding.tvSelectedCount.text = selectedAdapter.selectedDateList.size.toString()
+        }
     }
 
     companion object {

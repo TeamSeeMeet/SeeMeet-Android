@@ -214,11 +214,12 @@
                     <com.kizitonwose.calendarview.CalendarView
                         android:id="@+id/calendar"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="90dp"
                         android:layout_marginTop="16dp"
                         app:cv_dayViewResource="@layout/item_picker_date"
                         app:cv_hasBoundaries="false"
                         app:cv_inDateStyle="allMonths"
+
                         app:cv_maxRowCount="1"
                         app:cv_orientation="horizontal"
                         app:cv_outDateStyle="none"
