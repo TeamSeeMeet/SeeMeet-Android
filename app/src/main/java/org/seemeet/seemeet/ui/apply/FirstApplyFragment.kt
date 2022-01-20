@@ -2,6 +2,7 @@ package org.seemeet.seemeet.ui.apply
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
@@ -29,6 +30,7 @@ class FirstApplyFragment : Fragment() {
         initAutoCompletetv()
         initFocusBackground()
         initTextChangedListener()
+        initScrollEvent()
 
         return binding.root
     }
@@ -112,7 +114,7 @@ class FirstApplyFragment : Fragment() {
                                 this.text.toString()
                             )
                         )
-                    //TODO: 아이템 순서대로 들어가게 해야함(이름 순) -> 지금은 그냥 뒤로 차례로 들어감
+                        //TODO: 아이템 순서대로 들어가게 해야함(이름 순) -> 지금은 그냥 뒤로 차례로 들어감
                     }
                 })
             if (isNullorBlank()) { //셋 중 하나라도 작성 안 됐을 때
@@ -128,16 +130,13 @@ class FirstApplyFragment : Fragment() {
         binding.etToWho.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
                 binding.rvFriend.visibility = View.VISIBLE
-                binding.applyAppointment.visibility = View.INVISIBLE
-                binding.applyContent.visibility = View.INVISIBLE
-                binding.applyWrite.visibility = View.INVISIBLE
-                binding.clContent.visibility = View.INVISIBLE
             } else {
                 binding.rvFriend.visibility = View.INVISIBLE
+                /*
                 binding.applyAppointment.visibility = View.VISIBLE
                 binding.applyContent.visibility = View.VISIBLE
                 binding.applyWrite.visibility = View.VISIBLE
-                binding.clContent.visibility = View.VISIBLE
+                binding.clContent.visibility = View.VISIBLE*/
             }
         }
 
@@ -210,6 +209,15 @@ class FirstApplyFragment : Fragment() {
         binding.btnNext.setBackgroundResource(R.drawable.rectangle_gray_radius_10)
         binding.btnNext.isClickable = false // 버튼 클릭할수 없게
         binding.btnNext.isEnabled = false // 버튼 비활성화
+    }
+
+    private fun initScrollEvent() {
+        binding.etDetail.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(v: View, event: MotionEvent): Boolean {
+                binding.svFirstApply.requestDisallowInterceptTouchEvent(true)
+                return false
+            }
+        })
     }
 
 /*
