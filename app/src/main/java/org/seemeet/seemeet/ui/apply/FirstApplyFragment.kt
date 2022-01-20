@@ -55,16 +55,15 @@ class FirstApplyFragment : Fragment() {
 
         adapter.applyfriendList.addAll(
             listOf(
-                ApplyFriendData(R.drawable.ic_btn_remove, "강유나"),
-                ApplyFriendData(R.drawable.ic_btn_remove, "나지현"),
-                ApplyFriendData(R.drawable.ic_btn_remove, "도승윤"),
-                ApplyFriendData(R.drawable.ic_btn_remove, "박나은"),
-                ApplyFriendData(R.drawable.ic_btn_remove, "박주혁"),
-                ApplyFriendData(R.drawable.ic_btn_remove, "박예림"),
-                ApplyFriendData(R.drawable.ic_btn_remove, "박한빈"),
-                ApplyFriendData(R.drawable.ic_btn_remove, "박수현"),
-                ApplyFriendData(R.drawable.ic_btn_remove, "김주현"),
-                ApplyFriendData(R.drawable.ic_btn_remove, "최유현")
+                ApplyFriendData(R.drawable.ic_img_profile, "강유나"),
+                ApplyFriendData(R.drawable.ic_img_profile, "나지현"),
+                ApplyFriendData(R.drawable.ic_img_profile, "도승윤"),
+                ApplyFriendData(R.drawable.ic_img_profile, "박나은"),
+                ApplyFriendData(R.drawable.ic_img_profile, "박주혁"),
+                ApplyFriendData(R.drawable.ic_img_profile, "박예림"),
+                ApplyFriendData(R.drawable.ic_img_profile, "박한빈"),
+                ApplyFriendData(R.drawable.ic_img_profile, "박수현"),
+                ApplyFriendData(R.drawable.ic_img_profile, "최유현")
             )
         )
         adapter.notifyDataSetChanged()
@@ -104,17 +103,16 @@ class FirstApplyFragment : Fragment() {
                         }
                         adapter.addItem(
                             ApplyFriendData(
-                                R.drawable.ic_btn_remove,
+                                R.drawable.ic_img_profile,
                                 this.text.toString()
                             )
                         )
                         adapter.sortItem(
                             ApplyFriendData(
-                                R.drawable.ic_btn_remove,
+                                R.drawable.ic_img_profile,
                                 this.text.toString()
                             )
                         )
-                        //TODO: 아이템 순서대로 들어가게 해야함(이름 순) -> 지금은 그냥 뒤로 차례로 들어감
                     }
                 })
             if (isNullorBlank()) { //셋 중 하나라도 작성 안 됐을 때
