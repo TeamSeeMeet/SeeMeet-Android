@@ -27,11 +27,17 @@ class AddFriendActivity : AppCompatActivity() {
 
     // 옵저버
     private fun setUserObserver() {
-        //옵저버는 통신이 됐을 때만 데이터를 업데이트 해. 그래서 검색 결과가 없어도 이전 데이터가 불러와져.
+        //옵저버가 지금 통신이 됐을 때만 데이터를 업데이트 하는 듯 -> 검색 결과가 없어도 이전 데이터가 있는 cl이 그려짐
         viewModel.userList.observe(this, Observer { userData ->
             binding.clFriendSearchList.visibility = View.VISIBLE
             binding.tvSearchFriendEmail.text = userData.data.email
             binding.tvSearchFriendName.text = userData.data.username
+        })
+    }
+
+    private fun setAddFriendObserver() {
+        viewModel.userList.observe(this, Observer {
+            binding.ivAddFriendList.isSelected = true
         })
     }
 
@@ -85,8 +91,9 @@ class AddFriendActivity : AppCompatActivity() {
 
         // 친구 추가 버튼
         binding.ivAddFriendList.setOnClickListener {
-            binding.ivAddFriendList.isSelected = binding.ivAddFriendList.isSelected != true
+            val email = binding.etSearchFriendId.text
+            viewModel.requestAddFriend(email)
+            setAddFriendObserver()
         }
-
     }
 }

@@ -10,7 +10,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
+import org.seemeet.seemeet.data.model.request.friend.RequestAddFriendData
 import org.seemeet.seemeet.data.model.request.friend.RequestUserData
+import org.seemeet.seemeet.data.model.response.friend.ResponseAddFriendData
 import org.seemeet.seemeet.data.model.response.friend.ResponseUserList
 import retrofit2.HttpException
 
@@ -19,6 +21,10 @@ class AddFriendViewModel(application: Application) : AndroidViewModel(applicatio
     val userList : LiveData<ResponseUserList>
         get() = _userList
 
+    private val _addFriend = MutableLiveData<ResponseAddFriendData>()
+    val addFriend : LiveData<ResponseAddFriendData>
+        get() = _addFriend
+
     //  유저 목록 요청하기
     fun requestUserList(email: Editable) = viewModelScope.launch(Dispatchers.IO) {
         try {
@@ -26,6 +32,18 @@ class AddFriendViewModel(application: Application) : AndroidViewModel(applicatio
                 RetrofitBuilder.friendService.searchUserList(
                     SeeMeetSharedPreference.getToken(),
                     RequestUserData(email.toString())
+                ))
+        } catch (e: HttpException) {
+        }
+    }
+
+    // 친구 추가 요청하기
+    fun requestAddFriend(email: Editable) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            _addFriend.postValue(
+                RetrofitBuilder.friendService.addFriendData(
+                    SeeMeetSharedPreference.getToken(),
+                    RequestAddFriendData(email.toString())
                 ))
         } catch (e: HttpException) {
         }
