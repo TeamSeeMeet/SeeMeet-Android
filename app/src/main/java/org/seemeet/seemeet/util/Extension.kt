@@ -41,7 +41,7 @@ fun View.makeGone() {
     visibility = View.GONE
 }
 
-fun String.dateToTime(): String {
+fun String.TimeParsing(): String {
     var date = ""
     var aa = ""
     val split = this.split(":")

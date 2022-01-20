@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.data.local.StartEndDateData
 import org.seemeet.seemeet.databinding.ItemSelectedDateBinding
-import org.seemeet.seemeet.util.dateToTime
+import org.seemeet.seemeet.util.TimeParsing
 
 class SelectedDateAdapter() : RecyclerView.Adapter<SelectedDateAdapter.ViewHolder>() {
     private var deleteListener: (() -> Unit)? = null
@@ -47,8 +47,8 @@ class SelectedDateAdapter() : RecyclerView.Adapter<SelectedDateAdapter.ViewHolde
                 imgRemove.setOnClickListener {
                     removeItem(position)
                 }
-                tvStartTime.text = date.start.dateToTime()
-                tvEndTime.text = date.end.dateToTime()
+                tvStartTime.text = date.start.TimeParsing()
+                tvEndTime.text = date.end.TimeParsing()
             }
         }
     }

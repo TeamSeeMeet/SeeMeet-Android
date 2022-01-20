@@ -45,14 +45,9 @@
             android:name=".ui.apply.ApplyActivity"
             android:exported="true" />
         <activity
-<<<<<<< HEAD
-            android:name=".ui.registration.LoginActivity"
-            android:exported="true">
-=======
             android:name=".ui.splash.SplashActivity"
             android:theme="@style/SplashTheme"
             android:exported="true" >
->>>>>>> develop
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

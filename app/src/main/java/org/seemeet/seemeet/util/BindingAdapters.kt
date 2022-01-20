@@ -93,7 +93,7 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("localDate")
     fun convertLocalDate(textview: TextView, text: String) {
-        textview.text = text.dateToTime()
+        textview.text = text.TimeParsing()
     }
 
     @JvmStatic
