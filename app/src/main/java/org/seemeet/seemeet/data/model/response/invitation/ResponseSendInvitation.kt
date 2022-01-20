@@ -1,25 +1,26 @@
 package org.seemeet.seemeet.data.model.response.invitation
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 //특정 요청 조회
 
 data class ResponseSendInvitation(
     @SerializedName("data")
-    val `data`: SendInvitationData,
+    val `data`: SendInvitation,
     @SerializedName("status")
     val status: Int,
     @SerializedName("success")
     val success: Boolean
-)
-
-data class SendInvitationData(
-    @SerializedName("invitation")
-    val invitation: SendInvitation,
-    @SerializedName("invitationDates")
-    val invitationDates: List<InvitationDate>
-)
+) : Serializable
 
 data class SendInvitation(
+    @SerializedName("invitation")
+    val invitation: SendInvitationData,
+    @SerializedName("invitationDates")
+    val invitationDates: List<SendInvitationDate>
+): Serializable
+
+data class SendInvitationData(
     @SerializedName("created_at")
     val createdAt: String,
     @SerializedName("guests")
@@ -40,9 +41,9 @@ data class SendInvitation(
     val isConfirmed: Boolean,
     @SerializedName("is_deleted")
     val isDeleted: Boolean
-)
+): Serializable
 
-data class InvitationDate(
+data class SendInvitationDate(
     @SerializedName("date")
     val date: String,
     @SerializedName("end")
@@ -52,10 +53,10 @@ data class InvitationDate(
     @SerializedName("invitation_id")
     val invitationId: Int,
     @SerializedName("respondent")
-    val respondent: List<Any>,
+    val respondent: List<SendRespondent>,
     @SerializedName("start")
     val start: String
-)
+): Serializable
 
 data class SendGuest(
     @SerializedName("id")
@@ -64,11 +65,18 @@ data class SendGuest(
     val isResponse: Boolean,
     @SerializedName("username")
     val username: String
-)
+): Serializable
 
 data class SendHost(
     @SerializedName("id")
     val id: Int,
     @SerializedName("username")
     val username: String
-)
+): Serializable
+
+data class SendRespondent(
+    @SerializedName("id")
+    val id: Int,
+    @SerializedName("username")
+    val username: String
+): Serializable

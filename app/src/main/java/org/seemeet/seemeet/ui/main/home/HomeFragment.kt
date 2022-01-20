@@ -282,4 +282,20 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        if(getLogin()) {
+            //로그인 했을 경우 이것저것 서버통신 후 뷰모델 쪽에서 homebanner도 호출하자..
+            //viewmodel.setReminderList()
+            viewmodel.requestFriendList()
+            viewmodel.requestComePlanList()
+            viewmodel.requestLastPlanData()
+        } else {
+            //안 했을 경우.
+            setHomeBanner(-1)
+            setNoReminderList()
+        }
+    }
+
 }
