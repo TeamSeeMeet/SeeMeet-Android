@@ -32,6 +32,8 @@ import org.seemeet.seemeet.ui.receive.ReceiveNoDialogFragment
 import org.seemeet.seemeet.ui.registration.LoginActivity
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
 import org.seemeet.seemeet.util.calDday
+import org.seemeet.seemeet.util.setBetweenDays
+import org.seemeet.seemeet.util.setBetweenDays2
 import java.time.YearMonth
 
 class HomeFragment : Fragment() {
@@ -149,7 +151,10 @@ class HomeFragment : Fragment() {
             with(binding.rvHomeReminder.adapter as ReminderListAdapter) {
                 //어댑터 내에서 notifyDataSetChanged() 해주는 역할의 함수
 
-                setReminder(comePlanList.data)
+
+                setReminder(comePlanList.data.filter {
+                    it.date.setBetweenDays2() < 0
+                })
 
                 if (comePlanList.data.isEmpty()) {
                     setNoReminderList()
