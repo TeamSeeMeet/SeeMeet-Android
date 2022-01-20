@@ -9,8 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
-import org.seemeet.seemeet.data.local.NotificationDoneData
-import org.seemeet.seemeet.data.local.NotificationFriendData
 import org.seemeet.seemeet.data.model.response.invitation.Invitation
 import org.seemeet.seemeet.data.model.response.invitation.ResponseInvitationList
 import retrofit2.HttpException
@@ -18,29 +16,41 @@ import retrofit2.HttpException
 class NotiViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _invitationList = MutableLiveData<ResponseInvitationList>()
-    val invitationList : LiveData<ResponseInvitationList>
+    val invitationList: LiveData<ResponseInvitationList>
         get() = _invitationList
 
-
     private val _inviIngList = MutableLiveData<List<Invitation>>()
-    val inviIngList : LiveData<List<Invitation>>
+    val inviIngList: LiveData<List<Invitation>>
         get() = _inviIngList
 
+    private val _inviDoneList = MutableLiveData<List<Invitation>>()
+    val inviDoneList: LiveData<List<Invitation>>
+        get() = _inviDoneList
+
+
     //약속 내역 모두 가져오는 함수
-    fun requestAllInvitaionList()  = viewModelScope.launch(Dispatchers.IO) {
+    fun requestAllInvitaionList() = viewModelScope.launch(Dispatchers.IO) {
         try {
-            _invitationList.postValue(RetrofitBuilder.invitationService.getAllInvitationList(
-                SeeMeetSharedPreference.getToken()
-            ))
+            _invitationList.postValue(
+                RetrofitBuilder.invitationService.getAllInvitationList(
+                    SeeMeetSharedPreference.getToken()
+                )
+            )
         } catch (e: HttpException) {
             e.printStackTrace()
         }
     }
+
     fun setInviIngList() {
         _inviIngList.postValue(invitationList.value?.data?.invitations)
     }
 
+    fun setInviDoneList() {
+        _inviDoneList.postValue(invitationList.value?.data?.invitations)
+    }
+
     // 더미 + notiIng과 notiDone의 viewModel 하나로 합체시킴.
+    /*
     private val _doneList = MutableLiveData<List<NotificationDoneData>>()
     val doneList : LiveData<List<NotificationDoneData>>
         get() = _doneList
@@ -78,7 +88,7 @@ class NotiViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
-    /* private val _ingList = MutableLiveData<List<NotificationIngData>>()
+ private val _ingList = MutableLiveData<List<NotificationIngData>>()
  val ingList : LiveData<List<NotificationIngData>>
      get() = _ingList*/
 
