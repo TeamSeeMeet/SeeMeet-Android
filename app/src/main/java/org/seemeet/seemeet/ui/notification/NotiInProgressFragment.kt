@@ -45,6 +45,7 @@ class NotiInProgressFragment : Fragment() {
     private fun setIngAdapter() {
         val ingListAdapter = NotiIngListAdapter()
         binding.rvIngList.adapter = ingListAdapter
+        binding.tvInProgressNum.text = "${ingListAdapter.itemCount}"
     }
 
     // 옵저버 _ 위에서 (1)로 데이터 넣을 경우 옵저버가 관찰하다가 업데이트함.
