@@ -31,16 +31,20 @@ class ReceiveActivity : AppCompatActivity() {
 
     private lateinit var binding:  ActivityReceiveBinding
     private val viewModel: ReceiveViewModel by viewModels() //위임초기화
+    private var invitationId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_receive)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
 
-        val invitationId =  intent.getIntExtra("invitationId", -1)
+        invitationId =  intent.getIntExtra("invitationId", -1)
         Log.d("********RECEIVE_INVITATION_ID", invitationId.toString())
 
-        binding.viewModel = viewModel
-        viewModel.setReceiveData()
+        if(invitationId != -1){
+            viewModel.requestReceiveInvitation(invitationId)
+        }
 
         setSingleChoice()
 
@@ -80,10 +84,10 @@ class ReceiveActivity : AppCompatActivity() {
                         val position = rv.getChildAdapterPosition(child)
                         val view = rv.layoutManager?.findViewByPosition(position)
                         view?.setBackgroundResource(R.drawable.rectangle_with_blackline)
-                        Log.d("*******************tag", viewModel.checkboxList.value!![position].time)
+                        Log.d("*******************tag", viewModel.receiveInvitationDateList.value!![position].end)
 
                         // 지금은 일괄적으로 다 같은 데이터 넣고 있는데, 나중에 위의 체크박스에서 포지션 가지고 id 값 불러와서 서버에 해당 데이터 요청하기...
-                        viewModel.setSheduleListData()
+                        viewModel.requestReceivePlanResponse(viewModel.receiveInvitationDateList.value!![position].id)
                         binding.tvReceiveSMsg.visibility = View.GONE
 
                         for(i in 0..rv.adapter!!.itemCount){
@@ -98,18 +102,18 @@ class ReceiveActivity : AppCompatActivity() {
             }
 
             override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-                TODO("Not yet implemented")
+
             }
         })
     }
 
     // 어댑터
     private fun setCheckBoxAdapter() {
-        val checkboxListAdapter = ReceiveCheckListAdapter( onClickCheckbox = {viewModel.setIsClicked(it)} )
+        val checkboxListAdapter = ReceiveCheckListAdapter( onClickCheckbox = { viewModel.setIsClicked(it)} )
 
         binding.rvReceiveCheckbox.adapter = checkboxListAdapter
     }
@@ -122,45 +126,47 @@ class ReceiveActivity : AppCompatActivity() {
 
     // 옵저버
     private fun setListObserver() {
-        viewModel.checkboxList.observe(this, Observer {
+
+        viewModel.receiveInvitationData.observe(this, Observer {
+            receiveInvitationData ->
+
+            viewModel.setReceiveInvitationDate()
+
+            receiveInvitationData.newGuests.forEach{
+                binding.cgRecieve.addView(Chip(this).apply{
+                    text = it.username
+
+                    setChipBackgroundColorResource(R.color.white)
+                    setTextAppearance(R.style.chipTextPinkStyle)
+                    chipStrokeWidth = 1.0F
+                    setChipStrokeColorResource(R.color.pink01)
+                    isCheckable = false
+                    isEnabled = false
+
+                })
+                Log.d("**********************받은이", it.username)
+            }
+
+        })
+
+        viewModel.receiveInvitationDateList.observe(this, Observer {
             checkboxList ->
             with(binding.rvReceiveCheckbox.adapter as ReceiveCheckListAdapter){
                 setCheckBox(checkboxList)
             }
         })
-        viewModel.recieverList.observe(this, Observer {
-            receiverList ->
-            receiverList.forEach {
-                binding.cgRecieve.addView(Chip(this).apply{
-                    text = it.name
-                    if(it.response){
-                        setChipBackgroundColorResource(R.color.pink01)
-                        setTextAppearance(R.style.chipTextWhiteStyle)
-                        isCheckable = false
-                        isEnabled = false
 
-                    } else {
-                        setChipBackgroundColorResource(R.color.white)
-                        setTextAppearance(R.style.chipTextPinkStyle)
-                        chipStrokeWidth = 1.0F
-                        setChipStrokeColorResource(R.color.pink01)
-                        isCheckable = false
-                        isEnabled = false
-                    }
-                })
-                Log.d("**********************받은이", it.name)
-            }
 
-        })
-
-        viewModel.clickedList.observe(this, Observer {
+        viewModel.receivePlanResponseList.observe(this, Observer {
             clickedList -> with(binding.rvReceiveSchdule.adapter as ReceiveSchduleListAdapter){
                 setSchedule(clickedList)
                 if(clickedList.isEmpty()) {
+                    Log.d("************PLAN_RESPONSE", "EMPTY")
                     binding.tvReceiveSMsg.text = "약속이 없어요."
                     binding.tvReceiveSMsg.visibility = View.VISIBLE
                     binding.tvReceiveClickDay.visibility = View.GONE
                 }else {
+                    Log.d("************PLAN_RESPONSE", "NOT EMPTY")
                     binding.tvReceiveClickDay.text = clickedList[0].date
                     binding.tvReceiveSMsg.visibility = View.GONE
                 }

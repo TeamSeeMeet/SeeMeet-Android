@@ -2,6 +2,7 @@ package org.seemeet.seemeet.data.api
 
 import org.seemeet.seemeet.data.model.request.invitation.RequestSendInvitationConfirm
 import org.seemeet.seemeet.data.model.response.invitation.ResponseInvitationList
+import org.seemeet.seemeet.data.model.response.invitation.ResponseReceiveInvitation
 import org.seemeet.seemeet.data.model.response.invitation.ResponseSendInvitation
 import retrofit2.http.*
 
@@ -33,4 +34,12 @@ interface InvitationService {
         @Path("invitationId") invitationId : Int,
         @Header("accesstoken") token: String
     )
+
+
+    //받은 요청 조회
+    @GET("invitation/{invitationId}")
+    suspend fun getReceiveInvitationData(
+        @Path("invitationId") invitationId : Int,
+        @Header("accesstoken") token: String
+    ) : ResponseReceiveInvitation
 }

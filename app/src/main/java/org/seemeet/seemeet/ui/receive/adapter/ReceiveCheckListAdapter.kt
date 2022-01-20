@@ -6,14 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.data.local.CheckboxData
 import org.seemeet.seemeet.databinding.ItemReceiveCheckboxBinding
 import android.widget.CheckBox
+import org.seemeet.seemeet.data.model.response.invitation.ReceiveInvitationDate
 
-class ReceiveCheckListAdapter(  val onClickCheckbox : (checkboxData : CheckboxData) -> Unit )
+class ReceiveCheckListAdapter(  val onClickCheckbox : (receiveInvitationDate : ReceiveInvitationDate) -> Unit )
     : RecyclerView.Adapter<ReceiveCheckListAdapter.RecieveTimeListViewHolder>() {
 
-    private var checkboxList = emptyList<CheckboxData>()
-
-    //checkbox : check한 데이터 리스트 받아오기.
-    //check 한 개 1개 이상 있어야 아래 수락 버튼 활성화.
+    private var checkboxList = emptyList<ReceiveInvitationDate>()
 
     class RecieveTimeListViewHolder(
         private val binding : ItemReceiveCheckboxBinding
@@ -23,14 +21,10 @@ class ReceiveCheckListAdapter(  val onClickCheckbox : (checkboxData : CheckboxDa
                  return binding.cbReceive
             }
 
+        fun bind(data: ReceiveInvitationDate){
 
-        fun bind(data: CheckboxData){
-            /*더미데이터 어캐 넘기지. 으으으ㅡ으음으음 으으음 으으음~~~~`
-            일단 하고 나중에 수정하기....
-            일단 그냥 이쁘게 string 값해서 넘겨주고, 나중에 bindingAdapter에서 변환을 하든 자르든 하자.
-           */
             binding.checkboxData = data
-            binding.cbReceive.isChecked = data.flag
+            binding.cbReceive.isChecked = data.isSelected
             
         }
     }
@@ -49,7 +43,7 @@ class ReceiveCheckListAdapter(  val onClickCheckbox : (checkboxData : CheckboxDa
         holder.bind(checkboxList[position])
 
         holder.cb.setOnClickListener {
-            checkboxList[position].flag = !checkboxList[position].flag
+            checkboxList[position].isSelected = !checkboxList[position].isSelected
             onClickCheckbox.invoke(checkboxList[position])
             notifyItemChanged(position)
         }
@@ -57,12 +51,13 @@ class ReceiveCheckListAdapter(  val onClickCheckbox : (checkboxData : CheckboxDa
 
     override fun getItemCount(): Int = checkboxList.size
 
-    fun setCheckBox(checkboxList : List<CheckboxData>){
+    fun setCheckBox(checkboxList : List<ReceiveInvitationDate>){
         this.checkboxList = checkboxList
+
         notifyDataSetChanged()
     }
 
-    fun getCheckBoxList() : List<CheckboxData>{
+    fun getCheckBoxList() : List<ReceiveInvitationDate>{
         return checkboxList
     }
 

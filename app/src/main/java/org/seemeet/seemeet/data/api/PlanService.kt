@@ -2,6 +2,7 @@ package org.seemeet.seemeet.data.api
 
 import org.seemeet.seemeet.data.model.response.plan.ResponseComePlanList
 import org.seemeet.seemeet.data.model.response.plan.ResponseLastPlan
+import org.seemeet.seemeet.data.model.response.plan.ResponsePlanResponseList
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
@@ -22,4 +23,10 @@ interface PlanService {
         @Path("day") day : Int,
         @Header("accesstoken") token : String
     ): ResponseLastPlan
+
+    @GET("plan/response/{dateId}")
+    suspend fun getPlanResponse(
+        @Path("dateId") dateId : Int,
+        @Header("accesstoken") token : String
+    ) : ResponsePlanResponseList
 }
