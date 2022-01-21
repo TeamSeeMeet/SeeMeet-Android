@@ -9,15 +9,23 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.kizitonwose.calendarview.utils.yearMonth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.api.InvitationService
+import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.local.ApplyFriendData
 import org.seemeet.seemeet.data.local.StartEndDateData
+import org.seemeet.seemeet.data.model.request.invitation.RequestApplyInvitation
 import org.seemeet.seemeet.databinding.ActivitySecondApplyBinding
 import org.seemeet.seemeet.databinding.ItemPickerDateBinding
 import org.seemeet.seemeet.ui.apply.adapter.PickerEventAdapter
@@ -26,11 +34,13 @@ import org.seemeet.seemeet.ui.main.calendar.CalendarEvent
 import org.seemeet.seemeet.ui.main.calendar.UserData
 import org.seemeet.seemeet.util.*
 import org.seemeet.seemeet.util.setTextColorRes
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.collections.ArrayList
 
 class SecondApplyActivity : AppCompatActivity() {
 
@@ -56,6 +66,15 @@ class SecondApplyActivity : AppCompatActivity() {
     private var applyStartTime = defaultTime(0,3)
     private var applyEndTime = defaultTime(1,3)
 
+    private lateinit var userDataList : ArrayList<ApplyFriendData>
+    private lateinit var title : String
+    private lateinit var desc : String
+
+    private var dateList = mutableListOf<String>()
+    private var startTimeList = mutableListOf<String>()
+    private var endTimeList = mutableListOf<String>()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -68,14 +87,11 @@ class SecondApplyActivity : AppCompatActivity() {
         binding.tvFinishTimepicker.text = defaultTime(1,1)
         initClickListener()
 
-        /*Log.d("여기야",  intent.getArray("chipFriendData")[0].+ " " + intent.getStringExtra("title")+ " "+
-                intent.getStringExtra("Desc"))*/
+        userDataList = intent.getSerializableExtra("chipFriendData") as ArrayList<ApplyFriendData>
+        title = intent.getStringExtra("title")!!
+        desc = intent.getStringExtra("Desc")!!
 
-        val userDataList : ArrayList<ApplyFriendData> = intent.getSerializableExtra("chipFriendData") as ArrayList<ApplyFriendData>
-        val title = intent.getStringExtra("title")
-        val desc = intent.getStringExtra("Desc")
-
-        Log.d("**********INTENT_RECEIVE", userDataList[0].userName)
+        //Log.d("**********INTENT_RECEIVE", userDataList[0].userName)
 
         binding.apply {
             rvCalendarEvent.adapter = eventsAdapter
@@ -87,6 +103,16 @@ class SecondApplyActivity : AppCompatActivity() {
 
             btnAdd.setOnClickListener {
                 addSelectedDate()
+            }
+            btnApply.setOnClickListener {
+                if(selectedAdapter.selectedDateList.isNotEmpty()) {
+                    getSelectedDate()
+                    try {
+                        tryApply()
+                        Toast.makeText(this@SecondApplyActivity,"약속신청을 완료했어요.",Toast.LENGTH_LONG).show()
+                        finish()
+                    }catch (e : Exception){}
+                }
             }
         }
 
@@ -306,9 +332,11 @@ class SecondApplyActivity : AppCompatActivity() {
                 cal.set(Calendar.MINUTE, 30)
             }
         }
-        return if (type == 1) SimpleDateFormat("aa hh : mm").format(cal.time)
+        return if (type == 1) SimpleDateFormat("aa hh:mm").format(cal.time)
         else if(type ==2) SimpleDateFormat("aa hh:mm").format(cal.time)
-        else SimpleDateFormat("hh:mm").format(cal.time)
+        else {
+            SimpleDateFormat("hh:mm").format(cal.time).timeToDate(SimpleDateFormat("aa").format(cal.time))
+        }
     }
 
     fun getTime(textView: TextView, context: Context, hour: String, min: String, i: Int) {
@@ -399,6 +427,26 @@ class SecondApplyActivity : AppCompatActivity() {
         if (selectedAdapter.selectedDateList.size<4) {
             selectedAdapter.addItem(StartEndDateData(applyDate, applyStartTime, applyEndTime))
             binding.tvSelectedCount.text = selectedAdapter.selectedDateList.size.toString()
+        }
+    }
+
+    private fun getSelectedDate() {
+        selectedAdapter.selectedDateList.forEach {
+            dateList.add(it.date)
+            startTimeList.add(it.start)
+            endTimeList.add(it.end)
+        }
+        Log.d("testtt", dateList.toString()+startTimeList.toString()+endTimeList.toString())
+    }
+
+    private fun tryApply() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val ob = RequestApplyInvitation(userDataList,title,desc,dateList,startTimeList,endTimeList)
+                RetrofitBuilder.invitationService.postApplyInvitation(SeeMeetSharedPreference.getToken(),ob)
+            }catch (e: Exception){
+                Log.d("testtttt",e.toString())
+            }
         }
     }
 

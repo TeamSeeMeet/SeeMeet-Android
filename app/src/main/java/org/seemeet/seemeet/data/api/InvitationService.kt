@@ -68,12 +68,13 @@ interface InvitationService {
         @Header("accesstoken") token : String
     ) : ResponseNoInvitationResponse
 
-    /*//초대장 신청
+    //초대장 신
     @Headers("Content-Type:application/json")
     @POST("invitation")
-    fun postApplyInvitation(
+    suspend fun postApplyInvitation(
+        @Header("accesstoken") token : String,
         @Body body : RequestApplyInvitation
-    ): Call<ResponseApplyInvitation>*/
+    ): ResponseApplyInvitation
 
     
 

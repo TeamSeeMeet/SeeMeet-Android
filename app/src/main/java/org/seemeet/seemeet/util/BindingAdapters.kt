@@ -9,10 +9,7 @@ import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.widget.ImageView
 import android.widget.TextView
-
 import androidx.databinding.BindingAdapter
-import org.seemeet.seemeet.data.local.UserData
-import org.seemeet.seemeet.data.model.response.invitation.Guest
 import org.seemeet.seemeet.data.model.response.invitation.GuestX
 import org.seemeet.seemeet.data.model.response.invitation.SendRespondent
 
@@ -101,6 +98,13 @@ object BindingAdapters {
     fun setMonthDayDate(textview: TextView, text: String) {
         // O월 O일 꼴로 파싱함.
         textview.text = text.monthDayParsing()
+    }
+
+    @JvmStatic
+    @BindingAdapter("setYearMonthDate")
+    fun setYearMonthDate(textview: TextView, text: String) {
+        // 0년 O월 O일 꼴로 파싱함.
+        textview.text = text.YearMonthDayParsing()
     }
 
     @JvmStatic
