@@ -60,6 +60,7 @@ class FirstApplyFragment : Fragment() {
             intent.putExtra("title",binding.etTitle.text.toString())
             intent.putExtra("Desc", binding.etDetail.text.toString())
             startActivity(intent)
+            requireActivity().finish()
 
             binding.chipGroup.children.iterator().forEach {
                 Log.d("*****************CHIPGROUP_CHILD", "${it.id}")
@@ -155,8 +156,8 @@ class FirstApplyFragment : Fragment() {
                                     friendArr.remove(friendArr[i])
                             }*/
 
-                            val fd = friendArr.filter{ it.userId == this.id}
-                            Log.d("************fd", fd[0].userId.toString())
+                            val fd = friendArr.filter{ it.id == this.id}
+                            Log.d("************fd", fd[0].username.toString())
 
                             friendArr.remove(fd[0])
 
