@@ -67,6 +67,9 @@ class SecondApplyActivity : AppCompatActivity() {
         binding.tvFinishTimepicker.text = defaultTime(1,1)
         initClickListener()
 
+        Log.d("여기야",  intent.getIntExtra("guests_id",100).toString()+ " " +intent.getStringExtra("guests_name")+ " "+ intent.getStringExtra("title")+ " "+
+                intent.getStringExtra("Desc")+ " ")
+
         binding.apply {
             rvCalendarEvent.adapter = eventsAdapter
             rvSelectedDate.adapter = selectedAdapter
