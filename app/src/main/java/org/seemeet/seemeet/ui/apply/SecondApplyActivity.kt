@@ -3,13 +3,13 @@ package org.seemeet.seemeet.ui.apply
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
@@ -21,7 +21,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
-import org.seemeet.seemeet.data.api.InvitationService
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.local.ApplyFriendData
 import org.seemeet.seemeet.data.local.StartEndDateData
@@ -33,14 +32,11 @@ import org.seemeet.seemeet.ui.apply.adapter.SelectedDateAdapter
 import org.seemeet.seemeet.ui.main.calendar.CalendarEvent
 import org.seemeet.seemeet.ui.main.calendar.UserData
 import org.seemeet.seemeet.util.*
-import org.seemeet.seemeet.util.setTextColorRes
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.ArrayList
 
 class SecondApplyActivity : AppCompatActivity() {
 
@@ -231,8 +227,8 @@ class SecondApplyActivity : AppCompatActivity() {
         binding.switchAllday.setOnCheckedChangeListener { CompoundButton, onSwitch ->
             //  스위치가 켜지면
             if (onSwitch) {
-                binding.tvStartTimepicker.text = "오전 00 : 00"
-                binding.tvFinishTimepicker.text = "오후 11 : 59"
+                binding.tvStartTimepicker.text = "오전 00:00"
+                binding.tvFinishTimepicker.text = "오후 11:59"
                 binding.tvStartTimeTop.text = "오전 00:00"
                 binding.tvEndTimeTop.text = "오후 11:59"
                 applyStartTime = "00:00"
@@ -253,7 +249,7 @@ class SecondApplyActivity : AppCompatActivity() {
 
             var ampm = binding.tvStartTimepicker.text.substring(0, 2)
             var hour = binding.tvStartTimepicker.text.substring(3, 5)
-            var min = binding.tvStartTimepicker.text.substring(8, 10)
+            var min = binding.tvStartTimepicker.text.substring(6, 8)
             if (ampm.equals("오후")) {
                 if (!hour.equals("12")) {
                     hour = (hour.toInt() + 12).toString()
@@ -271,7 +267,7 @@ class SecondApplyActivity : AppCompatActivity() {
         binding.tvFinishTimepicker.setOnClickListener {
             var ampm = binding.tvFinishTimepicker.text.substring(0, 2)
             var hour = binding.tvFinishTimepicker.text.substring(3, 5)
-            var min = binding.tvFinishTimepicker.text.substring(8, 10)
+            var min = binding.tvFinishTimepicker.text.substring(6, 8)
             if (ampm.equals("오후")) {
                 if (!hour.equals("12")) {
                     hour = (hour.toInt() + 12).toString()
@@ -352,7 +348,7 @@ class SecondApplyActivity : AppCompatActivity() {
                 if(minute<10) {
                     min_to_string = "0" + minute.toString()
                 }
-                textView.text = "오전 00 : " + min_to_string
+                textView.text = "오전 00:" + min_to_string
 
                 if(i==0) {
                     binding.tvStartTimeTop.text = "오전 00:00"
@@ -364,11 +360,11 @@ class SecondApplyActivity : AppCompatActivity() {
                 //타임피커에서 선택한 시간 받아서 텍스트에 넣어줌
             } else {
                 textView.text =
-                    SimpleDateFormat("aa hh : mm").format(cal.time) //타임피커에서 선택한 시간 받아서 텍스트에 넣어줌
+                    SimpleDateFormat("aa hh:mm").format(cal.time) //타임피커에서 선택한 시간 받아서 텍스트에 넣어줌
 
                 //TODO : 상단 시간팅 텍스트뷰 세팅 및, 시간변수 세팅
 
-               if(i==0) {
+                if(i==0) {
                     binding.tvStartTimeTop.text = SimpleDateFormat("aa hh:mm").format(cal.time)
                     applyStartTime = SimpleDateFormat("hh:mm").format(cal.time).timeToDate(SimpleDateFormat("aaa").format(cal.time))
                 }else{
