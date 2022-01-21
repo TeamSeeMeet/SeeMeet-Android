@@ -16,6 +16,7 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.kizitonwose.calendarview.utils.yearMonth
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.local.ApplyFriendData
 import org.seemeet.seemeet.data.local.StartEndDateData
 import org.seemeet.seemeet.databinding.ActivitySecondApplyBinding
 import org.seemeet.seemeet.databinding.ItemPickerDateBinding
@@ -67,8 +68,14 @@ class SecondApplyActivity : AppCompatActivity() {
         binding.tvFinishTimepicker.text = defaultTime(1,1)
         initClickListener()
 
-        Log.d("여기야",  intent.getIntExtra("guests_id",100).toString()+ " " +intent.getStringExtra("guests_name")+ " "+ intent.getStringExtra("title")+ " "+
-                intent.getStringExtra("Desc")+ " ")
+        /*Log.d("여기야",  intent.getArray("chipFriendData")[0].+ " " + intent.getStringExtra("title")+ " "+
+                intent.getStringExtra("Desc"))*/
+
+        val userDataList : ArrayList<ApplyFriendData> = intent.getSerializableExtra("chipFriendData") as ArrayList<ApplyFriendData>
+        val title = intent.getStringExtra("title")
+        val desc = intent.getStringExtra("Desc")
+
+        Log.d("**********INTENT_RECEIVE", userDataList[0].userName)
 
         binding.apply {
             rvCalendarEvent.adapter = eventsAdapter

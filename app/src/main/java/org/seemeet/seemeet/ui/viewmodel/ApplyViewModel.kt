@@ -25,7 +25,7 @@ class ApplyViewModel(application: Application) : AndroidViewModel(application) {
             _friendList.postValue(
                 RetrofitBuilder.friendService.getFriendList(
                     SeeMeetSharedPreference.getToken()
-                ).data
+                ).data //data.id, data.name, data.email 으로 받아
             )
         } catch (e: HttpException) {
             e.printStackTrace()

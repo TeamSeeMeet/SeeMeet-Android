@@ -7,12 +7,15 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.children
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.android.material.chip.Chip
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.local.ApplyFriendData
+import org.seemeet.seemeet.data.model.response.invitation.UserData
 import org.seemeet.seemeet.databinding.FragmentFirstApplyBinding
 import org.seemeet.seemeet.ui.apply.adapter.ApplyFriendAdapter
 import org.seemeet.seemeet.ui.viewmodel.ApplyViewModel
@@ -23,7 +26,11 @@ class FirstApplyFragment : Fragment() {
     val binding get() = _binding!!
     private lateinit var adapter: ApplyFriendAdapter
 
+    private var friendArr : ArrayList<ApplyFriendData> = arrayListOf<ApplyFriendData>()
+
     private val viewModel: ApplyViewModel by viewModels()
+    //private var intentData: ApplyFriendData? = null
+    //로컬로 데이터 클래스 만들고 그걸로 intent 전달하기
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,13 +51,31 @@ class FirstApplyFragment : Fragment() {
 
     private fun initClickListener() {
         binding.btnNext.setOnClickListener {
+            // intetntData로 넘기지 말고 arraylist, title, desc 각가 따로 넘기기
+           /* intentData?.desc = binding.etDetail.text.toString()
+            intentData?.title = binding.etTitle.text.toString()*/
+
             val intent = Intent(context, SecondApplyActivity::class.java)
-            /*intent.putExtra("guests_id",friendList[1].userId) //데이터 넣기
-            intent.putExtra("guests_name", friendList[1].userName)
+            intent.putExtra("chipFriendData",friendArr)
             intent.putExtra("title",binding.etTitle.text.toString())
-            intent.putExtra("Desc", binding.etDetail.text.toString())*/
-            //intent.putExtra()
+            intent.putExtra("Desc", binding.etDetail.text.toString())
             startActivity(intent)
+
+            binding.chipGroup.children.iterator().forEach {
+                Log.d("*****************CHIPGROUP_CHILD", "${it.id}")
+            }
+
+
+
+           /* intentData.guests = UserData(1,binding.chipGroup.children.toString())
+            val intent = Intent(context, SecondApplyActivity::class.java)
+            intent.putExtra("guests_id",) //데이터 넣기
+            intent.putExtra("guests_name", friendList[1].userName)*/
+
+           // intent.putExtra("title",binding.etTitle.text.toString())
+           // intent.putExtra("Desc", binding.etDetail.text.toString())
+            //intent.putExtra()
+            //startActivity(intent)
             //SecondApplyActivity.start(requireContext())
         }
 
@@ -93,6 +118,12 @@ class FirstApplyFragment : Fragment() {
                         false
                     ) as Chip).apply {
                         text = friendData.username //name 받아온 것
+                        id= friendData.id //*******************test
+
+                        friendArr?.add(ApplyFriendData(friendData.id, friendData.username))
+
+                        Log.d("**********CHIP_111", "$id, $text")
+
                         this.setChipBackgroundColorResource(R.color.chipbackground) //container color
                         this.setTextAppearance(R.style.ChipTextAppearance) //글자 색, 글자 크기 적용
                         binding.etToWho.text.clear()
@@ -114,6 +145,21 @@ class FirstApplyFragment : Fragment() {
                             if (binding.chipGroup.childCount < 3) {
                                 binding.etToWho.isEnabled = true
                             }
+
+                            Log.d("********REMOVE_ID", this.id.toString())
+
+
+
+                            /*for(i in  0 .. friendArr.size){
+                                if(friendArr[i].userId == this.id)
+                                    friendArr.remove(friendArr[i])
+                            }*/
+
+                            val fd = friendArr.filter{ it.userId == this.id}
+                            Log.d("************fd", fd[0].userId.toString())
+
+                            friendArr.remove(fd[0])
+
                         }
                     })
                 adapter.removeItem(adapter.getPosition())
@@ -129,16 +175,17 @@ class FirstApplyFragment : Fragment() {
 
     fun setFriendObserver() {
         viewModel.friendList.observe(this, Observer { friendList ->
-
             Log.d("*************APPLY_FreindList", friendList[0].username)
+
+            friendList.forEach {
+                Log.d("*******CHIP_152", "${it.id}, ${it.username}")
+            }
 
             with(binding.rvFriend.adapter as ApplyFriendAdapter) {
                 setFriend(friendList)
             }
 
         })
-
-
     }
 
     fun initFocusBackground() {
@@ -147,6 +194,7 @@ class FirstApplyFragment : Fragment() {
                 binding.rvFriend.visibility = View.VISIBLE
                 if(binding.chipGroup.childCount==0) {
                     viewModel.requestFriendList() //딱 클릭했을 때 친구 리스트 통신 시작
+
                 }
             } else {
                 binding.rvFriend.visibility = View.INVISIBLE
