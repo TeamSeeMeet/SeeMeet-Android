@@ -68,7 +68,6 @@ class SendConfirmDialogFragment : DialogFragment() {
             buttonClickListener.onConfirmNoClicked()
             dismiss()
         }
-
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

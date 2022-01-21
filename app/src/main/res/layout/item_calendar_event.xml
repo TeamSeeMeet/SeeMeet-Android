@@ -7,7 +7,7 @@
 
         <variable
             name="calendarEvent"
-            type="org.seemeet.seemeet.ui.main.calendar.CalendarEvent" />
+            type="org.seemeet.seemeet.data.model.response.calendar.CalendarEvent" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +39,7 @@
                 android:textStyle="bold"
                 android:letterSpacing="0.01"
                 android:fontFamily="@font/spoqa_han_sans_neo_bold"
-                android:text="@{calendarEvent.planTitle}"
+                android:text="@{calendarEvent.invitationTitle}"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -48,7 +48,7 @@
 
         <TextView
             android:id="@+id/tv_start_time"
-            localDate="@{calendarEvent.startTime}"
+            localDate="@{calendarEvent.start}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="22dp"
@@ -76,7 +76,7 @@
             app:layout_constraintTop_toBottomOf="@+id/layout_title" />
 
         <TextView
-            localDate="@{calendarEvent.endTime}"
+            localDate="@{calendarEvent.end}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
@@ -94,10 +94,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="22dp"
             android:layout_marginTop="2dp"
-            android:layout_marginRight="21dp"
             android:layout_marginBottom="13dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_start_time"
             app:singleLine="true">

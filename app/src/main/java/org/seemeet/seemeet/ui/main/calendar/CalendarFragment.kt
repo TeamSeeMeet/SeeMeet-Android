@@ -1,6 +1,7 @@
 package org.seemeet.seemeet.ui.main.calendar
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +14,22 @@ import com.kizitonwose.calendarview.ui.ViewContainer
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
 import com.kizitonwose.calendarview.utils.yearMonth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.SeeMeetApplication
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.api.RetrofitBuilder
+import org.seemeet.seemeet.data.model.response.calendar.CalendarEvent
+import org.seemeet.seemeet.data.model.response.calendar.UserData
 import org.seemeet.seemeet.databinding.FragmentCalendarBinding
 import org.seemeet.seemeet.databinding.ItemCalendarDateBinding
 import org.seemeet.seemeet.util.daysOfWeekFromLocale
 import org.seemeet.seemeet.util.makeInVisible
 import org.seemeet.seemeet.util.makeVisible
 import org.seemeet.seemeet.util.setTextColorRes
+import java.lang.Exception
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -40,7 +50,7 @@ class CalendarFragment : Fragment() {
     private val selectionFormatter = DateTimeFormatter.ofPattern("MMM d일 EEE요일")
 
     //private val events = mutableMapOf<LocalDate, List<CalendarEvent>>()
-    private val events = dummyDate().groupBy { it.date }
+    private var events = dummyDate().groupBy { it.date }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -107,7 +117,6 @@ class CalendarFragment : Fragment() {
                 textView.text = day.date.dayOfMonth.toString()
 
                 if (day.owner == DayOwner.THIS_MONTH) {
-                    val isEvent = events[day.date.toString()]
                     textView.makeVisible()
                     when (day.date) {
                         today -> {
@@ -160,6 +169,7 @@ class CalendarFragment : Fragment() {
                     }
                 }
             }
+            getCalendarDate(""+it.year,""+it.month)
         }
     }
 
@@ -201,5 +211,19 @@ class CalendarFragment : Fragment() {
         list.add(CalendarEvent(1, "대방어대방어", "2022-01-16", "11:00", "13:00", userData))
         list.add(CalendarEvent(1, "대방어대방어", "2022-01-16", "11:00", "13:00", userData))
         return list
+    }
+
+    private fun getCalendarDate(year : String, month : String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val ob =RetrofitBuilder.calendarService.getFriendList(SeeMeetSharedPreference.getToken(),year, month).data
+                events = ob.groupBy { it.date }
+                binding.calendar.notifyCalendarChanged()
+                Log.d("testtt",ob.size.toString())
+            }catch (e : Exception) {
+                Log.d("testtt",e.toString())
+            }
+
+        }
     }
 }

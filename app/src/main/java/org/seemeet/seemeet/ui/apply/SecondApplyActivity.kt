@@ -17,12 +17,12 @@ import com.kizitonwose.calendarview.ui.ViewContainer
 import com.kizitonwose.calendarview.utils.yearMonth
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.local.StartEndDateData
+import org.seemeet.seemeet.data.model.response.calendar.CalendarEvent
+import org.seemeet.seemeet.data.model.response.calendar.UserData
 import org.seemeet.seemeet.databinding.ActivitySecondApplyBinding
 import org.seemeet.seemeet.databinding.ItemPickerDateBinding
 import org.seemeet.seemeet.ui.apply.adapter.PickerEventAdapter
 import org.seemeet.seemeet.ui.apply.adapter.SelectedDateAdapter
-import org.seemeet.seemeet.ui.main.calendar.CalendarEvent
-import org.seemeet.seemeet.ui.main.calendar.UserData
 import org.seemeet.seemeet.util.*
 import org.seemeet.seemeet.util.setTextColorRes
 import java.text.SimpleDateFormat
