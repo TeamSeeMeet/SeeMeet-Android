@@ -96,8 +96,9 @@ class DetailActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun start(context: Context) {
+        fun start(context: Context, planId : Int) {
             val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("planId",planId)
             context.startActivity(intent)
         }
     }
