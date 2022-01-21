@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.request.login.RequestLoginList
 import org.seemeet.seemeet.data.model.response.login.ResponseLoginList
@@ -70,8 +71,21 @@ class LoginActivity : AppCompatActivity() {
                 response: Response<ResponseLoginList>
             ) {
                 if (response.isSuccessful) {
+                    /*
                     MainActivity.start(this@LoginActivity)
                     Log.d("testt", response.body().toString())
+
+                        */
+                        response.body()?.data?.let {
+                            SeeMeetSharedPreference.setToken(it?.accesstoken)
+                            SeeMeetSharedPreference.setUserId(it.user.id)
+                            SeeMeetSharedPreference.setLogin(true)
+                        }
+
+                        MainActivity.start(this@LoginActivity)
+                        Log.d("testt", response.body().toString())
+
+
                 } else {
                     CustomToast.createToast(this@LoginActivity, "올바르지 않은 정보입니다.")?.show()
                     /*
