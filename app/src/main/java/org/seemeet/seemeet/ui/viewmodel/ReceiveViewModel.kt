@@ -10,13 +10,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
-import org.seemeet.seemeet.data.local.*
-import org.seemeet.seemeet.data.model.response.invitation.InvitationListData
-import org.seemeet.seemeet.data.model.response.invitation.ReceiveInvitation
+import org.seemeet.seemeet.data.model.request.invitationResponse.RequestInvitationResponse
 import org.seemeet.seemeet.data.model.response.invitation.ReceiveInvitationData
 import org.seemeet.seemeet.data.model.response.invitation.ReceiveInvitationDate
+import org.seemeet.seemeet.data.model.response.invitationResponse.ResponseNoInvitationResponse
+import org.seemeet.seemeet.data.model.response.invitationResponse.ResponseYesInvitationResponse
 import org.seemeet.seemeet.data.model.response.plan.PlanResponseData
-import org.seemeet.seemeet.ui.receive.adapter.ReceiveCheckListAdapter
 import retrofit2.HttpException
 
 class ReceiveViewModel(application: Application) : AndroidViewModel(application) {
@@ -33,6 +32,14 @@ class ReceiveViewModel(application: Application) : AndroidViewModel(application)
     val receivePlanResponseList : LiveData<List<PlanResponseData>>
         get() = _receivePlanResponseList
 
+    private val _receiveYesInvitation = MutableLiveData<ResponseYesInvitationResponse>()
+    val receiveYesInvitation : LiveData<ResponseYesInvitationResponse>
+        get() = _receiveYesInvitation
+
+
+    private val _receiveNoInvitation = MutableLiveData<ResponseNoInvitationResponse>()
+    val receiveNoInvitation : LiveData<ResponseNoInvitationResponse>
+        get() = _receiveNoInvitation
 
     fun requestReceiveInvitation(invitationId : Int) = viewModelScope.launch (Dispatchers.IO){
         try {
@@ -50,6 +57,29 @@ class ReceiveViewModel(application: Application) : AndroidViewModel(application)
             e.printStackTrace()
         }
     }
+
+
+    fun requestReceiveYesInvitation(invitationId: Int, dateIds : List<Int>) = viewModelScope.launch (Dispatchers.IO){
+        try {
+            Log.d("**********invitationId", invitationId.toString())
+            val requestYesInvitationResponse = RequestInvitationResponse(dateIds)
+            _receiveYesInvitation.postValue(RetrofitBuilder.invitationService.setYesReceiveInvitationResponse(invitationId, requestYesInvitationResponse, SeeMeetSharedPreference.getToken()))
+        } catch (e: HttpException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun requestReceiveNoInvitation(invitationId: Int) = viewModelScope.launch (Dispatchers.IO){
+        try {
+            Log.d("**********invitationId", invitationId.toString())
+            _receiveNoInvitation.postValue(RetrofitBuilder.invitationService.setNoReceiveInvitationResponse(invitationId, SeeMeetSharedPreference.getToken()))
+        } catch (e: HttpException) {
+            e.printStackTrace()
+        }
+    }
+
+
+
 
 
     var isClicked : MutableLiveData<Int> = MutableLiveData(0)

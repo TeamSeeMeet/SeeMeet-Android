@@ -32,6 +32,7 @@ class ReceiveActivity : AppCompatActivity() {
     private lateinit var binding:  ActivityReceiveBinding
     private val viewModel: ReceiveViewModel by viewModels() //위임초기화
     private var invitationId = -1
+    private var isResponse = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,12 +47,11 @@ class ReceiveActivity : AppCompatActivity() {
             viewModel.requestReceiveInvitation(invitationId)
         }
 
-        setSingleChoice()
-
         setCheckBoxAdapter()
         setClickedAdapter()
 
         setListObserver()
+
         setTextColorSpan()
 
         initButtonClick()
@@ -129,29 +129,40 @@ class ReceiveActivity : AppCompatActivity() {
 
         viewModel.receiveInvitationData.observe(this, Observer {
             receiveInvitationData ->
+                isResponse = receiveInvitationData.isResponse
 
-            viewModel.setReceiveInvitationDate()
+                if(isResponse){
+                    binding.clRecieveBottom.visibility = View.GONE
+                    binding.rvReceiveCheckbox.isEnabled = false
+                    binding.rvReceiveCheckbox.isClickable = false
 
-            receiveInvitationData.newGuests.forEach{
-                binding.cgRecieve.addView(Chip(this).apply{
-                    text = it.username
+                } else {
+                    setSingleChoice()
+                }
 
-                    setChipBackgroundColorResource(R.color.white)
-                    setTextAppearance(R.style.chipTextPinkStyle)
-                    chipStrokeWidth = 1.0F
-                    setChipStrokeColorResource(R.color.pink01)
-                    isCheckable = false
-                    isEnabled = false
+                viewModel.setReceiveInvitationDate()
 
-                })
-                Log.d("**********************받은이", it.username)
-            }
+                receiveInvitationData.newGuests.forEach {
+                    binding.cgRecieve.addView(Chip(this).apply {
+                        text = it.username
+
+                        setChipBackgroundColorResource(R.color.white)
+                        setTextAppearance(R.style.chipTextPinkStyle)
+                        chipStrokeWidth = 1.0F
+                        setChipStrokeColorResource(R.color.pink01)
+                        isCheckable = false
+                        isEnabled = false
+
+                    })
+                    Log.d("**********************받은이", it.username)
+                }
 
         })
 
         viewModel.receiveInvitationDateList.observe(this, Observer {
             checkboxList ->
             with(binding.rvReceiveCheckbox.adapter as ReceiveCheckListAdapter){
+                setIsResponse(isResponse)
                 setCheckBox(checkboxList)
             }
         })
@@ -173,6 +184,7 @@ class ReceiveActivity : AppCompatActivity() {
              }
         })
 
+
         viewModel.isClicked.observe(this, Observer {
             it ->
             Log.d("***************isClicked", it.toString())
@@ -187,6 +199,16 @@ class ReceiveActivity : AppCompatActivity() {
                 binding.btnReceiveYes.background = resources.getDrawable(R.drawable.rectangle_gray02_10)
             }
         })
+
+        viewModel.receiveYesInvitation.observe(this, Observer{
+            Log.d("***********receive_YES", it.status.toString())
+        })
+
+        viewModel.receiveNoInvitation.observe(this, Observer{
+            Log.d("***********receive_NO", it.status.toString())
+        })
+
+
 
     }
 
@@ -208,8 +230,11 @@ class ReceiveActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelYesClicked() {
-                    //여기서 데이터 전송.
-                    //위의 cblist에서 flag가 true인 애들 아이디만 골라서 전송해주기.
+                    if(invitationId != -1) {
+                        viewModel.requestReceiveNoInvitation(invitationId)
+                        finish()
+                    }
+
                 }
             })
             dialogView.show(supportFragmentManager, "send wish checkbox time")
@@ -221,14 +246,17 @@ class ReceiveActivity : AppCompatActivity() {
             val bundle = Bundle()
             val cblist = (binding.rvReceiveCheckbox.adapter as ReceiveCheckListAdapter).getCheckBoxList()
 
+            val dateIdList : List<Int> = List(cblist.filter{it.isSelected}.size) { i -> cblist.filter{ it.isSelected}[i].id }
+
             bundle.putParcelableArrayList("cblist", cblist as ArrayList<out Parcelable>)
             dialogView.arguments = bundle
 
 
+
             dialogView.setButtonClickListener( object : ReceiveYesDiagloFragment.OnButtonClickListener {
                 override fun onSendClicked() {
-                    //여기서 데이터 전송.
-                    //위의 cblist에서 flag가 true인 애들 아이디만 골라서 전송해주기.
+                    viewModel.requestReceiveYesInvitation(invitationId, dateIdList)
+                    finish()
                 }
 
                 override fun onCancelClicked() {

@@ -4,7 +4,12 @@ import org.seemeet.seemeet.data.model.request.invitation.RequestSendInvitationCo
 import org.seemeet.seemeet.data.model.response.invitation.ResponseInvitationList
 import org.seemeet.seemeet.data.model.response.invitation.ResponseReceiveInvitation
 import org.seemeet.seemeet.data.model.response.invitation.ResponseSendInvitation
+import org.seemeet.seemeet.data.model.response.invitationResponse.ResponseYesInvitationResponse
 import retrofit2.http.*
+import com.google.gson.annotations.SerializedName
+import org.seemeet.seemeet.data.model.request.invitationResponse.RequestInvitationResponse
+import org.seemeet.seemeet.data.model.response.invitationResponse.ResponseNoInvitationResponse
+
 
 interface InvitationService {
 
@@ -42,4 +47,19 @@ interface InvitationService {
         @Path("invitationId") invitationId : Int,
         @Header("accesstoken") token: String
     ) : ResponseReceiveInvitation
+
+    //받은 요청 수락
+    @POST("invitation-response/{invitationId}")
+    suspend fun setYesReceiveInvitationResponse(
+        @Path("invitationId") invitationId: Int,
+        @Body invitationDateIds : RequestInvitationResponse,
+        @Header("accesstoken") token : String
+    ) : ResponseYesInvitationResponse
+
+    //받은 요청 취소
+    @POST("invitation-response/{invitationId}/reject")
+    suspend fun setNoReceiveInvitationResponse(
+        @Path("invitationId") invitationId: Int,
+        @Header("accesstoken") token : String
+    ) : ResponseNoInvitationResponse
 }
