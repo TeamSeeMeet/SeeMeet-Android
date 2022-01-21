@@ -1,15 +1,103 @@
 package org.seemeet.seemeet.ui.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import org.seemeet.seemeet.data.local.*
-import org.seemeet.seemeet.ui.receive.adapter.ReceiveCheckListAdapter
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.api.RetrofitBuilder
+import org.seemeet.seemeet.data.model.request.invitationResponse.RequestInvitationResponse
+import org.seemeet.seemeet.data.model.response.invitation.ReceiveInvitationData
+import org.seemeet.seemeet.data.model.response.invitation.ReceiveInvitationDate
+import org.seemeet.seemeet.data.model.response.invitationResponse.ResponseNoInvitationResponse
+import org.seemeet.seemeet.data.model.response.invitationResponse.ResponseYesInvitationResponse
+import org.seemeet.seemeet.data.model.response.plan.PlanResponseData
+import retrofit2.HttpException
 
 class ReceiveViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _checkboxList = MutableLiveData<List<CheckboxData>>()
+    private val _receiveInvitationData = MutableLiveData<ReceiveInvitationData>()
+    val receiveInvitationData : LiveData<ReceiveInvitationData>
+        get() = _receiveInvitationData
+
+    private val _receiveInvitationDateList  = MutableLiveData<List<ReceiveInvitationDate>>()
+    val receiveInvitationDateList : LiveData<List<ReceiveInvitationDate>>
+        get() = _receiveInvitationDateList
+
+    private val _receivePlanResponseList = MutableLiveData<List<PlanResponseData>>()
+    val receivePlanResponseList : LiveData<List<PlanResponseData>>
+        get() = _receivePlanResponseList
+
+    private val _receiveYesInvitation = MutableLiveData<ResponseYesInvitationResponse>()
+    val receiveYesInvitation : LiveData<ResponseYesInvitationResponse>
+        get() = _receiveYesInvitation
+
+
+    private val _receiveNoInvitation = MutableLiveData<ResponseNoInvitationResponse>()
+    val receiveNoInvitation : LiveData<ResponseNoInvitationResponse>
+        get() = _receiveNoInvitation
+
+    fun requestReceiveInvitation(invitationId : Int) = viewModelScope.launch (Dispatchers.IO){
+        try {
+            Log.d("**********sendId", invitationId.toString())
+            _receiveInvitationData.postValue(RetrofitBuilder.invitationService.getReceiveInvitationData(invitationId, SeeMeetSharedPreference.getToken()).data)
+        } catch (e: HttpException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun requestReceivePlanResponse(dateId : Int) = viewModelScope.launch(Dispatchers.IO){
+        try{
+            _receivePlanResponseList.postValue(RetrofitBuilder.planService.getPlanResponse(dateId, SeeMeetSharedPreference.getToken()).data)
+        } catch (e : HttpException){
+            e.printStackTrace()
+        }
+    }
+
+
+    fun requestReceiveYesInvitation(invitationId: Int, dateIds : List<Int>) = viewModelScope.launch (Dispatchers.IO){
+        try {
+            Log.d("**********invitationId", invitationId.toString())
+            val requestYesInvitationResponse = RequestInvitationResponse(dateIds)
+            _receiveYesInvitation.postValue(RetrofitBuilder.invitationService.setYesReceiveInvitationResponse(invitationId, requestYesInvitationResponse, SeeMeetSharedPreference.getToken()))
+        } catch (e: HttpException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun requestReceiveNoInvitation(invitationId: Int) = viewModelScope.launch (Dispatchers.IO){
+        try {
+            Log.d("**********invitationId", invitationId.toString())
+            _receiveNoInvitation.postValue(RetrofitBuilder.invitationService.setNoReceiveInvitationResponse(invitationId, SeeMeetSharedPreference.getToken()))
+        } catch (e: HttpException) {
+            e.printStackTrace()
+        }
+    }
+
+
+
+
+
+    var isClicked : MutableLiveData<Int> = MutableLiveData(0)
+
+    fun setIsClicked(cb : ReceiveInvitationDate){
+        if(cb.isSelected)
+            isClicked.value = (isClicked.value)?.plus(1)
+        else
+            isClicked.value = (isClicked.value)?.minus(1)
+    }
+
+    fun setReceiveInvitationDate() {
+        _receiveInvitationDateList.postValue(receiveInvitationData.value?.invitationDates)
+    }
+
+
+    // 더미용
+   /* private val _checkboxList = MutableLiveData<List<CheckboxData>>()
     val checkboxList : LiveData<List<CheckboxData>>
         get() = _checkboxList
 
@@ -36,16 +124,6 @@ class ReceiveViewModel(application: Application) : AndroidViewModel(application)
     private val _clickedList = MutableLiveData<List<ScheduleData>>()
     val clickedList : LiveData<List<ScheduleData>>
         get() = _clickedList
-
-    var isClicked : MutableLiveData<Int> = MutableLiveData(0)
-
-    fun setIsClicked(cb : CheckboxData){
-        if(cb.flag)
-            isClicked.value = (isClicked.value)?.plus(1)
-        else
-            isClicked.value = (isClicked.value)?.minus(1)
-    }
-
 
     fun setReceiveData(){
         _checkboxList.value = mutableListOf(
@@ -112,5 +190,5 @@ class ReceiveViewModel(application: Application) : AndroidViewModel(application)
             )
         )
     }
-
+*/
 }

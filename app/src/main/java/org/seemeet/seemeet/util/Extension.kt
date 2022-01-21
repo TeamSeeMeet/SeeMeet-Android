@@ -12,6 +12,7 @@ import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatter.ofPattern
 import java.time.temporal.ChronoUnit
 import java.time.temporal.WeekFields
 import java.util.*
@@ -102,3 +103,11 @@ fun String.setBetweenDays() : Long {
 
      return ChronoUnit.DAYS.between(created, today)
 }
+
+fun String.setBetweenDays2() : Long {
+    val created = LocalDate.parse(this, DateTimeFormatter.ISO_DATE)
+    val today = LocalDateTime.now()
+
+    return ChronoUnit.DAYS.between(created, today)
+}
+

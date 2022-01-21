@@ -8,25 +8,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.local.ScheduleData
+import org.seemeet.seemeet.data.model.response.plan.PlanResponseData
 import org.seemeet.seemeet.databinding.ItemReceiveScheduleBinding
 import org.seemeet.seemeet.databinding.ItemReceiveScheduleGrayBinding
 
 
 class ReceiveSchduleListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var scheduleList = emptyList<ScheduleData>()
+    private var scheduleList = emptyList<PlanResponseData>()
     private var context : Context? = null
     //일단 viewtype을
 
     inner class ReceiveSchduleViewHolder1(
         private val binding : ItemReceiveScheduleBinding
     ): RecyclerView.ViewHolder(binding.root){
-        fun bind(scheduleData: ScheduleData) {
-            binding.scheduleData = scheduleData
+        fun bind(planResponseData : PlanResponseData) {
+            binding.planResponseData = planResponseData
             binding.cgRecieveTogether.removeAllViews()
-            scheduleData.together.forEach{
+
+            planResponseData.users.forEach{
                 binding.cgRecieveTogether.addView(Chip(context).apply{
-                    text = it
+                    text = it.username
 
                     setChipBackgroundColorResource(R.color.white)
                     setTextAppearance(R.style.chipTextPinkStyle)
@@ -47,9 +49,6 @@ class ReceiveSchduleListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>()
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return scheduleList[position].id
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
        /* if(viewType == 1 ){
@@ -95,7 +94,7 @@ class ReceiveSchduleListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>()
 
     override fun getItemCount(): Int = scheduleList.size
 
-    fun setSchedule(scheduleList : List<ScheduleData>){
+    fun setSchedule(scheduleList : List<PlanResponseData>){
         this.scheduleList = scheduleList
         notifyDataSetChanged()
     }

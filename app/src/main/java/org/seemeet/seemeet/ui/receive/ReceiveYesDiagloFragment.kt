@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.local.CheckboxData
+import org.seemeet.seemeet.data.model.response.invitation.ReceiveInvitationDate
 import org.seemeet.seemeet.databinding.DialogReceiveYesDiagloBinding
+import org.seemeet.seemeet.util.TimeParsing
 
 class ReceiveYesDiagloFragment : DialogFragment() {
 
@@ -25,29 +27,31 @@ class ReceiveYesDiagloFragment : DialogFragment() {
 
 
         val bundle = arguments
-        val cblist : ArrayList<CheckboxData> = bundle?.getParcelableArrayList<Parcelable>("cblist") as ArrayList<CheckboxData>
+        val cblist : ArrayList<ReceiveInvitationDate> = bundle?.getParcelableArrayList<Parcelable>("cblist") as ArrayList<ReceiveInvitationDate>
         var cnt : Int = 0
         cblist.forEach{
-            if(it.flag){
+
+            if(it.isSelected){
+                var time = it.start.TimeParsing() + " ~" + it.end.TimeParsing()
                 when(cnt){
                     0 -> {
                         binding.tvReceiDateWish1.text = it.date
-                        binding.tvReceiTimeWish1.text = it.time
+                        binding.tvReceiTimeWish1.text = time
                         cnt++
                     }
                     1 -> {
                         binding.tvReceiDateWish2.text = it.date
-                        binding.tvReceiTimeWish2.text = it.time
+                        binding.tvReceiTimeWish2.text = time
                         cnt++
                     }
                     2 -> {
                         binding.tvReceiDateWish3.text = it.date
-                        binding.tvReceiTimeWish3.text = it.time
+                        binding.tvReceiTimeWish3.text = time
                         cnt++
                     }
                     3 -> {
                         binding.tvReceiDateWish4.text = it.date
-                        binding.tvReceiTimeWish4.text = it.time
+                        binding.tvReceiTimeWish4.text  = time
                         cnt++
                     }
 
