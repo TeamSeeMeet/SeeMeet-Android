@@ -84,6 +84,7 @@ class FriendActivity : AppCompatActivity() {
         val intent = Intent(this, ApplyActivity::class.java)
         intent.putExtra("username",viewModel.friendList.value!!.data[pos].username)
         startActivity(intent)
+        finish()
     }
 
 
