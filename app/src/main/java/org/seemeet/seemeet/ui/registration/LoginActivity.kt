@@ -115,6 +115,7 @@ class LoginActivity : AppCompatActivity() {
         binding.tvRegister.setOnClickListener {
             val nextIntent = Intent(this, RegisterActivity::class.java)
             startActivity(nextIntent)
+            finish()
         }
 
         //둘 다 채우면 로그인 버튼 색깔 바뀌게
