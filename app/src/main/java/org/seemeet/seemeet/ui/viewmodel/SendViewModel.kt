@@ -35,13 +35,6 @@ class SendViewModel(application: Application) : AndroidViewModel(application) {
     val sendInvitationDateList : LiveData<List<SendInvitationDate>>
         get() = _sendInvitationDateList
 
-    private val _guestCnt = MutableLiveData<String>()
-    val guestCnt : LiveData<String>
-        get() = _guestCnt
-
-    fun setGuestCount( cnt : Int,  size : Int){
-        _guestCnt.value = "$cnt/$size"
-    }
 
     fun requestSendInvitationData(invitationId : Int) = viewModelScope.launch (Dispatchers.IO){
         try {

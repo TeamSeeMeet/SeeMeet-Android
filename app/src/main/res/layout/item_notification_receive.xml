@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            setNotiReceiveMsg="@{ingData.confirmed}"
+            setNotiReceiveMsg="@{ingData.response}"
             android:textColor="@color/gray06"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/tv_receive"

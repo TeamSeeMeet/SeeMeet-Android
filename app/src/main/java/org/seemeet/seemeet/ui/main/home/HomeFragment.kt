@@ -21,18 +21,15 @@ import androidx.fragment.app.activityViewModels
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.SeeMeetSharedPreference.getLogin
-import org.seemeet.seemeet.data.local.ReminderData
 import org.seemeet.seemeet.databinding.FragmentHomeBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
 import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.ui.main.home.adapter.ReminderListAdapter
 import org.seemeet.seemeet.ui.notification.NotificationActivity
-import org.seemeet.seemeet.ui.receive.DialogHomeNoLoginFragment
-import org.seemeet.seemeet.ui.receive.ReceiveNoDialogFragment
 import org.seemeet.seemeet.ui.registration.LoginActivity
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
 import org.seemeet.seemeet.util.calDday
-import java.time.YearMonth
+import org.seemeet.seemeet.util.setBetweenDays2
 
 class HomeFragment : Fragment() {
     private var _binding : FragmentHomeBinding? = null
@@ -49,12 +46,12 @@ class HomeFragment : Fragment() {
 
         //원래 이 코드는 로그인 했을 경우, id와 다른 토큰과 함께 sharedPreference에 넣어야함.
         //그리고 로그아웃할때 setLogin을 false로 하던가, sharedPreference를 다 지우던가. 후자가 나을듯...?
-        SeeMeetSharedPreference.clearStorage()
+        //SeeMeetSharedPreference.clearStorage()
         SeeMeetSharedPreference.setLogin(true)
-        SeeMeetSharedPreference.setUserId(6)
+        //SeeMeetSharedPreference.setUserId(6)
 
         //김안드 토큰 친구 있 _ id 6
-        SeeMeetSharedPreference.setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhbmRyb2lkMDFAYW5kcm9pZC5jb20iLCJuYW1lIjpudWxsLCJpZEZpcmViYXNlIjoiODlqaVprRlFMYVVPV2dSSzB6TU94NXFHeVY1MyIsImlhdCI6MTY0MjUxNjUzNywiZXhwIjoxNjQ1MTA4NTM3LCJpc3MiOiJ3ZXNvcHQifQ.lIGJGaaWExXwYO9wS1j4okvuXb_aoAlkuFNlxmwmbk8")
+        //SeeMeetSharedPreference.setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhbmRyb2lkMDFAYW5kcm9pZC5jb20iLCJuYW1lIjpudWxsLCJpZEZpcmViYXNlIjoiODlqaVprRlFMYVVPV2dSSzB6TU94NXFHeVY1MyIsImlhdCI6MTY0MjUxNjUzNywiZXhwIjoxNjQ1MTA4NTM3LCJpc3MiOiJ3ZXNvcHQifQ.lIGJGaaWExXwYO9wS1j4okvuXb_aoAlkuFNlxmwmbk8")
 
         //이코트 토큰 친구 없 _ id 7
         //SeeMeetSharedPreference.setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJhbmRyb2lkMDJAYW5kcm9pZC5jb20iLCJuYW1lIjpudWxsLCJpZEZpcmViYXNlIjoiMzJ3SkN3S0dBYVB5RFU4eVRxczN5TGlUeTJiMiIsImlhdCI6MTY0MjUxMjk0NSwiZXhwIjoxNjQ1MTA0OTQ1LCJpc3MiOiJ3ZXNvcHQifQ.Tyuqdf3PYswKJcVekUJZ0KZ2SA2mZ1kevTJEENhthl8")
@@ -110,6 +107,9 @@ class HomeFragment : Fragment() {
             nvMypage.clMypageLogin.setOnClickListener{
                 LoginActivity.start(requireContext())
             }
+            nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
+
+            nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserEmail()
         }
 
     }
@@ -132,7 +132,7 @@ class HomeFragment : Fragment() {
             override fun onClick(v: View, position: Int) {
                 Log.d("****************home_reminder_title_click_position", "${v.id}/${position}")
                 //val rd : ReminderData = viewmodel.reminderList.value!!.get(position)
-                val comePlanId = viewmodel.comePlanList.value!!.data.get(position).planId
+                val comePlanId = viewmodel.comePlanList.value!!.data.filter{it.date.setBetweenDays2() < 0}.get(position).planId
                 val intent = Intent(requireContext(), DetailActivity::class.java)
                 intent.putExtra("planId", comePlanId)
                 startActivity(intent)
@@ -144,35 +144,21 @@ class HomeFragment : Fragment() {
 
     // 옵저버 _ 위에서 (1)로 데이터 넣을 경우 옵저버가 관찰하다가 업데이트함.
     private fun setViewModelObserve() {
-        /*viewmodel.reminderList.observe(viewLifecycleOwner){
-            reminderList-> with(binding.rvHomeReminder.adapter as ReminderListAdapter){
-                //어댑터 내에서 notifyDataSetChanged() 해주는 역할의 함수
-                setReminder(reminderList)
 
-                if(reminderList.isEmpty()){
-                    setNoReminderList()
-                }
-             }
-        }*/
         viewmodel.comePlanList.observe(viewLifecycleOwner) { comePlanList ->
             with(binding.rvHomeReminder.adapter as ReminderListAdapter) {
                 //어댑터 내에서 notifyDataSetChanged() 해주는 역할의 함수
 
-                setReminder(comePlanList.data)
+
+                setReminder(comePlanList.data.filter {
+                    it.date.setBetweenDays2() < 0
+                })
 
                 if (comePlanList.data.isEmpty()) {
                     setNoReminderList()
                 }
             }
         }
-
-        /*viewmodel.friendList.observe(viewLifecycleOwner){
-            friendList ->
-                Log.d("***********HOME_FIREND_COUNT", friendList.data.size.toString())
-                friendCnt = friendList.data.size
-        }*/
-
-
 
         viewmodel.lastPlan.observe(viewLifecycleOwner){
             lastPlan ->
@@ -188,25 +174,6 @@ class HomeFragment : Fragment() {
     private fun setNoReminderList(){
         binding.clHomeNoReminder.visibility = View.VISIBLE
     }
-
-    private fun setNoLoginDailog(){
-
-        val dialogView = DialogHomeNoLoginFragment()
-
-        dialogView.setButtonClickListener( object :  DialogHomeNoLoginFragment.OnButtonClickListener {
-            override fun onCancelClicked() {
-
-            }
-
-            override fun onLoginClicked() {
-                LoginActivity.start(requireContext())
-            }
-
-        })
-        dialogView.show(childFragmentManager, "send wish checkbox time")
-
-    }
-
 
     private fun setHomeBanner(day : Int){
 

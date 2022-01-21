@@ -9,20 +9,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import org.seemeet.seemeet.R
-import org.seemeet.seemeet.data.model.response.invitation.Invitation
+import org.seemeet.seemeet.data.model.response.invitation.ConfirmedAndCanceld
 import org.seemeet.seemeet.databinding.ItemNotificationDoneBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
 
 class NotiDoneListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val doneList = mutableListOf<Invitation>()
+    private val doneList = mutableListOf<ConfirmedAndCanceld>()
     private var context : Context? = null
 
     inner class NotiDoneViewHolder(
         private val binding : ItemNotificationDoneBinding
     ): RecyclerView.ViewHolder(binding.root){
 
-        fun bind(doneData: Invitation) {
+        fun bind(doneData: ConfirmedAndCanceld) {
             binding.doneData = doneData
 
             binding.ivDeleteList.setOnClickListener {
@@ -31,9 +31,10 @@ class NotiDoneListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             
             binding.ivDetail.setOnClickListener {
                 val intent = Intent( context, DetailActivity::class.java)
-                intent.putExtra("invitationId", doneData.id)
+                intent.putExtra("planId", doneData.planId)
                 context?.startActivity(intent)
             }
+
             binding.cgDoneFriendList.removeAllViews()
             doneData.guests.forEach{
                 binding.cgDoneFriendList.addView(Chip(context).apply{
@@ -77,9 +78,9 @@ class NotiDoneListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         (holder as NotiDoneViewHolder).bind(doneList[position])
     }
 
-    override fun getItemCount(): Int = doneList.size
+    override fun getItemCount() = doneList.size
 
-    fun setDone(newList : List<Invitation>){
+    fun setDone(newList: List<ConfirmedAndCanceld>){
         doneList.clear()
         doneList.addAll(newList)
         notifyDataSetChanged()

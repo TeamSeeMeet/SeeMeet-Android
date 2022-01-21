@@ -20,7 +20,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            android:text="2022년 11월 6일 일요일"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_marginTop="42dp"
@@ -45,7 +44,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/spoqa_han_sans_neo_bold"
-        android:text="대방어 데이"
         android:textColor="@color/gray06"
         android:textSize="22sp"
         android:layout_marginTop="26dp"
@@ -59,7 +57,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/din_pro_regular"
-        android:text="오전 11:00 - 오후 2:00"
         android:textColor="@color/gray06"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/tv_detail_title"
@@ -69,7 +66,7 @@
         android:id="@+id/cg_detail_friend_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="@+id/tv_detail_time"
         app:layout_constraintTop_toBottomOf="@id/tv_detail_time" >
     </com.google.android.material.chip.ChipGroup>
@@ -107,8 +104,7 @@
             app:layout_constraintStart_toStartOf="@id/cl_detail_letter"
             android:fontFamily="@font/spoqa_han_sans_neo_bold"
             android:textSize="14sp"
-            android:textColor="@color/gray06"
-            android:text="가나다라마바사아자차가나다라마바사아자차"/>
+            android:textColor="@color/gray06" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -125,15 +121,14 @@
             android:layout_marginTop="50dp">
 
             <TextView
+                android:id="@+id/tv_recieve_letter_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:textSize="14sp"
                 android:lineSpacingExtra="10sp"
-                android:textColor="@color/gray06"
-                android:text="야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들"/>
-
+                android:textColor="@color/gray06" />
         </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -144,7 +139,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
         android:fontFamily="@font/spoqa_han_sans_neo_bold"
-        android:text="약속 주최자"
+        android:text="@string/detail_host"
         android:textColor="@color/gray04"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/cl_detail_letter"
@@ -156,7 +151,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
         android:fontFamily="@font/spoqa_han_sans_neo_bold"
-        android:text="|"
+        android:text="@string/detail_divider"
         android:textColor="@color/gray04"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_detail_host"
@@ -170,12 +165,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/spoqa_han_sans_neo_bold"
-        android:text="김준희"
         android:textColor="@color/gray06"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_detail_host_divider"
         app:layout_constraintStart_toEndOf="@+id/tv_detail_host_divider"
         app:layout_constraintTop_toTopOf="@+id/tv_detail_host_divider" />
+
 
     <View
         android:id="@+id/divider5"
@@ -183,6 +178,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="59dp"
         android:background="@color/gray02"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_host" />
@@ -195,9 +191,10 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/rectangle_gray04_10"
         android:fontFamily="@font/spoqa_han_sans_neo_medium"
-        android:text="약속 삭제"
+        android:text="@string/detail_delete"
         android:textColor="@color/white"
         android:textSize="16sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider5" />

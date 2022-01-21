@@ -2,6 +2,7 @@ package org.seemeet.seemeet.ui.registration
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.MotionEvent
 import android.view.View
@@ -11,7 +12,15 @@ import org.seemeet.seemeet.ui.main.MainActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.api.RetrofitBuilder
+import org.seemeet.seemeet.data.model.request.login.RequestLoginList
+import org.seemeet.seemeet.data.model.request.register.RequestRegisterList
+import org.seemeet.seemeet.data.model.response.login.ResponseLoginList
+import org.seemeet.seemeet.data.model.response.register.ResponseRegisterList
 import org.seemeet.seemeet.databinding.ActivityRegisterBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
@@ -28,9 +37,39 @@ class RegisterActivity : AppCompatActivity() {
         initClickListener()
     }
 
+    fun initNetwork(){
+        val requestRegisterService = RequestRegisterList(
+            username = binding.etName.text.toString(),
+            email = binding.etEmailRegister.text.toString(),
+            password = binding.etPw.text.toString(),
+            passwordConfirm = binding.etCheckpw.text.toString()
+        )
+        val call: Call<ResponseRegisterList> = RetrofitBuilder.registerService.postRegister(requestRegisterService)
+
+        call.enqueue(object : Callback<ResponseRegisterList> {
+            override fun onResponse(
+                call: Call<ResponseRegisterList>,
+                response: Response<ResponseRegisterList>
+            ) {
+                if (response.isSuccessful) {
+                    MainActivity.start(this@RegisterActivity)
+                    Log.d("testt", response.body().toString())
+                } else {
+                    binding.etEmailRegister.requestFocus()
+                    binding.tvWarningEmail.text = "이미 등록된 이메일이에요."
+                    binding.tvWarningEmail.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseRegisterList>, t: Throwable) {
+                Log.e("NetWorkTest", "error:$t")
+            }
+        })
+    }
+
     fun initClickListener() {
         binding.btnRegister.setOnClickListener {
-            MainActivity.start(this)
+            initNetwork()
         }
 
         binding.ivRegisterBack.setOnClickListener {

@@ -3,28 +3,38 @@ package org.seemeet.seemeet.ui.apply
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.kizitonwose.calendarview.utils.yearMonth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.api.RetrofitBuilder
+import org.seemeet.seemeet.data.local.ApplyFriendData
 import org.seemeet.seemeet.data.local.StartEndDateData
+<<<<<<< HEAD
 import org.seemeet.seemeet.data.model.response.calendar.CalendarEvent
 import org.seemeet.seemeet.data.model.response.calendar.UserData
+=======
+import org.seemeet.seemeet.data.model.request.invitation.RequestApplyInvitation
+>>>>>>> develop
 import org.seemeet.seemeet.databinding.ActivitySecondApplyBinding
 import org.seemeet.seemeet.databinding.ItemPickerDateBinding
 import org.seemeet.seemeet.ui.apply.adapter.PickerEventAdapter
 import org.seemeet.seemeet.ui.apply.adapter.SelectedDateAdapter
 import org.seemeet.seemeet.util.*
-import org.seemeet.seemeet.util.setTextColorRes
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.YearMonth
@@ -55,6 +65,15 @@ class SecondApplyActivity : AppCompatActivity() {
     private var applyStartTime = defaultTime(0,3)
     private var applyEndTime = defaultTime(1,3)
 
+    private lateinit var userDataList : ArrayList<ApplyFriendData>
+    private lateinit var title : String
+    private lateinit var desc : String
+
+    private var dateList = mutableListOf<String>()
+    private var startTimeList = mutableListOf<String>()
+    private var endTimeList = mutableListOf<String>()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -67,6 +86,12 @@ class SecondApplyActivity : AppCompatActivity() {
         binding.tvFinishTimepicker.text = defaultTime(1,1)
         initClickListener()
 
+        userDataList = intent.getSerializableExtra("chipFriendData") as ArrayList<ApplyFriendData>
+        title = intent.getStringExtra("title")!!
+        desc = intent.getStringExtra("Desc")!!
+
+        //Log.d("**********INTENT_RECEIVE", userDataList[0].userName)
+
         binding.apply {
             rvCalendarEvent.adapter = eventsAdapter
             rvSelectedDate.adapter = selectedAdapter
@@ -77,6 +102,16 @@ class SecondApplyActivity : AppCompatActivity() {
 
             btnAdd.setOnClickListener {
                 addSelectedDate()
+            }
+            btnApply.setOnClickListener {
+                if(selectedAdapter.selectedDateList.isNotEmpty()) {
+                    getSelectedDate()
+                    try {
+                        tryApply()
+                        Toast.makeText(this@SecondApplyActivity,"약속신청을 완료했어요.",Toast.LENGTH_LONG).show()
+                        finish()
+                    }catch (e : Exception){}
+                }
             }
         }
 
@@ -195,8 +230,8 @@ class SecondApplyActivity : AppCompatActivity() {
         binding.switchAllday.setOnCheckedChangeListener { CompoundButton, onSwitch ->
             //  스위치가 켜지면
             if (onSwitch) {
-                binding.tvStartTimepicker.text = "오전 00 : 00"
-                binding.tvFinishTimepicker.text = "오후 11 : 59"
+                binding.tvStartTimepicker.text = "오전 00:00"
+                binding.tvFinishTimepicker.text = "오후 11:59"
                 binding.tvStartTimeTop.text = "오전 00:00"
                 binding.tvEndTimeTop.text = "오후 11:59"
                 applyStartTime = "00:00"
@@ -217,7 +252,7 @@ class SecondApplyActivity : AppCompatActivity() {
 
             var ampm = binding.tvStartTimepicker.text.substring(0, 2)
             var hour = binding.tvStartTimepicker.text.substring(3, 5)
-            var min = binding.tvStartTimepicker.text.substring(8, 10)
+            var min = binding.tvStartTimepicker.text.substring(6, 8)
             if (ampm.equals("오후")) {
                 if (!hour.equals("12")) {
                     hour = (hour.toInt() + 12).toString()
@@ -235,7 +270,7 @@ class SecondApplyActivity : AppCompatActivity() {
         binding.tvFinishTimepicker.setOnClickListener {
             var ampm = binding.tvFinishTimepicker.text.substring(0, 2)
             var hour = binding.tvFinishTimepicker.text.substring(3, 5)
-            var min = binding.tvFinishTimepicker.text.substring(8, 10)
+            var min = binding.tvFinishTimepicker.text.substring(6, 8)
             if (ampm.equals("오후")) {
                 if (!hour.equals("12")) {
                     hour = (hour.toInt() + 12).toString()
@@ -296,9 +331,11 @@ class SecondApplyActivity : AppCompatActivity() {
                 cal.set(Calendar.MINUTE, 30)
             }
         }
-        return if (type == 1) SimpleDateFormat("aa hh : mm").format(cal.time)
+        return if (type == 1) SimpleDateFormat("aa hh:mm").format(cal.time)
         else if(type ==2) SimpleDateFormat("aa hh:mm").format(cal.time)
-        else SimpleDateFormat("hh:mm").format(cal.time)
+        else {
+            SimpleDateFormat("hh:mm").format(cal.time).timeToDate(SimpleDateFormat("aa").format(cal.time))
+        }
     }
 
     fun getTime(textView: TextView, context: Context, hour: String, min: String, i: Int) {
@@ -314,7 +351,7 @@ class SecondApplyActivity : AppCompatActivity() {
                 if(minute<10) {
                     min_to_string = "0" + minute.toString()
                 }
-                textView.text = "오전 00 : " + min_to_string
+                textView.text = "오전 00:" + min_to_string
 
                 if(i==0) {
                     binding.tvStartTimeTop.text = "오전 00:00"
@@ -326,11 +363,11 @@ class SecondApplyActivity : AppCompatActivity() {
                 //타임피커에서 선택한 시간 받아서 텍스트에 넣어줌
             } else {
                 textView.text =
-                    SimpleDateFormat("aa hh : mm").format(cal.time) //타임피커에서 선택한 시간 받아서 텍스트에 넣어줌
+                    SimpleDateFormat("aa hh:mm").format(cal.time) //타임피커에서 선택한 시간 받아서 텍스트에 넣어줌
 
                 //TODO : 상단 시간팅 텍스트뷰 세팅 및, 시간변수 세팅
 
-               if(i==0) {
+                if(i==0) {
                     binding.tvStartTimeTop.text = SimpleDateFormat("aa hh:mm").format(cal.time)
                     applyStartTime = SimpleDateFormat("hh:mm").format(cal.time).timeToDate(SimpleDateFormat("aaa").format(cal.time))
                 }else{
@@ -389,6 +426,26 @@ class SecondApplyActivity : AppCompatActivity() {
         if (selectedAdapter.selectedDateList.size<4) {
             selectedAdapter.addItem(StartEndDateData(applyDate, applyStartTime, applyEndTime))
             binding.tvSelectedCount.text = selectedAdapter.selectedDateList.size.toString()
+        }
+    }
+
+    private fun getSelectedDate() {
+        selectedAdapter.selectedDateList.forEach {
+            dateList.add(it.date)
+            startTimeList.add(it.start)
+            endTimeList.add(it.end)
+        }
+        Log.d("testtt", dateList.toString()+startTimeList.toString()+endTimeList.toString())
+    }
+
+    private fun tryApply() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val ob = RequestApplyInvitation(userDataList,title,desc,dateList,startTimeList,endTimeList)
+                RetrofitBuilder.invitationService.postApplyInvitation(SeeMeetSharedPreference.getToken(),ob)
+            }catch (e: Exception){
+                Log.d("testtttt",e.toString())
+            }
         }
     }
 

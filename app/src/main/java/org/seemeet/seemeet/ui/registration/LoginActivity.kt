@@ -5,14 +5,22 @@ import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.api.RetrofitBuilder
+import org.seemeet.seemeet.data.model.request.login.RequestLoginList
+import org.seemeet.seemeet.data.model.response.login.ResponseLoginList
 import org.seemeet.seemeet.databinding.ActivityLoginBinding
 import org.seemeet.seemeet.ui.main.MainActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
@@ -50,17 +58,59 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun initClickListener() {
-        binding.btnLogin.setOnClickListener {
-            if (!binding.etEmail.text.toString().equals("hi@nate.com")) { //아이디 틀렸을 때
-                CustomToast.createToast(this, "등록되지 않은 유저입니다.")?.show()
-            } else { //아이디는 맞음
-                if (!binding.etPw.text.toString().equals("1234567i")) {
-                    CustomToast.createToast(this, "비밀번호가 틀렸습니다.")?.show()
-                } else { //비밀번호까지 다 맞을 때
-                    MainActivity.start(this)
+    fun initNetwork() {
+        val requestLoginData = RequestLoginList(
+            email = binding.etEmail.text.toString(),
+            password = binding.etPw.text.toString()
+        )
+        val call: Call<ResponseLoginList> = RetrofitBuilder.loginService.postLogin(requestLoginData)
+
+        call.enqueue(object : Callback<ResponseLoginList> {
+            override fun onResponse(
+                call: Call<ResponseLoginList>,
+                response: Response<ResponseLoginList>
+            ) {
+                if (response.isSuccessful) {
+                    /*
+                    MainActivity.start(this@LoginActivity)
+                    Log.d("testt", response.body().toString())
+
+                        */
+                        response.body()?.data?.let {
+                            SeeMeetSharedPreference.setToken(it?.accesstoken)
+                            SeeMeetSharedPreference.setUserId(it.user.id)
+                            SeeMeetSharedPreference.setLogin(true)
+                            SeeMeetSharedPreference.setUserName(it.user.username)
+                            SeeMeetSharedPreference.setUserEmail(it.user.email)
+                        }
+
+                        MainActivity.start(this@LoginActivity)
+                        Log.d("testt", response.body().toString())
+
+
+                } else {
+                    CustomToast.createToast(this@LoginActivity, "올바르지 않은 정보입니다.")?.show()
+                    /*
+                        Log.d("**errorbody", response.toString())
+
+                        if(response.code().toString().equals("404")){
+                            //유저 없을 때
+                            CustomToast.createToast(this@LoginActivity, "등록되지 않은 유저입니다.")?.show()
+                        }else if(response.code().toString().equals("403")){
+                            CustomToast.createToast(this@LoginActivity, "비밀번호가 틀렸습니다.")?.show()
+                        }*/
                 }
             }
+
+            override fun onFailure(call: Call<ResponseLoginList>, t: Throwable) {
+                Log.e("NetWorkTest", "error:$t")
+            }
+        })
+    }
+
+    fun initClickListener() {
+        binding.btnLogin.setOnClickListener {
+            initNetwork()
         }
         binding.tvRegister.setOnClickListener {
             val nextIntent = Intent(this, RegisterActivity::class.java)

@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
+import org.seemeet.seemeet.data.model.response.invitation.ConfirmedAndCanceld
 import org.seemeet.seemeet.data.model.response.invitation.Invitation
 import org.seemeet.seemeet.data.model.response.invitation.ResponseInvitationList
 import retrofit2.HttpException
@@ -23,8 +24,8 @@ class NotiViewModel(application: Application) : AndroidViewModel(application) {
     val inviIngList: LiveData<List<Invitation>>
         get() = _inviIngList
 
-    private val _inviDoneList = MutableLiveData<List<Invitation>>()
-    val inviDoneList: LiveData<List<Invitation>>
+    private val _inviDoneList = MutableLiveData<List<ConfirmedAndCanceld>>()
+    val inviDoneList: LiveData<List<ConfirmedAndCanceld>>
         get() = _inviDoneList
 
 
@@ -46,7 +47,7 @@ class NotiViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun setInviDoneList() {
-        _inviDoneList.postValue(invitationList.value?.data?.invitations)
+        _inviDoneList.postValue(invitationList.value?.data?.confirmedAndCanceld)
     }
 
     // 더미 + notiIng과 notiDone의 viewModel 하나로 합체시킴.
