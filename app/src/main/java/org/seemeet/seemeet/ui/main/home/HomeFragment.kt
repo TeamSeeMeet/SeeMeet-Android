@@ -110,6 +110,9 @@ class HomeFragment : Fragment() {
             nvMypage.clMypageLogin.setOnClickListener{
                 LoginActivity.start(requireContext())
             }
+            nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
+
+            nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserEmail()
         }
 
     }
