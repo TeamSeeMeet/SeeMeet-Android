@@ -3,6 +3,7 @@ package org.seemeet.seemeet.ui.apply
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import org.seemeet.seemeet.databinding.ActivityApplyBinding
 
@@ -15,6 +16,12 @@ class ApplyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         initClickListener()
+
+        val username = intent.getStringExtra("username")
+
+        if (username != null) {
+            Log.d("********************username", username)
+        }
     }
 
     private fun initClickListener() {

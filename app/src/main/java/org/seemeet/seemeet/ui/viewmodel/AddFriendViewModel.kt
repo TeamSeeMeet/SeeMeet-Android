@@ -1,13 +1,55 @@
 package org.seemeet.seemeet.ui.viewmodel
 
 import android.app.Application
+import android.text.Editable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import org.seemeet.seemeet.data.local.FriendIdData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.api.RetrofitBuilder
+import org.seemeet.seemeet.data.model.request.friend.RequestAddFriendData
+import org.seemeet.seemeet.data.model.request.friend.RequestUserData
+import org.seemeet.seemeet.data.model.response.friend.ResponseAddFriendData
+import org.seemeet.seemeet.data.model.response.friend.ResponseUserList
+import retrofit2.HttpException
 
 class AddFriendViewModel(application: Application) : AndroidViewModel(application) {
+    private val _userList = MutableLiveData<ResponseUserList>()
+    val userList : LiveData<ResponseUserList>
+        get() = _userList
 
+    private val _addFriend = MutableLiveData<ResponseAddFriendData>()
+    val addFriend : LiveData<ResponseAddFriendData>
+        get() = _addFriend
+
+    //  유저 목록 요청하기
+    fun requestUserList(email: Editable) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            _userList.postValue(
+                RetrofitBuilder.friendService.searchUserList(
+                    SeeMeetSharedPreference.getToken(),
+                    RequestUserData(email.toString())
+                ))
+        } catch (e: HttpException) {
+        }
+    }
+
+    // 친구 추가 요청하기
+    fun requestAddFriend(email: Editable) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            _addFriend.postValue(
+                RetrofitBuilder.friendService.addFriendData(
+                    SeeMeetSharedPreference.getToken(),
+                    RequestAddFriendData(email.toString())
+                ))
+        } catch (e: HttpException) {
+        }
+    }
+
+    /* 더미
     //리싸이클러뷰에 들어갈 리스트 변수
     private val _addFriendList = MutableLiveData<List<FriendIdData>>()
     val addFriendList : LiveData<List<FriendIdData>>
@@ -22,6 +64,6 @@ class AddFriendViewModel(application: Application) : AndroidViewModel(applicatio
             FriendIdData("김현아", "akim.cse@ewhain.net"),
             )
     }
-
+   */
 
 }
