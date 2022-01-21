@@ -24,13 +24,13 @@ import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.local.ApplyFriendData
 import org.seemeet.seemeet.data.local.StartEndDateData
+import org.seemeet.seemeet.data.model.response.calendar.CalendarEvent
+import org.seemeet.seemeet.data.model.response.calendar.UserData
 import org.seemeet.seemeet.data.model.request.invitation.RequestApplyInvitation
 import org.seemeet.seemeet.databinding.ActivitySecondApplyBinding
 import org.seemeet.seemeet.databinding.ItemPickerDateBinding
 import org.seemeet.seemeet.ui.apply.adapter.PickerEventAdapter
 import org.seemeet.seemeet.ui.apply.adapter.SelectedDateAdapter
-import org.seemeet.seemeet.ui.main.calendar.CalendarEvent
-import org.seemeet.seemeet.ui.main.calendar.UserData
 import org.seemeet.seemeet.util.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate

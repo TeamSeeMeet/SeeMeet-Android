@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import org.seemeet.seemeet.data.model.response.calendar.CalendarEvent
 import org.seemeet.seemeet.databinding.ItemPickerEventBinding
-import org.seemeet.seemeet.ui.main.calendar.CalendarEvent
 
 class PickerEventAdapter() :
     RecyclerView.Adapter<PickerEventAdapter.ViewHolder>() {

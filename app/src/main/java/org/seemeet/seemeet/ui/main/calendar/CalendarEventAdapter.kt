@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.model.response.calendar.CalendarEvent
 import org.seemeet.seemeet.databinding.ItemCalendarEventBinding
 
 class CalendarEventAdapter(val clickListener: (CalendarEvent) -> Unit) :
@@ -39,7 +40,7 @@ class CalendarEventAdapter(val clickListener: (CalendarEvent) -> Unit) :
                 calendarEvent = event
                 event.users.forEach {
                     cgFriendList.addView(Chip(context).apply {
-                        text = it.userName
+                        text = it.username
                         setChipBackgroundColorResource(R.color.white)
                         setTextAppearance(R.style.calendarChipTextPinkStyle)
                         chipStrokeWidth=1.0F
