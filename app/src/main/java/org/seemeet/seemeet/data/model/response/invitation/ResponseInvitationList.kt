@@ -54,7 +54,9 @@ data class Invitation(
     @SerializedName("is_deleted")
     val isDeleted: Boolean,
     @SerializedName("isReceived")
-    val isReceived: Boolean
+    val isReceived: Boolean,
+    @SerializedName("isResponse")
+    val isResponse : Boolean
 )
 
 data class Guest(
