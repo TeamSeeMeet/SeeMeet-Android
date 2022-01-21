@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="scheduleData"
-            type="org.seemeet.seemeet.data.local.ScheduleData" />
+            name="planResponseData"
+            type="org.seemeet.seemeet.data.model.response.plan.PlanResponseData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_receive_schedule"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="224dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_receive_schedule_bg"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginEnd="20dp"
+            app:layout_constraintDimensionRatio="224:151"
             android:src="@drawable/bg_receive_card_white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,22 +30,23 @@
             android:id="@+id/iv_receive_schedule_bar"
             android:layout_width="12dp"
             android:layout_height="0dp"
-            android:minHeight="141dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/iv_receive_schedule_bg"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_receive_schedule_bg"
             android:src="@drawable/bg_receive_card_black"/>
         <TextView
             android:id="@+id/tv_receive_s_title"
            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{scheduleData.title}"
+            android:text="@{planResponseData.invitationTitle}"
             tools:text="대방어데이"
             android:fontFamily="@font/spoqa_han_sans_neo_bold"
             android:textSize="16sp"
             android:textColor="#1c1c1c"
             android:letterSpacing="-0.01"
-            android:gravity="center_horizontal"
+            android:ems="7"
+            android:maxLines="1"
+            android:ellipsize="end"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="27dp"
@@ -68,7 +69,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="@{scheduleData.time}"
+            setStartTime="@{planResponseData.start}"
+            setEndTime="@{planResponseData.end}"
             tools:text="오전 10 : 00 ~ 오후 13 : 00"
             android:layout_marginStart="14dp"
             android:layout_marginEnd="77dp"
@@ -85,7 +87,6 @@
             android:id="@+id/cg_recieve_together"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:minHeight="25dp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="15dp"
