@@ -45,6 +45,15 @@ class FirstApplyFragment : Fragment() {
         initTextChangedListener()
         initScrollEvent()
 
+        var id : Int= 0
+        var name : String? = null
+        super.onCreate(savedInstanceState)
+        arguments?.let{
+            id = it.getInt("id")
+            name = it.getString("name").toString()
+        }
+        Log.d("%%%%%%%%", id.toString()+ name)
+
         return binding.root
     }
 
