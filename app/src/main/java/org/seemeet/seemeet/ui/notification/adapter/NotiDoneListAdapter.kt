@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.model.response.invitation.ConfirmedAndCanceld
-import org.seemeet.seemeet.data.model.response.invitation.Invitation
 import org.seemeet.seemeet.databinding.ItemNotificationDoneBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
 
@@ -32,7 +31,7 @@ class NotiDoneListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             
             binding.ivDetail.setOnClickListener {
                 val intent = Intent( context, DetailActivity::class.java)
-                intent.putExtra("invitationId", doneData.id)
+                intent.putExtra("planId", doneData.planId)
                 context?.startActivity(intent)
             }
 
