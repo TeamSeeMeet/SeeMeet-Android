@@ -80,6 +80,8 @@ class LoginActivity : AppCompatActivity() {
                             SeeMeetSharedPreference.setToken(it?.accesstoken)
                             SeeMeetSharedPreference.setUserId(it.user.id)
                             SeeMeetSharedPreference.setLogin(true)
+                            SeeMeetSharedPreference.setUserName(it.user.username)
+                            SeeMeetSharedPreference.setUserEmail(it.user.email)
                         }
 
                         MainActivity.start(this@LoginActivity)

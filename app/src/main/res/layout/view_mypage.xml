@@ -66,14 +66,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="30dp"
-            android:text="@string/mypage_login_msg"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            android:textSize="14sp"
+            android:text="@string/mypage_login_msg"
             android:textColor="@color/white"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_mypage_login" />

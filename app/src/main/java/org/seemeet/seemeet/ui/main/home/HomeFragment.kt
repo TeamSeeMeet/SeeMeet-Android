@@ -21,20 +21,15 @@ import androidx.fragment.app.activityViewModels
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.SeeMeetSharedPreference.getLogin
-import org.seemeet.seemeet.data.local.ReminderData
 import org.seemeet.seemeet.databinding.FragmentHomeBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
 import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.ui.main.home.adapter.ReminderListAdapter
 import org.seemeet.seemeet.ui.notification.NotificationActivity
-import org.seemeet.seemeet.ui.receive.DialogHomeNoLoginFragment
-import org.seemeet.seemeet.ui.receive.ReceiveNoDialogFragment
 import org.seemeet.seemeet.ui.registration.LoginActivity
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
 import org.seemeet.seemeet.util.calDday
-import org.seemeet.seemeet.util.setBetweenDays
 import org.seemeet.seemeet.util.setBetweenDays2
-import java.time.YearMonth
 
 class HomeFragment : Fragment() {
     private var _binding : FragmentHomeBinding? = null
@@ -112,6 +107,9 @@ class HomeFragment : Fragment() {
             nvMypage.clMypageLogin.setOnClickListener{
                 LoginActivity.start(requireContext())
             }
+            nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
+
+            nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserEmail()
         }
 
     }
@@ -134,7 +132,7 @@ class HomeFragment : Fragment() {
             override fun onClick(v: View, position: Int) {
                 Log.d("****************home_reminder_title_click_position", "${v.id}/${position}")
                 //val rd : ReminderData = viewmodel.reminderList.value!!.get(position)
-                val comePlanId = viewmodel.comePlanList.value!!.data.get(position).planId
+                val comePlanId = viewmodel.comePlanList.value!!.data.filter{it.date.setBetweenDays2() < 0}.get(position).planId
                 val intent = Intent(requireContext(), DetailActivity::class.java)
                 intent.putExtra("planId", comePlanId)
                 startActivity(intent)

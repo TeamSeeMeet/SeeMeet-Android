@@ -216,10 +216,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="90dp"
                         android:layout_marginTop="16dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         app:cv_dayViewResource="@layout/item_picker_date"
                         app:cv_hasBoundaries="false"
                         app:cv_inDateStyle="allMonths"
-
                         app:cv_maxRowCount="1"
                         app:cv_orientation="horizontal"
                         app:cv_outDateStyle="none"
@@ -431,7 +432,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
-                android:text="선택된 날짜"
+                android:textSize="16sp"
+                android:text="선택한 날짜"
+                android:textColor="@color/gray06"
+                android:fontFamily="@font/spoqa_han_sans_neo_medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -441,6 +445,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="7dp"
                 android:layout_marginTop="24dp"
+                android:textSize="14sp"
+                android:textColor="#fa555c"
+                android:fontFamily="@font/din_pro_medium"
                 android:text="0"
                 app:layout_constraintStart_toEndOf="@+id/tv_sentence_selected_date"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -450,6 +457,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="/4"
+                android:textSize="14sp"
+                android:textColor="#a3a3a3"
+                android:fontFamily="@font/din_pro_medium"
                 app:layout_constraintStart_toEndOf="@+id/tv_selected_count"
                 app:layout_constraintTop_toTopOf="parent" />
 

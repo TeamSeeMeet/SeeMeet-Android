@@ -7,7 +7,7 @@
 
         <variable
             name="calendarEvent"
-            type="org.seemeet.seemeet.ui.main.calendar.CalendarEvent" />
+            type="org.seemeet.seemeet.data.model.response.calendar.CalendarEvent" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="21dp"
             android:fontFamily="@font/din_pro_medium"
-            android:text="@{calendarEvent.startTime}"
+            android:text="@{calendarEvent.start}"
             android:textColor="@color/gray06"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -55,7 +55,7 @@
             android:id="@+id/tv_end_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{calendarEvent.endTime}"
+            android:text="@{calendarEvent.end}"
             android:fontFamily="@font/din_pro_medium"
             android:textColor="@color/gray06"
             android:textSize="18sp"
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:layout_marginLeft="14dp"
-            android:text="@{calendarEvent.planTitle}"
+            android:text="@{calendarEvent.invitationTitle}"
             android:textColor="@color/gray06"
             android:textSize="16sp"
             android:textStyle="normal"
