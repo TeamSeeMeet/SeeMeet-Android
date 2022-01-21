@@ -25,6 +25,7 @@ import org.seemeet.seemeet.data.model.response.calendar.CalendarEvent
 import org.seemeet.seemeet.data.model.response.calendar.UserData
 import org.seemeet.seemeet.databinding.FragmentCalendarBinding
 import org.seemeet.seemeet.databinding.ItemCalendarDateBinding
+import org.seemeet.seemeet.ui.detail.DetailActivity
 import org.seemeet.seemeet.util.daysOfWeekFromLocale
 import org.seemeet.seemeet.util.makeInVisible
 import org.seemeet.seemeet.util.makeVisible
@@ -40,7 +41,7 @@ class CalendarFragment : Fragment() {
     val binding get() = _binding!!
 
     private val eventsAdapter = CalendarEventAdapter {
-        //TODO : Implement CalendarEvent item click logic
+        DetailActivity.start(requireContext(), it.planId)
     }
 
     private var selectedDate: LocalDate? = null
@@ -207,9 +208,7 @@ class CalendarFragment : Fragment() {
         userData.add(UserData(2, "이동기"))
         userData.add(UserData(3, "이동기"))
 
-        list.add(CalendarEvent(1, "대방어대방어", "2022-01-15", "11:00", "13:00", userData))
-        list.add(CalendarEvent(1, "대방어대방어", "2022-01-16", "11:00", "13:00", userData))
-        list.add(CalendarEvent(1, "대방어대방어", "2022-01-16", "11:00", "13:00", userData))
+        list.add(CalendarEvent(1, "대방어대방어", "2022-01-00", "11:00", "13:00", userData))
         return list
     }
 
