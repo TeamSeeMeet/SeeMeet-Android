@@ -24,12 +24,9 @@ import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.local.ApplyFriendData
 import org.seemeet.seemeet.data.local.StartEndDateData
-<<<<<<< HEAD
 import org.seemeet.seemeet.data.model.response.calendar.CalendarEvent
 import org.seemeet.seemeet.data.model.response.calendar.UserData
-=======
 import org.seemeet.seemeet.data.model.request.invitation.RequestApplyInvitation
->>>>>>> develop
 import org.seemeet.seemeet.databinding.ActivitySecondApplyBinding
 import org.seemeet.seemeet.databinding.ItemPickerDateBinding
 import org.seemeet.seemeet.ui.apply.adapter.PickerEventAdapter
