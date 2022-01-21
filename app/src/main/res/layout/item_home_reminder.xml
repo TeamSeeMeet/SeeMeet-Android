@@ -5,15 +5,17 @@
     <data>
         <!-- 여기에 보통 (item의 경우 adapter)에서 받은 데이터 값이 들어감 _ 아래에서 @{reminderData.~} 값으로 내용 삽입가능.-->
         <variable
-            name="reminderData"
-            type="org.seemeet.seemeet.data.local.ReminderData" />
+            name="comePlanData"
+            type="org.seemeet.seemeet.data.model.response.plan.ComePlanData" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_home_reminder"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
 
 
         <ImageView
@@ -40,20 +42,23 @@
             android:paddingBottom="3dp"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
-            android:text="@{reminderData.dday}"
+            setDday="@{comePlanData.date}"
             android:textColor="@color/white"
             tools:text="D-5"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@id/iv_home_reminder"
             app:layout_constraintEnd_toEndOf="@id/iv_home_reminder_bg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_home_reminder_bg" />
 
         <ImageView
             android:id="@+id/iv_home_reminder"
-            setSrc="@{reminderData.img}"
-            tools:srcCompat="@drawable/circle_black"
-            android:layout_width="82dp"
-            android:layout_height="82dp"
+            android:src="@drawable/ic_home_reminder_together"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="11dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_home_reminder_name"
             app:layout_constraintEnd_toEndOf="@id/iv_home_reminder_bg"
             app:layout_constraintStart_toStartOf="@id/iv_home_reminder_bg"
             app:layout_constraintTop_toBottomOf="@id/tv_home_reminder_dday" />
@@ -63,13 +68,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="11dp"
-            android:text="@{reminderData.title}"
+            android:text="@{comePlanData.invitationTitle}"
             android:textSize="14sp"
             tools:text="대방어 데이"
             android:textColor="@color/gray06"
             android:textAlignment="center"
             android:letterSpacing="-0.08"
+            android:layout_marginBottom="6dp"
+            android:ems="6"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_home_reminder_detail"
             app:layout_constraintEnd_toEndOf="@+id/iv_home_reminder"
             app:layout_constraintStart_toStartOf="@+id/iv_home_reminder"
             app:layout_constraintTop_toBottomOf="@id/iv_home_reminder" />
@@ -80,15 +90,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="22dp"
-            android:text="@{reminderData.date}"
+            android:layout_marginBottom="25dp"
+            setMonthDayDate="@{comePlanData.date}"
             android:textSize="14sp"
             tools:text="1월 15일"
             android:textColor="@color/gray06"
             android:textAlignment="center"
             android:letterSpacing="-0.08"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/iv_home_reminder_bg"
             app:layout_constraintEnd_toEndOf="@+id/iv_home_reminder"
             app:layout_constraintStart_toStartOf="@+id/iv_home_reminder"
             app:layout_constraintTop_toBottomOf="@id/tv_home_reminder_name" />

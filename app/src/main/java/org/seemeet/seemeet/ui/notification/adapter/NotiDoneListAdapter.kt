@@ -9,20 +9,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import org.seemeet.seemeet.R
-import org.seemeet.seemeet.data.local.NotificationDoneData
+import org.seemeet.seemeet.data.model.response.invitation.ConfirmedAndCanceld
+import org.seemeet.seemeet.data.model.response.invitation.Invitation
 import org.seemeet.seemeet.databinding.ItemNotificationDoneBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
 
-class NotiDoneListAdapter :RecyclerView.Adapter<NotiDoneListAdapter.NotiDoneViewHolder>() {
+class NotiDoneListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var doneList = mutableListOf<NotificationDoneData>()
+    private val doneList = mutableListOf<ConfirmedAndCanceld>()
     private var context : Context? = null
 
     inner class NotiDoneViewHolder(
         private val binding : ItemNotificationDoneBinding
     ): RecyclerView.ViewHolder(binding.root){
 
-        fun bind(doneData: NotificationDoneData) {
+        fun bind(doneData: ConfirmedAndCanceld) {
             binding.doneData = doneData
 
             binding.ivDeleteList.setOnClickListener {
@@ -31,13 +32,15 @@ class NotiDoneListAdapter :RecyclerView.Adapter<NotiDoneListAdapter.NotiDoneView
             
             binding.ivDetail.setOnClickListener {
                 val intent = Intent( context, DetailActivity::class.java)
+                intent.putExtra("invitationId", doneData.id)
                 context?.startActivity(intent)
             }
 
-            doneData.nameList.forEach{
+            binding.cgDoneFriendList.removeAllViews()
+            doneData.guests.forEach{
                 binding.cgDoneFriendList.addView(Chip(context).apply{
-                    text = it.name
-                    if(it.response){
+                    text = it.username
+                    if(it.isResponse){
                         setChipBackgroundColorResource(R.color.gray02)
                         setTextAppearance(R.style.chipTextBlackStyle)
                     } else {
@@ -49,10 +52,10 @@ class NotiDoneListAdapter :RecyclerView.Adapter<NotiDoneListAdapter.NotiDoneView
                     isCheckable = false
                     isClickable = false
                 })
-                Log.d("**********************받은이", it.name)
+                Log.d("**********************받은이", it.username)
             }
 
-            if(doneData.isCanceled){
+            if(doneData.isCancled){
                 binding.tvConfirmOrCancel.text = context?.getResources()?.getString(R.string.noti_cancel)
                 binding.ivDetail.visibility = View.GONE
             } else{
@@ -61,7 +64,7 @@ class NotiDoneListAdapter :RecyclerView.Adapter<NotiDoneListAdapter.NotiDoneView
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotiDoneViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemNotificationDoneBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
@@ -72,14 +75,15 @@ class NotiDoneListAdapter :RecyclerView.Adapter<NotiDoneListAdapter.NotiDoneView
         return NotiDoneViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: NotiDoneViewHolder, position: Int) {
-        holder.bind(doneList[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as NotiDoneViewHolder).bind(doneList[position])
     }
 
-    override fun getItemCount(): Int = doneList.size
+    override fun getItemCount() = doneList.size
 
-    fun setDone(doneList : MutableList<NotificationDoneData>){
-        this.doneList = doneList
+    fun setDone(newList: List<ConfirmedAndCanceld>){
+        doneList.clear()
+        doneList.addAll(newList)
         notifyDataSetChanged()
     }
 

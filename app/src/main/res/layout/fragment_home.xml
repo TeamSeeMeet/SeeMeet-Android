@@ -10,7 +10,7 @@
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
-        tools:context=".ui.main.HomeFragment"
+        tools:context=".ui.main.home.HomeFragment"
         android:id="@+id/dl_home_mypage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -102,22 +102,25 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="@string/home_msg_tmp" />
+                    <!--setHomeBannerText="@{viewModel.homeBanner}"
+                        setHomeBannerTextDay="@{viewModel.day}"-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageView
+                    android:id="@+id/iv_home_banner"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:background="@color/gray02"
                     app:layout_constraintDimensionRatio="32:20"
                     android:layout_marginEnd="10dp"
                     android:layout_marginTop="7dp"
-                    android:layout_marginBottom="13dp"
+                    android:layout_marginBottom="12dp"
                     android:layout_marginStart="21dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cl_home_top_message"/>
+                <!--setHomeBannerImage="@{viewModel.homeBanner}"-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -132,7 +135,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_home_reminder"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" >
@@ -145,7 +149,6 @@
                         android:fontFamily="@font/spoqa_han_sans_neo_bold"
                         android:textColor="@color/black"
                         android:textSize="20sp"
-                        android:lineSpacingExtra="32sp"
                         app:layout_constraintBottom_toTopOf="@id/rv_home_reminder"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -155,9 +158,9 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_home_reminder"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="25dp"
+                        android:layout_marginBottom="15dp"
                         app:layout_constraintTop_toBottomOf="@id/tv_home_reminder"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -166,6 +169,44 @@
                         android:paddingHorizontal="20dp"
                         android:clipToPadding="false"
                         android:orientation="horizontal"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_home_no_reminder"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_home_reminder"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/iv_home_no_reminder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:src="@drawable/ic_home_no_schedule"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_marginTop="32dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_home_no_reminder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/iv_home_no_reminder"
+                            app:layout_constraintStart_toStartOf="@id/iv_home_no_reminder"
+                            app:layout_constraintEnd_toEndOf="@id/iv_home_no_reminder"
+                            android:layout_marginTop="4dp"
+                            android:text="일정이 없어요"
+                            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                            android:textStyle="normal"
+                            android:textSize="16sp"
+                            android:textColor="@color/gray04"
+                            android:letterSpacing="-0.01"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -60,7 +60,7 @@
     <string name="noti_in_progress">진행 중</string>
     <string name="noti_done">완료</string>
     <string name="noti_send">보낸 요청</string>
-    <string name="noti_day">n일전</string>
+    <string name="noti_day">1일전</string>
     <string name="noti_send_msg_wait">친구</string>
     <string name="noti_send_msg_wait_num">3</string>
     <string name="noti_send_msg_wait2">명의 답변을 기다리고 있어요!</string>
