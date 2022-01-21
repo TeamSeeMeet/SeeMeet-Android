@@ -78,7 +78,6 @@ class FriendActivity : AppCompatActivity() {
                 }
             }
         })
-
     }
 
     private fun initIntent(pos: Int){
@@ -138,7 +137,13 @@ class FriendActivity : AppCompatActivity() {
             }
         })
         dialogView.show(supportFragmentManager, "send wish checkbox time")
+    }
 
+    override fun onResume() {
+        super.onResume()
+        if(SeeMeetSharedPreference.getLogin()){
+            viewModel.requestFriendList()
+        }
     }
 
     companion object {
