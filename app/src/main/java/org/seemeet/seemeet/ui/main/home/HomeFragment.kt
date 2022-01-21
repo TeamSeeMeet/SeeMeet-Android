@@ -32,6 +32,8 @@ import org.seemeet.seemeet.ui.receive.ReceiveNoDialogFragment
 import org.seemeet.seemeet.ui.registration.LoginActivity
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
 import org.seemeet.seemeet.util.calDday
+import org.seemeet.seemeet.util.setBetweenDays
+import org.seemeet.seemeet.util.setBetweenDays2
 import java.time.YearMonth
 
 class HomeFragment : Fragment() {
@@ -94,17 +96,10 @@ class HomeFragment : Fragment() {
 
         binding.apply{
             ivHomeFriend.setOnClickListener {
-                if(getLogin())
-                    FriendActivity.start(requireContext())
-                else
-                    setNoLoginDailog()
-
+                FriendActivity.start(requireContext())
             }
             ivHomeNoti.setOnClickListener {
-                if(getLogin())
-                    NotificationActivity.start(requireContext())
-                else
-                    setNoLoginDailog()
+                NotificationActivity.start(requireContext())
             }
 
             ivMypageMenu.setOnClickListener{
@@ -151,35 +146,21 @@ class HomeFragment : Fragment() {
 
     // 옵저버 _ 위에서 (1)로 데이터 넣을 경우 옵저버가 관찰하다가 업데이트함.
     private fun setViewModelObserve() {
-        /*viewmodel.reminderList.observe(viewLifecycleOwner){
-            reminderList-> with(binding.rvHomeReminder.adapter as ReminderListAdapter){
-                //어댑터 내에서 notifyDataSetChanged() 해주는 역할의 함수
-                setReminder(reminderList)
 
-                if(reminderList.isEmpty()){
-                    setNoReminderList()
-                }
-             }
-        }*/
         viewmodel.comePlanList.observe(viewLifecycleOwner) { comePlanList ->
             with(binding.rvHomeReminder.adapter as ReminderListAdapter) {
                 //어댑터 내에서 notifyDataSetChanged() 해주는 역할의 함수
 
-                setReminder(comePlanList.data)
+
+                setReminder(comePlanList.data.filter {
+                    it.date.setBetweenDays2() < 0
+                })
 
                 if (comePlanList.data.isEmpty()) {
                     setNoReminderList()
                 }
             }
         }
-
-        /*viewmodel.friendList.observe(viewLifecycleOwner){
-            friendList ->
-                Log.d("***********HOME_FIREND_COUNT", friendList.data.size.toString())
-                friendCnt = friendList.data.size
-        }*/
-
-
 
         viewmodel.lastPlan.observe(viewLifecycleOwner){
             lastPlan ->
@@ -196,40 +177,25 @@ class HomeFragment : Fragment() {
         binding.clHomeNoReminder.visibility = View.VISIBLE
     }
 
-    private fun setNoLoginDailog(){
-
-        val dialogView = DialogHomeNoLoginFragment()
-
-        dialogView.setButtonClickListener( object :  DialogHomeNoLoginFragment.OnButtonClickListener {
-            override fun onCancelClicked() {
-
-            }
-
-            override fun onLoginClicked() {
-                LoginActivity.start(requireContext())
-            }
-
-        })
-        dialogView.show(childFragmentManager, "send wish checkbox time")
-
-    }
-
-
     private fun setHomeBanner(day : Int){
 
         var flag = -1
         var text = ""
         var white = ""
         var imgId = 0
-
+        var random = (1..2).random()
         if(day == -1 ){
             flag = if(getLogin() && friendCnt != 0 ) 2
                     else 1
         } else {
-            if(day == 0 ) flag = 3
-            else if (day <= 14) flag = 4
-            else if (day <= 21) flag = 5
-            else flag = 6
+            if(random == 1) {
+                if (day == 0) flag = 3
+                else if (day <= 14) flag = 4
+                else if (day <= 21) flag = 5
+                else flag = 6
+            }else {
+                flag = 2
+            }
         }
 
         when(flag){
@@ -283,6 +249,22 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if(getLogin()) {
+            //로그인 했을 경우 이것저것 서버통신 후 뷰모델 쪽에서 homebanner도 호출하자..
+            //viewmodel.setReminderList()
+            viewmodel.requestFriendList()
+            viewmodel.requestComePlanList()
+            viewmodel.requestLastPlanData()
+        } else {
+            //안 했을 경우.
+            setHomeBanner(-1)
+            setNoReminderList()
+        }
     }
 
 }

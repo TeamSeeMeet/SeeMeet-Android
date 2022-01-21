@@ -37,6 +37,8 @@ data class Invitation(
     val createdAt: String,
     @SerializedName("guests")
     val guests: List<GuestX>,
+    @SerializedName("host")
+    val host: Host,
     @SerializedName("host_id")
     val hostId: Int,
     @SerializedName("id")
@@ -71,6 +73,13 @@ data class GuestX(
     val id: Int,
     @SerializedName("isResponse")
     val isResponse: Boolean,
+    @SerializedName("username")
+    val username: String
+)
+
+data class Host(
+    @SerializedName("id")
+    val id: Int,
     @SerializedName("username")
     val username: String
 )

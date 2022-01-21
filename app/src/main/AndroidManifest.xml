@@ -19,6 +19,9 @@
             android:name=".ui.main.MainActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.apply.SecondApplyActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.receive.ReceiveActivity"
             android:exported="true"></activity>
         <activity

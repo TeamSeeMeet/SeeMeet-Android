@@ -68,8 +68,24 @@
                         android:layout_marginStart="16dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
+
                     <TextView
-                        android:id="@+id/tv_recieve_top_dear"
+                        android:id="@+id/tv_recieve_top_dear1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                        android:textSize="28sp"
+                        android:textColor="@color/gray06"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="8sp"
+                        android:text="@{viewModel.receiveInvitationData.invitation.host.username}"
+                        tools:text="김준희"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_recieve_top"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tv_recieve_top_dear2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/spoqa_han_sans_neo_regular"
@@ -77,11 +93,10 @@
                         android:textColor="@color/gray06"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="8sp"
-                        setNameBoldRecieved="@{viewModel.request}"
-                        tools:text="김준희님이 보냈어요"
-                        android:layout_marginStart="16dp"
-                        app:layout_constraintTop_toBottomOf="@id/tv_recieve_top"
-                        app:layout_constraintStart_toStartOf="parent"/>
+                        android:text="님이 보냈어요."
+                        android:layout_marginStart="1dp"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_recieve_top_dear1"
+                        app:layout_constraintStart_toEndOf="@id/tv_recieve_top_dear1"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -131,7 +146,7 @@
                             android:textColor="@color/gray06"
                             android:letterSpacing="-0.01"
                             android:lineSpacingExtra="18sp"
-                            removeSquareBrackets="@{viewModel.title.toString()}"
+                            android:text ="@{viewModel.receiveInvitationData.invitation.invitationTitle}"
                             tools:text="가나다라마바사아자차가나다라마바사아자차"/>
 
                         <androidx.core.widget.NestedScrollView
@@ -156,7 +171,7 @@
                                 android:textColor="@color/gray06"
                                 android:letterSpacing="-0.01"
                                 android:lineSpacingExtra="10sp"
-                                removeSquareBrackets="@{viewModel.content.toString()}"
+                                android:text="@{viewModel.receiveInvitationData.invitation.invitationDesc}"
                                 tools:text="야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들"/>
 
                         </androidx.core.widget.NestedScrollView>
@@ -284,6 +299,7 @@
                             android:layout_marginEnd="0dp"
                             android:layout_marginBottom="0dp"
                             android:text="날짜를 선택해보세요!"
+                            android:textColor="@color/gray04"
                             android:visibility="visible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -294,9 +310,10 @@
                             android:id="@+id/rv_receive_schdule"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
                             android:layout_marginTop="20dp"
                             android:layout_marginBottom="20dp"
+                            android:overScrollMode="never"
+                            android:paddingHorizontal="20dp"
                             android:clipToPadding="false"
                             android:orientation="horizontal"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

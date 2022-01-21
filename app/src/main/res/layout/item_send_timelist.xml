@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="inviData"
-            type="org.seemeet.seemeet.data.local.InviData" />
+            name="dateData"
+            type="org.seemeet.seemeet.data.model.response.invitation.SendInvitationDate" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="2021.12.03"
-            android:text="@{inviData.date}"
+            android:text="@{dateData.date}"
             app:layout_constraintStart_toStartOf="@id/iv_send_time_bg"
             app:layout_constraintTop_toTopOf="@id/iv_send_time_bg"
             android:layout_marginTop="20dp"
@@ -52,7 +52,8 @@
             android:textColor="@drawable/selector_send_time_color"
             android:letterSpacing="-0.01"
             android:gravity="end"
-            android:text="@{inviData.time}"
+            setStartTime="@{dateData.start}"
+            setEndTime="@{dateData.end}"
             tools:text="오전 11:00 ~ 오후 04:00"
             app:layout_constraintEnd_toEndOf="@id/iv_send_time_bg"
             app:layout_constraintStart_toEndOf="@id/tv_send_time_date"
@@ -74,7 +75,7 @@
             android:id="@+id/tv_send_time_cnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(inviData.respondent.size())}"
+            android:text="@{String.valueOf(dateData.respondent.size())}"
             tools:text="3"
             app:layout_constraintEnd_toStartOf="@id/tv_send_time_respone"
             app:layout_constraintTop_toTopOf="@id/tv_send_time_respone"
@@ -84,7 +85,7 @@
             android:id="@+id/tv_send_time_respone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            setUserList="@{inviData.respondent}"
+            setUserList="@{dateData.respondent}"
             android:text="김준희   김준희   김준희"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:textSize="13sp"

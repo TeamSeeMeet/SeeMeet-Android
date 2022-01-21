@@ -15,6 +15,7 @@ import androidx.fragment.app.DialogFragment
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.local.CheckboxData
 import org.seemeet.seemeet.data.local.InviData
+import org.seemeet.seemeet.data.model.response.invitation.SendInvitationDate
 import org.seemeet.seemeet.databinding.FragmentHomeBinding
 import org.seemeet.seemeet.databinding.DialogReceiveYesDiagloBinding
 import org.seemeet.seemeet.databinding.DialogSendCancelBinding
@@ -31,10 +32,10 @@ class SendCancelDialogFragment : DialogFragment() {
         _binding = DialogSendCancelBinding.inflate(
             inflater, container, false)
 
-        val bundle = arguments
-        val choice = bundle?.getSerializable("choice") as InviData
-        Log.d("*******sendConfirmDialog", choice.time)
-
+       /* val bundle = arguments
+        val choice = bundle?.getSerializable("choice") as SendInvitationDate
+        Log.d("*******sendConfirmDialog", choice.start)
+*/
         return binding.root
     }
 

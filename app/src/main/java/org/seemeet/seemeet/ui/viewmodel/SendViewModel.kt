@@ -1,16 +1,80 @@
 package org.seemeet.seemeet.ui.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.local.GuestData
 import org.seemeet.seemeet.data.local.InviData
 import org.seemeet.seemeet.data.local.UserData
+import org.seemeet.seemeet.data.model.request.invitation.RequestSendInvitationConfirm
+import org.seemeet.seemeet.data.model.response.invitation.SendInvitation
+import org.seemeet.seemeet.data.model.response.invitation.SendInvitationData
+import org.seemeet.seemeet.data.model.response.invitation.SendInvitationDate
+import retrofit2.HttpException
+import java.time.YearMonth
 
 class SendViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _inviList = MutableLiveData<List<InviData>>()
+    private val _sendInvitation  = MutableLiveData<SendInvitation>()
+    val sendInvitation : LiveData<SendInvitation>
+        get() = _sendInvitation
+
+    private val _sendInvitationData  = MutableLiveData<SendInvitationData>()
+    val sendInvitationData : LiveData<SendInvitationData>
+        get() = _sendInvitationData
+
+
+    private val _sendInvitationDateList = MutableLiveData<List<SendInvitationDate>>()
+    val sendInvitationDateList : LiveData<List<SendInvitationDate>>
+        get() = _sendInvitationDateList
+
+
+    fun requestSendInvitationData(invitationId : Int) = viewModelScope.launch (Dispatchers.IO){
+        try {
+            Log.d("**********sendId", invitationId.toString())
+            _sendInvitation.postValue(RetrofitBuilder.invitationService.getSendInvitationData(invitationId, SeeMeetSharedPreference.getToken()).data)
+        } catch (e: HttpException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun setSendInvitationData() {
+        _sendInvitationData.postValue(sendInvitation.value?.invitation)
+    }
+    fun setSendInvitationDateList(){
+        _sendInvitationDateList.postValue(sendInvitation.value?.invitationDates)
+    }
+
+
+    fun requestSendConfirmInvitation(invitationId: Int, dateId : Int) = viewModelScope.launch (Dispatchers.IO){
+        try {
+            Log.d("**********sendId", invitationId.toString())
+            val confirm = RequestSendInvitationConfirm(dateId)
+           RetrofitBuilder.invitationService.setConfirmSendInvitation(invitationId, confirm, SeeMeetSharedPreference.getToken())
+        } catch (e: HttpException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun requestSendCancelInvitation(invitationId: Int) = viewModelScope.launch (Dispatchers.IO){
+        try {
+            RetrofitBuilder.invitationService.setCancelSendInvitation(invitationId, SeeMeetSharedPreference.getToken())
+        } catch (e: HttpException) {
+            e.printStackTrace()
+        }
+    }
+
+
+    // 더미
+
+    /*private val _inviList = MutableLiveData<List<InviData>>()
     val inviList : LiveData<List<InviData>>
         get() = _inviList
 
@@ -30,9 +94,7 @@ class SendViewModel(application: Application) : AndroidViewModel(application) {
     val guestCnt : LiveData<String>
         get() = _guestCnt
 
-    fun setGuestCount( cnt : Int,  size : Int){
-        _guestCnt.value = "$cnt/$size"
-    }
+
 
     fun setSendInvitationList() {
         _invititle.value = "가나다라마바사아자차카타파하"
@@ -82,5 +144,5 @@ class SendViewModel(application: Application) : AndroidViewModel(application) {
                 10, "박촤촤", true
             )
         )
-    }
+    }*/
 }
