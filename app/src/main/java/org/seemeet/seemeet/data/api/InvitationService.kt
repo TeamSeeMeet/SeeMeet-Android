@@ -1,8 +1,13 @@
 package org.seemeet.seemeet.data.api
 
+import org.seemeet.seemeet.data.model.request.invitation.RequestApplyInvitation
 import org.seemeet.seemeet.data.model.request.invitation.RequestSendInvitationConfirm
+import org.seemeet.seemeet.data.model.request.login.RequestLoginList
+import org.seemeet.seemeet.data.model.response.invitation.ResponseApplyInvitation
 import org.seemeet.seemeet.data.model.response.invitation.ResponseInvitationList
 import org.seemeet.seemeet.data.model.response.invitation.ResponseSendInvitation
+import org.seemeet.seemeet.data.model.response.login.ResponseLoginList
+import retrofit2.Call
 import retrofit2.http.*
 
 interface InvitationService {
@@ -33,4 +38,11 @@ interface InvitationService {
         @Path("invitationId") invitationId : Int,
         @Header("accesstoken") token: String
     )
+
+    //초대장 신청
+    @Headers("Content-Type:application/json")
+    @POST("invitation")
+    fun postApplyInvitation(
+        @Body body : RequestApplyInvitation
+    ): Call<ResponseApplyInvitation>
 }
