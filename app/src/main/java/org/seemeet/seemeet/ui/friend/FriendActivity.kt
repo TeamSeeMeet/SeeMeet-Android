@@ -13,13 +13,14 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.databinding.ActivityFriendBinding
+import org.seemeet.seemeet.ui.apply.ApplyActivity
 import org.seemeet.seemeet.ui.friend.adapter.FriendListAdapter
 import org.seemeet.seemeet.ui.receive.DialogHomeNoLoginFragment
 import org.seemeet.seemeet.ui.registration.LoginActivity
 import org.seemeet.seemeet.ui.viewmodel.FriendViewModel
 
 class FriendActivity : AppCompatActivity() {
-    private val friendAdapter = FriendListAdapter()
+    private var friendAdapter = FriendListAdapter()
     private lateinit var binding: ActivityFriendBinding
     private val viewModel: FriendViewModel by viewModels()
 
@@ -28,7 +29,7 @@ class FriendActivity : AppCompatActivity() {
         binding = ActivityFriendBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(SeeMeetSharedPreference.getLogin()) {
+        if (SeeMeetSharedPreference.getLogin()) {
             viewModel.requestFriendList()
         } else {
             setNullFriendList()
@@ -57,6 +58,9 @@ class FriendActivity : AppCompatActivity() {
 
     // 어댑터
     private fun setFriendAdapter() {
+        friendAdapter.setOnItemClickListener { FriendListData, pos ->
+            initIntent(pos)
+        }
         binding.rvFriend.adapter = friendAdapter
     }
 
@@ -77,25 +81,34 @@ class FriendActivity : AppCompatActivity() {
 
     }
 
+    private fun initIntent(pos: Int){
+        val intent = Intent(this, ApplyActivity::class.java)
+        intent.putExtra("username",viewModel.friendList.value!!.data[pos].username)
+        startActivity(intent)
+    }
+
+
     private fun setNullFriendList() {
         binding.clFriendNull.visibility = View.VISIBLE
     }
 
     private fun initClickListener() {
-        binding.ivAddFriend.setOnClickListener {
 
-            if(SeeMeetSharedPreference.getLogin()){
-                val nextIntent = Intent(this, AddFriendActivity::class.java)
+        // 친구 추가 버튼
+        binding.ivAddFriend.setOnClickListener {
+            if (SeeMeetSharedPreference.getLogin()) {
+                    val nextIntent = Intent(this, AddFriendActivity::class.java)
                 startActivity(nextIntent)
-            }
-            else
+            } else
                 setNoLoginDailog()
         }
 
+        // 뒤로가기 버튼
         binding.ivFriendBack.setOnClickListener {
             finish()
         }
 
+        // 입력창 리스너 (x버튼, 필터링)
         binding.etSearchFriend.addTextChangedListener {
             if (binding.etSearchFriend.text.isNullOrBlank()) { //공백일 때
                 binding.ivFriendRemoveAll.visibility = View.GONE
@@ -105,18 +118,20 @@ class FriendActivity : AppCompatActivity() {
                     binding.etSearchFriend.setText(null)
                 }
             }
-            
             friendAdapter.setSearchWord(binding.etSearchFriend.text.toString())
         }
+
     }
 
-    private fun setNoLoginDailog(){
+
+    private fun setNoLoginDailog() {
 
         val dialogView = DialogHomeNoLoginFragment()
 
-        dialogView.setButtonClickListener( object :  DialogHomeNoLoginFragment.OnButtonClickListener {
+        dialogView.setButtonClickListener(object : DialogHomeNoLoginFragment.OnButtonClickListener {
             override fun onCancelClicked() {
             }
+
             override fun onLoginClicked() {
                 val nextIntent = Intent(this@FriendActivity, LoginActivity::class.java)
                 startActivity(nextIntent)
