@@ -7,7 +7,7 @@
     <data>
         <variable
             name="doneData"
-            type="org.seemeet.seemeet.data.model.response.invitation.Invitation" />
+            type="org.seemeet.seemeet.data.model.response.invitation.ConfirmedAndCanceld" />
 
     </data>
 
@@ -25,7 +25,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="14dp"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            setNotiDay="@{doneData.createdAt}"
+            android:text="@string/noti_day"
             android:textColor="@color/gray04"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_close_48" />
+            app:srcCompat="@drawable/ic_close_gray05" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/cg_done_friend_list"

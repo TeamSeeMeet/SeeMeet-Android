@@ -43,13 +43,33 @@ fun View.makeGone() {
 }
 
 fun String.TimeParsing(): String {
-    return if (this.split(":")[0].toInt() > 11)
-        "오후 $this"
+    var date = ""
+    var aa = ""
+    val split = this.split(":")
+
+    aa = if(split[0].toInt()<12) "오전"
+    else "오후"
+
+    if(split[0].toInt()>12)
+        date = "${split[0].toInt()-12}:${split[1]}"
     else
-        "오전 $this"
+        date = this
+
+    return "$aa $date"
 }
 
-fun LocalDate.stringParsing() : String {
+fun String.timeToDate(aa: String): String {
+    var date = ""
+    val split = this.split(":")
+    date = if (aa == "오후" && split[0].toInt() < 12) {
+        "${split[0].toInt() + 12}:${split[1]}"
+    } else {
+        this
+    }
+    return date
+}
+
+fun LocalDate.stringParsing(): String {
     val formatter = DateTimeFormatter.ofPattern("yyyy:MMM:d")
     return formatter.format(this)
 }

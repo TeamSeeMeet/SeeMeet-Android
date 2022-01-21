@@ -84,29 +84,42 @@
             app:layout_constraintTop_toTopOf="@+id/et_search_friend_id" />
 
 
+        <TextView
+            android:id="@+id/tv_search_friend_null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="검색 결과가 없습니다."
+            android:textColor="@color/gray04"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_search_friend_id" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_friend_search_list"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="9dp"
             android:layout_marginTop="35dp"
+            android:layout_marginEnd="9dp"
+            android:background="@color/white"
             android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_search_friend_id" >
-
-
-
-        <ImageView
-            android:id="@+id/iv_search_profile_image"
-            android:layout_marginVertical="13dp"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_img_profile" />
+            app:layout_constraintTop_toBottomOf="@id/et_search_friend_id">
+
+            <ImageView
+                android:id="@+id/iv_search_profile_image"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginVertical="13dp"
+                android:src="@drawable/ic_img_profile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_search_friend_name"
@@ -121,7 +134,7 @@
                 tools:text="김준희" />
 
             <TextView
-                android:id="@+id/tv_search_friend_id"
+                android:id="@+id/tv_search_friend_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
@@ -133,28 +146,16 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_search_friend_name"
                 tools:text="joon13579@sookmyung.ac.kr" />
 
-        <ImageView
-            android:id="@+id/iv_add_friend_list"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/selector_add_friend" />
+            <ImageView
+                android:id="@+id/iv_add_friend_list"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/selector_add_friend"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/tv_search_friend_null"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            android:textColor="@color/gray04"
-            android:textSize="16sp"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_search_friend_id"
-            tools:text="검색 결과가 없습니다." />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

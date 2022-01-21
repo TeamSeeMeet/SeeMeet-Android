@@ -1,10 +1,15 @@
 package org.seemeet.seemeet.data.api
 
+import org.seemeet.seemeet.data.model.request.invitation.RequestApplyInvitation
 import org.seemeet.seemeet.data.model.request.invitation.RequestSendInvitationConfirm
+import org.seemeet.seemeet.data.model.request.login.RequestLoginList
+import org.seemeet.seemeet.data.model.response.invitation.ResponseApplyInvitation
 import org.seemeet.seemeet.data.model.response.invitation.ResponseInvitationList
 import org.seemeet.seemeet.data.model.response.invitation.ResponseReceiveInvitation
 import org.seemeet.seemeet.data.model.response.invitation.ResponseSendInvitation
 import org.seemeet.seemeet.data.model.response.invitationResponse.ResponseYesInvitationResponse
+import org.seemeet.seemeet.data.model.response.login.ResponseLoginList
+import retrofit2.Call
 import retrofit2.http.*
 import com.google.gson.annotations.SerializedName
 import org.seemeet.seemeet.data.model.request.invitationResponse.RequestInvitationResponse
@@ -62,4 +67,14 @@ interface InvitationService {
         @Path("invitationId") invitationId: Int,
         @Header("accesstoken") token : String
     ) : ResponseNoInvitationResponse
+
+    /*//초대장 신청
+    @Headers("Content-Type:application/json")
+    @POST("invitation")
+    fun postApplyInvitation(
+        @Body body : RequestApplyInvitation
+    ): Call<ResponseApplyInvitation>*/
+
+    
+
 }
