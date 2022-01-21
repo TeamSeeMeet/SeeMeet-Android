@@ -122,12 +122,12 @@ class CalendarFragment : Fragment() {
                         today -> {
                             textView.setTextColorRes(R.color.white)
                             textView.setBackgroundResource(R.drawable.oval_pink)
-                            dotView.makeInVisible()
+                            dotView.isVisible = events[day.date.toString()].orEmpty().isNotEmpty()
                         }
                         selectedDate -> {
                             textView.setTextColorRes(R.color.white)
                             textView.setBackgroundResource(R.drawable.oval_black)
-                            dotView.makeInVisible()
+                            dotView.isVisible = events[day.date.toString()].orEmpty().isNotEmpty()
                         }
                         else -> {
                             textView.setTextColorRes(R.color.black)
