@@ -1,4 +1,5 @@
 package org.seemeet.seemeet.data.model.response.plan
+
 import com.google.gson.annotations.SerializedName
 
 
@@ -19,7 +20,7 @@ data class Data(
     @SerializedName("hostname")
     val hostname: String,
     @SerializedName("impossible")
-    val impossible: List<Any>,
+    val impossible: List<Impossible>,
     @SerializedName("invitationDesc")
     val invitationDesc: String,
     @SerializedName("invitationTitle")
@@ -37,6 +38,13 @@ data class Data(
 data class Possible(
     @SerializedName("user_id")
     val userId: Int,
+    @SerializedName("username")
+    val username: String
+)
+data class Impossible(
+    @SerializedName("user_id")
+    val userId: Int,
+
     @SerializedName("username")
     val username: String
 )

@@ -40,7 +40,7 @@ class DetailActivity : AppCompatActivity() {
                 BindingAdapters.setStartEndTimeText(binding.tvDetailTime, it.data.start, it.data.end)
                 binding.tvRecieveLetterTitle.text = it.data.invitationTitle
                 binding.tvRecieveLetterContent.text = it.data.invitationDesc
-                binding.tvDetailHost.text = it.data.hostname
+                binding.tvDetailHostName.text = it.data.hostname
 
                 it.data.possible.forEach {
                     binding.cgDetailFriendList.addView(Chip(this).apply {
@@ -53,7 +53,7 @@ class DetailActivity : AppCompatActivity() {
                 }
                 it.data.impossible.forEach {
                     binding.cgDetailFriendList.addView(Chip(this).apply {
-                        text = it.toString()
+                        text = it.username
                         setChipBackgroundColorResource(R.color.gray04)
                         setTextAppearance(R.style.chipTextWhiteStyle2)
                         isCheckable = false

@@ -129,7 +129,7 @@ class HomeFragment : Fragment() {
             override fun onClick(v: View, position: Int) {
                 Log.d("****************home_reminder_title_click_position", "${v.id}/${position}")
                 //val rd : ReminderData = viewmodel.reminderList.value!!.get(position)
-                val comePlanId = viewmodel.comePlanList.value!!.data.get(position).planId
+                val comePlanId = viewmodel.comePlanList.value!!.data.filter{it.date.setBetweenDays2() < 0}.get(position).planId
                 val intent = Intent(requireContext(), DetailActivity::class.java)
                 intent.putExtra("planId", comePlanId)
                 startActivity(intent)
