@@ -4,17 +4,30 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import org.seemeet.seemeet.data.local.NotificationDoneData
-import org.seemeet.seemeet.data.local.NotificationFriendData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.api.RetrofitBuilder
+import org.seemeet.seemeet.data.model.response.plan.ResponsePlanDetail
+import retrofit2.HttpException
 
 class DetailViewModel(application: Application) : AndroidViewModel(application) {
 
     //리싸이클러뷰에 들어갈 리스트 변수
-    private val _detailFriendList = MutableLiveData<List<NotificationDoneData>>()
-    val detailFriendList : LiveData<List<NotificationDoneData>>
-        get() = _detailFriendList
+    private val _planDetail = MutableLiveData<List<ResponsePlanDetail>>()
+    val planDetail: LiveData<List<ResponsePlanDetail>>
+        get() = _planDetail
 
+    fun requestPlanId(planId: Int) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            _planDetail.postValue(listOf(RetrofitBuilder.planService.getPlanDetail(planId, SeeMeetSharedPreference.getToken())))
+        } catch (e: HttpException) {
+            e.printStackTrace()
+        }
+    }
 
+    /*
     //임시로 넣을 더미데이터 셋팅. < 위의 리스트에 대입
     fun setDetailFriendList() {
         _detailFriendList.value = mutableListOf(
@@ -27,6 +40,6 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
             ),
         )
     }
-
+*/
 
 }

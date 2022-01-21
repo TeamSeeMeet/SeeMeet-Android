@@ -78,7 +78,9 @@
     <string name="noti_done_null">완료된 약속이 없어요!</string>
 
     <!-- detail -->
-    <string name="detail_day">2022년 11월 6일 일요일</string>
+    <string name="detail_delete">약속 삭제</string>
+    <string name="detail_divider">|</string>
+    <string name="detail_host">약속 주최자</string>
 
     <!-- Strings used for fragments for navigation -->
 

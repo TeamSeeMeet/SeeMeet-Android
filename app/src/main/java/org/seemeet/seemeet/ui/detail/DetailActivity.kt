@@ -11,6 +11,7 @@ import com.google.android.material.chip.Chip
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityDetailBinding
 import org.seemeet.seemeet.ui.viewmodel.DetailViewModel
+import org.seemeet.seemeet.util.BindingAdapters
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
@@ -22,33 +23,41 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 넘어온 planId 가지고 서버랑 통신하기.
-        val planId =  intent.getIntExtra("planId", -1)
-        Log.d("********DETAIL_PLANID", planId.toString())
+        val planId = intent.getIntExtra("planId", -1)
+        Log.d("*************DETAIL_PLANID", planId.toString())
 
-        viewModel.setDetailFriendList()
+        viewModel.requestPlanId(planId)
         initClickListener()
         setListObserver()
     }
 
     private fun setListObserver() {
-        viewModel.detailFriendList.observe(this, Observer { detailFriendList ->
-            detailFriendList.forEach {
-                //chip 용으로 forEach 중첩 한번더
-                it.nameList.forEach {
-                    binding.cgDetailFriendList.addView(Chip(this).apply {
-                        text = it.name
-                        if (it.response) {
-                            setChipBackgroundColorResource(R.color.pink01)
-                            setTextAppearance(R.style.chipTextWhiteStyle2)
-                            isCheckable = false
-                            isEnabled = false
+        viewModel.planDetail.observe(this, Observer { planDetail ->
 
-                        } else {
-                            setChipBackgroundColorResource(R.color.gray04)
-                            setTextAppearance(R.style.chipTextWhiteStyle2)
-                            isCheckable = false
-                            isEnabled = false
-                        }
+            planDetail.forEach {
+                BindingAdapters.setYearMonthDate(binding.tvDetailDay, it.data.date)
+                binding.tvDetailTitle.text = it.data.invitationTitle
+                BindingAdapters.setStartEndTimeText(binding.tvDetailTime, it.data.start, it.data.end)
+                binding.tvRecieveLetterTitle.text = it.data.invitationTitle
+                binding.tvRecieveLetterContent.text = it.data.invitationDesc
+                binding.tvDetailHost.text = it.data.hostname
+
+                it.data.possible.forEach {
+                    binding.cgDetailFriendList.addView(Chip(this).apply {
+                        text = it.username
+                        setChipBackgroundColorResource(R.color.pink01)
+                        setTextAppearance(R.style.chipTextWhiteStyle2)
+                        isCheckable = false
+                        isEnabled = false
+                    })
+                }
+                it.data.impossible.forEach {
+                    binding.cgDetailFriendList.addView(Chip(this).apply {
+                        text = it.toString()
+                        setChipBackgroundColorResource(R.color.gray04)
+                        setTextAppearance(R.style.chipTextWhiteStyle2)
+                        isCheckable = false
+                        isEnabled = false
                     })
                 }
             }
@@ -60,6 +69,7 @@ class DetailActivity : AppCompatActivity() {
             finish()
         }
 
+/* 약속 상세에서 취소는 일단 지움
         binding.btnAppointmentCancel.setOnClickListener {
             var dialogView = DetailDialogFragment()
             val bundle = Bundle()
@@ -82,6 +92,7 @@ class DetailActivity : AppCompatActivity() {
             })
             dialogView.show(supportFragmentManager, "send wish checkbox time")
         }
+ */
     }
 
     companion object {
