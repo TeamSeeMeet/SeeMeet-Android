@@ -177,6 +177,7 @@
         app:layout_constraintStart_toEndOf="@+id/tv_detail_host_divider"
         app:layout_constraintTop_toTopOf="@+id/tv_detail_host_divider" />
 
+
     <View
         android:id="@+id/divider5"
         android:layout_width="0dp"

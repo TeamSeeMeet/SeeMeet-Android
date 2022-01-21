@@ -11,12 +11,16 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.databinding.ActivityFriendBinding
+import org.seemeet.seemeet.ui.apply.ApplyActivity
 import org.seemeet.seemeet.ui.friend.adapter.FriendListAdapter
+import org.seemeet.seemeet.ui.receive.DialogHomeNoLoginFragment
+import org.seemeet.seemeet.ui.registration.LoginActivity
 import org.seemeet.seemeet.ui.viewmodel.FriendViewModel
 
 class FriendActivity : AppCompatActivity() {
-    private val friendAdapter = FriendListAdapter()
+    private var friendAdapter = FriendListAdapter()
     private lateinit var binding: ActivityFriendBinding
     private val viewModel: FriendViewModel by viewModels()
 
@@ -25,8 +29,11 @@ class FriendActivity : AppCompatActivity() {
         binding = ActivityFriendBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.setFriendList()
-
+        if (SeeMeetSharedPreference.getLogin()) {
+            viewModel.requestFriendList()
+        } else {
+            setNullFriendList()
+        }
         setFriendAdapter()
         setFriendObserver()
         initClickListener()
@@ -51,16 +58,20 @@ class FriendActivity : AppCompatActivity() {
 
     // 어댑터
     private fun setFriendAdapter() {
+        friendAdapter.setOnItemClickListener { FriendListData, pos ->
+            initIntent(pos)
+        }
         binding.rvFriend.adapter = friendAdapter
     }
+
 
     // 옵저버
     private fun setFriendObserver() {
         viewModel.friendList.observe(this, Observer { friendList ->
             with(binding.rvFriend.adapter as FriendListAdapter) {
-                setFriendList(friendList)
+                setFriendList(friendList.data)
 
-                if (friendList.isEmpty()) {
+                if (friendList.data.isEmpty()) {
                     binding.clFriendNull.visibility = View.VISIBLE
                 } else {
                     binding.clFriendNull.visibility = View.GONE
@@ -70,16 +81,34 @@ class FriendActivity : AppCompatActivity() {
 
     }
 
+    private fun initIntent(pos: Int){
+        val intent = Intent(this, ApplyActivity::class.java)
+        intent.putExtra("username",viewModel.friendList.value!!.data[pos].username)
+        startActivity(intent)
+    }
+
+
+    private fun setNullFriendList() {
+        binding.clFriendNull.visibility = View.VISIBLE
+    }
+
     private fun initClickListener() {
+
+        // 친구 추가 버튼
         binding.ivAddFriend.setOnClickListener {
-            val nextIntent = Intent(this, AddFriendActivity::class.java)
-            startActivity(nextIntent)
+            if (SeeMeetSharedPreference.getLogin()) {
+                    val nextIntent = Intent(this, AddFriendActivity::class.java)
+                startActivity(nextIntent)
+            } else
+                setNoLoginDailog()
         }
 
+        // 뒤로가기 버튼
         binding.ivFriendBack.setOnClickListener {
             finish()
         }
 
+        // 입력창 리스너 (x버튼, 필터링)
         binding.etSearchFriend.addTextChangedListener {
             if (binding.etSearchFriend.text.isNullOrBlank()) { //공백일 때
                 binding.ivFriendRemoveAll.visibility = View.GONE
@@ -89,12 +118,28 @@ class FriendActivity : AppCompatActivity() {
                     binding.etSearchFriend.setText(null)
                 }
             }
-            
             friendAdapter.setSearchWord(binding.etSearchFriend.text.toString())
         }
+
     }
 
 
+    private fun setNoLoginDailog() {
+
+        val dialogView = DialogHomeNoLoginFragment()
+
+        dialogView.setButtonClickListener(object : DialogHomeNoLoginFragment.OnButtonClickListener {
+            override fun onCancelClicked() {
+            }
+
+            override fun onLoginClicked() {
+                val nextIntent = Intent(this@FriendActivity, LoginActivity::class.java)
+                startActivity(nextIntent)
+            }
+        })
+        dialogView.show(supportFragmentManager, "send wish checkbox time")
+
+    }
 
     companion object {
         fun start(context: Context) {
