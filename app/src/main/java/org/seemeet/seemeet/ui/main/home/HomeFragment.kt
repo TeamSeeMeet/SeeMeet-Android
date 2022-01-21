@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
         //원래 이 코드는 로그인 했을 경우, id와 다른 토큰과 함께 sharedPreference에 넣어야함.
         //그리고 로그아웃할때 setLogin을 false로 하던가, sharedPreference를 다 지우던가. 후자가 나을듯...?
         //SeeMeetSharedPreference.clearStorage()
-        SeeMeetSharedPreference.setLogin(true)
+        //SeeMeetSharedPreference.setLogin(true)
         //SeeMeetSharedPreference.setUserId(6)
 
         //김안드 토큰 친구 있 _ id 6
