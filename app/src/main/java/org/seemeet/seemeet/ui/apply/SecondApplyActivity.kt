@@ -136,6 +136,9 @@ class SecondApplyActivity : AppCompatActivity() {
                             if (day.date.isAfter(today) || day.date.isEqual(today))
                                 selectDate(day.date)
                         }
+                        DayOwner.NEXT_MONTH -> {
+                            selectDate(day.date)
+                        }
                     }
                 }
             }
@@ -155,8 +158,7 @@ class SecondApplyActivity : AppCompatActivity() {
                 textDate.text = day.date.dayOfMonth.toString()
                 textDay.text = dayFormatter.format(day.date)
 
-                if (day.owner == DayOwner.THIS_MONTH) {
-                    val isEvent = events[day.date.toString()]
+                if (day.date.isAfter(today) || day.date.isEqual(today)) {
                     textDate.makeVisible()
                     when (day.date) {
                         today -> {
@@ -178,13 +180,14 @@ class SecondApplyActivity : AppCompatActivity() {
                             dotView.isVisible = events[day.date.toString()].orEmpty().isNotEmpty()
                         }
                     }
-
-                } else {
+                }
+                else {
                     textDate.setTextColorRes(R.color.silver_chalice)
                     textDay.setTextColorRes(R.color.silver_chalice)
-                    layoutDate.setBackgroundResource(R.drawable.rectangle_white_radius_10)
+                    layoutDate.setBackgroundResource(R.drawable.rectangle_gray02_10)
                     dotView.makeInVisible()
                 }
+
             }
         }
 
