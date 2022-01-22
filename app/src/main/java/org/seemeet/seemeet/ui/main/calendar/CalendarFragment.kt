@@ -1,7 +1,6 @@
 package org.seemeet.seemeet.ui.main.calendar
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.seemeet.seemeet.R
-import org.seemeet.seemeet.SeeMeetApplication
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.response.calendar.CalendarEvent
@@ -50,7 +48,6 @@ class CalendarFragment : Fragment() {
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val selectionFormatter = DateTimeFormatter.ofPattern("MMM d일 EEE요일")
 
-    //private val events = mutableMapOf<LocalDate, List<CalendarEvent>>()
     private var events = dummyDate().groupBy { it.date }
 
     override fun onCreateView(
@@ -202,12 +199,8 @@ class CalendarFragment : Fragment() {
 
     private fun dummyDate(): List<CalendarEvent> {
         val list = mutableListOf<CalendarEvent>()
-        val currentMonth = YearMonth.now()
         val userData = mutableListOf<UserData>()
         userData.add(UserData(1, "이동기"))
-        userData.add(UserData(2, "이동기"))
-        userData.add(UserData(3, "이동기"))
-
         list.add(CalendarEvent(1, "대방어대방어", "2022-01-00", "11:00", "13:00", userData))
         return list
     }
@@ -218,9 +211,7 @@ class CalendarFragment : Fragment() {
                 val ob =RetrofitBuilder.calendarService.getFriendList(SeeMeetSharedPreference.getToken(),year, month).data
                 events = ob.groupBy { it.date }
                 binding.calendar.notifyCalendarChanged()
-                Log.d("testtt",ob.size.toString())
             }catch (e : Exception) {
-                Log.d("testtt",e.toString())
             }
 
         }
