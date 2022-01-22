@@ -55,7 +55,6 @@ class SecondApplyActivity : AppCompatActivity() {
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val selectionFormatter = DateTimeFormatter.ofPattern("MMM d일 EEE요일")
 
-    //private val events = mutableMapOf<LocalDate, List<CalendarEvent>>()
     private val events = dummyDate().groupBy { it.date }
 
     private var applyDate = today.toString()
@@ -86,8 +85,6 @@ class SecondApplyActivity : AppCompatActivity() {
         userDataList = intent.getSerializableExtra("chipFriendData") as ArrayList<ApplyFriendData>
         title = intent.getStringExtra("title")!!
         desc = intent.getStringExtra("Desc")!!
-
-        //Log.d("**********INTENT_RECEIVE", userDataList[0].userName)
 
         binding.apply {
             rvCalendarEvent.adapter = eventsAdapter
@@ -405,17 +402,12 @@ class SecondApplyActivity : AppCompatActivity() {
 
     private fun dummyDate(): List<CalendarEvent> {
         val list = mutableListOf<CalendarEvent>()
-        val currentMonth = YearMonth.now()
         val userData = mutableListOf<UserData>()
         userData.add(UserData(1, "이동기"))
         userData.add(UserData(2, "이동기"))
         userData.add(UserData(3, "이동기"))
 
-        list.add(CalendarEvent(1, "대방어대방어", "2022-01-20", "11:00", "13:00", userData))
-        list.add(CalendarEvent(1, "대방어대방어", "2022-01-20", "11:00", "13:00", userData))
-        list.add(CalendarEvent(1, "대방어대방어", "2022-01-20", "11:00", "13:00", userData))
-        list.add(CalendarEvent(1, "대방어대방어", "2022-01-20", "11:00", "13:00", userData))
-        list.add(CalendarEvent(1, "대방어대방어", "2022-01-21", "11:00", "13:00", userData))
+        list.add(CalendarEvent(1, "대방어대방어", "2022-01-00", "11:00", "13:00", userData))
         return list
     }
 
@@ -432,7 +424,6 @@ class SecondApplyActivity : AppCompatActivity() {
             startTimeList.add(it.start)
             endTimeList.add(it.end)
         }
-        Log.d("testtt", dateList.toString()+startTimeList.toString()+endTimeList.toString())
     }
 
     private fun tryApply() {
@@ -441,7 +432,6 @@ class SecondApplyActivity : AppCompatActivity() {
                 val ob = RequestApplyInvitation(userDataList,title,desc,dateList,startTimeList,endTimeList)
                 RetrofitBuilder.invitationService.postApplyInvitation(SeeMeetSharedPreference.getToken(),ob)
             }catch (e: Exception){
-                Log.d("testtttt",e.toString())
             }
         }
     }
