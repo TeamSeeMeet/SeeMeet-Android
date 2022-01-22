@@ -27,6 +27,7 @@ import org.seemeet.seemeet.data.local.StartEndDateData
 import org.seemeet.seemeet.data.model.response.calendar.CalendarEvent
 import org.seemeet.seemeet.data.model.response.calendar.UserData
 import org.seemeet.seemeet.data.model.request.invitation.RequestApplyInvitation
+import org.seemeet.seemeet.data.model.response.calendar.InvitationPlan
 import org.seemeet.seemeet.databinding.ActivitySecondApplyBinding
 import org.seemeet.seemeet.databinding.ItemPickerDateBinding
 import org.seemeet.seemeet.ui.apply.adapter.PickerEventAdapter
@@ -55,7 +56,7 @@ class SecondApplyActivity : AppCompatActivity() {
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val selectionFormatter = DateTimeFormatter.ofPattern("MMM d일 EEE요일")
 
-    private val events = dummyDate().groupBy { it.date }
+    private var events = dummyDate().groupBy { it.date }
 
     private var applyDate = today.toString()
     private var applyStartTime = defaultTime(0,3)
@@ -202,6 +203,7 @@ class SecondApplyActivity : AppCompatActivity() {
                     binding.tvCurrentYear.text = firstDate.yearMonth.year.toString() + "년"
                     binding.tvCurrentMonth.text = monthTitleFormatter.format(firstDate)
                 } else {
+                    getCalendarDate(""+it.year,""+it.month, false)
                     binding.tvCurrentMonth.text =
                         "${monthTitleFormatter.format(firstDate)} - ${
                             monthTitleFormatter.format(
@@ -217,6 +219,8 @@ class SecondApplyActivity : AppCompatActivity() {
                 }
             }
         }
+        getCalendarDate(""+today.year,""+today.monthValue,true)
+        Log.d("testt",""+today.year +today.month)
     }
 
     private fun initClickListener() {
@@ -403,14 +407,10 @@ class SecondApplyActivity : AppCompatActivity() {
         binding.tvSelectedDay.text = selectionFormatter.format(date)
     }
 
-    private fun dummyDate(): List<CalendarEvent> {
-        val list = mutableListOf<CalendarEvent>()
-        val userData = mutableListOf<UserData>()
-        userData.add(UserData(1, "이동기"))
-        userData.add(UserData(2, "이동기"))
-        userData.add(UserData(3, "이동기"))
+    private fun dummyDate(): List<InvitationPlan> {
+        val list = mutableListOf<InvitationPlan>()
 
-        list.add(CalendarEvent(1, "대방어대방어", "2022-01-00", "11:00", "13:00", userData))
+        list.add(InvitationPlan(1, "대방어대방어", "2022-01-00", "11:00", "13:00"))
         return list
     }
 
@@ -435,6 +435,21 @@ class SecondApplyActivity : AppCompatActivity() {
                 val ob = RequestApplyInvitation(userDataList,title,desc,dateList,startTimeList,endTimeList)
                 RetrofitBuilder.invitationService.postApplyInvitation(SeeMeetSharedPreference.getToken(),ob)
             }catch (e: Exception){
+            }
+        }
+    }
+
+    private fun getCalendarDate(year : String, month : String, init : Boolean) {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val ob =RetrofitBuilder.calendarService.getInvitationPlan(SeeMeetSharedPreference.getToken(),year, month).data
+                events = ob.groupBy { it.date }
+                binding.calendar.notifyCalendarChanged()
+                if(init)
+                    updateAdapterForDate(today)
+                Log.d("testt","성")
+            }catch (e : java.lang.Exception) {
+                Log.d("testt",e.toString())
             }
         }
     }
