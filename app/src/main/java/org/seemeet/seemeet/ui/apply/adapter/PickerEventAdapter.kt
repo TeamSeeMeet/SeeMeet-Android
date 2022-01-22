@@ -4,13 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.seemeet.seemeet.data.model.response.calendar.CalendarEvent
+import org.seemeet.seemeet.data.model.response.calendar.InvitationPlan
 import org.seemeet.seemeet.databinding.ItemPickerEventBinding
 
 class PickerEventAdapter() :
     RecyclerView.Adapter<PickerEventAdapter.ViewHolder>() {
 
-    val eventList = mutableListOf<CalendarEvent>()
+    val eventList = mutableListOf<InvitationPlan>()
     private var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,9 +32,9 @@ class PickerEventAdapter() :
     inner class ViewHolder(private val binding: ItemPickerEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(event: CalendarEvent) {
+        fun bind(event: InvitationPlan) {
             binding.apply {
-                calendarEvent = event
+                invitationPlan = event
             }
         }
     }
