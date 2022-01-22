@@ -8,16 +8,14 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import org.seemeet.seemeet.ui.main.MainActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.api.RetrofitBuilder
-import org.seemeet.seemeet.data.model.request.login.RequestLoginList
 import org.seemeet.seemeet.data.model.request.register.RequestRegisterList
-import org.seemeet.seemeet.data.model.response.login.ResponseLoginList
 import org.seemeet.seemeet.data.model.response.register.ResponseRegisterList
 import org.seemeet.seemeet.databinding.ActivityRegisterBinding
+import org.seemeet.seemeet.ui.main.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -73,8 +71,10 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         binding.ivRegisterBack.setOnClickListener {
+            Log.d("****************ivRegisterBack", "Clicked")
             finish()
         }
+
         binding.etName.addTextChangedListener{
             if (isNullorBlank()) {
                 unactiveBtn()
