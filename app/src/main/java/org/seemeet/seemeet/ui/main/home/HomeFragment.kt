@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -110,6 +111,16 @@ class HomeFragment : Fragment() {
             nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
 
             nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserEmail()
+
+            nvMypage.clMypageContent.setOnClickListener {
+                Toast.makeText(requireContext(), "아직 준비중인 서비스예요",Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            nvMypage.tvEmail.setOnClickListener {
+                SeeMeetSharedPreference.clearStorage()
+                LoginActivity.start(requireContext())
+            }
         }
 
     }
@@ -132,7 +143,7 @@ class HomeFragment : Fragment() {
             override fun onClick(v: View, position: Int) {
                 Log.d("****************home_reminder_title_click_position", "${v.id}/${position}")
                 //val rd : ReminderData = viewmodel.reminderList.value!!.get(position)
-                val comePlanId = viewmodel.comePlanList.value!!.data.filter{it.date.setBetweenDays2() < 0}.get(position).planId
+                val comePlanId = viewmodel.comePlanList.value!!.data.filter{it.date.setBetweenDays2() <= 0}.get(position).planId
                 val intent = Intent(requireContext(), DetailActivity::class.java)
                 intent.putExtra("planId", comePlanId)
                 startActivity(intent)
@@ -151,10 +162,12 @@ class HomeFragment : Fragment() {
 
 
                 setReminder(comePlanList.data.filter {
-                    it.date.setBetweenDays2() < 0
+                    it.date.setBetweenDays2() <= 0
                 })
 
-                if (comePlanList.data.isEmpty()) {
+                if(comePlanList.data.filter {
+                        it.date.setBetweenDays2() <= 0
+                }.isEmpty()) {
                     setNoReminderList()
                 }
             }

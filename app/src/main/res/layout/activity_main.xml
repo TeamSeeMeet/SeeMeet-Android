@@ -25,6 +25,7 @@
             android:background="@color/white"
             app:elevation="0dp"
             app:itemIconSize="48dp"
+            app:itemRippleColor="@null"
             app:itemIconTint="@drawable/selector_menu_color"
             app:labelVisibilityMode="unlabeled"
             app:menu="@menu/main_bottom_navigation_menu">
