@@ -6,9 +6,7 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.time.LocalDateTime
+import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.time.temporal.WeekFields
@@ -89,10 +87,11 @@ fun String.monthDayParsing() : String {
     return "${date[1]}월 ${date[2]}일"
 }
 fun String.calDday() : Int {
-    val today = LocalDate.now().dayOfMonth
-    val date = this.split("-")[2].toInt()
+    val comeDay =  LocalDate.parse(this, DateTimeFormatter.ISO_DATE).atStartOfDay().toInstant(
+        ZoneOffset.of("+9"))
+    val today = LocalDateTime.now().toInstant( ZoneOffset.of("+9"))
 
-    return date - today
+    return ChronoUnit.DAYS.between(today, comeDay).toInt()
 }
 
 fun String.dateParsingIso() : LocalDateTime {
@@ -112,4 +111,3 @@ fun String.setBetweenDays2() : Long {
 
     return ChronoUnit.DAYS.between(created, today)
 }
-
