@@ -55,6 +55,8 @@ class LoginActivity : AppCompatActivity() {
                 binding.ivPwShowHidden.setImageResource(R.drawable.ic_pw_hidden)
                 binding.etPw.transformationMethod = PasswordTransformationMethod.getInstance()
             }
+            //커서는 맨 뒤로
+            binding.etPw.setSelection(binding.etPw.text.length)
         }
     }
 
