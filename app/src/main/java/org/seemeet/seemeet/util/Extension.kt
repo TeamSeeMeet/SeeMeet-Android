@@ -1,11 +1,17 @@
 package org.seemeet.seemeet.util
 
+import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
+import android.os.Build
 import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat.getColor
+import org.seemeet.seemeet.R
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -110,4 +116,16 @@ fun String.setBetweenDays2() : Long {
     val today = LocalDateTime.now()
 
     return ChronoUnit.DAYS.between(created, today)
+}
+
+fun changeStatusBarColor(colorId : Int, activity : Activity, mContext : Context){
+    val mWindow = activity.window
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        mWindow.statusBarColor = mContext.resources.getColor(colorId, null)
+    } else {
+        mWindow.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        mWindow.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+
+        mWindow.statusBarColor = ContextCompat.getColor(activity, R.color.pink01)
+    }
 }

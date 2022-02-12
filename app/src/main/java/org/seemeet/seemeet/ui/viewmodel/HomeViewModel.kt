@@ -29,7 +29,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val _homeBanner = MutableLiveData<Int>()
     val homeBanner : LiveData<Int>
         get() = _homeBanner
-    var day : Int = 0
+
+    private val _homeBannerDay = MutableLiveData<Int>()
+    val homeBannerDay : LiveData<Int>
+        get() = _homeBannerDay
 
     private val _friendList = MutableLiveData<ResponseFriendList>()
     val friendList : LiveData<ResponseFriendList>
@@ -39,6 +42,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val lastPlan : LiveData<LastPlanData>
         get() = _lastPlan
 
+    init {
+        _homeBanner.value = 1
+        _homeBannerDay.value = -1
+    }
 
 
     //서버통신
@@ -75,29 +82,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-
-    //더미
-
-    //리싸이클러뷰에 들어갈 리스트 변수
-    private val _reminderList = MutableLiveData<List<ReminderData>>()
-    val reminderList : LiveData<List<ReminderData>>
-        get() = _reminderList
-
-    //임시로 넣을 더미데이터 셋팅. < 위의 리스트에 대입
-    fun setReminderList() {
-        _reminderList.value = mutableListOf(
-            ReminderData(
-                "대방어데이", R.drawable.circle_black, "1월 15일", "D-4"
-            ),
-            ReminderData(
-                "대방어데이2", R.drawable.circle_black, "1월 16일", "D-5"
-            ),
-            ReminderData(
-                "대방어데이3", R.drawable.circle_black, "1월 17일", "D-6"
-            )
-
-        )
-
+    //home 베너 이미지랑 텍스트 설정.
+    fun setHomeBannerFlagAndDay(flag : Int, day : Int){
+        _homeBanner.postValue(flag)
+        _homeBannerDay.postValue(day)
     }
 
 
