@@ -1,7 +1,6 @@
 package org.seemeet.seemeet.ui.receive.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +16,6 @@ class ReceiveSchduleListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>()
 
     private var scheduleList = emptyList<PlanResponseData>()
     private var context : Context? = null
-    //일단 viewtype을
 
     inner class ReceiveSchduleViewHolder1(
         private val binding : ItemReceiveScheduleBinding
@@ -45,13 +43,13 @@ class ReceiveSchduleListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>()
     ): RecyclerView.ViewHolder(binding.root){
         fun bind(scheduleData: ScheduleData) {
             binding.scheduleData = scheduleData
-
         }
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-       /* if(viewType == 1 ){
+        // 개인 일정 수동 추가 시 멀티뷰가 됨. < 코드는 짜둬서 주석으로 남겨둡니다.
+        /* if(viewType == 1 ){
             val binding = ItemReceiveScheduleBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -100,6 +98,7 @@ class ReceiveSchduleListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>()
     }
 
 
+    //멀티뷰타입.
     object OptionViewType {
         const val TOGETHER = 1
         const val ALONE = 2

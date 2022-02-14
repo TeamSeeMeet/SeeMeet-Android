@@ -2,12 +2,11 @@ package org.seemeet.seemeet.ui.receive.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import org.seemeet.seemeet.data.local.CheckboxData
-import org.seemeet.seemeet.databinding.ItemReceiveCheckboxBinding
 import android.widget.CheckBox
+import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.model.response.invitation.ReceiveInvitationDate
+import org.seemeet.seemeet.databinding.ItemReceiveCheckboxBinding
 
 class ReceiveCheckListAdapter(  val onClickCheckbox : (receiveInvitationDate : ReceiveInvitationDate) -> Unit )
     : RecyclerView.Adapter<ReceiveCheckListAdapter.RecieveTimeListViewHolder>() {
@@ -24,10 +23,8 @@ class ReceiveCheckListAdapter(  val onClickCheckbox : (receiveInvitationDate : R
             }
 
         fun bind(data: ReceiveInvitationDate){
-
             binding.checkboxData = data
             binding.cbReceive.isChecked = data.isSelected
-
         }
     }
 
