@@ -87,7 +87,8 @@ class HomeFragment : Fragment() {
             }
 
             nvMypage.clMypageLogin.setOnClickListener{
-                LoginActivity.start(requireContext())
+                if(!getLogin())
+                    LoginActivity.start(requireContext())
             }
 
             nvMypage.clMypageContent.setOnClickListener {
