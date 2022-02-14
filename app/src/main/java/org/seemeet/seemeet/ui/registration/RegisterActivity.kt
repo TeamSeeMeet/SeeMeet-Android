@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.MotionEvent
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -16,6 +15,8 @@ import org.seemeet.seemeet.data.model.request.register.RequestRegisterList
 import org.seemeet.seemeet.data.model.response.register.ResponseRegisterList
 import org.seemeet.seemeet.databinding.ActivityRegisterBinding
 import org.seemeet.seemeet.ui.main.MainActivity
+import org.seemeet.seemeet.util.makeInVisible
+import org.seemeet.seemeet.util.makeVisible
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,9 +55,10 @@ class RegisterActivity : AppCompatActivity() {
                 } else {
                     binding.etEmailRegister.requestFocus()
                     binding.tvWarningEmail.text = "@string/register_registeredEmail"
-                    binding.tvWarningEmail.visibility = View.VISIBLE
+                    binding.tvWarningEmail.makeVisible()
                 }
             }
+
             override fun onFailure(call: Call<ResponseRegisterList>, t: Throwable) {
                 Log.e("NetWorkTest", "error:$t")
             }
@@ -83,11 +85,11 @@ class RegisterActivity : AppCompatActivity() {
         binding.etEmailRegister.addTextChangedListener {
             if (pattern.matcher(binding.etEmailRegister.text).matches()) {
                 //이메일 맞음
-                binding.tvWarningEmail.visibility = View.INVISIBLE
+                binding.tvWarningEmail.makeInVisible()
             } else {
                 //이메일 아님
                 binding.tvWarningEmail.text = "@string/register_incorrectEmail"
-                binding.tvWarningEmail.visibility = View.VISIBLE
+                binding.tvWarningEmail.makeVisible()
             }
             if (isNullorBlank()) {
                 inactiveBtn()
@@ -95,21 +97,21 @@ class RegisterActivity : AppCompatActivity() {
                 activeBtn()
             }
             if (binding.etEmailRegister.text.isNullOrBlank())
-                binding.tvWarningEmail.visibility = View.INVISIBLE
+                binding.tvWarningEmail.makeInVisible()
         }
 
         binding.etPw.addTextChangedListener {
             if (binding.etPw.text.length < 8) {
                 binding.tvWarningPw.text = "@string/register_lengthPassword"
-                binding.tvWarningPw.visibility = View.VISIBLE
+                binding.tvWarningPw.makeVisible()
             } else { //8자 이상인 경우
                 if (!isPasswordFormat(binding.etPw.text.toString())) {//영문, 숫자 , 특수문자 중 2가지 이상 사용안했을 경우
                     binding.tvWarningPw.text = "@string/register_formatPassword"
-                    binding.tvWarningPw.visibility = View.VISIBLE
-                } else binding.tvWarningPw.visibility = View.INVISIBLE
+                    binding.tvWarningPw.makeVisible()
+                } else binding.tvWarningPw.makeInVisible()
             }
             if (binding.etPw.text.isNullOrBlank())
-                binding.tvWarningPw.visibility = View.INVISIBLE
+                binding.tvWarningPw.makeVisible()
             if (isNullorBlank()) {
                 inactiveBtn()
             } else {
@@ -120,10 +122,10 @@ class RegisterActivity : AppCompatActivity() {
         binding.etCheckpw.addTextChangedListener {
             if (!binding.etCheckpw.text.toString().equals(binding.etPw.text.toString())) {
                 binding.tvWarningCheckpw.text = "@string/register_incorrectPassword"
-                binding.tvWarningCheckpw.visibility = View.VISIBLE
-            } else binding.tvWarningCheckpw.visibility = View.INVISIBLE //일치할 경우 tv 안 뜨게
+                binding.tvWarningCheckpw.makeVisible()
+            } else binding.tvWarningCheckpw.makeInVisible() //일치할 경우 tv 안 뜨게
             if (binding.etCheckpw.text.isNullOrBlank())
-                binding.tvWarningCheckpw.visibility = View.INVISIBLE
+                binding.tvWarningCheckpw.makeInVisible()
             if (isNullorBlank()) {
                 inactiveBtn()
             } else {
@@ -145,7 +147,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun inactiveBtn() {
-        binding.btnRegister.apply{
+        binding.btnRegister.apply {
             setBackgroundResource(R.drawable.rectangle_gray_radius_10)
             isClickable = false // 버튼 클릭할수 없게
             isEnabled = false // 버튼 비활성화
@@ -179,7 +181,8 @@ class RegisterActivity : AppCompatActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
-    companion object{
-        const val PASSWORD_FORMAT = "^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#\$%^&*])(?=.*[0-9!@#\$%^&*]).{8,16}\$"
+    companion object {
+        const val PASSWORD_FORMAT =
+            "^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#\$%^&*])(?=.*[0-9!@#\$%^&*]).{8,16}\$"
     }
 }
