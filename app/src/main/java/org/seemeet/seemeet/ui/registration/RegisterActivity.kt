@@ -15,6 +15,8 @@ import org.seemeet.seemeet.data.model.request.register.RequestRegisterList
 import org.seemeet.seemeet.data.model.response.register.ResponseRegisterList
 import org.seemeet.seemeet.databinding.ActivityRegisterBinding
 import org.seemeet.seemeet.ui.main.MainActivity
+import org.seemeet.seemeet.util.activeBtn
+import org.seemeet.seemeet.util.inactiveBtn
 import org.seemeet.seemeet.util.makeInVisible
 import org.seemeet.seemeet.util.makeVisible
 import retrofit2.Call
@@ -71,17 +73,17 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         binding.ivRegisterBack.setOnClickListener {
-            Log.d("****************ivRegisterBack", "Clicked")
             finish()
         }
 
         binding.etName.addTextChangedListener {
-            if (isNullorBlank()) {
-                inactiveBtn()
+            if (isNullOrBlank()) {
+                binding.btnRegister.inactiveBtn(R.drawable.rectangle_gray04_10)
             } else {
-                activeBtn()
+                binding.btnRegister.activeBtn()
             }
         }
+
         binding.etEmailRegister.addTextChangedListener {
             if (pattern.matcher(binding.etEmailRegister.text).matches()) {
                 //이메일 맞음
@@ -91,10 +93,10 @@ class RegisterActivity : AppCompatActivity() {
                 binding.tvWarningEmail.text = "@string/register_incorrectEmail"
                 binding.tvWarningEmail.makeVisible()
             }
-            if (isNullorBlank()) {
-                inactiveBtn()
+            if (isNullOrBlank()) {
+                binding.btnRegister.inactiveBtn(R.drawable.rectangle_gray04_10)
             } else {
-                activeBtn()
+                binding.btnRegister.activeBtn()
             }
             if (binding.etEmailRegister.text.isNullOrBlank())
                 binding.tvWarningEmail.makeInVisible()
@@ -112,10 +114,11 @@ class RegisterActivity : AppCompatActivity() {
             }
             if (binding.etPw.text.isNullOrBlank())
                 binding.tvWarningPw.makeVisible()
-            if (isNullorBlank()) {
-                inactiveBtn()
+
+            if (isNullOrBlank()) {
+                binding.btnRegister.inactiveBtn(R.drawable.rectangle_gray04_10)
             } else {
-                activeBtn()
+                binding.btnRegister.activeBtn()
             }
         }
 
@@ -124,12 +127,14 @@ class RegisterActivity : AppCompatActivity() {
                 binding.tvWarningCheckpw.text = "@string/register_incorrectPassword"
                 binding.tvWarningCheckpw.makeVisible()
             } else binding.tvWarningCheckpw.makeInVisible() //일치할 경우 tv 안 뜨게
+
             if (binding.etCheckpw.text.isNullOrBlank())
                 binding.tvWarningCheckpw.makeInVisible()
-            if (isNullorBlank()) {
-                inactiveBtn()
+
+            if (isNullOrBlank()) {
+                binding.btnRegister.inactiveBtn(R.drawable.rectangle_gray04_10)
             } else {
-                activeBtn()
+                binding.btnRegister.activeBtn()
             }
         }
     }
@@ -138,23 +143,7 @@ class RegisterActivity : AppCompatActivity() {
         return password.matches(PASSWORD_FORMAT.toRegex())
     }
 
-    private fun activeBtn() {
-        binding.btnRegister.apply {
-            setBackgroundResource(R.drawable.rectangle_pink_10)
-            isClickable = true // 버튼 클릭할수 있게
-            isEnabled = true // 버튼 활성화
-        }
-    }
-
-    private fun inactiveBtn() {
-        binding.btnRegister.apply {
-            setBackgroundResource(R.drawable.rectangle_gray_radius_10)
-            isClickable = false // 버튼 클릭할수 없게
-            isEnabled = false // 버튼 비활성화
-        }
-    }
-
-    private fun isNullorBlank(): Boolean { //하나라도 성립하면 true 반환 (= 4개 중에 하나라도 이상한게 있을 때)
+    private fun isNullOrBlank(): Boolean { //하나라도 성립하면 true 반환 (= 4개 중에 하나라도 이상한게 있을 때)
         return binding.etName.text.isNullOrBlank() ||
                 binding.tvWarningEmail.isVisible ||
                 binding.tvWarningCheckpw.isVisible ||

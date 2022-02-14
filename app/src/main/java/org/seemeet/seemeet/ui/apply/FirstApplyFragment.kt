@@ -276,7 +276,7 @@ class FirstApplyFragment : Fragment() {
     }
 
     private fun activeBtn() {
-        binding.btnNext.setBackgroundResource(R.drawable.rectangle_pink_10)
+        binding.btnNext.setBackgroundResource(R.drawable.rectangle_pink01_10)
         binding.btnNext.isClickable = true // 버튼 클릭할수 있게
         binding.btnNext.isEnabled = true // 버튼 활성화
     }
