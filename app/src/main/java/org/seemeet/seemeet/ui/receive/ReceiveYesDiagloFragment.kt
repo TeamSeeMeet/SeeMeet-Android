@@ -6,9 +6,9 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.DialogFragment
 import org.seemeet.seemeet.R
-import org.seemeet.seemeet.data.local.CheckboxData
 import org.seemeet.seemeet.data.model.response.invitation.ReceiveInvitationDate
 import org.seemeet.seemeet.databinding.DialogReceiveYesDiagloBinding
 import org.seemeet.seemeet.util.TimeParsing
@@ -20,19 +20,22 @@ class ReceiveYesDiagloFragment : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         _binding = DialogReceiveYesDiagloBinding.inflate(
             inflater, container, false)
 
+        val cbList : ArrayList<ReceiveInvitationDate> = arguments?.getParcelableArrayList<Parcelable>("cblist") as ArrayList<ReceiveInvitationDate>
+        initCheckedTimeList(cbList)
 
-        val bundle = arguments
-        val cblist : ArrayList<ReceiveInvitationDate> = bundle?.getParcelableArrayList<Parcelable>("cblist") as ArrayList<ReceiveInvitationDate>
-        var cnt : Int = 0
-        cblist.forEach{
+        return binding.root
+    }
 
+    private fun initCheckedTimeList(cbList : ArrayList<ReceiveInvitationDate>){
+        var cnt = 0
+
+        cbList.forEach{
             if(it.isSelected){
-                var time = it.start.TimeParsing() + " ~" + it.end.TimeParsing()
+                val time = it.start.TimeParsing() + " ~" + it.end.TimeParsing()
                 when(cnt){
                     0 -> {
                         binding.tvReceiDateWish1.text = it.date
@@ -54,13 +57,9 @@ class ReceiveYesDiagloFragment : DialogFragment() {
                         binding.tvReceiTimeWish4.text  = time
                         cnt++
                     }
-
                 }
             }
         }
-
-
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -79,8 +78,7 @@ class ReceiveYesDiagloFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.window!!.setBackgroundDrawable(resources.getDrawable(R.drawable.rectangle_white_top10))
-
+        dialog.window!!.setBackgroundDrawable(ResourcesCompat.getDrawable(resources, R.drawable.rectangle_white_10, null))
         return dialog
     }
 

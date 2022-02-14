@@ -171,4 +171,20 @@ object BindingAdapters {
         textView.text = "$start ~ $end"
     }
 
+    //이거 send 쪽 브랜치에 똑같이 있는 함수인데 가져다 사용함. 나중에 merge할때 잘 처리하자...
+    @JvmStatic
+    @BindingAdapter("setWordPinkAllText", "setPinkText")
+    fun setWordPinkText(textView: TextView, text : String, pink : String) {
+        val start = text.indexOf(pink)
+        val end = start + pink.length
+
+        val ss = SpannableStringBuilder(text)
+        ss.setSpan(ForegroundColorSpan(Color.parseColor("#FA555C")), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+        ss.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(RelativeSizeSpan(1.2f), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        textView.text = ss
+    }
+
+
+
 }
