@@ -7,8 +7,14 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import okhttp3.ResponseBody
 import org.seemeet.seemeet.R
-import java.time.*
+import org.seemeet.seemeet.data.api.RetrofitBuilder
+import org.seemeet.seemeet.data.model.response.login.ResponseErrorLoginList
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.time.temporal.WeekFields
@@ -39,7 +45,7 @@ fun View.makeGone() {
     visibility = View.GONE
 }
 
-fun Button.activeBtn(){
+fun Button.activeBtn() {
     setBackgroundResource(R.drawable.rectangle_pink01_10)
     isClickable = true // 버튼 클릭할수 있게
     isEnabled = true // 버튼 활성화
@@ -56,11 +62,11 @@ fun String.TimeParsing(): String {
     var aa = ""
     val split = this.split(":")
 
-    aa = if(split[0].toInt()<12) "오전"
+    aa = if (split[0].toInt() < 12) "오전"
     else "오후"
 
-    if(split[0].toInt()>12)
-        date = "${split[0].toInt()-12}:${split[1]}"
+    if (split[0].toInt() > 12)
+        date = "${split[0].toInt() - 12}:${split[1]}"
     else
         date = this
 
@@ -91,37 +97,47 @@ internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getCol
 internal fun TextView.setTextColorRes(@ColorRes color: Int) =
     setTextColor(context.getColorCompat(color))
 
-fun String.YearMonthDayParsing() : String {
+fun String.YearMonthDayParsing(): String {
     val date = this.split("-")
     return "${date[0]}년 ${date[1]}월 ${date[2]}일"
 }
 
-fun String.monthDayParsing() : String {
-   val date = this.split("-")
+fun String.monthDayParsing(): String {
+    val date = this.split("-")
     return "${date[1]}월 ${date[2]}일"
 }
-fun String.calDday() : Int {
-    val comeDay =  LocalDate.parse(this, DateTimeFormatter.ISO_DATE).atStartOfDay().toInstant(
-        ZoneOffset.of("+9"))
-    val today = LocalDateTime.now().toInstant( ZoneOffset.of("+9"))
+
+fun String.calDday(): Int {
+    val comeDay = LocalDate.parse(this, DateTimeFormatter.ISO_DATE).atStartOfDay().toInstant(
+        ZoneOffset.of("+9")
+    )
+    val today = LocalDateTime.now().toInstant(ZoneOffset.of("+9"))
 
     return ChronoUnit.DAYS.between(today, comeDay).toInt()
 }
 
-fun String.dateParsingIso() : LocalDateTime {
+fun String.dateParsingIso(): LocalDateTime {
     val transFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     return LocalDateTime.parse(this, transFormat)
 }
-fun String.setBetweenDays() : Long {
+
+fun String.setBetweenDays(): Long {
     val created = this.dateParsingIso()
     val today = LocalDateTime.now()
 
-     return ChronoUnit.DAYS.between(created, today)
+    return ChronoUnit.DAYS.between(created, today)
 }
 
-fun String.setBetweenDays2() : Long {
+fun String.setBetweenDays2(): Long {
     val created = LocalDate.parse(this, DateTimeFormatter.ISO_DATE)
     val today = LocalDateTime.now()
 
     return ChronoUnit.DAYS.between(created, today)
+}
+
+fun getErrorResponse(errorBody: ResponseBody): ResponseErrorLoginList? {
+    return RetrofitBuilder.seeMeetRetrofit.responseBodyConverter<ResponseErrorLoginList>(
+        ResponseErrorLoginList::class.java,
+        ResponseErrorLoginList::class.java.annotations
+    ).convert(errorBody)
 }

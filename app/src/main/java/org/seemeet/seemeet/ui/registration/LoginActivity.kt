@@ -14,19 +14,16 @@ import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.request.login.RequestLoginList
+import org.seemeet.seemeet.data.model.response.login.ResponseErrorLoginList
 import org.seemeet.seemeet.data.model.response.login.ResponseLoginList
 import org.seemeet.seemeet.databinding.ActivityLoginBinding
 import org.seemeet.seemeet.ui.main.MainActivity
-import org.seemeet.seemeet.util.activeBtn
-import org.seemeet.seemeet.util.inactiveBtn
-import org.seemeet.seemeet.util.makeInVisible
-import org.seemeet.seemeet.util.makeVisible
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import org.seemeet.seemeet.util.*
+import retrofit2.*
+
 
 class LoginActivity : AppCompatActivity() {
-    var pwValue: Int = HIDDEN_PW
+    private var pwValue: Int = HIDDEN_PW
 
     private val binding: ActivityLoginBinding by lazy {
         ActivityLoginBinding.inflate(layoutInflater)
@@ -38,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
         initClickListener()
     }
 
-    fun initNetwork() {
+    private fun initNetwork() {
         val requestLoginData = RequestLoginList(
             email = binding.etEmail.text.toString(),
             password = binding.etPw.text.toString()
@@ -52,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     response.body()?.data?.let {
-                        SeeMeetSharedPreference.setToken(it?.accesstoken)
+                        SeeMeetSharedPreference.setToken(it.accesstoken)
                         SeeMeetSharedPreference.setUserId(it.user.id)
                         SeeMeetSharedPreference.setLogin(true)
                         SeeMeetSharedPreference.setUserName(it.user.username)
@@ -60,17 +57,13 @@ class LoginActivity : AppCompatActivity() {
                     }
                     MainActivity.start(this@LoginActivity)
 
-                } else {
-                    CustomToast.createToast(this@LoginActivity, "올바르지 않은 정보입니다.")?.show()
-                    /*
-                        Log.d("**errorbody", response.toString())
+                } else { //실패했을 때 두가지 경우 (이메일, 패스워드 틀림)
+                    val errorBody: ResponseErrorLoginList? =
+                        getErrorResponse(response.errorBody()!!)
 
-                        if(response.code().toString().equals("404")){
-                        //유저 없을 때
-                            CustomToast.createToast(this@LoginActivity, "등록되지 않은 유저입니다.")?.show()
-                        }else if(response.code().toString().equals("403")){
-                            CustomToast.createToast(this@LoginActivity, "비밀번호가 틀렸습니다.")?.show()
-                        }*/
+                    if (errorBody != null) {
+                        CustomToast.createToast(this@LoginActivity, errorBody.message)?.show()
+                    }
                 }
             }
 
@@ -115,7 +108,7 @@ class LoginActivity : AppCompatActivity() {
             } else binding.btnLogin.inactiveBtn(R.drawable.rectangle_gray04_10)
         }
 
-        binding.etPw.setOnFocusChangeListener { view, hasFocus ->
+        binding.etPw.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 binding.ivPwShowHidden.makeVisible()
 
@@ -141,7 +134,7 @@ class LoginActivity : AppCompatActivity() {
 
             if (!rect.contains(x, y)) {
                 val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                imm?.hideSoftInputFromWindow(focusView.windowToken, 0)
+                imm.hideSoftInputFromWindow(focusView.windowToken, 0)
                 focusView.clearFocus()
             }
         }
