@@ -2,7 +2,6 @@ package org.seemeet.seemeet.data
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.provider.Settings.Secure.putString
 import androidx.core.content.edit
 
 object SeeMeetSharedPreference {
@@ -70,7 +69,7 @@ object SeeMeetSharedPreference {
 
 
     fun clearStorage() {
-        preferences.edit { clear() }
+        preferences.edit().clear().commit()
     }
 }
 

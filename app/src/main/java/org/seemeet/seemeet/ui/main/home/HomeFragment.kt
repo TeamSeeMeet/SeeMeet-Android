@@ -49,6 +49,9 @@ class HomeFragment : Fragment() {
         initClickListener()
         initNaviDrawer()
 
+        binding.nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
+        binding.nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserEmail()
+
         if(getLogin()) {
             viewmodel.requestFriendList()
             viewmodel.requestComePlanList()
@@ -86,9 +89,6 @@ class HomeFragment : Fragment() {
             nvMypage.clMypageLogin.setOnClickListener{
                 LoginActivity.start(requireContext())
             }
-            nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
-
-            nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserEmail()
 
             nvMypage.clMypageContent.setOnClickListener {
                 Toast.makeText(requireContext(), "아직 준비중인 서비스예요",Toast.LENGTH_SHORT
@@ -196,6 +196,9 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
+        binding.nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
+        binding.nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserEmail()
 
         if(getLogin()) {
             viewmodel.requestFriendList()
