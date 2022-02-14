@@ -31,7 +31,7 @@
                     android:layout_marginTop="25dp"
                     android:fontFamily="@font/spoqa_han_sans_neo_bold"
                     android:letterSpacing="-0.01"
-                    android:text="확정 날짜"
+                    android:text="@string/send_confirm_msg"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +92,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:src="@color/gray02"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:ignore="ContentDescription" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -115,7 +116,7 @@
                     android:textSize="16sp"
                     android:textColor="@color/gray05"
                     android:letterSpacing="-0.01"
-                    android:text="약속을 확정하시겠어요?"
+                    android:text="@string/send_dialog_check1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="24dp"
@@ -131,7 +132,7 @@
                     android:textSize="16sp"
                     android:textColor="@color/gray05"
                     android:letterSpacing="-0.01"
-                    android:text="답변하지 않은 친구가 있어요.\n확정할까요?"
+                    android:text="@string/send_dialog_check3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="24dp"
@@ -152,7 +153,7 @@
                     android:paddingEnd="10dp"
                     android:paddingStart="14dp"
                     android:paddingTop="14dp"
-                    android:text="취소"
+                    android:text="@string/send_cancel_btn"
                     app:layout_constraintEnd_toStartOf="@id/btn_send_dia_confirm_yes"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -171,7 +172,7 @@
                     android:paddingStart="11dp"
                     android:paddingTop="14dp"
                     android:layout_marginBottom="6dp"
-                    android:text="보내기"
+                    android:text="@string/send_dialog_send"
                     android:layout_marginEnd="6dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>

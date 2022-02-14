@@ -89,7 +89,7 @@
                         android:layout_marginTop="24dp"
                         android:layout_marginEnd="16dp"
                         tools:text="2/3"
-                        setSendGuestListForCnt="@{viewModel.sendInvitationData.guests}"
+                        app:setSendGuestListForCnt="@{viewModel.sendInvitationData.guests}"
                         android:fontFamily="@font/din_pro_regular"
                         android:textSize="30sp"
                         android:textColor="@color/gray06"

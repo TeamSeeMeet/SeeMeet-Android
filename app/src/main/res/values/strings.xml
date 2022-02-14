@@ -105,5 +105,17 @@
     <string name="send_confirm_btn">확정</string>
     <string name="send_cancel_btn">취소</string>
     <string name="send_content_msg">보낸 신청 내용</string>
+    <string name="send_dialog_check3">답변하지 않은 친구가 있어요.\n확정할까요?</string>
+    <string name="send_dialog_check2">만날 수 없는 친구가 있어요.\n확정할까요?</string>
+    <string name="send_dialog_check1">약속을 확정하시겠어요?</string>
+    <string name="send_dialog_send">보내기</string>
+    <string name="send_confirm_msg">확정 날짜</string>
+    <string name="send_cancel_msg">약속 취소</string>
+    <string name="send_cancel_content">약속을 취소하시겠어요?</string>
+    <string name="send_cancel_yes">예</string>
+    <string name="send_cancel_no">아니오</string>
+
+
+    <string name="time_start_end">%s ~ %s</string>
 
 </resources>
