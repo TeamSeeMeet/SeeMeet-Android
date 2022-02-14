@@ -26,7 +26,7 @@ import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
 
-    val pattern: Pattern = Patterns.EMAIL_ADDRESS
+    private val pattern: Pattern = Patterns.EMAIL_ADDRESS
     private val binding: ActivityRegisterBinding by lazy {
         ActivityRegisterBinding.inflate(layoutInflater)
     }
@@ -37,7 +37,7 @@ class RegisterActivity : AppCompatActivity() {
         initClickListener()
     }
 
-    fun initNetwork() {
+    private fun initNetwork() {
         val requestRegisterService = RequestRegisterList(
             username = binding.etName.text.toString(),
             email = binding.etEmailRegister.text.toString(),
@@ -123,7 +123,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         binding.etCheckpw.addTextChangedListener {
-            if (!binding.etCheckpw.text.toString().equals(binding.etPw.text.toString())) {
+            if (binding.etCheckpw.text.toString() != binding.etPw.text.toString()) {
                 binding.tvWarningCheckpw.text = "@string/register_incorrectPassword"
                 binding.tvWarningCheckpw.makeVisible()
             } else binding.tvWarningCheckpw.makeInVisible() //일치할 경우 tv 안 뜨게
@@ -139,7 +139,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    fun isPasswordFormat(password: String): Boolean {
+    private fun isPasswordFormat(password: String): Boolean {
         return password.matches(PASSWORD_FORMAT.toRegex())
     }
 
