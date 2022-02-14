@@ -1,19 +1,15 @@
 package org.seemeet.seemeet.ui.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference.getToken
 import org.seemeet.seemeet.data.api.RetrofitBuilder
-import org.seemeet.seemeet.data.local.ReminderData
 import org.seemeet.seemeet.data.model.response.friend.ResponseFriendList
-import org.seemeet.seemeet.data.model.response.invitation.ConfirmedAndCanceld
 import org.seemeet.seemeet.data.model.response.plan.LastPlanData
 import org.seemeet.seemeet.data.model.response.plan.ResponseComePlanList
 import retrofit2.HttpException

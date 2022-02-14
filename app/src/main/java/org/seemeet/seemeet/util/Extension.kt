@@ -2,7 +2,6 @@ package org.seemeet.seemeet.util
 
 import android.app.Activity
 import android.content.Context
-import android.content.res.Resources
 import android.os.Build
 import android.view.View
 import android.view.WindowManager
@@ -10,9 +9,11 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat.getColor
 import org.seemeet.seemeet.R
-import java.time.*
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.time.temporal.WeekFields

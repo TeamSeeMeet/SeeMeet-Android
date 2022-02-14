@@ -2,7 +2,6 @@ package org.seemeet.seemeet.data
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.core.content.edit
 
 object SeeMeetSharedPreference {
