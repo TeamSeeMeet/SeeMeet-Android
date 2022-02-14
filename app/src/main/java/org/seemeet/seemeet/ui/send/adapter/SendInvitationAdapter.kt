@@ -16,7 +16,6 @@ class SendInvitationAdapter : RecyclerView.Adapter<SendInvitationAdapter.SendInv
         fun bind(data : SendInvitationDate){
             binding.dateData = data
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SendInviViewHolder {
@@ -30,14 +29,12 @@ class SendInvitationAdapter : RecyclerView.Adapter<SendInvitationAdapter.SendInv
     }
 
     override fun onBindViewHolder(holder: SendInviViewHolder, position: Int) {
-
         holder.bind(dateList[position])
     }
 
     override fun getItemCount(): Int = dateList.size
 
     override fun getItemId(position: Int): Long = position.toLong()
-
 
     fun setInviList(dateList : List<SendInvitationDate>){
         this.dateList = dateList

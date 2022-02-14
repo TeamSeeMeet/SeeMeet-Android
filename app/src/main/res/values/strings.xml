@@ -98,4 +98,12 @@
     <string name="recieve_choice_msg">내 일정과 비교하며\n날짜를 선택해보세요!</string>
     <string name="recieve_btn_yes">수락</string>
     <string name="recieve_btn_no">거절</string>
+
+    <!-- send -->
+    <string name="send_top_msg">약속을 확정해 주세요</string>
+    <string name="send_top_msg_bold">약속을 확정</string>
+    <string name="send_confirm_btn">확정</string>
+    <string name="send_cancel_btn">취소</string>
+    <string name="send_content_msg">보낸 신청 내용</string>
+
 </resources>
