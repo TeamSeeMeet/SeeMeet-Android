@@ -7,10 +7,7 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import okhttp3.ResponseBody
 import org.seemeet.seemeet.R
-import org.seemeet.seemeet.data.api.RetrofitBuilder
-import org.seemeet.seemeet.data.model.response.login.ResponseErrorLoginList
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -133,11 +130,4 @@ fun String.setBetweenDays2(): Long {
     val today = LocalDateTime.now()
 
     return ChronoUnit.DAYS.between(created, today)
-}
-
-fun getErrorResponse(errorBody: ResponseBody): ResponseErrorLoginList? {
-    return RetrofitBuilder.seeMeetRetrofit.responseBodyConverter<ResponseErrorLoginList>(
-        ResponseErrorLoginList::class.java,
-        ResponseErrorLoginList::class.java.annotations
-    ).convert(errorBody)
 }

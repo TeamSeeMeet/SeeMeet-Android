@@ -10,6 +10,7 @@ import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import okhttp3.ResponseBody
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
@@ -59,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
 
                 } else { //실패했을 때 두가지 경우 (이메일, 패스워드 틀림)
                     val errorBody: ResponseErrorLoginList? =
-                        getErrorResponse(response.errorBody()!!)
+                        getLoginErrorResponse(response.errorBody()!!)
 
                     if (errorBody != null) {
                         CustomToast.createToast(this@LoginActivity, errorBody.message)?.show()
@@ -144,9 +145,17 @@ class LoginActivity : AppCompatActivity() {
     companion object {
         const val HIDDEN_PW = 0
         const val SHOW_PW = 1
+
         fun start(context: Context) {
             val intent = Intent(context, LoginActivity::class.java)
             context.startActivity(intent)
+        }
+
+        fun getLoginErrorResponse(errorBody: ResponseBody): ResponseErrorLoginList? {
+            return RetrofitBuilder.seeMeetRetrofit.responseBodyConverter<ResponseErrorLoginList>(
+                ResponseErrorLoginList::class.java,
+                ResponseErrorLoginList::class.java.annotations
+            ).convert(errorBody)
         }
     }
 }
