@@ -78,12 +78,25 @@
     <string name="detail_divider">|</string>
     <string name="detail_host">약속 주최자</string>
 
-    <!-- recieve -->
-    <string name="recieve_top_msg">새로운 초대장</string>
-    <string name="recieve_together_msg">나와 함께 받은 사람</string>
-    <string name="recieve_choice_msg">내 일정과 비교하며\n날짜를 선택해보세요!</string>
-    <string name="recieve_btn_yes">수락</string>
-    <string name="recieve_btn_no">거절</string>
+    <!-- Strings used for fragments for navigation -->
+
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!-- receive -->
+    <string name="receive_top_msg">새로운 초대장</string>
+    <string name="receive_together_msg">나와 함께 받은 사람</string>
+    <string name="receive_choice_msg">내 일정과 비교하며\n날짜를 선택해보세요!</string>
+    <string name="receive_choice_msg_bold">날짜를 선택</string>
+    <string name="receive_btn_yes">수락</string>
+    <string name="receive_btn_no">거절</string>
+    <string name="receive_choose_msg">날짜를 선택해보세요!</string>
+    <string name="receive_top_who_msg">님이 보냈어요.</string>
 
     <!-- send -->
     <string name="send_top_msg">약속을 확정해 주세요</string>

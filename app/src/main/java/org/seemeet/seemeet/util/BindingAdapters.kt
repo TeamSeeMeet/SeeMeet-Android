@@ -151,18 +151,6 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("setWordPinkAllText", "setPinkText")
-    fun setWordPinkText(textView: TextView, text : String, pink : String) {
-        val start = text.indexOf(pink)
-        val end = start + pink.length
-
-        val ss = SpannableStringBuilder(text)
-        ss.setSpan(ForegroundColorSpan(Color.parseColor("#FA555C")), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
-        ss.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        textView.text = ss
-    }
-
-    @JvmStatic
     @BindingAdapter("setSendGuestListForCnt")
     fun setSendInvitationResponseCnt(textView: TextView, guests : List<SendGuest>) {
         val text = guests.count{it.isResponse}.toString() + "/" + guests.size.toString()
@@ -232,6 +220,19 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("setWordPinkAllText", "setPinkText")
+    fun setWordPinkText(textView: TextView, text : String, pink : String) {
+        val start = text.indexOf(pink)
+        val end = start + pink.length
+
+        val ss = SpannableStringBuilder(text)
+        ss.setSpan(ForegroundColorSpan(Color.parseColor("#FA555C")), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+        ss.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(RelativeSizeSpan(1.2f), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        textView.text = ss
+    }
+
+    @JvmStatic
     @BindingAdapter("setHomeBannerImage")
     fun setHomeBannerImage(imageView: ImageView, flag : Int) {
        val imgId = when (flag) {
@@ -246,6 +247,4 @@ object BindingAdapters {
 
         imageView.setImageResource(imgId)
     }
-
-
 }

@@ -27,7 +27,8 @@
                 android:padding="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/ic_btn_back48"/>
+                android:src="@drawable/ic_btn_back48"
+                tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -63,7 +64,7 @@
                         android:textColor="@color/orange"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="18sp"
-                        android:text="@string/recieve_top_msg"
+                        android:text="@string/receive_top_msg"
                         android:layout_marginTop="28dp"
                         android:layout_marginStart="16dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +94,7 @@
                         android:textColor="@color/gray06"
                         android:letterSpacing="-0.01"
                         android:lineSpacingExtra="8sp"
-                        android:text="님이 보냈어요."
+                        android:text="@string/receive_top_who_msg"
                         android:layout_marginStart="1dp"
                         app:layout_constraintBottom_toBottomOf="@id/tv_recieve_top_dear1"
                         app:layout_constraintStart_toEndOf="@id/tv_recieve_top_dear1"/>
@@ -105,7 +106,8 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="24dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -191,7 +193,7 @@
                             android:id="@+id/tv_recieve_together"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/recieve_together_msg"
+                            android:text="@string/receive_together_msg"
                             android:fontFamily="@font/spoqa_han_sans_neo_medium"
                             android:textStyle="normal"
                             android:textSize="16sp"
@@ -216,7 +218,8 @@
                             android:layout_marginTop="10dp"
                             android:src="@drawable/line_dddddd"
                             app:layout_constraintTop_toBottomOf="@id/cg_recieve"
-                            tools:layout_editor_absoluteX="16dp" />
+                            tools:layout_editor_absoluteX="16dp"
+                            tools:ignore="ContentDescription" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -237,7 +240,9 @@
                             android:layout_height="wrap_content"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            tools:text="@string/recieve_choice_msg"
+                            app:setWordPinkAllText="@{@string/receive_choice_msg}"
+                            app:setPinkText="@{@string/receive_choice_msg_bold}"
+                            tools:text="@string/receive_choice_msg"
                             android:fontFamily="@font/spoqa_han_sans_neo_regular"
                             android:textSize="20sp"
                             android:textColor="@color/gray06"
@@ -298,7 +303,7 @@
                             android:layout_marginTop="0dp"
                             android:layout_marginEnd="0dp"
                             android:layout_marginBottom="0dp"
-                            android:text="날짜를 선택해보세요!"
+                            android:text="@string/receive_choose_msg"
                             android:textColor="@color/gray04"
                             android:visibility="visible"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -345,7 +350,7 @@
                             android:textColor="@color/white"
                             android:layout_marginStart="0dp"
                             android:layout_marginEnd="0dp"
-                            android:text="거절"
+                            android:text="@string/receive_btn_no"
                             app:layout_constraintEnd_toStartOf="@id/btn_receive_yes"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -356,7 +361,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rectangle_gray02_10"
-                            android:text="수락"
+                            android:text="@string/receive_btn_yes"
                             android:paddingStart="60dp"
                             android:paddingEnd="60dp"
                             android:paddingTop="13dp"

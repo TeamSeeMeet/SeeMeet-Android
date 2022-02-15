@@ -49,7 +49,7 @@ class SendViewModel(application: Application) : AndroidViewModel(application) {
         try {
             Log.d("**********sendId", invitationId.toString())
             val confirm = RequestSendInvitationConfirm(dateId)
-           RetrofitBuilder.invitationService.setConfirmSendInvitation(invitationId, confirm, SeeMeetSharedPreference.getToken())
+            RetrofitBuilder.invitationService.setConfirmSendInvitation(invitationId, confirm, SeeMeetSharedPreference.getToken())
         } catch (e: HttpException) {
             e.printStackTrace()
         }
