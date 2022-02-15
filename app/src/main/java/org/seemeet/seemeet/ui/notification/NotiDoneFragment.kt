@@ -31,7 +31,7 @@ class NotiDoneFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (SeeMeetSharedPreference.getLogin()) {
-            viewmodel.requestAllInvitaionList()
+            viewmodel.requestAllInvitationList()
 
             setDoneAdapter()
             setDoneObserve()
@@ -41,7 +41,6 @@ class NotiDoneFragment : Fragment() {
         }
     }
 
-    // 어댑터
     private fun setDoneAdapter() {
         val doneListAdapter = NotiDoneListAdapter()
         binding.rvDoneList.adapter = doneListAdapter
@@ -54,7 +53,6 @@ class NotiDoneFragment : Fragment() {
         binding.tvDoneNum.text = "${doneListAdapter.itemCount}"
     }
 
-    // 옵저버 _ 위에서 (1)로 데이터 넣을 경우 옵저버가 관찰하다가 업데이트함.
     private fun setDoneObserve() {
         viewmodel.invitationList.observe(viewLifecycleOwner) {
             viewmodel.setInviDoneList()
