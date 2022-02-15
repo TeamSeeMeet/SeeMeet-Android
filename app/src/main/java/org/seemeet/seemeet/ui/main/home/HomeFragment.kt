@@ -18,6 +18,7 @@ import org.seemeet.seemeet.data.SeeMeetSharedPreference.getLogin
 import org.seemeet.seemeet.databinding.FragmentHomeBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
 import org.seemeet.seemeet.ui.friend.FriendActivity
+import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.ui.main.home.adapter.ReminderListAdapter
 import org.seemeet.seemeet.ui.notification.NotificationActivity
 import org.seemeet.seemeet.ui.registration.LoginActivity
@@ -31,7 +32,6 @@ class HomeFragment : Fragment() {
     val binding get() = _binding!!
 
     private val viewmodel : HomeViewModel by activityViewModels()
-    var friendCnt : Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -120,10 +120,12 @@ class HomeFragment : Fragment() {
 
         reminderListAdapter.setItemClickListener(object: ReminderListAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
-                val comePlanId = viewmodel.comePlanList.value!!.data.filter{it.date.setBetweenDays2() <= 0}[position].planId
-                val intent = Intent(requireContext(), DetailActivity::class.java)
-                intent.putExtra("planId", comePlanId)
-                startActivity(intent)
+                viewmodel.comePlanList.value?.let{ listData ->
+                    val comePlanId = listData.data.filter{it.date.setBetweenDays2() <= 0}[position].planId
+                    val intent = Intent(requireContext(), DetailActivity::class.java)
+                    intent.putExtra("planId", comePlanId)
+                    startActivity(intent)
+                }
             }
         })
 
@@ -171,7 +173,7 @@ class HomeFragment : Fragment() {
         var flag: Int
 
         if(day == -1 ){
-            flag = if(getLogin() && friendCnt != 0 ) 2
+            flag = if(getLogin() && MainActivity().friendCnt != 0 ) 2
                     else 1
         } else {
             flag = when(day){
