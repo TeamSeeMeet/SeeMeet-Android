@@ -136,7 +136,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun activeBtn() {
-        binding.btnLogin.setBackgroundResource(R.drawable.rectangle_pink_10)
+        binding.btnLogin.setBackgroundResource(R.drawable.rectangle_pink01_10)
         binding.btnLogin.isClickable = true // 버튼 클릭할수 있게
         binding.btnLogin.isEnabled = true // 버튼 활성화
     }

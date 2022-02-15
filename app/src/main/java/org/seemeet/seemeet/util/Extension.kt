@@ -2,10 +2,12 @@ package org.seemeet.seemeet.util
 
 import android.content.Context
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import org.seemeet.seemeet.R
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -35,6 +37,18 @@ fun View.makeInVisible() {
 
 fun View.makeGone() {
     visibility = View.GONE
+}
+
+fun Button.activeBtn(){
+    setBackgroundResource(R.drawable.rectangle_pink01_10)
+    isClickable = true // 버튼 클릭할수 있게
+    isEnabled = true // 버튼 활성화
+}
+
+fun Button.inactiveBtn(color: Int) {
+    setBackgroundResource(color)
+    isClickable = false // 버튼 클릭할수 없게
+    isEnabled = false // 버튼 비활성화
 }
 
 fun String.TimeParsing(): String {
