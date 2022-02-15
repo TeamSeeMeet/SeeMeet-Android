@@ -28,11 +28,10 @@
             android:layout_marginTop="17dp"
             android:fontFamily="@font/spoqa_han_sans_neo_bold"
             android:text="@string/register_register"
-            android:textColor="#1c1c1c"
+            android:textColor="@color/gray06"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_register_back" />
-
 
         <TextView
             android:id="@+id/tv_name"
@@ -42,7 +41,7 @@
             android:layout_marginTop="30dp"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:text="@string/register_name"
-            android:textColor="#1c1c1c"
+            android:textColor="@color/gray06"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_register_register" />
@@ -59,7 +58,7 @@
             android:hint="@string/register_name"
             android:inputType="textPersonName"
             android:paddingStart="12dp"
-            android:textColor="#1c1c1c"
+            android:textColor="@color/gray06"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,8 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="42dp"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            android:text="이메일"
-            android:textColor="#1c1c1c"
+            android:text="@string/email"
+            android:textColor="@color/gray06"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_name"
             app:layout_constraintTop_toBottomOf="@+id/et_name" />
@@ -84,10 +83,10 @@
             android:layout_marginTop="12dp"
             android:background="@drawable/selector_apply_search"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            android:hint="이메일"
+            android:hint="@string/email"
             android:inputType="none|textEmailAddress"
             android:paddingStart="12dp"
-            android:textColor="#1c1c1c"
+            android:textColor="@color/gray06"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/et_name"
             app:layout_constraintStart_toStartOf="@+id/et_name"
@@ -100,7 +99,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:text="TextView"
-            android:textColor="#ff0000"
+            android:textColor="@color/red"
             android:textSize="12sp"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="@+id/et_email_register"
@@ -113,7 +112,7 @@
             android:layout_marginTop="42dp"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:text="@string/pw"
-            android:textColor="#1c1c1c"
+            android:textColor="@color/gray06"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_id"
             app:layout_constraintTop_toBottomOf="@+id/et_email_register" />
@@ -129,7 +128,7 @@
             android:inputType="textPassword"
             android:maxLength="16"
             android:paddingStart="12dp"
-            android:textColor="#1c1c1c"
+            android:textColor="@color/gray06"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/et_email_register"
             app:layout_constraintStart_toStartOf="@+id/et_email_register"
@@ -142,7 +141,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:text="TextView"
-            android:textColor="#ff0000"
+            android:textColor="@color/red"
             android:textSize="12sp"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="@+id/et_email_register"
@@ -155,7 +154,7 @@
             android:layout_marginTop="42dp"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:text="@string/register_checkpw"
-            android:textColor="#1c1c1c"
+            android:textColor="@color/gray06"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_pw"
             app:layout_constraintTop_toBottomOf="@+id/et_pw" />
@@ -170,7 +169,7 @@
             android:hint="@string/register_checkpw"
             android:inputType="textPassword"
             android:paddingStart="12dp"
-            android:textColor="#1c1c1c"
+            android:textColor="@color/gray06"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/et_pw"
             app:layout_constraintStart_toStartOf="@+id/et_pw"
@@ -183,7 +182,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:text="TextView"
-            android:textColor="#ff0000"
+            android:textColor="@color/red"
             android:textSize="12sp"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="@+id/et_email_register"
@@ -194,7 +193,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_marginTop="24dp"
-            android:background="#e7e7e7"
+            android:background="@color/gray02"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_checkpw" />
@@ -215,17 +214,6 @@
             app:layout_constraintStart_toStartOf="@+id/et_pw"
             app:layout_constraintTop_toBottomOf="@+id/view_line" />
 
-
-        <!--
-            <TimePicker
-                android:layout_width="wrap_content"
-                android:layout_height="63dp"
-                android:layout_centerHorizontal="true"
-                android:timePickerMode="spinner"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_register_register" />
-                -->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

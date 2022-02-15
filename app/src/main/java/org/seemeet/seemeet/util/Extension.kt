@@ -8,10 +8,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import org.seemeet.seemeet.R
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneOffset
+import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.time.temporal.WeekFields
@@ -42,7 +39,7 @@ fun View.makeGone() {
     visibility = View.GONE
 }
 
-fun Button.activeBtn() {
+fun Button.activeBtn(){
     setBackgroundResource(R.drawable.rectangle_pink01_10)
     isClickable = true // 버튼 클릭할수 있게
     isEnabled = true // 버튼 활성화
