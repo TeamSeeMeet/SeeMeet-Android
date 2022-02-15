@@ -34,27 +34,25 @@ class AddFriendActivity : AppCompatActivity() {
         // 입력창 리스너 (x버튼)
         binding.etSearchFriendId.addTextChangedListener {
             if (binding.etSearchFriendId.text.isNullOrBlank()) { //공백일 때
-                setRemoveAllVisibility(View.GONE)
+                setVisibility(binding.ivFriendIdRemoveAll, View.GONE)
             } else {
-                setRemoveAllVisibility(View.VISIBLE)
+                setVisibility(binding.ivFriendIdRemoveAll, View.VISIBLE)
                 binding.ivFriendIdRemoveAll.setOnClickListener {
-                    binding.etSearchFriendId.setText(null)
+                    binding.etSearchFriendId.text = null
                 }
             }
         }
 
         // 검색 enter 버튼
-        binding.etSearchFriendId.setOnEditorActionListener { textView, action, event ->
+        binding.etSearchFriendId.setOnEditorActionListener { _, action, _ ->
             var handled = false
             if (action == EditorInfo.IME_ACTION_DONE) {
                 val email = binding.etSearchFriendId.text
                 viewModel.requestUserList(email)
                 handled = true
-                setFriendNullVisibility(View.VISIBLE)
-                //binding.tvSearchFriendNull.visibility = View.VISIBLE
+                setVisibility(binding.tvSearchFriendNull, View.VISIBLE)
                 setUserObserver()
-                setFriendListVisibility(View.GONE)
-                //binding.clFriendSearchList.visibility = View.GONE
+                setVisibility(binding.clFriendSearchList, View.GONE)
             }
             handled
         }
@@ -70,8 +68,7 @@ class AddFriendActivity : AppCompatActivity() {
     private fun setUserObserver() {
         viewModel.userList.observe(this, Observer { userData ->
             binding.apply {
-                setFriendListVisibility(View.VISIBLE)
-                //clFriendSearchList.visibility = View.VISIBLE
+                setVisibility(binding.clFriendSearchList, View.VISIBLE)
                 tvSearchFriendEmail.text = userData.data.email
                 tvSearchFriendName.text = userData.data.username
             }
@@ -84,16 +81,8 @@ class AddFriendActivity : AppCompatActivity() {
         })
     }
 
-    private fun setRemoveAllVisibility(removeAll: Int) {
-        binding.ivFriendIdRemoveAll.visibility = removeAll
-    }
-
-    private fun setFriendNullVisibility(friendNull: Int) {
-        binding.tvSearchFriendNull.visibility = friendNull
-    }
-
-    private fun setFriendListVisibility(friendList: Int) {
-        binding.clFriendSearchList.visibility = friendList
+    private fun setVisibility(view: View, visibility: Int){
+        view.visibility = visibility
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

@@ -39,12 +39,12 @@ class FriendActivity : AppCompatActivity() {
         if (SeeMeetSharedPreference.getLogin()) {
             viewModel.requestFriendList()
         } else {
-            setFriendNullVisibility(View.VISIBLE)
+            setVisibility(binding.clFriendNull, View.VISIBLE)
         }
     }
 
     private fun setFriendAdapter() {
-        friendAdapter.setOnItemClickListener { FriendListData, pos ->
+        friendAdapter.setOnItemClickListener { _, pos ->
             initIntent(pos)
         }
         binding.rvFriend.adapter = friendAdapter
@@ -56,9 +56,9 @@ class FriendActivity : AppCompatActivity() {
                 setFriendList(friendList.data)
 
                 if (friendList.data.isEmpty()) {
-                    setFriendNullVisibility(View.VISIBLE)
+                    setVisibility(binding.clFriendNull, View.VISIBLE)
                 } else {
-                    setFriendNullVisibility(View.GONE)
+                    setVisibility(binding.clFriendNull, View.GONE)
                 }
             }
         })
@@ -83,11 +83,11 @@ class FriendActivity : AppCompatActivity() {
         // 입력창 리스너 (x버튼, 필터링)
         binding.etSearchFriend.addTextChangedListener {
             if (binding.etSearchFriend.text.isNullOrBlank()) { //공백일 때
-                setRemoveAllVisibility(View.GONE)
+                setVisibility(binding.ivFriendRemoveAll, View.GONE)
             } else {
-                setRemoveAllVisibility(View.VISIBLE)
+                setVisibility(binding.ivFriendRemoveAll, View.VISIBLE)
                 binding.ivFriendRemoveAll.setOnClickListener {
-                    binding.etSearchFriend.setText(null)
+                    binding.etSearchFriend.text = null
                 }
             }
             friendAdapter.setSearchWord(binding.etSearchFriend.text.toString())
@@ -116,12 +116,8 @@ class FriendActivity : AppCompatActivity() {
         dialogView.show(supportFragmentManager, "add friend with login")
     }
 
-    private fun setFriendNullVisibility(friendNull: Int) {
-        binding.clFriendNull.visibility = friendNull
-    }
-
-    private fun setRemoveAllVisibility(removeAll: Int) {
-        binding.ivFriendRemoveAll.visibility = removeAll
+    private fun setVisibility(view: View, visibility: Int){
+        view.visibility = visibility
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
