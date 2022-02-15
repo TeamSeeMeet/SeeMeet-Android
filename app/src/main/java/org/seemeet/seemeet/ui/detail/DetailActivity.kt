@@ -15,14 +15,13 @@ import org.seemeet.seemeet.util.BindingAdapters
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
-    private val viewModel: DetailViewModel by viewModels() //위임초기화
+    private val viewModel: DetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 넘어온 planId 가지고 서버랑 통신하기.
         val planId = intent.getIntExtra("planId", -1)
         Log.d("*************DETAIL_PLANID", planId.toString())
 
@@ -33,15 +32,21 @@ class DetailActivity : AppCompatActivity() {
 
     private fun setListObserver() {
         viewModel.planDetail.observe(this, Observer { planDetail ->
-
             planDetail.forEach {
                 BindingAdapters.setYearMonthDate(binding.tvDetailDay, it.data.date)
-                binding.tvDetailTitle.text = it.data.invitationTitle
-                BindingAdapters.setStartEndTimeText(binding.tvDetailTime, it.data.start, it.data.end)
-                binding.tvRecieveLetterTitle.text = it.data.invitationTitle
-                binding.tvRecieveLetterContent.text = it.data.invitationDesc
-                binding.tvDetailHostName.text = it.data.hostname
+                BindingAdapters.setStartEndTimeText(
+                    binding.tvDetailTime,
+                    it.data.start,
+                    it.data.end
+                )
+                binding.apply {
+                    tvDetailTitle.text = it.data.invitationTitle
+                    tvRecieveLetterTitle.text = it.data.invitationTitle
+                    tvRecieveLetterContent.text = it.data.invitationDesc
+                    tvDetailHostName.text = it.data.hostname
+                }
 
+                // 가능한 사람 이름 칩그룹
                 it.data.possible.forEach {
                     binding.cgDetailFriendList.addView(Chip(this).apply {
                         text = it.username
@@ -51,6 +56,8 @@ class DetailActivity : AppCompatActivity() {
                         isEnabled = false
                     })
                 }
+
+                // 불가능한 사람 이름 칩그룹
                 it.data.impossible.forEach {
                     binding.cgDetailFriendList.addView(Chip(this).apply {
                         text = it.username
@@ -69,22 +76,19 @@ class DetailActivity : AppCompatActivity() {
             finish()
         }
 
-/* 약속 상세에서 취소는 일단 지움
+/* 취소버튼 사라져서 관련 코드는 일단 지움
         binding.btnAppointmentCancel.setOnClickListener {
             var dialogView = DetailDialogFragment()
             val bundle = Bundle()
 
             //서버 달 때 고치자. cancel 시에는 초대장 id가 있으면 될듯.
-
             dialogView.arguments = bundle
-
             dialogView.setButtonClickListener( object :  DetailDialogFragment.OnButtonClickListener {
                 override fun onCancelNoClicked() {
-
                 }
 
                 override fun onCancelYesClicked() {
-                    //Toast.makeText(this@DetailActivity, "약속이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@DetailActivity, "약속이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
                     finish()
                     //여기서 데이터 전송.
                     //위의 cblist에서 flag가 true인 애들 아이디만 골라서 전송해주기.
@@ -96,9 +100,9 @@ class DetailActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun start(context: Context, planId : Int) {
+        fun start(context: Context, planId: Int) {
             val intent = Intent(context, DetailActivity::class.java)
-            intent.putExtra("planId",planId)
+            intent.putExtra("planId", planId)
             context.startActivity(intent)
         }
     }
