@@ -7,13 +7,13 @@
     tools:context=".ui.notification.NotiInProgressFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_noti_ing_topbar"
+        android:id="@+id/cl_noti_inProgress_topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tv_in_progress"
+            android:id="@+id/tv_inProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -27,19 +27,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_in_progress2"
+            android:id="@+id/tv_inProgress2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/noti_in_progress2"
             android:textColor="@color/gray06"
             android:textSize="24sp"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_in_progress"
-            app:layout_constraintStart_toEndOf="@id/tv_in_progress"
-            app:layout_constraintTop_toTopOf="@id/tv_in_progress" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_inProgress"
+            app:layout_constraintStart_toEndOf="@id/tv_inProgress"
+            app:layout_constraintTop_toTopOf="@id/tv_inProgress" />
 
         <TextView
-            android:id="@+id/tv_in_progress_num2"
+            android:id="@+id/tv_inProgress_num2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -52,52 +52,52 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_in_progress_num"
+            android:id="@+id/tv_inProgress_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/din_pro_bold"
             tools:text="@string/noti_in_progress_num"
             android:textColor="@color/pink"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_in_progress_num2"
-            app:layout_constraintEnd_toStartOf="@id/tv_in_progress_num2"
-            app:layout_constraintTop_toTopOf="@+id/tv_in_progress_num2" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_inProgress_num2"
+            app:layout_constraintEnd_toStartOf="@id/tv_inProgress_num2"
+            app:layout_constraintTop_toTopOf="@+id/tv_inProgress_num2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_noti_ing_null"
+        android:id="@+id/cl_noti_inProgress_null"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_noti_ing_topbar"
+        app:layout_constraintTop_toBottomOf="@+id/cl_noti_inProgress_topbar"
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="0dp">
 
         <ImageView
-            android:id="@+id/iv_ing_null"
+            android:id="@+id/iv_inProgress_null"
             android:layout_width="164dp"
             android:layout_height="164dp"
             android:layout_marginBottom="20dp"
             android:src="@drawable/ic_img_list_null"
-            app:layout_constraintBottom_toTopOf="@+id/tv_ing_null"
+            app:layout_constraintBottom_toTopOf="@+id/tv_inProgress_null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
-            android:id="@+id/tv_ing_null"
+            android:id="@+id/tv_inProgress_null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:text="@string/noti_in_progress_null"
             android:textColor="@color/gray05"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/iv_ing_null"
+            app:layout_constraintEnd_toEndOf="@+id/iv_inProgress_null"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="@+id/iv_ing_null"
-            app:layout_constraintTop_toBottomOf="@+id/iv_ing_null" />
+            app:layout_constraintStart_toStartOf="@+id/iv_inProgress_null"
+            app:layout_constraintTop_toBottomOf="@+id/iv_inProgress_null" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -105,7 +105,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_noti_ing_topbar"
+        app:layout_constraintTop_toBottomOf="@+id/cl_noti_inProgress_topbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" >
 
@@ -114,7 +114,7 @@
             android:layout_height="match_parent" >
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_ing_list"
+                android:id="@+id/rv_inProgress_list"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="11dp"
