@@ -10,6 +10,7 @@ import android.text.style.StyleSpan
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.data.model.response.invitation.GuestX
 import org.seemeet.seemeet.data.model.response.invitation.SendRespondent
 
@@ -171,4 +172,11 @@ object BindingAdapters {
         textView.text = "$start ~ $end"
     }
 
+    @JvmStatic
+    @BindingAdapter("data")
+    fun <T> setRecyclerViewData(recyclerView: RecyclerView, data: T) {
+        if (recyclerView.adapter is BindingRecyclerViewAdapter<*> && data != null) {
+            (recyclerView.adapter as BindingRecyclerViewAdapter<T>).setData(data)
+        }
+    }
 }
