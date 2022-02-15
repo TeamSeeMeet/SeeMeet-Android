@@ -17,7 +17,7 @@ class ReceiveSchduleListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>()
     private var scheduleList = emptyList<PlanResponseData>()
     private var context : Context? = null
 
-    inner class ReceiveSchduleViewHolder1(
+    inner class ReceiveScheduleViewHolder1(
         private val binding : ItemReceiveScheduleBinding
     ): RecyclerView.ViewHolder(binding.root){
         fun bind(planResponseData : PlanResponseData) {
@@ -38,7 +38,7 @@ class ReceiveSchduleListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>()
             }
         }
     }
-    inner class ReceiveSchduleViewHolder2(
+    inner class ReceiveScheduleViewHolder2(
         private val binding : ItemReceiveScheduleGrayBinding
     ): RecyclerView.ViewHolder(binding.root){
         fun bind(scheduleData: ScheduleData) {
@@ -73,7 +73,7 @@ class ReceiveSchduleListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>()
             false
         )
         context = parent.context
-        return ReceiveSchduleViewHolder1(binding)
+        return ReceiveScheduleViewHolder1(binding)
 
     }
 
@@ -82,11 +82,11 @@ class ReceiveSchduleListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>()
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         /*when(scheduleList[position].id){
             OptionViewType.TOGETHER ->
-                (holder as ReceiveSchduleViewHolder1).bind(scheduleList[position])
+                (holder as ReceiveScheduleViewHolder1).bind(scheduleList[position])
             OptionViewType.ALONE ->
-                (holder as ReceiveSchduleViewHolder2).bind(scheduleList[position])
+                (holder as ReceiveScheduleViewHolder2).bind(scheduleList[position])
         }*/
-        (holder as ReceiveSchduleViewHolder1).bind(scheduleList[position])
+        (holder as ReceiveScheduleViewHolder1).bind(scheduleList[position])
 
     }
 

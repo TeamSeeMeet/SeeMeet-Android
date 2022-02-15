@@ -13,7 +13,7 @@ import org.seemeet.seemeet.data.model.response.invitation.ReceiveInvitationDate
 import org.seemeet.seemeet.databinding.DialogReceiveYesDiagloBinding
 import org.seemeet.seemeet.util.TimeParsing
 
-class ReceiveYesDiagloFragment : DialogFragment() {
+class ReceiveYesDialogFragment : DialogFragment() {
 
     private var _binding : DialogReceiveYesDiagloBinding? = null
     val binding get() = _binding!!

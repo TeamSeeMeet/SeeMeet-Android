@@ -200,7 +200,7 @@ class ReceiveActivity : AppCompatActivity() {
 
         //맨 아래 수락 버튼
         binding.btnReceiveYes.setOnClickListener {
-            val dialogView = ReceiveYesDiagloFragment()
+            val dialogView = ReceiveYesDialogFragment()
             val bundle = Bundle()
             val cblist = (binding.rvReceiveCheckbox.adapter as ReceiveCheckListAdapter).getCheckBoxList()
 
@@ -209,7 +209,7 @@ class ReceiveActivity : AppCompatActivity() {
             bundle.putParcelableArrayList("cblist", cblist as ArrayList<out Parcelable>)
             dialogView.arguments = bundle
 
-            dialogView.setButtonClickListener( object : ReceiveYesDiagloFragment.OnButtonClickListener {
+            dialogView.setButtonClickListener( object : ReceiveYesDialogFragment.OnButtonClickListener {
                 override fun onSendClicked() {
                     viewModel.requestReceiveYesInvitation(invitationId, dateIdList)
                     finish()
