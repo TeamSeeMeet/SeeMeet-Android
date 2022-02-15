@@ -5,6 +5,7 @@
     <string name="email">이메일</string>
     <string name="pw">비밀번호</string>
     <string name="login">로그인</string>
+    <string name="apply">약속 신청</string>
 
     <!-- Login -->
     <string name="login_register">회원가입</string>
@@ -83,4 +84,17 @@
     <string name="recieve_choice_msg">내 일정과 비교하며\n날짜를 선택해보세요!</string>
     <string name="recieve_btn_yes">수락</string>
     <string name="recieve_btn_no">거절</string>
+
+    <!-- first_apply -->
+    <string name="first_apply_choose_friend">약속 신청할</string>
+    <string name="first_apply_choose_friend2">&#160;친구</string>
+    <string name="first_apply_choose_friend3">를 선택하세요</string>
+    <string name="first_apply_receive_friend">받는 사람 : </string>
+    <string name="first_apply_write_content">약속의</string>
+    <string name="first_apply_write_content2">&#160;내용</string>
+    <string name="first_apply_write_content3">을 작성하세요</string>
+    <string name="first_apply_title">제목</string>
+    <string name="first_apply_detail">약속 상세 내용</string>
+    <string name="first_apply_next">다음</string>
+
 </resources>

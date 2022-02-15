@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityApplyBinding
 
@@ -13,7 +12,6 @@ class ApplyActivity : AppCompatActivity() {
     private val binding: ActivityApplyBinding by lazy {
         ActivityApplyBinding.inflate(layoutInflater)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,15 +25,15 @@ class ApplyActivity : AppCompatActivity() {
 
         if (username != null) {
             Log.d("********************username", username)
-        }
-        val bundle = Bundle()
-        bundle.putString("name", username)
-        bundle.putInt("id", 0)
+            val bundle = Bundle()
+            bundle.putString("name", username)
+            bundle.putInt("id", 0)
 
-        fragment.arguments = bundle
+            fragment.arguments = bundle
+        }
+
         supportFragmentManager.beginTransaction().replace(R.id.container_apply, fragment)
         supportFragmentManager.beginTransaction().commit()
-
     }
 
     private fun initClickListener() {
@@ -43,10 +41,6 @@ class ApplyActivity : AppCompatActivity() {
             finish()
         }
     }
-/*
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }*/
 
     companion object {
         fun start(context: Context) {

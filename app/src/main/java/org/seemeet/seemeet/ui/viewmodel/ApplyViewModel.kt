@@ -18,7 +18,6 @@ class ApplyViewModel(application: Application) : AndroidViewModel(application) {
     val friendList: LiveData<List<FriendListData>>
         get() = _friendList
 
-
     //서버통신
     fun requestFriendList() = viewModelScope.launch(Dispatchers.IO) {
         try {

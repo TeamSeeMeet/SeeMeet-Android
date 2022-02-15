@@ -5,9 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.data.model.response.friend.FriendListData
-import org.seemeet.seemeet.data.model.response.friend.ResponseFriendList
-import org.seemeet.seemeet.data.model.response.invitation.UserData
-import org.seemeet.seemeet.data.model.response.plan.ComePlanData
 import org.seemeet.seemeet.databinding.ItemApplySearchFriendBinding
 
 class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendViewHolder>() {
@@ -66,7 +63,7 @@ class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendVi
     }
 
 
-    fun setFriend(friendList: List<FriendListData>){
+    fun setFriend(friendList: List<FriendListData>) {
         this.applyfriendList.removeAll(this.applyfriendList)
         this.applyfriendList.addAll(friendList)
         notifyDataSetChanged()
