@@ -1,23 +1,12 @@
 package org.seemeet.seemeet.ui.receive
 
 import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Parcelable
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import androidx.fragment.app.DialogFragment
 import org.seemeet.seemeet.R
-import org.seemeet.seemeet.data.local.CheckboxData
-import org.seemeet.seemeet.data.local.InviData
-import org.seemeet.seemeet.data.model.response.invitation.SendInvitationDate
-import org.seemeet.seemeet.databinding.FragmentHomeBinding
-import org.seemeet.seemeet.databinding.DialogReceiveYesDiagloBinding
 import org.seemeet.seemeet.databinding.DialogSendCancelBinding
 
 class SendCancelDialogFragment : DialogFragment() {
@@ -27,15 +16,11 @@ class SendCancelDialogFragment : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = DialogSendCancelBinding.inflate(
             inflater, container, false)
 
-       /* val bundle = arguments
-        val choice = bundle?.getSerializable("choice") as SendInvitationDate
-        Log.d("*******sendConfirmDialog", choice.start)
-*/
         return binding.root
     }
 
@@ -55,8 +40,7 @@ class SendCancelDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.window!!.setBackgroundDrawable(resources.getDrawable(R.drawable.rectangle_white_top10))
-
+        dialog.window!!.setBackgroundDrawableResource(R.drawable.rectangle_white_10)
         return dialog
     }
 

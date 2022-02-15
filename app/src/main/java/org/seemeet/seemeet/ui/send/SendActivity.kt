@@ -2,26 +2,16 @@ package org.seemeet.seemeet.ui.send
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.style.ForegroundColorSpan
-import android.text.style.RelativeSizeSpan
-import android.text.style.StyleSpan
 import android.util.Log
 import android.view.MotionEvent
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import org.seemeet.seemeet.R
-import org.seemeet.seemeet.data.SeeMeetSharedPreference
-import org.seemeet.seemeet.data.local.InviData
 import org.seemeet.seemeet.data.model.response.invitation.SendInvitationDate
 import org.seemeet.seemeet.databinding.ActivitySendBinding
 import org.seemeet.seemeet.ui.receive.SendCancelDialogFragment
@@ -33,10 +23,8 @@ class SendActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySendBinding
     private val viewModel: SendViewModel by viewModels() //위임초기화
-    private var choiceInvi : SendInvitationDate? = null
+    private var choiceInvi : SendInvitationDate? = null // 선택한 시간대 객체
     private var invitationId = -1
-
-    //private var tracker: SelectionTracker<Long>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,16 +38,16 @@ class SendActivity : AppCompatActivity() {
         if(invitationId != -1){
             Log.d("********SEND_INVITATION_ID", invitationId.toString())
             viewModel.requestSendInvitationData(invitationId)
+            setInviAdapter()
+            setListObserver()
+
+            setSingleChoiceTime()
+            initButtonClick()
         }
-
-        setInviAdapter()
-        setListObserver()
-
-        setSingleChoiceTime()
-        initButtonClick()
 
     }
 
+    //시간 선택지 _ recyclerView 아이템 단일 선택하기.
     private fun setSingleChoiceTime(){
         binding.rvSendTimelist.addOnItemTouchListener(object :
             RecyclerView.OnItemTouchListener{
@@ -74,9 +62,13 @@ class SendActivity : AppCompatActivity() {
                         Log.d("*******************tag", viewModel.sendInvitationDateList.value!![position].start)
                         choiceInvi = viewModel.sendInvitationDateList.value!![position]
 
-                        binding.btnSendDecide.isEnabled = true
+                        if(!binding.btnSendDecide.isEnabled) {
+                            binding.btnSendDecide.isEnabled = true
+                            binding.btnSendDecide.background = ResourcesCompat.getDrawable(
+                                resources, R.drawable.rectangle_pink01_10, null
+                            )
+                        }
 
-                        binding.btnSendDecide.setBackground(resources.getDrawable(R.drawable.rectangle_pink01_10))
                         for(i in 0..rv.adapter!!.itemCount){
                             val otherView = rv.layoutManager?.findViewByPosition(i)
                             if(otherView != view){
@@ -89,11 +81,11 @@ class SendActivity : AppCompatActivity() {
             }
 
             override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-                TODO("Not yet implemented")
+
             }
         })
     }
@@ -102,65 +94,50 @@ class SendActivity : AppCompatActivity() {
         val sendInviAdapter = SendInvitationAdapter()
 
         binding.rvSendTimelist.adapter = sendInviAdapter
-
     }
 
     private fun setListObserver(){
-        viewModel.sendInvitation.observe(this, Observer {
-            sendInvitation ->
-            viewModel.setSendInvitationData()
-            viewModel.setSendInvitationDateList()
-        })
-
-        viewModel.sendInvitationData.observe(this, Observer {
+        viewModel.sendInvitationData.observe(this) {
             invitation ->
 
-            val word = invitation.guests.count{it.isResponse}.toString() + "/" + invitation.guests.size.toString()
-            val start = 0
-            val end = 1
+            //초대장 받은 사람들에 대한 chip 그리기
+            if(invitation.guests[0].id != -1) {
+                invitation.guests.forEach {
+                    binding.cgSendList.addView(Chip(this).apply {
+                        text = it.username
+                        if (it.isResponse) {
+                            setChipBackgroundColorResource(R.color.pink01)
+                            setTextAppearance(R.style.chipTextWhiteStyle)
+                            isCheckable = false
+                            isEnabled = false
 
-            val ss = SpannableStringBuilder(word)
-            ss.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-            ss.setSpan(ForegroundColorSpan(Color.parseColor("#FA555C")), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
-            binding.tvSendCount.text = ss
-
-            invitation.guests.forEach{
-                binding.cgSendList.addView(Chip(this).apply {
-                    text = it.username
-                    if(it.isResponse){
-                        setChipBackgroundColorResource(R.color.pink01)
-                        setTextAppearance(R.style.chipTextWhiteStyle)
-                        isCheckable = false
-                        isEnabled = false
-
-                    } else {
-                        setChipBackgroundColorResource(R.color.white)
-                        setTextAppearance(R.style.chipTextPinkStyle)
-                        chipStrokeWidth = 1.0F
-                        setChipStrokeColorResource(R.color.pink01)
-                        isCheckable = false
-                        isEnabled = false
-                    }
-                })
+                        } else {
+                            setChipBackgroundColorResource(R.color.white)
+                            setTextAppearance(R.style.chipTextPinkStyle)
+                            chipStrokeWidth = 1.0F
+                            setChipStrokeColorResource(R.color.pink01)
+                            isCheckable = false
+                            isEnabled = false
+                        }
+                    })
+                }
             }
-        })
+        }
 
-        viewModel.sendInvitationDateList.observe(this, Observer {
+        viewModel.sendInvitationDateList.observe(this) {
             dateList -> with(binding.rvSendTimelist.adapter as SendInvitationAdapter){
                 setInviList(dateList)
             }
-        })
+        }
 
     }
 
 
     private fun initButtonClick(){
 
-        //맨 아래 취소 버튼
+        //맨 아래 취소 버튼 관련 팝업 띄우기
         binding.btnSendCancel.setOnClickListener {
-            var dialogView = SendCancelDialogFragment()
-
-            //서버 달 때 고치자. cancel 시에는 초대장 id가 있으면 될듯.
+            val dialogView = SendCancelDialogFragment()
 
             dialogView.setButtonClickListener( object : SendCancelDialogFragment.OnButtonClickListener {
                 override fun onCancelNoClicked() {
@@ -177,28 +154,22 @@ class SendActivity : AppCompatActivity() {
             dialogView.show(supportFragmentManager, "send wish checkbox time")
         }
 
-        //맨 아래 수락 버튼
+        //맨 아래 수락 버튼 관련 팝업 띄우기
         binding.btnSendDecide.setOnClickListener {
-            var dialogView = SendConfirmDialogFragment()
+            val dialogView = SendConfirmDialogFragment()
             val bundle = Bundle()
-            val choice = choiceInvi
 
-            //서버 달 때 고치자. cancel 시에는 초대장 id가 있으면 될듯.
-            bundle.putSerializable("choice", choice)
+            bundle.putSerializable("choice", choiceInvi)
 
             //확정 시 상태에 따른 메세지 내용 값 1. 전부 답변 & 만장일치 선택. 2. 전부 답변, 만장일치x 3. 전부 답변 x
             val responseCnt = viewModel.sendInvitationData.value?.guests?.count{it.isResponse}
             val respondent = viewModel.sendInvitationData.value?.guests?.size
-            val choiceCnt = choice?.respondent?.size
+            val choiceCnt = choiceInvi?.respondent?.size
 
-            Log.d("*************수락버튼 클릭 시 차래로 rcn, rpt, cct", "$responseCnt, $respondent, $choiceCnt")
-
-            if(responseCnt != respondent){
-                bundle.putInt("check", 3)
-            } else if (responseCnt != choiceCnt){
-                bundle.putInt("check", 2)
-            } else {
-                bundle.putInt("check", 1)
+            when(true){
+                responseCnt != respondent -> bundle.putInt("check", 3)
+                responseCnt != choiceCnt ->  bundle.putInt("check", 2)
+                else -> bundle.putInt("check", 1)
             }
 
             dialogView.arguments = bundle
@@ -210,12 +181,13 @@ class SendActivity : AppCompatActivity() {
 
                 override fun onConfirmYesClicked() {
                     //여기서 데이터 전송.
-                    if (choice != null) {
-                        viewModel.requestSendConfirmInvitation(choice.invitationId, choice.id )
+                    if (choiceInvi != null) {
+                        viewModel.requestSendConfirmInvitation(choiceInvi!!.invitationId, choiceInvi!!.id )
                         finish()
                     }
                 }
             })
+
             dialogView.show(supportFragmentManager, "send wish checkbox time")
         }
 

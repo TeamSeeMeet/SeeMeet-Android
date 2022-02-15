@@ -35,7 +35,7 @@ class DetailDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.window!!.setBackgroundDrawableResource(R.drawable.rectangle_white_top10)
+        dialog.window!!.setBackgroundDrawableResource(R.drawable.rectangle_white_10)
         return dialog
     }
 
