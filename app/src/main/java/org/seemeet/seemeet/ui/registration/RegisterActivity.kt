@@ -56,7 +56,8 @@ class RegisterActivity : AppCompatActivity() {
                     MainActivity.start(this@RegisterActivity)
                 } else {
                     binding.etEmailRegister.requestFocus()
-                    binding.tvWarningEmail.text = "@string/register_registeredEmail"
+                    binding.tvWarningEmail.text =
+                        resources.getString(R.string.register_registeredEmail)
                     binding.tvWarningEmail.makeVisible()
                 }
             }
@@ -90,7 +91,7 @@ class RegisterActivity : AppCompatActivity() {
                 binding.tvWarningEmail.makeInVisible()
             } else {
                 //이메일 아님
-                binding.tvWarningEmail.text = "@string/register_incorrectEmail"
+                binding.tvWarningEmail.text = resources.getString(R.string.register_incorrectEmail)
                 binding.tvWarningEmail.makeVisible()
             }
             if (isNullOrBlank()) {
@@ -104,11 +105,11 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.etPw.addTextChangedListener {
             if (binding.etPw.text.length < 8) {
-                binding.tvWarningPw.text = "@string/register_lengthPassword"
+                binding.tvWarningPw.text = resources.getString(R.string.register_lengthPassword)
                 binding.tvWarningPw.makeVisible()
             } else { //8자 이상인 경우
                 if (!isPasswordFormat(binding.etPw.text.toString())) {//영문, 숫자 , 특수문자 중 2가지 이상 사용안했을 경우
-                    binding.tvWarningPw.text = "@string/register_formatPassword"
+                    binding.tvWarningPw.text = resources.getString(R.string.register_formatPassword)
                     binding.tvWarningPw.makeVisible()
                 } else binding.tvWarningPw.makeInVisible()
             }
@@ -124,7 +125,8 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.etCheckpw.addTextChangedListener {
             if (binding.etCheckpw.text.toString() != binding.etPw.text.toString()) {
-                binding.tvWarningCheckpw.text = "@string/register_incorrectPassword"
+                binding.tvWarningCheckpw.text =
+                    resources.getString(R.string.register_incorrectPassword)
                 binding.tvWarningCheckpw.makeVisible()
             } else binding.tvWarningCheckpw.makeInVisible() //일치할 경우 tv 안 뜨게
 

@@ -14,76 +14,55 @@ import org.seemeet.seemeet.databinding.ItemNotificationSendBinding
 import org.seemeet.seemeet.ui.receive.ReceiveActivity
 import org.seemeet.seemeet.ui.send.SendActivity
 
-class NotiIngListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NotiInProgressListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val ingList = mutableListOf<Invitation>()
-    private var context : Context? = null
+    private val inProgressList = mutableListOf<Invitation>()
+    private var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        context = parent.context
+
         if (viewType == OptionViewType.SEND) {
-            context = parent.context
-            return NotiIngViewHolder1(
+            return NotiInProgressViewHolder1(
                 ItemNotificationSendBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+                    layoutInflater, parent, false
                 )
             )
         }
-        context = parent.context
-        return NotiIngViewHolder2(
+        return NotiInProgressViewHolder2(
             ItemNotificationReceiveBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+                layoutInflater, parent, false
             )
         )
-
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (!ingList[position].isReceived) {
-            true -> {
-                (holder as NotiIngViewHolder1).bind(ingList[position])
-            }
-            false -> {
-                (holder as NotiIngViewHolder2).bind(ingList[position])
-            }
+        if(!inProgressList[position].isReceived){
+            (holder as NotiInProgressViewHolder1).bind(inProgressList[position])
+        } else {
+            (holder as NotiInProgressViewHolder2).bind(inProgressList[position])
         }
     }
 
-    override fun getItemCount() = ingList.size
-
-    override fun getItemViewType(position: Int): Int {
-        return when(ingList[position].isReceived){
-            true -> OptionViewType.RECEIVE
-            false -> OptionViewType.SEND
-        }
-    }
-
-    fun setIng(newList: List<Invitation>) {
-        ingList.clear()
-        ingList.addAll(newList)
-        notifyDataSetChanged()
-    }
-
-
-    inner class NotiIngViewHolder1(private val binding: ItemNotificationSendBinding) :
+    inner class NotiInProgressViewHolder1(private val binding: ItemNotificationSendBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(ingData: Invitation) {
-            binding.ingData = ingData
+        fun bind(inProgressData: Invitation) {
+            binding.inProgressData = inProgressData
 
-            binding.clNotiSendBg.setOnClickListener{
-                val intent = Intent( context, SendActivity::class.java)
-                intent.putExtra("invitationId", ingData.id)
+            // 보낸 신청 클릭리스너
+            binding.clNotiSendBg.setOnClickListener {
+                val intent = Intent(context, SendActivity::class.java)
+                intent.putExtra("invitationId", inProgressData.id)
                 context?.startActivity(intent)
             }
 
+            // 이름 칩그룹
             binding.cgSendFriendList.removeAllViews()
-            ingData.guests.forEach{
-                binding.cgSendFriendList.addView(Chip(context).apply{
+            inProgressData.guests.forEach {
+                binding.cgSendFriendList.addView(Chip(context).apply {
                     text = it.username
-                    if(it.isResponse){
+                    if (it.isResponse) {
                         setChipBackgroundColorResource(R.color.pink01)
                         setTextAppearance(R.style.chipTextWhiteStyle)
                     } else {
@@ -100,27 +79,43 @@ class NotiIngListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    inner class NotiIngViewHolder2(private val binding: ItemNotificationReceiveBinding) :
+    inner class NotiInProgressViewHolder2(private val binding: ItemNotificationReceiveBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(ingData: Invitation) {
-            binding.ingData = ingData
+        fun bind(inProgressData: Invitation) {
+            binding.inProgressData = inProgressData
 
-            binding.clNotiReceiveBg.setOnClickListener{
-                val intent = Intent( context, ReceiveActivity::class.java)
-                intent.putExtra("invitationId", ingData.id)
+            // 받은 신청 클릭리스너
+            binding.clNotiReceiveBg.setOnClickListener {
+                val intent = Intent(context, ReceiveActivity::class.java)
+                intent.putExtra("invitationId", inProgressData.id)
                 context?.startActivity(intent)
             }
 
+            // 이름 칩그룹
             binding.cgReceiveFriendList.removeAllViews()
-            binding.cgReceiveFriendList.addView(Chip(context).apply{
-                text = ingData.host.username
+            binding.cgReceiveFriendList.addView(Chip(context).apply {
+                text = inProgressData.host.username
                 setChipBackgroundColorResource(R.color.gray06)
                 setTextAppearance(R.style.chipTextWhiteStyle)
                 isCheckable = false
                 isClickable = false
             })
-
         }
+    }
+
+    override fun getItemCount() = inProgressList.size
+
+    override fun getItemViewType(position: Int): Int {
+        return when (inProgressList[position].isReceived) {
+            true -> OptionViewType.RECEIVE
+            false -> OptionViewType.SEND
+        }
+    }
+
+    fun setInProgressList(newList: List<Invitation>) {
+        inProgressList.clear()
+        inProgressList.addAll(newList)
+        notifyDataSetChanged()
     }
 
     object OptionViewType {

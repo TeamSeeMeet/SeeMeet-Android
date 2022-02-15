@@ -93,10 +93,15 @@ class LoginActivity : AppCompatActivity() {
                 pwValue = SHOW_PW
                 binding.ivPwShowHidden.setImageResource(R.drawable.ic_pw_show)
                 binding.etPw.transformationMethod = null
+                //커서 맨 뒤로
+                binding.etPw.setSelection(binding.etPw.text.length)
+
             } else {
                 pwValue = HIDDEN_PW
                 binding.ivPwShowHidden.setImageResource(R.drawable.ic_pw_hidden)
                 binding.etPw.transformationMethod = PasswordTransformationMethod.getInstance()
+                //커서 맨 뒤로
+                binding.etPw.setSelection(binding.etPw.text.length)
             }
         }
 

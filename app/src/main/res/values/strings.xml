@@ -37,12 +37,13 @@
     <!-- Friend -->
     <string name="friend_friend">친구</string>
     <string name="friend_search">친구 검색</string>
-    <string name="friend_add_search">친구 아이디</string>
     <string name="friend_request">친구 요청</string>
     <string name="friend_null">등록된 친구가 없어요!\n친구를 추가해주세요</string>
 
     <!-- AddFriend -->
-    <string name="friend_add">친구 추가</string>
+    <string name="addfriend_add">친구 추가</string>
+    <string name="addfriend_null">검색 결과가 없습니다.</string>
+    <string name="addfriend_id">친구 아이디</string>
 
     <!-- home -->
     <string name="home_drawer_open">drawer open</string>
@@ -78,14 +79,36 @@
     <string name="detail_divider">|</string>
     <string name="detail_host">약속 주최자</string>
 
-    <!-- recieve -->
-    <string name="recieve_top_msg">새로운 초대장</string>
-    <string name="recieve_together_msg">나와 함께 받은 사람</string>
-    <string name="recieve_choice_msg">내 일정과 비교하며\n날짜를 선택해보세요!</string>
-    <string name="recieve_btn_yes">수락</string>
-    <string name="recieve_btn_no">거절</string>
+    <!-- receive -->
+    <string name="receive_top_msg">새로운 초대장</string>
+    <string name="receive_together_msg">나와 함께 받은 사람</string>
+    <string name="receive_choice_msg">내 일정과 비교하며\n날짜를 선택해보세요!</string>
+    <string name="receive_choice_msg_bold">날짜를 선택</string>
+    <string name="receive_btn_yes">수락</string>
+    <string name="receive_btn_no">거절</string>
+    <string name="receive_choose_msg">날짜를 선택해보세요!</string>
+    <string name="receive_top_who_msg">님이 보냈어요.</string>
 
-    <!-- first_apply -->
+    <!-- send -->
+    <string name="send_top_msg">약속을 확정해 주세요</string>
+    <string name="send_top_msg_bold">약속을 확정</string>
+    <string name="send_confirm_btn">확정</string>
+    <string name="send_cancel_btn">취소</string>
+    <string name="send_content_msg">보낸 신청 내용</string>
+    <string name="send_dialog_check3">답변하지 않은 친구가 있어요.\n확정할까요?</string>
+    <string name="send_dialog_check2">만날 수 없는 친구가 있어요.\n확정할까요?</string>
+    <string name="send_dialog_check1">약속을 확정하시겠어요?</string>
+    <string name="send_dialog_send">보내기</string>
+    <string name="send_confirm_msg">확정 날짜</string>
+    <string name="send_cancel_msg">약속 취소</string>
+    <string name="send_cancel_content">약속을 취소하시겠어요?</string>
+    <string name="send_cancel_yes">예</string>
+    <string name="send_cancel_no">아니오</string>
+
+
+    <string name="time_start_end">%s ~ %s</string>
+
+ <!-- first_apply -->
     <string name="first_apply_choose_friend">약속 신청할</string>
     <string name="first_apply_choose_friend2">&#160;친구</string>
     <string name="first_apply_choose_friend3">를 선택하세요</string>
@@ -96,5 +119,5 @@
     <string name="first_apply_title">제목</string>
     <string name="first_apply_detail">약속 상세 내용</string>
     <string name="first_apply_next">다음</string>
-
+   
 </resources>
