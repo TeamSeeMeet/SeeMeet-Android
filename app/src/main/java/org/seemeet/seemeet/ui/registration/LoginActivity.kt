@@ -6,6 +6,7 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
+import android.util.Patterns
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
@@ -21,10 +22,12 @@ import org.seemeet.seemeet.databinding.ActivityLoginBinding
 import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.util.*
 import retrofit2.*
+import java.util.regex.Pattern
 
 
 class LoginActivity : AppCompatActivity() {
     private var pwValue: Int = HIDDEN_PW
+    private val pattern: Pattern = Patterns.EMAIL_ADDRESS
 
     private val binding: ActivityLoginBinding by lazy {
         ActivityLoginBinding.inflate(layoutInflater)
@@ -122,7 +125,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun isNullOrBlank(): Boolean {
-        return binding.etPw.text.isNullOrBlank() || binding.etEmail.text.isNullOrBlank()
+        return binding.etPw.text.isNullOrBlank() ||
+                binding.etEmail.text.isNullOrBlank() ||
+                !pattern.matcher(binding.etEmail.text).matches()
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
