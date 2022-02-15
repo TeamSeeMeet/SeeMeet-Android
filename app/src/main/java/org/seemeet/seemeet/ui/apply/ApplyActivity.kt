@@ -22,12 +22,17 @@ class ApplyActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().add(R.id.container_apply, fragment).commit()
 
         val username = intent.getStringExtra("username")
+        val userposition = intent.getIntExtra("userposition",-1)
+        val userid = intent.getIntExtra("userid",-1)
+        val useremail = intent.getStringExtra("useremail")
 
         if (username != null) {
-            Log.d("********************username", username)
+            Log.d("********************username", username+ userposition.toString()+userid + useremail.toString())
             val bundle = Bundle()
             bundle.putString("name", username)
-            bundle.putInt("id", 0)
+            bundle.putInt("id", userid)
+            bundle.putInt("pos",userposition)
+            bundle.putString("email",useremail)
 
             fragment.arguments = bundle
         }
