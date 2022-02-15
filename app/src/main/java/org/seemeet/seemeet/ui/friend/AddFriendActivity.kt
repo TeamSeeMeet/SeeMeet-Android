@@ -25,13 +25,53 @@ class AddFriendActivity : AppCompatActivity() {
         initClickListener()
     }
 
-    // 옵저버
+    private fun initClickListener() {
+        // x버튼
+        binding.ivFriendAddBack.setOnClickListener {
+            finish()
+        }
+
+        // 입력창 리스너 (x버튼)
+        binding.etSearchFriendId.addTextChangedListener {
+            if (binding.etSearchFriendId.text.isNullOrBlank()) { //공백일 때
+                setVisibility(binding.ivFriendIdRemoveAll, View.GONE)
+            } else {
+                setVisibility(binding.ivFriendIdRemoveAll, View.VISIBLE)
+                binding.ivFriendIdRemoveAll.setOnClickListener {
+                    binding.etSearchFriendId.text = null
+                }
+            }
+        }
+
+        // 검색 enter 버튼
+        binding.etSearchFriendId.setOnEditorActionListener { _, action, _ ->
+            var handled = false
+            if (action == EditorInfo.IME_ACTION_DONE) {
+                val email = binding.etSearchFriendId.text
+                viewModel.requestUserList(email)
+                handled = true
+                setVisibility(binding.tvSearchFriendNull, View.VISIBLE)
+                setUserObserver()
+                setVisibility(binding.clFriendSearchList, View.GONE)
+            }
+            handled
+        }
+
+        // 친구 추가 버튼
+        binding.ivAddFriendList.setOnClickListener {
+            val email = binding.etSearchFriendId.text
+            viewModel.requestAddFriend(email)
+            setAddFriendObserver()
+        }
+    }
+
     private fun setUserObserver() {
-        //옵저버가 지금 통신이 됐을 때만 데이터를 업데이트 하는 듯 -> 검색 결과가 없어도 이전 데이터가 있는 cl이 그려짐
         viewModel.userList.observe(this, Observer { userData ->
-            binding.clFriendSearchList.visibility = View.VISIBLE
-            binding.tvSearchFriendEmail.text = userData.data.email
-            binding.tvSearchFriendName.text = userData.data.username
+            binding.apply {
+                setVisibility(binding.clFriendSearchList, View.VISIBLE)
+                tvSearchFriendEmail.text = userData.data.email
+                tvSearchFriendName.text = userData.data.username
+            }
         })
     }
 
@@ -39,6 +79,10 @@ class AddFriendActivity : AppCompatActivity() {
         viewModel.userList.observe(this, Observer {
             binding.ivAddFriendList.isSelected = true
         })
+    }
+
+    private fun setVisibility(view: View, visibility: Int){
+        view.visibility = visibility
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -56,44 +100,5 @@ class AddFriendActivity : AppCompatActivity() {
             }
         }
         return super.dispatchTouchEvent(ev)
-    }
-
-    private fun initClickListener() {
-        binding.ivFriendAddBack.setOnClickListener {
-            finish()
-        }
-
-        // x버튼
-        binding.etSearchFriendId.addTextChangedListener {
-            if (binding.etSearchFriendId.text.isNullOrBlank()) { //공백일 때
-                binding.ivFriendIdRemoveAll.visibility = View.GONE
-            } else {
-                binding.ivFriendIdRemoveAll.visibility = View.VISIBLE
-                binding.ivFriendIdRemoveAll.setOnClickListener {
-                    binding.etSearchFriendId.setText(null)
-                }
-            }
-        }
-
-        // 검색 enter 버튼
-        binding.etSearchFriendId.setOnEditorActionListener { textView, action, event ->
-            var handled = false
-            if (action == EditorInfo.IME_ACTION_DONE) {
-                val email = binding.etSearchFriendId.text
-                viewModel.requestUserList(email)
-                handled = true
-                binding.tvSearchFriendNull.visibility = View.VISIBLE
-                setUserObserver()
-                binding.clFriendSearchList.visibility = View.GONE
-            }
-            handled
-        }
-
-        // 친구 추가 버튼
-        binding.ivAddFriendList.setOnClickListener {
-            val email = binding.etSearchFriendId.text
-            viewModel.requestAddFriend(email)
-            setAddFriendObserver()
-        }
     }
 }
