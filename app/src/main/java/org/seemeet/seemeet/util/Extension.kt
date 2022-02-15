@@ -1,12 +1,20 @@
 package org.seemeet.seemeet.util
 
+import android.app.Activity
 import android.content.Context
+import android.os.Build
 import android.view.View
+import android.view.WindowManager
+import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import java.time.*
+import org.seemeet.seemeet.R
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.time.temporal.WeekFields
@@ -35,6 +43,18 @@ fun View.makeInVisible() {
 
 fun View.makeGone() {
     visibility = View.GONE
+}
+
+fun Button.activeBtn(){
+    setBackgroundResource(R.drawable.rectangle_pink01_10)
+    isClickable = true // 버튼 클릭할수 있게
+    isEnabled = true // 버튼 활성화
+}
+
+fun Button.inactiveBtn(color: Int) {
+    setBackgroundResource(color)
+    isClickable = false // 버튼 클릭할수 없게
+    isEnabled = false // 버튼 비활성화
 }
 
 fun String.TimeParsing(): String {
@@ -110,4 +130,16 @@ fun String.setBetweenDays2() : Long {
     val today = LocalDateTime.now()
 
     return ChronoUnit.DAYS.between(created, today)
+}
+
+fun changeStatusBarColor(colorId : Int, activity : Activity, mContext : Context){
+    val mWindow = activity.window
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        mWindow.statusBarColor = mContext.resources.getColor(colorId, null)
+    } else {
+        mWindow.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        mWindow.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+
+        mWindow.statusBarColor = ContextCompat.getColor(activity, R.color.pink01)
+    }
 }

@@ -165,7 +165,7 @@ class SecondApplyActivity : AppCompatActivity() {
                         today -> {
                             textDate.setTextColorRes(R.color.white)
                             textDay.setTextColorRes(R.color.white)
-                            layoutDate.setBackgroundResource(R.drawable.rectangle_pink_10)
+                            layoutDate.setBackgroundResource(R.drawable.rectangle_pink01_10)
                             dotView.isVisible = events[day.date.toString()].orEmpty().isNotEmpty()
                         }
                         selectedDate -> {
