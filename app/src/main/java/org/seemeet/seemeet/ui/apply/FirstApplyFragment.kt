@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
@@ -28,24 +27,25 @@ class FirstApplyFragment : Fragment() {
     private var _binding: FragmentFirstApplyBinding? = null
     val binding get() = _binding!!
     private lateinit var adapter: ApplyFriendAdapter
-    var friendId: Int = -1
-    var friendName: String? = null
-    var friendPos: Int = -1
-    var friendEmail: String? = null
+    private var friendId = -1
+    private var friendPos= -1
+    private var friendName: String?= null
+    private var friendEmail: String?= null
 
-    //로컬 데이터 클래스 만든걸로 intent 전달하기
-    private var friendArr: ArrayList<ApplyFriendData> = arrayListOf<ApplyFriendData>()
+    //SecondApplyActivity로 친구 Array 넘기기 위해
+    private var friendArr: ArrayList<ApplyFriendData> = arrayListOf()
 
     private val viewModel: ApplyViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFirstApplyBinding.inflate(layoutInflater)
 
         super.onCreate(savedInstanceState)
 
+        //ApplyActivity에서 값 받아오기
         arguments?.let {
             friendId = it.getInt("id")
             friendName = it.getString("name").toString()
@@ -53,11 +53,19 @@ class FirstApplyFragment : Fragment() {
             friendEmail = it.getString("email").toString()
         }
 
-        initClickListener()
         setFriendObserver()
-        initAutoCompletetv()
+        initClickListener()
+        makeChip()
 
         return binding.root
+    }
+
+    private fun setFriendObserver() {
+        viewModel.friendList.observe(this, Observer { friendList ->
+            with(binding.rvFriend.adapter as ApplyFriendAdapter) {
+                setFriend(friendList)
+            }
+        })
     }
 
     private fun initClickListener() {
@@ -75,7 +83,7 @@ class FirstApplyFragment : Fragment() {
             binding.ivTitleClear.makeInVisible()
         }
 
-        binding.etToWho.setOnFocusChangeListener { view, hasFocus ->
+        binding.etToWho.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 binding.rvFriend.makeVisible()
                 if (binding.chipGroup.childCount == 0) {
@@ -92,7 +100,7 @@ class FirstApplyFragment : Fragment() {
             }
         }
 
-        binding.etTitle.setOnFocusChangeListener { view, hasFocus ->
+        binding.etTitle.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 binding.clContent.setBackgroundResource(R.drawable.rectangle_gray_10_stroke_pink)
 
@@ -101,7 +109,7 @@ class FirstApplyFragment : Fragment() {
             }
         }
 
-        binding.etDetail.setOnFocusChangeListener { view, hasFocus ->
+        binding.etDetail.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 binding.clContent.setBackgroundResource(R.drawable.rectangle_gray_10_stroke_pink)
             } else {
@@ -123,7 +131,7 @@ class FirstApplyFragment : Fragment() {
         }
 
         binding.etTitle.addTextChangedListener {
-            if (binding.etTitle.text.isNullOrBlank()) { //공백일 때
+            if (binding.etTitle.text.isNullOrBlank()) {
                 binding.ivTitleClear.makeInVisible()
             } else {
                 binding.ivTitleClear.makeVisible()
@@ -143,22 +151,13 @@ class FirstApplyFragment : Fragment() {
             }
         }
 
-        binding.etDetail.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(v: View, event: MotionEvent): Boolean {
-                binding.svFirstApply.requestDisallowInterceptTouchEvent(true)
-                return false
-            }
-        })
-    }
-
-    private fun initAutoCompletetv() {
-
-        adapter = ApplyFriendAdapter()
-        binding.rvFriend.adapter = adapter
-        adapter.notifyDataSetChanged()
+        binding.etDetail.setOnTouchListener { _, _ ->
+            binding.svFirstApply.requestDisallowInterceptTouchEvent(true)
+            false
+        }
 
         //키보드에서 완료 버튼 누르는 이벤트
-        binding.etToWho.setOnEditorActionListener { textView, i, keyEvent ->
+        binding.etToWho.setOnEditorActionListener { _, _, _ ->
             if (!binding.etToWho.text.isNullOrBlank()) {
                 binding.etToWho.text.clear()
             }
@@ -167,6 +166,12 @@ class FirstApplyFragment : Fragment() {
             binding.rvFriend.makeInVisible()
             false
         }
+    }
+
+    private fun makeChip() {
+        adapter = ApplyFriendAdapter()
+        binding.rvFriend.adapter = adapter
+        adapter.notifyDataSetChanged()
 
         //친구 목록에서 버튼 클릭해서 들어왔을 경우
         if (friendName != null) {
@@ -181,7 +186,7 @@ class FirstApplyFragment : Fragment() {
                     text = friendName
                     id = friendId
 
-                    friendArr?.add(ApplyFriendData(friendId, friendName!!))
+                    friendArr.add(ApplyFriendData(friendId, friendName!!))
 
                     this.setChipBackgroundColorResource(R.color.chipbackground) //container color
                     this.setTextAppearance(R.style.ChipTextAppearance) //글자 색, 글자 크기 적용
@@ -210,7 +215,7 @@ class FirstApplyFragment : Fragment() {
                         if (binding.chipGroup.childCount < 3) {
                             binding.etToWho.isEnabled = true
                         }
-                        //SecondApplyActivity로 넘겨줄 리스트에서 제거
+                        //SecondApplyActivity로 넘겨줄 Array에서 제거
                         val fd = friendArr.filter { it.id == this.id }
                         friendArr.remove(fd[0])
                     }
@@ -234,7 +239,7 @@ class FirstApplyFragment : Fragment() {
                         text = friendData.username
                         id = friendData.id
 
-                        friendArr?.add(ApplyFriendData(friendData.id, friendData.username))
+                        friendArr.add(ApplyFriendData(friendData.id, friendData.username))
 
                         this.setChipBackgroundColorResource(R.color.chipbackground) //container color
                         this.setTextAppearance(R.style.ChipTextAppearance) //글자 색, 글자 크기 적용
@@ -273,15 +278,6 @@ class FirstApplyFragment : Fragment() {
                 binding.btnNext.activeBtn()
             }
         }
-    }
-
-    fun setFriendObserver() {
-        viewModel.friendList.observe(this, Observer { friendList ->
-            //friendList.forEach { Log.d("*******CHIP_152", "${it.id}, ${it.username}") }
-            with(binding.rvFriend.adapter as ApplyFriendAdapter) {
-                setFriend(friendList)
-            }
-        })
     }
 
     //여기서 하나라도 성립하면 true 반환

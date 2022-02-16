@@ -9,13 +9,9 @@ import org.seemeet.seemeet.databinding.ItemApplySearchFriendBinding
 
 class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendViewHolder>() {
 
-    val applyfriendList = mutableListOf<FriendListData>()
+    private val applyfriendList = mutableListOf<FriendListData>()
     private var searchWord: String = ""
-
     private var listener: ((FriendListData) -> Unit)? = null
-    fun setOnItemClickListener(listener: ((FriendListData) -> Unit)?) {
-        this.listener = listener
-    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -55,6 +51,10 @@ class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendVi
                 binding.itemApplySearchFriend.layoutParams.height = 0
             }
         }
+    }
+
+    fun setOnItemClickListener(listener: ((FriendListData) -> Unit)?) {
+        this.listener = listener
     }
 
     fun setSearchWord(text: String) {

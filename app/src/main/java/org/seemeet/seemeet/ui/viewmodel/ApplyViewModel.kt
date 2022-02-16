@@ -18,7 +18,7 @@ class ApplyViewModel(application: Application) : AndroidViewModel(application) {
     val friendList: LiveData<List<FriendListData>>
         get() = _friendList
 
-    //서버통신
+    //친구 목록 가져오기
     fun requestFriendList() = viewModelScope.launch(Dispatchers.IO) {
         try {
             _friendList.postValue(
