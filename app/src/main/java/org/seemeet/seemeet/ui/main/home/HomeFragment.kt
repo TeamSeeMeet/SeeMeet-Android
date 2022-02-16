@@ -22,10 +22,12 @@ import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.ui.main.home.adapter.ReminderListAdapter
 import org.seemeet.seemeet.ui.notification.NotificationActivity
 import org.seemeet.seemeet.ui.registration.LoginActivity
+import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
 import org.seemeet.seemeet.util.calDday
 import org.seemeet.seemeet.util.changeStatusBarColor
 import org.seemeet.seemeet.util.setBetweenDays2
+import retrofit2.HttpException
 
 class HomeFragment : Fragment() {
     private var _binding : FragmentHomeBinding? = null
@@ -156,6 +158,30 @@ class HomeFragment : Fragment() {
                 } else {
                     setHomeBanner(lastPlan.date.calDday())
                 }
+        }
+
+        viewmodel.fetchState.observe(viewLifecycleOwner){
+            var message = ""
+            when( it.second){
+                BaseViewModel.FetchState.BAD_INTERNET-> {
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                }
+                BaseViewModel.FetchState.PARSE_ERROR -> {
+                   val code = (it.first as HttpException).code()
+                    message = "$code ERROR : \n ${it.first.message}"
+                }
+                BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                }
+                else ->  {
+                    message = "통신에 실패하였습니다.\n ${it.first.message}"
+                }
+
+            }
+
+            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+            setNoReminderListMsgVisible(true)
         }
 
     }
