@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.seemeet.seemeet.data.SeeMeetSharedPreference.getToken
@@ -13,10 +14,12 @@ import org.seemeet.seemeet.data.model.response.friend.ResponseFriendList
 import org.seemeet.seemeet.data.model.response.plan.LastPlanData
 import org.seemeet.seemeet.data.model.response.plan.ResponseComePlanList
 import retrofit2.HttpException
+import java.net.SocketException
+import java.net.UnknownHostException
 import java.time.LocalDate
 import java.time.YearMonth
 
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
+class HomeViewModel(application: Application) : BaseViewModel(application) {
 
     private val _comePlanList = MutableLiveData<ResponseComePlanList>()
     val comePlanList : LiveData<ResponseComePlanList>
@@ -46,36 +49,25 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     //서버통신
     //  친구 수 가져오기.
-    fun requestFriendList()  = viewModelScope.launch(Dispatchers.IO) {
-        try {
-            _friendList.postValue(RetrofitBuilder.friendService.getFriendList(getToken()))
-        } catch (e: HttpException) {
-            e.printStackTrace()
-        }
+    fun requestFriendList()  = viewModelScope.launch(exceptionHandler) {
+       _friendList.postValue(RetrofitBuilder.friendService.getFriendList(getToken()))
     }
 
     // 다가오는 약속
-    fun requestComePlanList() = viewModelScope.launch (Dispatchers.IO){
-        try {
-            val month = YearMonth.now().monthValue
-            val year = YearMonth.now().year
-            _comePlanList.postValue(RetrofitBuilder.planService.getComePlan(year, month, getToken()))
-        } catch (e: HttpException) {
-            e.printStackTrace()
-        }
+    fun requestComePlanList() = viewModelScope.launch (exceptionHandler){
+        val month = YearMonth.now().monthValue
+        val year = YearMonth.now().year
+        _comePlanList.postValue(RetrofitBuilder.planService.getComePlan(year, month, getToken()))
     }
 
 
     // 마지막 약속 가지고 오기
-    fun requestLastPlanData() = viewModelScope.launch (Dispatchers.IO){
-        try {
-            val month = YearMonth.now().monthValue
-            val year = YearMonth.now().year
-            val day = LocalDate.now().dayOfMonth
-            _lastPlan.postValue(RetrofitBuilder.planService.getLastPlan(year, month, day, getToken()).data)
-        } catch (e: HttpException) {
-            e.printStackTrace()
-        }
+    fun requestLastPlanData() = viewModelScope.launch (exceptionHandler){
+        val month = YearMonth.now().monthValue
+        val year = YearMonth.now().year
+        val day = LocalDate.now().dayOfMonth
+        _lastPlan.postValue(RetrofitBuilder.planService.getLastPlan(year, month, day, getToken()).data)
+
     }
 
     //home 베너 이미지랑 텍스트 설정.
