@@ -2,26 +2,22 @@ package org.seemeet.seemeet.ui.registration
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Observer
 import org.seemeet.seemeet.R
-import org.seemeet.seemeet.data.api.RetrofitBuilder
-import org.seemeet.seemeet.data.model.request.register.RequestRegisterList
-import org.seemeet.seemeet.data.model.response.register.ResponseRegisterList
 import org.seemeet.seemeet.databinding.ActivityRegisterBinding
 import org.seemeet.seemeet.ui.main.MainActivity
+import org.seemeet.seemeet.ui.viewmodel.RegisterViewModel
 import org.seemeet.seemeet.util.activeBtn
 import org.seemeet.seemeet.util.inactiveBtn
 import org.seemeet.seemeet.util.makeInVisible
 import org.seemeet.seemeet.util.makeVisible
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
@@ -30,13 +26,16 @@ class RegisterActivity : AppCompatActivity() {
     private val binding: ActivityRegisterBinding by lazy {
         ActivityRegisterBinding.inflate(layoutInflater)
     }
+    private val viewModel: RegisterViewModel by viewModels()
+    private var isResponse = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         initClickListener()
+        registerObserver()
     }
-
+/*
     private fun initNetwork() {
         val requestRegisterService = RequestRegisterList(
             username = binding.etName.text.toString(),
@@ -44,7 +43,7 @@ class RegisterActivity : AppCompatActivity() {
             password = binding.etPw.text.toString(),
             passwordConfirm = binding.etCheckpw.text.toString()
         )
-        val call: Call<ResponseRegisterList> =
+        val call: ResponseRegisterList =
             RetrofitBuilder.registerService.postRegister(requestRegisterService)
 
         call.enqueue(object : Callback<ResponseRegisterList> {
@@ -67,10 +66,32 @@ class RegisterActivity : AppCompatActivity() {
             }
         })
     }
+*/
+
+    private fun registerObserver() {
+        viewModel.registerList.observe(this, Observer {
+            registerList ->
+                isResponse = registerList.success
+
+            if(isResponse){
+                MainActivity.start(this@RegisterActivity)
+            }else{
+                binding.etEmailRegister.requestFocus()
+                binding.tvWarningEmail.text = "@string/register_registeredEmail"
+                binding.tvWarningEmail.makeVisible()
+            }
+        })
+    }
 
     fun initClickListener() {
         binding.btnRegister.setOnClickListener {
-            initNetwork()
+            //initNetwork()
+            viewModel.requestRegisterList(
+                binding.etName.text.toString(),
+                binding.etEmailRegister.text.toString(),
+                binding.etPw.text.toString(),
+                binding.etCheckpw.text.toString()
+            )
         }
 
         binding.ivRegisterBack.setOnClickListener {
