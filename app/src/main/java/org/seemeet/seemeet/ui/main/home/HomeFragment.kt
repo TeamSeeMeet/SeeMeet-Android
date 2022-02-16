@@ -153,7 +153,7 @@ class HomeFragment : Fragment() {
 
         viewmodel.lastPlan.observe(viewLifecycleOwner){
             lastPlan ->
-                if(lastPlan.date.isEmpty()){
+                if(lastPlan.date.isNullOrEmpty()){
                     setHomeBanner(-1)
                 } else {
                     setHomeBanner(lastPlan.date.calDday())
