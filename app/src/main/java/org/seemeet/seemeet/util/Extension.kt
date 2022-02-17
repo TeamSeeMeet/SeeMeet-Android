@@ -107,6 +107,12 @@ fun String.monthDayParsing(): String {
     return "${date[1]}월 ${date[2]}일"
 }
 
+fun String.yearMonthDayWithDotParsing() : String{
+    //yyyy-MM-dd'T'HH:mm:ss.SSS'Z 꼴의 date String값을 yyyy.mm.dd로 만듦
+    val date = this.split("-")
+    return "${date[0]}.${date[1]}.${date[2].substring(0, 2)}"
+}
+
 fun String.calDday(): Int {
     val comeDay = LocalDate.parse(this, DateTimeFormatter.ISO_DATE).atStartOfDay().toInstant(
         ZoneOffset.of("+9")
