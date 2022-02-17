@@ -10,11 +10,9 @@ import android.text.style.StyleSpan
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-<<<<<<< HEAD
+
 import androidx.recyclerview.widget.RecyclerView
-=======
 import org.seemeet.seemeet.R
->>>>>>> develop
 import org.seemeet.seemeet.data.model.response.invitation.GuestX
 import org.seemeet.seemeet.data.model.response.invitation.SendGuest
 import org.seemeet.seemeet.data.model.response.invitation.SendRespondent
@@ -31,11 +29,11 @@ object BindingAdapters {
     @JvmStatic
     fun removeSquareBrackets(textView: TextView, target: String) {
         var text = target
-        if(target.startsWith("["))
+        if (target.startsWith("["))
             text = text.substring(1)
 
-        if(target.endsWith("]"))
-            text = text.substring(0, text.length -1);
+        if (target.endsWith("]"))
+            text = text.substring(0, text.length - 1);
 
         textView.text = text
     }
@@ -44,11 +42,11 @@ object BindingAdapters {
     @JvmStatic
     fun setNameBoldRecieved(textView: TextView, target: String) {
         var text = target
-        if(target.startsWith("["))
+        if (target.startsWith("["))
             text = text.substring(1)
 
-        if(target.endsWith("]"))
-            text = text.substring(0, text.length -1);
+        if (target.endsWith("]"))
+            text = text.substring(0, text.length - 1);
 
         val string = text + "님이 보냈어요"
         val word = text
@@ -64,8 +62,8 @@ object BindingAdapters {
 
     @BindingAdapter("setUserList")
     @JvmStatic
-    fun setRespondents(textView: TextView, list : List<SendRespondent>) {
-        var text : String = " "
+    fun setRespondents(textView: TextView, list: List<SendRespondent>) {
+        var text: String = " "
         list.forEach {
             text += it.username + "   "
         }
@@ -96,8 +94,8 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("setDday")
     fun setDday(textview: TextView, text: String) {
-        text.calDday().run{
-            if(text.calDday() == 0)
+        text.calDday().run {
+            if (text.calDday() == 0)
                 textview.text = "D-DAY"
             else
                 textview.text = "D-$this"
@@ -109,21 +107,21 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("setNotiDay")
     fun setNotiday(textview: TextView, text: String) {
-         textview.text = "${text.setBetweenDays()}일 전"
+        textview.text = "${text.setBetweenDays()}일 전"
 
     }
 
     @JvmStatic
     @BindingAdapter("setNotiSendMsg")
-    fun setNotiSendMsg(textview: TextView, guests : List<GuestX>) {
-        if(guests.size == 1){
-            if(guests[0].isResponse)
+    fun setNotiSendMsg(textview: TextView, guests: List<GuestX>) {
+        if (guests.size == 1) {
+            if (guests[0].isResponse)
                 textview.text = "친구가 답변을 완료하였어요!"
             else
                 textview.text = "친구의 답변을 기다리고 있어요!"
-        }else {
+        } else {
             val response = guests.filter { it.isResponse }.size
-            if(guests.size == response){
+            if (guests.size == response) {
                 textview.text = "친구가 모두 답변을 완료하였어요!"
             } else {
                 val text = "친구 ${guests.size - response}명의 답변을 기다리고 있어요!"
@@ -131,7 +129,12 @@ object BindingAdapters {
                 val end = start + 1
 
                 val ss = SpannableStringBuilder(text)
-                ss.setSpan(ForegroundColorSpan(Color.parseColor("#FA555C")), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+                ss.setSpan(
+                    ForegroundColorSpan(Color.parseColor("#FA555C")),
+                    start,
+                    end,
+                    Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+                )
 
                 textview.text = ss
             }
@@ -140,8 +143,8 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("setNotiReceiveMsg")
-    fun setNotiReceiveMsg(textView: TextView, flag : Boolean){
-        if(flag){
+    fun setNotiReceiveMsg(textView: TextView, flag: Boolean) {
+        if (flag) {
             textView.text = "친구의 요청에 답했어요!"
         } else {
             textView.text = "친구의 요청에 답해보세요!"
@@ -150,21 +153,21 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("setStartTime", "setEndTime")
-    fun setStartEndTimeText(textView: TextView, start : String, end : String){
+    fun setStartEndTimeText(textView: TextView, start: String, end: String) {
         textView.text = "${start.TimeParsing()} ~ ${end.TimeParsing()}"
     }
 
     @JvmStatic
     @BindingAdapter("setSendGuestListForCnt")
-    fun setSendInvitationResponseCnt(textView: TextView, guests : List<SendGuest>) {
-        val text = guests.count{it.isResponse}.toString() + "/" + guests.size.toString()
-        val pink = guests.count{it.isResponse}.toString()
+    fun setSendInvitationResponseCnt(textView: TextView, guests: List<SendGuest>) {
+        val text = guests.count { it.isResponse }.toString() + "/" + guests.size.toString()
+        val pink = guests.count { it.isResponse }.toString()
         setWordPinkText(textView, text, pink)
     }
 
     @JvmStatic
-    @BindingAdapter("setWordBoldAllText","setBoldText" )
-    fun setWordBoldText(textView: TextView, text : String, bold : String) {
+    @BindingAdapter("setWordBoldAllText", "setBoldText")
+    fun setWordBoldText(textView: TextView, text: String, bold: String) {
         val start = text.indexOf(bold)
         val end = start + bold.length
 
@@ -174,15 +177,8 @@ object BindingAdapters {
     }
 
     @JvmStatic
-<<<<<<< HEAD
-    @BindingAdapter("data")
-    fun <T> setRecyclerViewData(recyclerView: RecyclerView, data: T) {
-        if (recyclerView.adapter is BindingRecyclerViewAdapter<*> && data != null) {
-            (recyclerView.adapter as BindingRecyclerViewAdapter<T>).setData(data)
-        }
-=======
     @BindingAdapter("setWordBigAndWhiteText")
-    fun setWordBigAndWhiteText(textView: TextView, text : String, white : String) {
+    fun setWordBigAndWhiteText(textView: TextView, text: String, white: String) {
         val start = text.indexOf(white)
         val end = start + white.length
 
@@ -196,7 +192,7 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("setHomeBannerText", "setHomeBannerDay")
-    fun setHomeBanner(textView: TextView, flag : Int, day : Int) {
+    fun setHomeBanner(textView: TextView, flag: Int, day: Int) {
         var text = ""
         var white = ""
 
@@ -232,12 +228,17 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("setWordPinkAllText", "setPinkText")
-    fun setWordPinkText(textView: TextView, text : String, pink : String) {
+    fun setWordPinkText(textView: TextView, text: String, pink: String) {
         val start = text.indexOf(pink)
         val end = start + pink.length
 
         val ss = SpannableStringBuilder(text)
-        ss.setSpan(ForegroundColorSpan(Color.parseColor("#FA555C")), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+        ss.setSpan(
+            ForegroundColorSpan(Color.parseColor("#FA555C")),
+            start,
+            end,
+            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+        )
         ss.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         ss.setSpan(RelativeSizeSpan(1.2f), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         textView.text = ss
@@ -245,18 +246,25 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("setHomeBannerImage")
-    fun setHomeBannerImage(imageView: ImageView, flag : Int) {
-       val imgId = when (flag) {
+    fun setHomeBannerImage(imageView: ImageView, flag: Int) {
+        val imgId = when (flag) {
             1 -> R.drawable.img_illust_5
             2 -> R.drawable.img_illust_4
             3 -> R.drawable.img_illust_1
             4 -> R.drawable.img_illust_8
             5 -> R.drawable.img_illust_6
             6 -> R.drawable.img_illust_7
-           else ->  R.drawable.img_illust_5
-       }
+            else -> R.drawable.img_illust_5
+        }
 
         imageView.setImageResource(imgId)
->>>>>>> develop
+    }
+
+    @JvmStatic
+    @BindingAdapter("data")
+    fun <T> setRecyclerViewData(recyclerView: RecyclerView, data: T) {
+        if (recyclerView.adapter is BindingRecyclerViewAdapter<*> && data != null) {
+            (recyclerView.adapter as BindingRecyclerViewAdapter<T>).setData(data)
+        }
     }
 }
