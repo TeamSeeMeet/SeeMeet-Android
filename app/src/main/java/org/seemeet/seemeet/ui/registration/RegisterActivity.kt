@@ -27,57 +27,21 @@ class RegisterActivity : AppCompatActivity() {
         ActivityRegisterBinding.inflate(layoutInflater)
     }
     private val viewModel: RegisterViewModel by viewModels()
-    private var isResponse = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         initClickListener()
-        registerObserver()
+        statusObserver()
     }
-/*
-    private fun initNetwork() {
-        val requestRegisterService = RequestRegisterList(
-            username = binding.etName.text.toString(),
-            email = binding.etEmailRegister.text.toString(),
-            password = binding.etPw.text.toString(),
-            passwordConfirm = binding.etCheckpw.text.toString()
-        )
-        val call: ResponseRegisterList =
-            RetrofitBuilder.registerService.postRegister(requestRegisterService)
 
-        call.enqueue(object : Callback<ResponseRegisterList> {
-            override fun onResponse(
-                call: Call<ResponseRegisterList>,
-                response: Response<ResponseRegisterList>
-            ) {
-                if (response.isSuccessful) {
-                    MainActivity.start(this@RegisterActivity)
-                } else {
-                    binding.etEmailRegister.requestFocus()
-                    binding.tvWarningEmail.text =
-                        resources.getString(R.string.register_registeredEmail)
-                    binding.tvWarningEmail.makeVisible()
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseRegisterList>, t: Throwable) {
-                Log.e("NetWorkTest", "error:$t")
-            }
-        })
-    }
-*/
-
-    private fun registerObserver() {
-        viewModel.registerList.observe(this, Observer {
-            registerList ->
-                isResponse = registerList.success
-
-            if(isResponse){
+    private fun statusObserver() {
+        viewModel.status.observe(this, Observer { status ->
+            if (status) {
                 MainActivity.start(this@RegisterActivity)
-            }else{
+            } else {
                 binding.etEmailRegister.requestFocus()
-                binding.tvWarningEmail.text = "@string/register_registeredEmail"
+                binding.tvWarningEmail.text = resources.getString(R.string.register_registeredEmail)
                 binding.tvWarningEmail.makeVisible()
             }
         })
@@ -85,7 +49,6 @@ class RegisterActivity : AppCompatActivity() {
 
     fun initClickListener() {
         binding.btnRegister.setOnClickListener {
-            //initNetwork()
             viewModel.requestRegisterList(
                 binding.etName.text.toString(),
                 binding.etEmailRegister.text.toString(),
