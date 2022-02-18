@@ -14,7 +14,6 @@ import org.seemeet.seemeet.R
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.time.temporal.WeekFields
@@ -142,6 +141,7 @@ fun String.setBetweenDays2(): Long {
     return ChronoUnit.DAYS.between(created, today)
 }
 
+/*
 fun changeStatusBarColor(colorId : Int, activity : Activity, mContext : Context){
     val mWindow = activity.window
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -151,5 +151,25 @@ fun changeStatusBarColor(colorId : Int, activity : Activity, mContext : Context)
         mWindow.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
 
         mWindow.statusBarColor = ContextCompat.getColor(activity, R.color.pink01)
+    }
+}
+*/
+
+fun getStatusBarHeight(context: Context): Int {
+    val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
+
+    return if (resourceId > 0) {
+        context.resources.getDimensionPixelSize(resourceId)
+    } else {
+        0
+    }
+}
+
+fun getNaviBarHeight(context: Context): Int {
+    val resourceId: Int = context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
+    return if (resourceId > 0) {
+        context.resources.getDimensionPixelSize(resourceId)
+    } else {
+        0
     }
 }

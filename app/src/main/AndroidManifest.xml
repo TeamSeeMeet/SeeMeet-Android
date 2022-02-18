@@ -20,7 +20,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SeeMeet.TransparentStatusBar" />
         <activity
             android:name=".ui.apply.SecondApplyActivity"
             android:exported="false" />

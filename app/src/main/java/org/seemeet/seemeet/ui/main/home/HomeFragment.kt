@@ -25,7 +25,7 @@ import org.seemeet.seemeet.ui.registration.LoginActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
 import org.seemeet.seemeet.util.calDday
-import org.seemeet.seemeet.util.changeStatusBarColor
+import org.seemeet.seemeet.util.getStatusBarHeight
 import org.seemeet.seemeet.util.setBetweenDays2
 import retrofit2.HttpException
 
@@ -51,6 +51,8 @@ class HomeFragment : Fragment() {
         initClickListener()
         initNaviDrawer()
 
+        binding.clHomeTop.setPadding(0, getStatusBarHeight(requireContext()), 0, 0)
+
         binding.nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
         binding.nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserEmail()
 
@@ -67,8 +69,6 @@ class HomeFragment : Fragment() {
         setReminderAdapter()
         setViewModelObserve()
 
-        //해당 뷰 status bar 색상 변경
-        changeStatusBarColor(R.color.pink01, requireActivity(), requireContext())
     }
 
     private fun initClickListener(){
@@ -107,10 +107,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun initNaviDrawer(){
+
         val toggle = ActionBarDrawerToggle(
             this.activity, binding.dlHomeMypage, R.string.home_drawer_open, R.string.home_drawer_close
         )
-
+        binding.dlHomeMypage.setStatusBarBackground(R.color.gray06)
         binding.dlHomeMypage.addDrawerListener(toggle)
         toggle.syncState()
 
