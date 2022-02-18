@@ -94,11 +94,7 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("setYearMonthDayWithDot")
     fun setYearMonthDayWithDot(textview: TextView, text: String) {
-<<<<<<< HEAD
         //yyyy-MM-dd'T'HH:mm:ss.SSS'Z 꼴의 date String값을 yyyy.mm.dd로 만듦
-=======
-        // yyyy.MM.dd 꼴로 파싱함
->>>>>>> 8f3a6c1b7935fe644d0dec8b1c6f5c3d94a4a1ca
         textview.text = text.yearMonthDayWithDotParsing()
     }
 
