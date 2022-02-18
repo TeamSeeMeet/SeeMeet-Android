@@ -108,10 +108,9 @@ fun String.monthDayParsing(): String {
 }
 
 fun String.calDday(): Int {
-    val comeDay = LocalDate.parse(this, DateTimeFormatter.ISO_DATE).atStartOfDay().toInstant(
-        ZoneOffset.of("+9")
-    )
-    val today = LocalDateTime.now().toInstant(ZoneOffset.of("+9"))
+    val comeDay = LocalDate.parse(this, DateTimeFormatter.ISO_DATE).atStartOfDay()
+    val now = LocalDateTime.now()
+    val today = LocalDateTime.of(now.year, now.month, now.dayOfMonth, 0, 0 , 0)
 
     return ChronoUnit.DAYS.between(today, comeDay).toInt()
 }
@@ -123,14 +122,16 @@ fun String.dateParsingIso(): LocalDateTime {
 
 fun String.setBetweenDays(): Long {
     val created = this.dateParsingIso()
-    val today = LocalDateTime.now()
+    val now = LocalDateTime.now()
+    val today = LocalDateTime.of(now.year, now.month, now.dayOfMonth, 0, 0 , 0)
 
     return ChronoUnit.DAYS.between(created, today)
 }
 
 fun String.setBetweenDays2(): Long {
     val created = LocalDate.parse(this, DateTimeFormatter.ISO_DATE)
-    val today = LocalDateTime.now()
+    val now = LocalDateTime.now()
+    val today = LocalDateTime.of(now.year, now.month, now.dayOfMonth, 0, 0 , 0)
 
     return ChronoUnit.DAYS.between(created, today)
 }

@@ -78,15 +78,22 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("setMonthDayDate")
     fun setMonthDayDate(textview: TextView, text: String) {
-        // O월 O일 꼴로 파싱함.
+        // yy-MM-dd를 O월 O일 꼴로 파싱함.
         textview.text = text.monthDayParsing()
     }
 
     @JvmStatic
     @BindingAdapter("setYearMonthDate")
     fun setYearMonthDate(textview: TextView, text: String) {
-        // 0년 O월 O일 꼴로 파싱함.
+        //yy-MM-dd를 0년 O월 O일 꼴로 파싱함.
         textview.text = text.YearMonthDayParsing()
+    }
+
+    @JvmStatic
+    @BindingAdapter("setYearMonthDayWithDot")
+    fun setYearMonthDayWithDot(textview: TextView, text: String) {
+        //yyyy-MM-dd'T'HH:mm:ss.SSS'Z 꼴의 date String값을 yyyy.mm.dd로 만듦
+        textview.text = text.yearMonthDayWithDotParsing()
     }
 
     @JvmStatic
