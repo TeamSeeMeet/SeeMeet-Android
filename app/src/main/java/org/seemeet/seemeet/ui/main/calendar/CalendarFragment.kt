@@ -23,7 +23,13 @@ import org.seemeet.seemeet.data.model.response.calendar.CalendarEvent
 import org.seemeet.seemeet.databinding.FragmentCalendarBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
 import org.seemeet.seemeet.ui.viewmodel.CalendarViewModel
+<<<<<<< HEAD
 import org.seemeet.seemeet.util.*
+=======
+import org.seemeet.seemeet.util.daysOfWeekFromLocale
+import org.seemeet.seemeet.util.makeInVisible
+import org.seemeet.seemeet.util.makeVisible
+>>>>>>> 8f3a6c1b7935fe644d0dec8b1c6f5c3d94a4a1ca
 import org.seemeet.seemeet.util.setTextColorRes
 import java.time.LocalDate
 import java.time.YearMonth
@@ -50,9 +56,12 @@ class CalendarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_calendar,container,false)
+<<<<<<< HEAD
 
         binding.appbarCalendar.setPadding(0, (22 + getStatusBarHeight(requireContext())), 0, 0)
 
+=======
+>>>>>>> 8f3a6c1b7935fe644d0dec8b1c6f5c3d94a4a1ca
         return binding.root
     }
 
@@ -63,7 +72,11 @@ class CalendarFragment : Fragment() {
         binding.calendarViewModel = calendarViewModel
         binding.rvCalendarEvent.adapter = eventsAdapter
 
+<<<<<<< HEAD
         calendarViewModel.calendarEventMap.observe(viewLifecycleOwner){
+=======
+        calendarViewModel.calendarEventMap.observe(this){
+>>>>>>> 8f3a6c1b7935fe644d0dec8b1c6f5c3d94a4a1ca
             binding.calendar.notifyCalendarChanged()
         }
         setCalendar()
