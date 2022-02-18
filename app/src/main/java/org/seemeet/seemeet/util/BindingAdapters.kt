@@ -92,6 +92,13 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("setYearMonthDayWithDot")
+    fun setYearMonthDayWithDot(textview: TextView, text: String) {
+        // yyyy.MM.dd 꼴로 파싱함
+        textview.text = text.yearMonthDayWithDotParsing()
+    }
+
+    @JvmStatic
     @BindingAdapter("setDday")
     fun setDday(textview: TextView, text: String) {
         text.calDday().run {
@@ -227,6 +234,19 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("setWordPinkBoldAllText", "setPinkBoldText")
+    fun setWordPinkBoldText(textView: TextView, text : String, pink : String) {
+        val start = text.indexOf(pink)
+        val end = start + pink.length
+
+        val ss = SpannableStringBuilder(text)
+        ss.setSpan(ForegroundColorSpan(Color.parseColor("#FA555C")), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+        ss.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(RelativeSizeSpan(1.2f), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        textView.text = ss
+    }
+
+    @JvmStatic
     @BindingAdapter("setWordPinkAllText", "setPinkText")
     fun setWordPinkText(textView: TextView, text: String, pink: String) {
         val start = text.indexOf(pink)
@@ -240,7 +260,6 @@ object BindingAdapters {
             Spannable.SPAN_EXCLUSIVE_INCLUSIVE
         )
         ss.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        ss.setSpan(RelativeSizeSpan(1.2f), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         textView.text = ss
     }
 
