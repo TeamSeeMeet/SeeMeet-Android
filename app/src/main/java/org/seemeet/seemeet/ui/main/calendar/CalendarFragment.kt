@@ -23,6 +23,7 @@ import org.seemeet.seemeet.data.model.response.calendar.CalendarEvent
 import org.seemeet.seemeet.databinding.FragmentCalendarBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
 import org.seemeet.seemeet.ui.viewmodel.CalendarViewModel
+import org.seemeet.seemeet.util.*
 import org.seemeet.seemeet.util.daysOfWeekFromLocale
 import org.seemeet.seemeet.util.makeInVisible
 import org.seemeet.seemeet.util.makeVisible
@@ -52,6 +53,9 @@ class CalendarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_calendar,container,false)
+
+        binding.appbarCalendar.setPadding(0, (22 + getStatusBarHeight(requireContext())), 0, 0)
+
         return binding.root
     }
 
@@ -62,7 +66,7 @@ class CalendarFragment : Fragment() {
         binding.calendarViewModel = calendarViewModel
         binding.rvCalendarEvent.adapter = eventsAdapter
 
-        calendarViewModel.calendarEventMap.observe(this){
+        calendarViewModel.calendarEventMap.observe(viewLifecycleOwner){
             binding.calendar.notifyCalendarChanged()
         }
         setCalendar()
