@@ -2,7 +2,6 @@ package org.seemeet.seemeet.data
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.provider.Settings.Secure.putString
 import androidx.core.content.edit
 
 object SeeMeetSharedPreference {
@@ -22,18 +21,21 @@ object SeeMeetSharedPreference {
     fun setUserId(value : Int){
         preferences.edit{
             putInt(USER_ID, value)
+            apply()
         }
     }
 
     fun setUserName(value : String){
         preferences.edit{
             putString(USER_NAME, value)
+            apply()
         }
     }
 
     fun setUserEmail(value : String){
         preferences.edit{
             putString(USER_EMAIL, value)
+            apply()
         }
     }
 
@@ -46,6 +48,7 @@ object SeeMeetSharedPreference {
     fun setUserFb(value : String){
         preferences.edit{
             putString(USER_ID, value)
+            apply()
         }
     }
 
@@ -54,6 +57,7 @@ object SeeMeetSharedPreference {
     fun setToken(value : String){
         preferences.edit{
             putString(TOKEN, value)
+            apply()
         }
     }
 
@@ -63,14 +67,15 @@ object SeeMeetSharedPreference {
     fun setLogin(value: Boolean) {
         preferences.edit{
             putBoolean(IS_LOGIN, value)
+            apply()
         }
     }
 
     fun getLogin(): Boolean = preferences.getBoolean(IS_LOGIN, false)
 
 
-    fun clearStorage() {
-        preferences.edit { clear() }
+    fun clearStorage() : Boolean{
+        return preferences.edit().clear().commit()
     }
 }
 

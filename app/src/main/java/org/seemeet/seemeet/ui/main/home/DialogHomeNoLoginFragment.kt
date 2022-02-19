@@ -2,15 +2,13 @@ package org.seemeet.seemeet.ui.receive
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.DialogFragment
 import org.seemeet.seemeet.R
-import org.seemeet.seemeet.data.local.InviData
 import org.seemeet.seemeet.databinding.DialogHomeNoLoginBinding
-import org.seemeet.seemeet.databinding.DialogReceiveNoDialogBinding
 
 class DialogHomeNoLoginFragment : DialogFragment() {
 
@@ -43,7 +41,7 @@ class DialogHomeNoLoginFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.window!!.setBackgroundDrawable(resources.getDrawable(R.drawable.rectangle_white_top10))
+        dialog.window!!.setBackgroundDrawable(ResourcesCompat.getDrawable(resources, R.drawable.rectangle_white_10, null))
 
         return dialog
     }
