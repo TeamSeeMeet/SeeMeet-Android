@@ -7,7 +7,7 @@
     <data>
 
         <variable
-            name="ingData"
+            name="inProgressData"
             type="org.seemeet.seemeet.data.model.response.invitation.Invitation" />
 
     </data>
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:fontFamily="@font/spoqa_han_sans_neo_bold"
-            android:text="@{ingData.invitationTitle}"
+            android:text="@{inProgressData.invitationTitle}"
             android:textColor="@color/pink"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            setNotiDay="@{ingData.createdAt}"
+            setNotiDay="@{inProgressData.createdAt}"
             android:textColor="@color/gray04"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_send"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            setNotiSendMsg="@{ingData.guests}"
+            setNotiSendMsg="@{inProgressData.guests}"
             android:textColor="@color/gray06"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/tv_send"

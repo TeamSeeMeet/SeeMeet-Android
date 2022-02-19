@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.local.ReminderData
 import org.seemeet.seemeet.data.model.response.plan.ComePlanData
 import org.seemeet.seemeet.databinding.ItemHomeReminderBinding
@@ -15,13 +16,14 @@ class ReminderListAdapter :RecyclerView.Adapter<ReminderListAdapter.ReminderView
     class ReminderViewHolder(
         private val binding : ItemHomeReminderBinding
     ): RecyclerView.ViewHolder(binding.root){
-        /*fun bind(reminderData: ReminderData){
-            // item home reminder 레이아웃에 있는 data 값에 해당 데이터 삽입 (data Binding)
-            binding.reminderData = reminderData
-        }*/
         fun bind(comePlanData: ComePlanData){
             // item home reminder 레이아웃에 있는 data 값에 해당 데이터 삽입 (data Binding)
             binding.comePlanData= comePlanData
+
+            // 만남이 가능한 사람이 주최자 외 1명일 경우. 혹은 주최자만 가능할 경우.
+           if(comePlanData.count.toInt() <= 2){
+                binding.ivHomeReminder.setImageResource(R.drawable.img_illust_2)
+            }
         }
     }
 

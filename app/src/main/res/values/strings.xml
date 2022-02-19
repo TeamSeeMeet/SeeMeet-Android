@@ -11,13 +11,13 @@
 
     <!-- Register -->
     <string name="register_name">이름</string>
-    <string name="register_id">아이디</string>
-    <string name="register_sex">성별</string>
-    <string name="register_male">남</string>
-    <string name="register_female">여</string>
     <string name="register_register">회원가입</string>
-    <string name="register_birth">생년월일</string>
     <string name="register_checkpw">비밀번호 확인</string>
+    <string name="register_registeredEmail">이미 등록된 이메일이에요.</string>
+    <string name="register_incorrectEmail">올바른 이메일을 입력해주세요</string>
+    <string name="register_lengthPassword">8자 이상의 비밀번호를 입력해주세요.</string>
+    <string name="register_formatPassword">영문, 숫자, 특수문자 중 2가지 이상을 사용해주세요.</string>
+    <string name="register_incorrectPassword">비밀번호가 일치하지 않아요.</string>
 
     <!-- Main -->
     <string name="label_home">Home</string>
@@ -33,19 +33,16 @@
     <string name="mypage_privacy_policy">개인정보 정책</string>
     <string name="mypage_open_source">오픈소스</string>
 
-
     <!-- Friend -->
     <string name="friend_friend">친구</string>
     <string name="friend_search">친구 검색</string>
     <string name="friend_request">친구 요청</string>
     <string name="friend_null">등록된 친구가 없어요!\n친구를 추가해주세요</string>
 
-
     <!-- AddFriend -->
     <string name="addfriend_add">친구 추가</string>
     <string name="addfriend_null">검색 결과가 없습니다.</string>
     <string name="addfriend_id">친구 아이디</string>
-
 
     <!-- home -->
     <string name="home_drawer_open">drawer open</string>
@@ -91,10 +88,33 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
-    <!-- recieve -->
-    <string name="recieve_top_msg">새로운 초대장</string>
-    <string name="recieve_together_msg">나와 함께 받은 사람</string>
-    <string name="recieve_choice_msg">내 일정과 비교하며\n날짜를 선택해보세요!</string>
-    <string name="recieve_btn_yes">수락</string>
-    <string name="recieve_btn_no">거절</string>
+    <!-- receive -->
+    <string name="receive_top_msg">새로운 초대장</string>
+    <string name="receive_together_msg">나와 함께 받은 사람</string>
+    <string name="receive_choice_msg">내 일정과 비교하며\n날짜를 선택해보세요!</string>
+    <string name="receive_choice_msg_bold">날짜를 선택</string>
+    <string name="receive_btn_yes">수락</string>
+    <string name="receive_btn_no">거절</string>
+    <string name="receive_choose_msg">날짜를 선택해보세요!</string>
+    <string name="receive_top_who_msg">님이 보냈어요.</string>
+
+    <!-- send -->
+    <string name="send_top_msg">약속을 확정해 주세요</string>
+    <string name="send_top_msg_bold">약속을 확정</string>
+    <string name="send_confirm_btn">확정</string>
+    <string name="send_cancel_btn">취소</string>
+    <string name="send_content_msg">보낸 신청 내용</string>
+    <string name="send_dialog_check3">답변하지 않은 친구가 있어요.\n확정할까요?</string>
+    <string name="send_dialog_check2">만날 수 없는 친구가 있어요.\n확정할까요?</string>
+    <string name="send_dialog_check1">약속을 확정하시겠어요?</string>
+    <string name="send_dialog_send">보내기</string>
+    <string name="send_confirm_msg">확정 날짜</string>
+    <string name="send_cancel_msg">약속 취소</string>
+    <string name="send_cancel_content">약속을 취소하시겠어요?</string>
+    <string name="send_cancel_yes">예</string>
+    <string name="send_cancel_no">아니오</string>
+
+
+    <string name="time_start_end">%s ~ %s</string>
+
 </resources>

@@ -101,15 +101,15 @@
                         android:textSize="22sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:setHomeBannerText="@{viewModel.homeBanner}"
+                        app:setHomeBannerDay="@{viewModel.homeBannerDay}"
                         tools:text="@string/home_msg_tmp" />
-                    <!--setHomeBannerText="@{viewModel.homeBanner}"
-                        setHomeBannerTextDay="@{viewModel.day}"-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageView
                     android:id="@+id/iv_home_banner"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintDimensionRatio="32:20"
                     android:layout_marginEnd="10dp"
@@ -119,8 +119,9 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_home_top_message"/>
-                <!--setHomeBannerImage="@{viewModel.homeBanner}"-->
+                    app:layout_constraintTop_toBottomOf="@id/cl_home_top_message"
+                    app:setHomeBannerImage="@{viewModel.homeBanner}" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -154,21 +155,6 @@
                         app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="16dp"/>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_home_reminder"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="15dp"
-                        app:layout_constraintTop_toBottomOf="@id/tv_home_reminder"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/item_home_reminder"
-                        android:overScrollMode="never"
-                        android:paddingHorizontal="20dp"
-                        android:clipToPadding="false"
-                        android:orientation="horizontal"/>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cl_home_no_reminder"
@@ -207,12 +193,24 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_home_reminder"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_home_reminder"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_home_reminder"
+                        android:overScrollMode="never"
+                        android:paddingHorizontal="20dp"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -223,11 +221,13 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:overScrollMode="never"
-            android:visibility="visible">
+            android:visibility="visible"
+            android:fitsSystemWindows="true">
 
             <include android:id="@+id/nv_mypage" layout="@layout/view_mypage"/>
 
         </com.google.android.material.navigation.NavigationView>
+
     </androidx.drawerlayout.widget.DrawerLayout>
 
 </layout>
