@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,10 +18,12 @@ import org.seemeet.seemeet.data.model.response.friend.FriendListData
 import org.seemeet.seemeet.databinding.FragmentFirstApplyBinding
 import org.seemeet.seemeet.ui.apply.adapter.ApplyFriendAdapter
 import org.seemeet.seemeet.ui.viewmodel.ApplyViewModel
+import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.util.activeBtn
 import org.seemeet.seemeet.util.inactiveBtn
 import org.seemeet.seemeet.util.makeInVisible
 import org.seemeet.seemeet.util.makeVisible
+import retrofit2.HttpException
 
 class FirstApplyFragment : Fragment() {
 
@@ -28,9 +31,9 @@ class FirstApplyFragment : Fragment() {
     val binding get() = _binding!!
     private lateinit var adapter: ApplyFriendAdapter
     private var friendId = -1
-    private var friendPos= -1
-    private var friendName: String?= null
-    private var friendEmail: String?= null
+    private var friendPos = -1
+    private var friendName: String? = null
+    private var friendEmail: String? = null
 
     //SecondApplyActivity로 친구 Array 넘기기 위해
     private var friendArr: ArrayList<ApplyFriendData> = arrayListOf()
@@ -66,6 +69,28 @@ class FirstApplyFragment : Fragment() {
                 setFriend(friendList)
             }
         })
+
+        viewModel.fetchState.observe(this) {
+            var message = ""
+            when (it.second) {
+                BaseViewModel.FetchState.BAD_INTERNET -> {
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                }
+                BaseViewModel.FetchState.PARSE_ERROR -> {
+                    val code = (it.first as HttpException).code()
+                    message = "$code ERROR : \n ${it.first.message}"
+                }
+                BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                }
+                else -> {
+                    message = "통신에 실패하였습니다.\n ${it.first.message}"
+                }
+            }
+
+            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun initClickListener() {
