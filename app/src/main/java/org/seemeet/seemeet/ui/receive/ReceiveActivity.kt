@@ -7,6 +7,7 @@ import android.os.Parcelable
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -17,7 +18,9 @@ import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityReceiveBinding
 import org.seemeet.seemeet.ui.receive.adapter.ReceiveCheckListAdapter
 import org.seemeet.seemeet.ui.receive.adapter.ReceiveSchduleListAdapter
+import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.ReceiveViewModel
+import retrofit2.HttpException
 
 
 class ReceiveActivity : AppCompatActivity() {
@@ -170,6 +173,33 @@ class ReceiveActivity : AppCompatActivity() {
                 binding.btnReceiveYes.isEnabled = false
                 binding.btnReceiveYes.background = ResourcesCompat.getDrawable(resources, R.drawable.rectangle_gray02_10, null)
             }
+        }
+
+        viewModel.fetchState.observe(this){
+            var message = ""
+            when( it.second){
+                BaseViewModel.FetchState.BAD_INTERNET-> {
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                }
+                BaseViewModel.FetchState.PARSE_ERROR -> {
+                    val code = (it.first as HttpException).code()
+                    message = "$code ERROR : \n ${it.first.message}"
+                }
+                BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                }
+                else ->  {
+                    message = "통신에 실패하였습니다.\n ${it.first.message}"
+                }
+
+            }
+
+            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            
+            binding.tvReceiveSMsg.text = "통신 실패로 정보를 받아오거나 보낼 수 없어요."
+            binding.rvReceiveSchdule.visibility = View.GONE
+
         }
 
     }
