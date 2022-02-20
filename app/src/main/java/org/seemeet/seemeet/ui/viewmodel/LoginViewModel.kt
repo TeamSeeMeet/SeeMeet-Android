@@ -15,7 +15,7 @@ import org.seemeet.seemeet.data.model.request.login.RequestLoginList
 import org.seemeet.seemeet.data.model.response.login.ResponseLoginList
 import retrofit2.HttpException
 
-class LoginViewModel(application: Application) : AndroidViewModel(application) {
+class LoginViewModel(application: Application) : BaseViewModel(application) {
     private val _loginList = MutableLiveData<ResponseLoginList>()
     val loginList: LiveData<ResponseLoginList>
         get() = _loginList
@@ -32,7 +32,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     var errorMessage: String = ""
 
-    fun requestLoginList(email: String, password: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun requestLoginList(email: String, password: String) = viewModelScope.launch(exceptionHandler) {
         try {
             _loginList.postValue(
                 RetrofitBuilder.loginService.postLogin(
