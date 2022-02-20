@@ -2,9 +2,11 @@ package org.seemeet.seemeet.ui.registration
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -13,11 +15,13 @@ import androidx.lifecycle.Observer
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityRegisterBinding
 import org.seemeet.seemeet.ui.main.MainActivity
+import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.RegisterViewModel
 import org.seemeet.seemeet.util.activeBtn
 import org.seemeet.seemeet.util.inactiveBtn
 import org.seemeet.seemeet.util.makeInVisible
 import org.seemeet.seemeet.util.makeVisible
+import retrofit2.HttpException
 import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
@@ -45,6 +49,28 @@ class RegisterActivity : AppCompatActivity() {
                 binding.tvWarningEmail.makeVisible()
             }
         })
+
+        viewModel.fetchState.observe(this){
+            var message = ""
+            when( it.second){
+                BaseViewModel.FetchState.BAD_INTERNET-> {
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                }
+                BaseViewModel.FetchState.PARSE_ERROR -> {
+                    val code = (it.first as HttpException).code()
+                    message = "$code ERROR : \n ${it.first.message}"
+                }
+                BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                }
+                else ->  {
+                    message = "통신에 실패하였습니다.\n ${it.first.message}"
+                }
+            }
+
+            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        }
     }
 
     fun initClickListener() {
