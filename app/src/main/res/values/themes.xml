@@ -12,9 +12,17 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
+
         <!-- Customize your theme here. -->
         <item name="android:includeFontPadding">false</item>
         <item name="android:timePickerStyle">@style/TimePickerTheme</item>
+    </style>
+
+    <style name="Theme.SeeMeet.TransparentStatusBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!--drawerlayout statusbar -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="Theme.SeeMeet.NoActionBar">

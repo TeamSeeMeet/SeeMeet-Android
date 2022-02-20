@@ -1,6 +1,8 @@
 package org.seemeet.seemeet.ui.main.calendar
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,11 +10,13 @@ import com.google.android.material.chip.Chip
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.model.response.calendar.CalendarEvent
 import org.seemeet.seemeet.databinding.ItemCalendarEventBinding
+import org.seemeet.seemeet.util.BindingRecyclerViewAdapter
 
 class CalendarEventAdapter(val clickListener: (CalendarEvent) -> Unit) :
-    RecyclerView.Adapter<CalendarEventAdapter.ViewHolder>() {
+    RecyclerView.Adapter<CalendarEventAdapter.ViewHolder>(),
+    BindingRecyclerViewAdapter<List<CalendarEvent>> {
 
-    val eventList = mutableListOf<CalendarEvent>()
+    var eventList = emptyList<CalendarEvent>()
     private var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,7 +47,7 @@ class CalendarEventAdapter(val clickListener: (CalendarEvent) -> Unit) :
                         text = it.username
                         setChipBackgroundColorResource(R.color.white)
                         setTextAppearance(R.style.calendarChipTextPinkStyle)
-                        chipStrokeWidth=1.0F
+                        chipStrokeWidth = 1.0F
                         isCheckable = false
                         setChipStrokeColorResource(R.color.pink01)
                     })
@@ -53,5 +57,11 @@ class CalendarEventAdapter(val clickListener: (CalendarEvent) -> Unit) :
                 }
             }
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun setData(data: List<CalendarEvent>) {
+        eventList = data
+        notifyDataSetChanged()
     }
 }
