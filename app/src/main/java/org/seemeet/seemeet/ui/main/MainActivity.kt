@@ -8,8 +8,6 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.updateLayoutParams
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.databinding.ActivityMainBinding
@@ -19,6 +17,7 @@ import org.seemeet.seemeet.ui.main.home.HomeFragment
 import org.seemeet.seemeet.ui.receive.DialogHomeNoLoginFragment
 import org.seemeet.seemeet.ui.registration.LoginActivity
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
+import org.seemeet.seemeet.util.CustomToast
 import org.seemeet.seemeet.util.getNaviBarHeight
 
 class MainActivity : AppCompatActivity() {
@@ -29,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     private val homeFragment by lazy { HomeFragment() }
     private val calendarFragment by lazy { CalendarFragment() }
 
+    //뒤로가기 연속 클릭 대기 시간
+    var mBackWait:Long = 0
     var friendCnt : Int = 0
     private val viewmodel : HomeViewModel by viewModels()
 
@@ -119,6 +120,17 @@ class MainActivity : AppCompatActivity() {
                 friendList ->
             Log.d("***********HOME_FIREND_COUNT2", friendList.data.size.toString())
             friendCnt = friendList.data.size
+        }
+    }
+
+    override fun onBackPressed() {
+        // 뒤로가기 버튼 클릭
+        if(System.currentTimeMillis() - mBackWait < 2000 ) {
+            finish()
+            return
+        } else {
+            mBackWait = System.currentTimeMillis()
+            CustomToast.createToast(this,"뒤로가기 버튼을 한번 더 누르면 종료됩니다.")?.show()
         }
     }
 
