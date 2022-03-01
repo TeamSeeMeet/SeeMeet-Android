@@ -9,7 +9,6 @@ import android.util.Log
 import android.util.Patterns
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
@@ -41,45 +40,36 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun statusObserver() {
-        viewModel.loginStatus.observe(this, Observer { status ->
-            if (status) {
-                SeeMeetSharedPreference.setToken(viewModel.loginList.value!!.data.accesstoken)
-                SeeMeetSharedPreference.setUserId(viewModel.loginList.value!!.data.user.id)
-                SeeMeetSharedPreference.setLogin(true)
-                SeeMeetSharedPreference.setUserName(viewModel.loginList.value!!.data.user.username)
-                SeeMeetSharedPreference.setUserEmail(viewModel.loginList.value!!.data.user.email)
+        viewModel.loginList.observe(this, Observer { list ->
+            SeeMeetSharedPreference.setToken(list.data.accesstoken)
+            SeeMeetSharedPreference.setUserId(list.data.user.id)
+            SeeMeetSharedPreference.setLogin(true)
+            SeeMeetSharedPreference.setUserName(list.data.user.username)
+            SeeMeetSharedPreference.setUserEmail(list.data.user.email)
 
-                MainActivity.start(this@LoginActivity)
-            } else {
-                CustomToast.createToast(this@LoginActivity, viewModel.errorMessage)?.show()
-
-//                Log.d("else2", viewModel.errorloginList.value?.message.toString())
-//                if (viewModel.errorloginList.value.toString() != null) {
-//                    CustomToast.createToast(this@LoginActivity, viewModel.errorloginList.value!!.message)?.show()
-//                }
-            }
+            MainActivity.start(this@LoginActivity)
         })
 
-        viewModel.fetchState.observe(this) {
+        viewModel.fetchState.observe(this){
             var message = ""
-            when (it.second) {
-                BaseViewModel.FetchState.BAD_INTERNET -> {
+            when( it.second){
+                BaseViewModel.FetchState.BAD_INTERNET-> {
                     message = "소켓 오류 / 서버와 연결에 실패하였습니다."
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {
-                    val code = (it.first as HttpException).code()
-                    message = "$code ERROR : \n ${it.first.message}"
+                    val error = (it.first as HttpException)
+                    message = "${error.response()!!.errorBody()!!.string().split("\"")[7]}"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
                     message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
                 }
-                else -> {
+                else ->  {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
                 }
             }
 
             Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            CustomToast.createToast(this@LoginActivity, message)?.show()
         }
     }
 
