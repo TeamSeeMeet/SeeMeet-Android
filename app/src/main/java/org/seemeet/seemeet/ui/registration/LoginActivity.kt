@@ -47,7 +47,10 @@ class LoginActivity : AppCompatActivity() {
             SeeMeetSharedPreference.setUserName(list.data.user.username)
             SeeMeetSharedPreference.setUserEmail(list.data.user.email)
 
-            MainActivity.start(this@LoginActivity)
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //기존에 쌓여있던 액티비티를 삭제
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            this@LoginActivity.startActivity(intent)
         })
 
         viewModel.fetchState.observe(this){
