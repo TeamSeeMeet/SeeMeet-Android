@@ -119,5 +119,9 @@
     <string name="first_apply_title">제목</string>
     <string name="first_apply_detail">약속 상세 내용</string>
     <string name="first_apply_next">다음</string>
-   
+
+<!-- apply Dialog -->
+    <string name="apply_dialog_goback">뒤로가기</string>
+    <string name="apply_dialog_really_goback">작성하신 내용이 모두 사라지는데\n정말로 뒤로 갈까요?</string>
+
 </resources>

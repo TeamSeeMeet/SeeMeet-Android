@@ -43,8 +43,44 @@ class ApplyActivity : AppCompatActivity() {
 
     private fun initClickListener() {
         binding.ivX.setOnClickListener {
-            finish()
+            val dialogView = ApplyBackDialogFragment()
+            val bundle = Bundle()
+
+            dialogView.arguments = bundle
+
+            dialogView.setButtonClickListener(object :
+                ApplyBackDialogFragment.OnButtonClickListener {
+                override fun onCancelNoClicked() {
+                }
+                override fun onCancelYesClicked() {
+                    finish()
+                    backPressed()
+                }
+            })
+            dialogView.show(supportFragmentManager, "send wish checkbox time")
         }
+    }
+
+    fun backPressed(){
+        super.onBackPressed()
+    }
+
+    override fun onBackPressed() {
+            val dialogView = ApplyBackDialogFragment()
+            val bundle = Bundle()
+
+            dialogView.arguments = bundle
+
+            dialogView.setButtonClickListener(object :
+                ApplyBackDialogFragment.OnButtonClickListener {
+                override fun onCancelNoClicked() {
+                }
+                override fun onCancelYesClicked() {
+                    finish()
+                    backPressed()
+                }
+            })
+            dialogView.show(supportFragmentManager, "send wish checkbox time")
     }
 
     companion object {
