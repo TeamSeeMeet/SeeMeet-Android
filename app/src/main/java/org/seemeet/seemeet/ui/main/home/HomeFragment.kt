@@ -168,8 +168,8 @@ class HomeFragment : Fragment() {
                     message = "소켓 오류 / 서버와 연결에 실패하였습니다."
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {
-                   val code = (it.first as HttpException).code()
-                    message = "$code ERROR : \n ${it.first.message}"
+                    val error = (it.first as HttpException)
+                    message = "${error.code()} ERROR : \n ${error.response()!!.errorBody()!!.string().split("\"")[7]}"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
                     message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
