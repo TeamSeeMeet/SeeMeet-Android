@@ -6,22 +6,22 @@ import android.util.Log
 import android.util.Patterns
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Observer
 import org.seemeet.seemeet.R
-import org.seemeet.seemeet.data.api.RetrofitBuilder
-import org.seemeet.seemeet.data.model.request.register.RequestRegisterList
-import org.seemeet.seemeet.data.model.response.register.ResponseRegisterList
 import org.seemeet.seemeet.databinding.ActivityRegisterBinding
 import org.seemeet.seemeet.ui.main.MainActivity
+import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
+import org.seemeet.seemeet.ui.viewmodel.RegisterViewModel
 import org.seemeet.seemeet.util.activeBtn
 import org.seemeet.seemeet.util.inactiveBtn
 import org.seemeet.seemeet.util.makeInVisible
 import org.seemeet.seemeet.util.makeVisible
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import retrofit2.HttpException
 import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
@@ -30,47 +30,57 @@ class RegisterActivity : AppCompatActivity() {
     private val binding: ActivityRegisterBinding by lazy {
         ActivityRegisterBinding.inflate(layoutInflater)
     }
+    private val viewModel: RegisterViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         initClickListener()
+        statusObserver()
     }
 
-    private fun initNetwork() {
-        val requestRegisterService = RequestRegisterList(
-            username = binding.etName.text.toString(),
-            email = binding.etEmailRegister.text.toString(),
-            password = binding.etPw.text.toString(),
-            passwordConfirm = binding.etCheckpw.text.toString()
-        )
-        val call: Call<ResponseRegisterList> =
-            RetrofitBuilder.registerService.postRegister(requestRegisterService)
+    private fun statusObserver() {
+        viewModel.status.observe(this, Observer { status ->
+            if (status) {
+                MainActivity.start(this@RegisterActivity)
+            } else {
+                binding.etEmailRegister.requestFocus()
+                binding.tvWarningEmail.text = resources.getString(R.string.register_registeredEmail)
+                binding.tvWarningEmail.makeVisible()
+            }
+        })
 
-        call.enqueue(object : Callback<ResponseRegisterList> {
-            override fun onResponse(
-                call: Call<ResponseRegisterList>,
-                response: Response<ResponseRegisterList>
-            ) {
-                if (response.isSuccessful) {
-                    MainActivity.start(this@RegisterActivity)
-                } else {
-                    binding.etEmailRegister.requestFocus()
-                    binding.tvWarningEmail.text =
-                        resources.getString(R.string.register_registeredEmail)
-                    binding.tvWarningEmail.makeVisible()
+        viewModel.fetchState.observe(this){
+            var message = ""
+            when( it.second){
+                BaseViewModel.FetchState.BAD_INTERNET-> {
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                }
+                BaseViewModel.FetchState.PARSE_ERROR -> {
+                    val error = (it.first as HttpException)
+                    message = "${error.code()} ERROR : \n ${error.response()!!.errorBody()!!.string().split("\"")[7]}"
+                }
+                BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                }
+                else ->  {
+                    message = "통신에 실패하였습니다.\n ${it.first.message}"
                 }
             }
 
-            override fun onFailure(call: Call<ResponseRegisterList>, t: Throwable) {
-                Log.e("NetWorkTest", "error:$t")
-            }
-        })
+            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        }
     }
 
     fun initClickListener() {
         binding.btnRegister.setOnClickListener {
-            initNetwork()
+            viewModel.requestRegisterList(
+                binding.etName.text.toString(),
+                binding.etEmailRegister.text.toString(),
+                binding.etPw.text.toString(),
+                binding.etCheckpw.text.toString()
+            )
         }
 
         binding.ivRegisterBack.setOnClickListener {
