@@ -99,6 +99,10 @@ class FriendActivity : AppCompatActivity() {
         intent.putExtra(
             "username",
             viewModel.friendList.value?.let { friendList -> friendList.data[pos].username })
+        intent.putExtra(
+            "userposition",pos)
+        intent.putExtra("useremail", viewModel.friendList.value?.let { friendList -> friendList.data[pos].email })
+        intent.putExtra("userid",viewModel.friendList.value?.let { friendList -> friendList.data[pos].id })
         startActivity(intent)
         finish()
     }

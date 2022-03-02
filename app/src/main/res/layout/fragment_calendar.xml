@@ -4,6 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="calendarViewModel"
+            type="org.seemeet.seemeet.ui.viewmodel.CalendarViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,7 +39,7 @@
                     android:textSize="22sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="2019년" />
+                    tools:text="2022년 2월" />
 
                 <TextView
                     android:id="@+id/tv_current_month"
@@ -74,7 +80,7 @@
         </com.kizitonwose.calendarview.CalendarView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/event_layout"
+            android:id="@+id/layout_event"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="#EEEEEE"
@@ -98,8 +104,9 @@
                 android:id="@+id/rv_calendar_event"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:orientation="horizontal"
                 android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                data="@{calendarViewModel.selectedEventList}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_selected_day"
@@ -109,17 +116,15 @@
                 android:id="@+id/tv_empty_promise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="일정이없어요!"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:text="일정이없어요!"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_selected_day">
-            </TextView>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_selected_day"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

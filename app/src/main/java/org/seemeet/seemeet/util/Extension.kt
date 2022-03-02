@@ -14,7 +14,6 @@ import org.seemeet.seemeet.R
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.time.temporal.WeekFields
@@ -107,11 +106,16 @@ fun String.monthDayParsing(): String {
     return "${date[1]}월 ${date[2]}일"
 }
 
+fun String.yearMonthDayWithDotParsing() : String{
+    //yyyy-MM-dd'T'HH:mm:ss.SSS'Z 꼴의 date String값을 yyyy.mm.dd로 만듦
+    val date = this.split("-")
+    return "${date[0]}.${date[1]}.${date[2].substring(0, 2)}"
+}
+
 fun String.calDday(): Int {
-    val comeDay = LocalDate.parse(this, DateTimeFormatter.ISO_DATE).atStartOfDay().toInstant(
-        ZoneOffset.of("+9")
-    )
-    val today = LocalDateTime.now().toInstant(ZoneOffset.of("+9"))
+    val comeDay = LocalDate.parse(this, DateTimeFormatter.ISO_DATE).atStartOfDay()
+    val now = LocalDateTime.now()
+    val today = LocalDateTime.of(now.year, now.month, now.dayOfMonth, 0, 0 , 0)
 
     return ChronoUnit.DAYS.between(today, comeDay).toInt()
 }
@@ -123,18 +127,21 @@ fun String.dateParsingIso(): LocalDateTime {
 
 fun String.setBetweenDays(): Long {
     val created = this.dateParsingIso()
-    val today = LocalDateTime.now()
+    val now = LocalDateTime.now()
+    val today = LocalDateTime.of(now.year, now.month, now.dayOfMonth, 0, 0 , 0)
 
     return ChronoUnit.DAYS.between(created, today)
 }
 
 fun String.setBetweenDays2(): Long {
     val created = LocalDate.parse(this, DateTimeFormatter.ISO_DATE)
-    val today = LocalDateTime.now()
+    val now = LocalDateTime.now()
+    val today = LocalDateTime.of(now.year, now.month, now.dayOfMonth, 0, 0 , 0)
 
     return ChronoUnit.DAYS.between(created, today)
 }
 
+/*
 fun changeStatusBarColor(colorId : Int, activity : Activity, mContext : Context){
     val mWindow = activity.window
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -144,5 +151,25 @@ fun changeStatusBarColor(colorId : Int, activity : Activity, mContext : Context)
         mWindow.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
 
         mWindow.statusBarColor = ContextCompat.getColor(activity, R.color.pink01)
+    }
+}
+*/
+
+fun getStatusBarHeight(context: Context): Int {
+    val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
+
+    return if (resourceId > 0) {
+        context.resources.getDimensionPixelSize(resourceId)
+    } else {
+        0
+    }
+}
+
+fun getNaviBarHeight(context: Context): Int {
+    val resourceId: Int = context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
+    return if (resourceId > 0) {
+        context.resources.getDimensionPixelSize(resourceId)
+    } else {
+        0
     }
 }

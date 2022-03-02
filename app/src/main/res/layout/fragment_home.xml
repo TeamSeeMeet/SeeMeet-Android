@@ -221,7 +221,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:overScrollMode="never"
-            android:visibility="visible">
+            android:visibility="visible"
+            android:fitsSystemWindows="true">
 
             <include android:id="@+id/nv_mypage" layout="@layout/view_mypage"/>
 
