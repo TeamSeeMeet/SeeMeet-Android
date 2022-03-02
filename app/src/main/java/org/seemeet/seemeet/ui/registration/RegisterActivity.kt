@@ -79,7 +79,7 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.etName.addTextChangedListener {
             if (isNullOrBlank()) {
-                binding.btnRegister.inactiveBtn(R.drawable.rectangle_gray04_10)
+                binding.btnRegister.inactiveBtn(R.drawable.rectangle_gray02_10)
             } else {
                 binding.btnRegister.activeBtn()
             }
@@ -95,7 +95,7 @@ class RegisterActivity : AppCompatActivity() {
                 binding.tvWarningEmail.makeVisible()
             }
             if (isNullOrBlank()) {
-                binding.btnRegister.inactiveBtn(R.drawable.rectangle_gray04_10)
+                binding.btnRegister.inactiveBtn(R.drawable.rectangle_gray02_10)
             } else {
                 binding.btnRegister.activeBtn()
             }
@@ -117,7 +117,7 @@ class RegisterActivity : AppCompatActivity() {
                 binding.tvWarningPw.makeVisible()
 
             if (isNullOrBlank()) {
-                binding.btnRegister.inactiveBtn(R.drawable.rectangle_gray04_10)
+                binding.btnRegister.inactiveBtn(R.drawable.rectangle_gray02_10)
             } else {
                 binding.btnRegister.activeBtn()
             }
@@ -134,7 +134,7 @@ class RegisterActivity : AppCompatActivity() {
                 binding.tvWarningCheckpw.makeInVisible()
 
             if (isNullOrBlank()) {
-                binding.btnRegister.inactiveBtn(R.drawable.rectangle_gray04_10)
+                binding.btnRegister.inactiveBtn(R.drawable.rectangle_gray02_10)
             } else {
                 binding.btnRegister.activeBtn()
             }
