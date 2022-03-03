@@ -51,6 +51,8 @@
     <string name="home_mypage">MY PAGE</string>
     <string name="home_msg_tmp">아싸 오늘은\n 친구 만나는 날이다!</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="home_reminder_coming">다가올 약속</string>
+    <string name="home_reminder_no">약속이 없어요</string>
 
     <!--noti -->
     <string name="noti_title">약속 내역</string>
