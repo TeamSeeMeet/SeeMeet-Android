@@ -100,4 +100,8 @@ dependencies {
     //Recycler Selection
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.recyclerview:recyclerview-selection:1.2.0-alpha01'
+
+    //kakao
+    implementation "com.kakao.sdk:v2-user:2.8.6" // 카카오 로그인
+
 }
