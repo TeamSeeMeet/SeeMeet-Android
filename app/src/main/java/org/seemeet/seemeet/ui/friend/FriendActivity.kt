@@ -58,7 +58,6 @@ class FriendActivity : AppCompatActivity() {
         viewModel.friendList.observe(this, Observer { friendList ->
             with(binding.rvFriend.adapter as FriendListAdapter) {
                 setFriendList(friendList.data)
-
                 if (friendList.data.isEmpty()) {
                     setVisibility(binding.clFriendNull, View.VISIBLE)
                 } else {
