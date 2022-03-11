@@ -122,6 +122,9 @@ class FirstApplyFragment : Fragment() {
                 }
             } else {
                 binding.rvFriend.makeInVisible()
+                if (!binding.etToWho.text.isNullOrBlank()) {
+                    binding.etToWho.text.clear()
+                }
             }
         }
 
