@@ -8,7 +8,12 @@
     <string name="apply">약속 신청</string>
 
     <!-- Login -->
-    <string name="login_register">회원가입</string>
+    <string name="login_question">아직 회원이 아니신가요?</string>
+    <string name="login_register"><u>회원가입</u></string>
+
+    <!-- Login Main -->
+    <string name="login_main_email_register"><u>이메일로 가입</u></string>
+    <string name="login_main_email_login"><u>이메일로 로그인</u></string>
 
     <!-- Register -->
     <string name="register_name">이름</string>
@@ -108,7 +113,7 @@
 
     <string name="time_start_end">%s ~ %s</string>
 
- <!-- first_apply -->
+    <!-- first_apply -->
     <string name="first_apply_choose_friend">약속 신청할</string>
     <string name="first_apply_choose_friend2">&#160;친구</string>
     <string name="first_apply_choose_friend3">를 선택하세요</string>
@@ -120,7 +125,7 @@
     <string name="first_apply_detail">약속 상세 내용</string>
     <string name="first_apply_next">다음</string>
 
-<!-- apply Dialog -->
+    <!-- apply Dialog -->
     <string name="apply_dialog_goback">뒤로가기</string>
     <string name="apply_dialog_really_goback">작성하신 내용이 모두 사라지는데\n정말로 뒤로 갈까요?</string>
 

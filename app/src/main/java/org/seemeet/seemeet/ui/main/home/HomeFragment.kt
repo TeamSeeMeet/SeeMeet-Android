@@ -21,7 +21,7 @@ import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.ui.main.home.adapter.ReminderListAdapter
 import org.seemeet.seemeet.ui.notification.NotificationActivity
-import org.seemeet.seemeet.ui.registration.LoginActivity
+import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
 import org.seemeet.seemeet.util.calDday
@@ -90,7 +90,7 @@ class HomeFragment : Fragment() {
 
             nvMypage.clMypageLogin.setOnClickListener{
                 if(!getLogin())
-                    LoginActivity.start(requireContext())
+                    LoginMainActivity.start(requireContext())
             }
 
             nvMypage.clMypageContent.setOnClickListener {
@@ -100,7 +100,7 @@ class HomeFragment : Fragment() {
 
             nvMypage.tvEmail.setOnClickListener {
                 SeeMeetSharedPreference.clearStorage()
-                LoginActivity.start(requireContext())
+                LoginMainActivity.start(requireContext())
             }
         }
 
