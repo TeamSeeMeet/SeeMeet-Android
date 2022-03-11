@@ -42,15 +42,15 @@ class RegisterNameIdActivity : AppCompatActivity() {
 
         binding.etId.addTextChangedListener {
             if (binding.etId.text.length < 7) {
-                binding.tvWarningId.text = "7자 이상 써주세요"
+                binding.tvWarningId.text = resources.getString(R.string.register_lengthId)
                 binding.tvWarningId.makeVisible()
             } else { //7자 이상인 경우
                 if (isNumberFormat(binding.etId.text.toString())) {//숫자로만 이루어진 경우
-                    binding.tvWarningId.text = "숫자로만은 만들 수 없어요"
+                    binding.tvWarningId.text = resources.getString(R.string.register_numberId)
                     binding.tvWarningId.makeVisible()
                 } else {
                     if (!isIdFormat(binding.etId.text.toString())) {
-                        binding.tvWarningId.text = "아이디는 알파벳, 숫자, 밑줄, 마침표만 사용 가능해요"
+                        binding.tvWarningId.text =  resources.getString(R.string.register_formatId)
                         binding.tvWarningId.makeVisible()
                     } else binding.tvWarningId.makeInVisible()
                 }

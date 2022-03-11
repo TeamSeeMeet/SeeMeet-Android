@@ -34,6 +34,9 @@
     <string name="register_id">아이디</string>
     <string name="register_hint_id">친구를 검색하는데에 쓰여요</string>
     <string name="register_start">시작하기</string>
+    <string name="register_lengthId">7자 이상 써주세요</string>
+    <string name="register_numberId">숫자로만은 만들 수 없어요</string>
+    <string name="register_formatId">아이디는 알파벳, 숫자, 밑줄, 마침표만 사용 가능해요</string>
 
     <!-- Main -->
     <string name="label_home">Home</string>
