@@ -94,6 +94,10 @@ class RegisterActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.ivRegisterX.setOnClickListener {
+            finish()
+        }
+
         binding.etEmailRegister.addTextChangedListener {
             if (pattern.matcher(binding.etEmailRegister.text).matches()) {
                 //이메일 맞음
