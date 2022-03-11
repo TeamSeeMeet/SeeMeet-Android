@@ -9,17 +9,16 @@ import android.util.Log
 import android.util.Patterns
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import okhttp3.ResponseBody
+import androidx.lifecycle.Observer
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
-import org.seemeet.seemeet.data.api.RetrofitBuilder
-import org.seemeet.seemeet.data.model.request.login.RequestLoginList
-import org.seemeet.seemeet.data.model.response.login.ResponseErrorLoginList
-import org.seemeet.seemeet.data.model.response.login.ResponseLoginList
 import org.seemeet.seemeet.databinding.ActivityLoginBinding
 import org.seemeet.seemeet.ui.main.MainActivity
+import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
+import org.seemeet.seemeet.ui.viewmodel.LoginViewModel
 import org.seemeet.seemeet.util.*
 import retrofit2.*
 import java.util.regex.Pattern
@@ -28,7 +27,7 @@ import java.util.regex.Pattern
 class LoginActivity : AppCompatActivity() {
     private var pwValue: Int = HIDDEN_PW
     private val pattern: Pattern = Patterns.EMAIL_ADDRESS
-
+    private val viewModel: LoginViewModel by viewModels()
     private val binding: ActivityLoginBinding by lazy {
         ActivityLoginBinding.inflate(layoutInflater)
     }
@@ -36,56 +35,62 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        statusObserver()
         initClickListener()
     }
 
-    private fun initNetwork() {
-        val requestLoginData = RequestLoginList(
-            email = binding.etEmail.text.toString(),
-            password = binding.etPw.text.toString()
-        )
-        val call: Call<ResponseLoginList> = RetrofitBuilder.loginService.postLogin(requestLoginData)
+    private fun statusObserver() {
+        viewModel.loginList.observe(this, Observer { list ->
+            SeeMeetSharedPreference.setToken(list.data.accesstoken)
+            SeeMeetSharedPreference.setUserId(list.data.user.id)
+            SeeMeetSharedPreference.setLogin(true)
+            SeeMeetSharedPreference.setUserName(list.data.user.username)
+            SeeMeetSharedPreference.setUserEmail(list.data.user.email)
 
-        call.enqueue(object : Callback<ResponseLoginList> {
-            override fun onResponse(
-                call: Call<ResponseLoginList>,
-                response: Response<ResponseLoginList>
-            ) {
-                if (response.isSuccessful) {
-                    response.body()?.data?.let {
-                        SeeMeetSharedPreference.setToken(it.accesstoken)
-                        SeeMeetSharedPreference.setUserId(it.user.id)
-                        SeeMeetSharedPreference.setLogin(true)
-                        SeeMeetSharedPreference.setUserName(it.user.username)
-                        SeeMeetSharedPreference.setUserEmail(it.user.email)
-                    }
-                    MainActivity.start(this@LoginActivity)
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //기존에 쌓여있던 액티비티를 삭제
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            this@LoginActivity.startActivity(intent)
+        })
 
-                } else { //실패했을 때 두가지 경우 (이메일, 패스워드 틀림)
-                    val errorBody: ResponseErrorLoginList? =
-                        getLoginErrorResponse(response.errorBody()!!)
-
-                    if (errorBody != null) {
-                        CustomToast.createToast(this@LoginActivity, errorBody.message)?.show()
-                    }
+        viewModel.fetchState.observe(this){
+            var message = ""
+            when( it.second){
+                BaseViewModel.FetchState.BAD_INTERNET-> {
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                }
+                BaseViewModel.FetchState.PARSE_ERROR -> {
+                    val error = (it.first as HttpException)
+                    message = "${error.response()!!.errorBody()!!.string().split("\"")[7]}"
+                }
+                BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                }
+                else ->  {
+                    message = "통신에 실패하였습니다.\n ${it.first.message}"
                 }
             }
 
-            override fun onFailure(call: Call<ResponseLoginList>, t: Throwable) {
-                Log.e("NetWorkTest", "error:$t")
-            }
-        })
+            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+            CustomToast.createToast(this@LoginActivity, message)?.show()
+        }
     }
 
     fun initClickListener() {
+        binding.ivX.setOnClickListener { finish() }
+
+        binding.ivLoginBack.setOnClickListener { finish() }
+
         binding.btnLogin.setOnClickListener {
-            initNetwork()
+            viewModel.requestLoginList(
+                binding.etEmail.text.toString(),
+                binding.etPw.text.toString()
+            )
         }
 
         binding.tvRegister.setOnClickListener {
             val nextIntent = Intent(this, RegisterActivity::class.java)
             startActivity(nextIntent)
-            finish()
         }
 
         binding.ivPwShowHidden.setOnClickListener {
@@ -159,13 +164,6 @@ class LoginActivity : AppCompatActivity() {
         fun start(context: Context) {
             val intent = Intent(context, LoginActivity::class.java)
             context.startActivity(intent)
-        }
-
-        fun getLoginErrorResponse(errorBody: ResponseBody): ResponseErrorLoginList? {
-            return RetrofitBuilder.seeMeetRetrofit.responseBodyConverter<ResponseErrorLoginList>(
-                ResponseErrorLoginList::class.java,
-                ResponseErrorLoginList::class.java.annotations
-            ).convert(errorBody)
         }
     }
 }

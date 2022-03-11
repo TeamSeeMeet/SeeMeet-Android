@@ -1,115 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".ui.registration.LoginActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/iv_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_img_seemeet_logo_symbol_typo_square" />
+    <data>
+        <variable
+            name="viewModel"
+            type="org.seemeet.seemeet.ui.viewmodel.LoginViewModel" />
+    </data>
 
-    <EditText
-        android:id="@+id/et_email"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/rectangle_gray01_10"
-        android:drawableLeft="@drawable/ic_btn_friends"
-        android:fontFamily="@font/spoqa_han_sans_neo_regular"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/gray06"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_logo" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.registration.LoginActivity"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
-    <EditText
-        android:id="@+id/et_pw"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="14dp"
-        android:background="@drawable/rectangle_gray01_10"
-        android:drawableLeft="@drawable/ic_login_lock"
-        android:drawablePadding="18dp"
-        android:fontFamily="@font/spoqa_han_sans_neo_regular"
-        android:hint="@string/pw"
-        android:inputType="textPassword"
-        android:paddingStart="16dp"
-        android:textColor="@color/gray06"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/et_email"
-        app:layout_constraintStart_toStartOf="@+id/et_email"
-        app:layout_constraintTop_toBottomOf="@+id/et_email" />
+        <ImageView
+            android:id="@+id/iv_login_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_btn_back_48"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_apply"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_apply" />
 
-    <ImageView
-        android:id="@+id/iv_pw_show_hidden"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/et_pw"
-        app:layout_constraintEnd_toEndOf="@+id/et_pw"
-        app:layout_constraintTop_toTopOf="@+id/et_pw"
-        app:srcCompat="@drawable/ic_pw_hidden" />
+        <TextView
+            android:id="@+id/tv_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="14sp"
+            android:text="이메일로 로그인"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_login"
-        android:layout_width="0dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="265dp"
-        android:background="@drawable/rectangle_gray04_10"
-        android:clickable="false"
-        android:enabled="false"
-        android:fontFamily="@font/spoqa_han_sans_neo_medium"
-        android:text="@string/login"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/et_pw"
-        app:layout_constraintStart_toStartOf="@+id/et_pw" />
+        <ImageView
+            android:id="@+id/iv_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:padding="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_x" />
 
-    <ImageView
-        android:id="@+id/iv_small_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="2dp"
-        android:gravity="end"
-        android:text="SeeMeet"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/tv_register"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login"
-        app:srcCompat="@drawable/ic_img_seemeet_logo_typo_banner" />
 
-    <TextView
-        android:id="@+id/tv_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="21dp"
-        android:fontFamily="@font/spoqa_han_sans_neo_medium"
-        android:text="@string/login_register"
-        android:textColor="@color/gray05"
-        android:textSize="14sp"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_small_logo"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rectangle_gray01_10"
+            android:drawableLeft="@drawable/ic_btn_friends"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:text="@={viewModel.loginEmail}"
+            android:textColor="@color/gray06"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_apply" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/et_pw"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/rectangle_gray01_10"
+            android:drawableLeft="@drawable/ic_login_lock"
+            android:drawablePadding="18dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:hint="@string/pw"
+            android:inputType="textPassword"
+            android:paddingStart="16dp"
+            android:text="@={viewModel.loginPw}"
+            android:textColor="@color/gray06"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/et_email"
+            app:layout_constraintStart_toStartOf="@+id/et_email"
+            app:layout_constraintTop_toBottomOf="@+id/et_email" />
+
+        <ImageView
+            android:id="@+id/iv_pw_show_hidden"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/et_pw"
+            app:layout_constraintEnd_toEndOf="@+id/et_pw"
+            app:layout_constraintTop_toTopOf="@+id/et_pw"
+            app:srcCompat="@drawable/ic_pw_hidden" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="26dp"
+            android:background="@drawable/rectangle_gray02_10"
+            android:clickable="false"
+            android:enabled="false"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@+id/et_pw"
+            app:layout_constraintStart_toStartOf="@+id/et_pw"
+            app:layout_constraintTop_toBottomOf="@+id/et_pw" />
+
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+            android:text="@string/login_register"
+            android:textColor="@color/gray05"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_question"
+            app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+
+        <TextView
+            android:id="@+id/tv_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+            android:text="@string/login_question"
+            android:textAlignment="textEnd"
+            android:textColor="@color/gray05"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@+id/tv_register"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_register" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
