@@ -33,7 +33,7 @@
             android:fontFamily="@font/spoqa_han_sans_neo_bold"
             android:gravity="center_vertical"
             android:lineSpacingExtra="14sp"
-            android:text="이메일로 로그인"
+            android:text="@string/login_main_email_login"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"

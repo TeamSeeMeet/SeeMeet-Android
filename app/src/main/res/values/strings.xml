@@ -6,6 +6,7 @@
     <string name="pw">비밀번호</string>
     <string name="login">로그인</string>
     <string name="apply">약속 신청</string>
+    <string name="startSeeMeet">SeeMeet 시작하기</string>
 
     <!-- Login -->
     <string name="login_question">아직 회원이 아니신가요?</string>
@@ -13,10 +14,10 @@
 
     <!-- Login Main -->
     <string name="login_main_email_register"><u>이메일로 가입</u></string>
-    <string name="login_main_email_login"><u>이메일로 로그인</u></string>
+    <string name="login_main_email_login_underline"><u>이메일로 로그인</u></string>
+    <string name="login_main_email_login">이메일로 로그인</string>
 
     <!-- Register -->
-    <string name="register_name">이름</string>
     <string name="register_register">회원가입</string>
     <string name="register_checkpw">비밀번호 확인</string>
     <string name="register_registeredEmail">이미 등록된 이메일이에요.</string>
@@ -24,6 +25,15 @@
     <string name="register_lengthPassword">8자 이상의 비밀번호를 입력해주세요.</string>
     <string name="register_formatPassword">영문, 숫자, 특수문자 중 2가지 이상을 사용해주세요.</string>
     <string name="register_incorrectPassword">비밀번호가 일치하지 않아요.</string>
+    <string name="register_next">다음으로</string>
+
+    <!-- RegisterNameId -->
+    <string name="register_name">이름</string>
+    <string name="register_text">SeeMeet에서 사용할\n이름과 아이디를\n입력해주세요</string>
+    <string name="register_hint_name">친구에게 보여질 이름을 써주세요</string>
+    <string name="register_id">아이디</string>
+    <string name="register_hint_id">친구를 검색하는데에 쓰여요</string>
+    <string name="register_start">시작하기</string>
 
     <!-- Main -->
     <string name="label_home">Home</string>
