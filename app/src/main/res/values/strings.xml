@@ -121,7 +121,9 @@
     <string name="first_apply_next">다음</string>
 
 <!-- apply Dialog -->
-    <string name="apply_dialog_goback">뒤로가기</string>
-    <string name="apply_dialog_really_goback">작성하신 내용이 모두 사라지는데\n정말로 뒤로 갈까요?</string>
+    <string name="apply_dialog_goback">작성중인 내용이 있어요</string>
+    <string name="apply_dialog_goback2">여기서 나갈까요?</string>
+    <string name="apply_dialog_out">나가기</string>
+    <string name="apply_dialog_continue">계속</string>
 
 </resources>
