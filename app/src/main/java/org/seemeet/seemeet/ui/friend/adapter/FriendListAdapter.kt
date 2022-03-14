@@ -58,7 +58,7 @@ class FriendListAdapter : RecyclerView.Adapter<FriendListAdapter.FriendViewHolde
     }
 
     fun setFriendList(friendList: List<FriendListData>) {
-        this.friendList = friendList
+        this.friendList = friendList.sortedWith(compareBy{it.username})
         notifyDataSetChanged()
     }
 }

@@ -16,8 +16,13 @@
         android:theme="@style/Theme.SeeMeet"
         tools:replace="android:allowBackup">
         <activity
+<<<<<<< HEAD
             android:name=".ui.registration.SocialLoginActivity"
             android:exported="true" />
+=======
+            android:name=".ui.registration.LoginMainActivity"
+            android:exported="false" />
+>>>>>>> develop
         <activity
             android:name=".ui.send.SendActivity"
             android:exported="false" />
