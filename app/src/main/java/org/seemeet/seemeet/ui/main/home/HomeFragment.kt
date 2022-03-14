@@ -21,9 +21,10 @@ import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.ui.main.home.adapter.ReminderListAdapter
 import org.seemeet.seemeet.ui.notification.NotificationActivity
-import org.seemeet.seemeet.ui.registration.LoginActivity
+import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
+import org.seemeet.seemeet.util.CustomToast
 import org.seemeet.seemeet.util.calDday
 import org.seemeet.seemeet.util.getStatusBarHeight
 import org.seemeet.seemeet.util.setBetweenDays2
@@ -52,7 +53,6 @@ class HomeFragment : Fragment() {
         initNaviDrawer()
 
         binding.clHomeTop.setPadding(0, getStatusBarHeight(requireContext()), 0, 0)
-
         binding.nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
         binding.nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserEmail()
 
@@ -90,17 +90,16 @@ class HomeFragment : Fragment() {
 
             nvMypage.clMypageLogin.setOnClickListener{
                 if(!getLogin())
-                    LoginActivity.start(requireContext())
+                    LoginMainActivity.start(requireContext())
             }
 
             nvMypage.clMypageContent.setOnClickListener {
-                Toast.makeText(requireContext(), "아직 준비중인 서비스예요",Toast.LENGTH_SHORT
-                ).show()
+                CustomToast.createToast(requireContext(), "아직 준비중인 서비스예요")?.show()
             }
 
             nvMypage.tvEmail.setOnClickListener {
                 SeeMeetSharedPreference.clearStorage()
-                LoginActivity.start(requireContext())
+                LoginMainActivity.start(requireContext())
             }
         }
 

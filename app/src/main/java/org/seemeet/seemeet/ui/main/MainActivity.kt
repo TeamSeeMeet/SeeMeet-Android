@@ -4,10 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.databinding.ActivityMainBinding
@@ -15,7 +16,7 @@ import org.seemeet.seemeet.ui.apply.ApplyActivity
 import org.seemeet.seemeet.ui.main.calendar.CalendarFragment
 import org.seemeet.seemeet.ui.main.home.HomeFragment
 import org.seemeet.seemeet.ui.receive.DialogHomeNoLoginFragment
-import org.seemeet.seemeet.ui.registration.LoginActivity
+import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
 import org.seemeet.seemeet.util.CustomToast
 import org.seemeet.seemeet.util.getNaviBarHeight
@@ -39,9 +40,24 @@ class MainActivity : AppCompatActivity() {
         setBottomNavigation()
 
         setFriendListObserver()
+
+        initView()
+
+    }
+
+    private fun initView(){
+        //디바이스 크기에 딱 맞게 하기. (statusbar, navibar 높이 포함 _ 투명 statusbar를 위해)
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
         binding.clMainLayout.setPadding(0,0,0, getNaviBarHeight(this))
+
+        //바텀 네비 높이 만큼 FragmentContainerView의 bottom에 마진 주기.
+        binding.bnvMain.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val height = binding.bnvMain.measuredHeight
+
+        val layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        layoutParams.setMargins(0, 0, 0, height)
+        binding.fcvMain.layoutParams = layoutParams
     }
 
     private fun setBottomNavigation() {
@@ -53,8 +69,7 @@ class MainActivity : AppCompatActivity() {
             else if (!SeeMeetSharedPreference.getLogin()){
                 setNoLoginDailog()
             } else {
-                val toast = Toast.makeText(applicationContext, "친구를 먼저 추가해보세요", Toast.LENGTH_LONG)
-                toast.show()
+                CustomToast.createToast(applicationContext, "친구를 먼저 추가해보세요")?.show()
             }
 
         }
@@ -107,7 +122,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onLoginClicked() {
-                LoginActivity.start(context)
+                LoginMainActivity.start(context)
             }
 
         })
@@ -118,7 +133,7 @@ class MainActivity : AppCompatActivity() {
     private fun setFriendListObserver() {
         viewmodel.friendList.observe(this){
                 friendList ->
-            Log.d("***********HOME_FIREND_COUNT2", friendList.data.size.toString())
+            Log.d("***********HOME_FRIEND_COUNT2", friendList.data.size.toString())
             friendCnt = friendList.data.size
         }
     }
