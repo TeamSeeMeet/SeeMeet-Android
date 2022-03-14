@@ -33,7 +33,7 @@
             android:fontFamily="@font/spoqa_han_sans_neo_bold"
             android:gravity="center_vertical"
             android:lineSpacingExtra="14sp"
-            android:text="이메일로 로그인"
+            android:text="@string/login_main_email_login"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -105,7 +105,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login"
             android:layout_width="0dp"
-            android:layout_height="54dp"
+            android:layout_height="53dp"
             android:layout_marginTop="26dp"
             android:background="@drawable/rectangle_gray02_10"
             android:clickable="false"

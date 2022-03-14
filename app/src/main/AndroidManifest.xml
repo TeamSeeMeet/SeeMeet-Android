@@ -16,6 +16,9 @@
         android:theme="@style/Theme.SeeMeet"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".ui.registration.RegisterNameIdActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.registration.LoginMainActivity"
             android:exported="false" />
         <activity
