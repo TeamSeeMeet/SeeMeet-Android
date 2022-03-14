@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            android:text="@string/login_main_email_login"
+            android:text="@string/login_main_email_login_underline"
             android:textColor="@color/gray04"
             android:textSize="14sp"
             android:textStyle="normal"
