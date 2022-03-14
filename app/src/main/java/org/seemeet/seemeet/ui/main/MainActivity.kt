@@ -16,7 +16,7 @@ import org.seemeet.seemeet.ui.apply.ApplyActivity
 import org.seemeet.seemeet.ui.main.calendar.CalendarFragment
 import org.seemeet.seemeet.ui.main.home.HomeFragment
 import org.seemeet.seemeet.ui.receive.DialogHomeNoLoginFragment
-import org.seemeet.seemeet.ui.registration.LoginActivity
+import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
 import org.seemeet.seemeet.util.CustomToast
 import org.seemeet.seemeet.util.getNaviBarHeight
@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onLoginClicked() {
-                LoginActivity.start(context)
+                LoginMainActivity.start(context)
             }
 
         })

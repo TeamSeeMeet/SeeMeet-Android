@@ -77,6 +77,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun initClickListener() {
+        binding.ivX.setOnClickListener { finish() }
+
+        binding.ivLoginBack.setOnClickListener { finish() }
+
         binding.btnLogin.setOnClickListener {
             viewModel.requestLoginList(
                 binding.etEmail.text.toString(),
@@ -87,7 +91,6 @@ class LoginActivity : AppCompatActivity() {
         binding.tvRegister.setOnClickListener {
             val nextIntent = Intent(this, RegisterActivity::class.java)
             startActivity(nextIntent)
-            finish()
         }
 
         binding.ivPwShowHidden.setOnClickListener {

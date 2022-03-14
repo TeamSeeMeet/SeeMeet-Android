@@ -7,14 +7,17 @@
 
     <application
         android:name=".SeeMeetApplication"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SeeMeet"
-        android:allowBackup="false"
-        tools:replace="android:allowBackup"
-        android:fullBackupContent="false">
+        tools:replace="android:allowBackup">
+        <activity
+            android:name=".ui.registration.LoginMainActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.send.SendActivity"
             android:exported="false" />
@@ -27,7 +30,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.receive.ReceiveActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".ui.detail.DetailActivity"
             android:exported="false" />
@@ -50,8 +53,8 @@
             android:exported="true" />
         <activity
             android:name=".ui.splash.SplashActivity"
-            android:theme="@style/SplashTheme"
-            android:exported="true" >
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
