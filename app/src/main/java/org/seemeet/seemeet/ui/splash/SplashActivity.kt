@@ -15,17 +15,14 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(org.seemeet.seemeet.R.layout.activity_splash)
         var keyHash = Utility.getKeyHash(this)
-        Log.d("kakaoHash",keyHash)
+        Log.d("kakaoHash", keyHash)
         moveMain(1);
     }
 
     private fun moveMain(sec: Int) {
         Handler().postDelayed(Runnable {
-            //new Intent(현재 context, 이동할 activity)
-//            val intent = Intent(applicationContext, MainActivity::class.java)
-//            startActivity(intent) //intent 에 명시된 액티비티로 이동
-            SocialLoginActivity.start(this)
-            finish() //현재 액티비티 종료
+            MainActivity.start(this)
+            finish()
         }, 1000 * sec.toLong()) // sec초 정도 딜레이를 준 후 시작
     }
 }
