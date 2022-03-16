@@ -28,11 +28,11 @@ class ApplyBackDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnApplyDiaYes.setOnClickListener {
+        binding.btnApplyDiaOut.setOnClickListener {
             buttonClickListener.onCancelYesClicked()
             dismiss()
         }
-        binding.btnApplyDiaNo.setOnClickListener {
+        binding.btnApplyDiaContinue.setOnClickListener {
             buttonClickListener.onCancelNoClicked()
             dismiss()
         }
