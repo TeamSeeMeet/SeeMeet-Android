@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
@@ -16,8 +18,10 @@ import org.seemeet.seemeet.databinding.ActivityFriendBinding
 import org.seemeet.seemeet.ui.apply.ApplyActivity
 import org.seemeet.seemeet.ui.friend.adapter.FriendListAdapter
 import org.seemeet.seemeet.ui.receive.DialogHomeNoLoginFragment
-import org.seemeet.seemeet.ui.registration.LoginActivity
+import org.seemeet.seemeet.ui.registration.LoginMainActivity
+import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.FriendViewModel
+import retrofit2.HttpException
 
 class FriendActivity : AppCompatActivity() {
     private var friendAdapter = FriendListAdapter()
@@ -54,7 +58,6 @@ class FriendActivity : AppCompatActivity() {
         viewModel.friendList.observe(this, Observer { friendList ->
             with(binding.rvFriend.adapter as FriendListAdapter) {
                 setFriendList(friendList.data)
-
                 if (friendList.data.isEmpty()) {
                     setVisibility(binding.clFriendNull, View.VISIBLE)
                 } else {
@@ -62,6 +65,29 @@ class FriendActivity : AppCompatActivity() {
                 }
             }
         })
+
+        viewModel.fetchState.observe(this){
+            var message = ""
+            when( it.second){
+                BaseViewModel.FetchState.BAD_INTERNET-> {
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                }
+                BaseViewModel.FetchState.PARSE_ERROR -> {
+                    val code = (it.first as HttpException).code()
+                    message = "$code ERROR : \n ${it.first.message}"
+                }
+                BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                }
+                else ->  {
+                    message = "통신에 실패하였습니다.\n ${it.first.message}"
+                }
+            }
+
+            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            setVisibility(binding.clFriendNull, View.VISIBLE)
+        }
     }
 
     private fun initClickListener() {
@@ -99,6 +125,10 @@ class FriendActivity : AppCompatActivity() {
         intent.putExtra(
             "username",
             viewModel.friendList.value?.let { friendList -> friendList.data[pos].username })
+        intent.putExtra(
+            "userposition",pos)
+        intent.putExtra("useremail", viewModel.friendList.value?.let { friendList -> friendList.data[pos].email })
+        intent.putExtra("userid",viewModel.friendList.value?.let { friendList -> friendList.data[pos].id })
         startActivity(intent)
         finish()
     }
@@ -110,7 +140,7 @@ class FriendActivity : AppCompatActivity() {
             }
 
             override fun onLoginClicked() {
-                LoginActivity.start(this@FriendActivity)
+                LoginMainActivity.start(this@FriendActivity)
             }
         })
         dialogView.show(supportFragmentManager, "add friend with login")

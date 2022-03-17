@@ -6,19 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.apply.ApplyActivity">
 
-
     <TextView
         android:id="@+id/tv_apply"
         android:layout_width="wrap_content"
         android:layout_height="58dp"
-        android:gravity="center_vertical"
-        android:text="약속 신청"
         android:fontFamily="@font/spoqa_han_sans_neo_bold"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        android:letterSpacing="-0.01"
+        android:gravity="center_vertical"
         android:lineSpacingExtra="14sp"
+        android:text="@string/apply"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,6 +39,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_apply"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tv_apply" />
 </androidx.constraintlayout.widget.ConstraintLayout>
