@@ -21,9 +21,10 @@ import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.ui.main.home.adapter.ReminderListAdapter
 import org.seemeet.seemeet.ui.notification.NotificationActivity
-import org.seemeet.seemeet.ui.registration.LoginActivity
+import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
+import org.seemeet.seemeet.util.CustomToast
 import org.seemeet.seemeet.util.calDday
 import org.seemeet.seemeet.util.getStatusBarHeight
 import org.seemeet.seemeet.util.setBetweenDays2
@@ -52,7 +53,6 @@ class HomeFragment : Fragment() {
         initNaviDrawer()
 
         binding.clHomeTop.setPadding(0, getStatusBarHeight(requireContext()), 0, 0)
-
         binding.nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
         binding.nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserEmail()
 
@@ -60,11 +60,13 @@ class HomeFragment : Fragment() {
             viewmodel.requestFriendList()
             viewmodel.requestComePlanList()
             viewmodel.requestLastPlanData()
-            setNoReminderListMsgVisible(false)
+            setViewVisible(binding.clHomeNoReminder, false)
         } else {
             setHomeBanner(-1)
-            setNoReminderListMsgVisible(true)
+            setViewVisible(binding.clHomeNoReminder, true)
         }
+
+        setViewVisible(binding.clErrorNetwork, false)
 
         setReminderAdapter()
         setViewModelObserve()
@@ -90,17 +92,16 @@ class HomeFragment : Fragment() {
 
             nvMypage.clMypageLogin.setOnClickListener{
                 if(!getLogin())
-                    LoginActivity.start(requireContext())
+                    LoginMainActivity.start(requireContext())
             }
 
             nvMypage.clMypageContent.setOnClickListener {
-                Toast.makeText(requireContext(), "아직 준비중인 서비스예요",Toast.LENGTH_SHORT
-                ).show()
+                CustomToast.createToast(requireContext(), "아직 준비중인 서비스예요")?.show()
             }
 
             nvMypage.tvEmail.setOnClickListener {
                 SeeMeetSharedPreference.clearStorage()
-                LoginActivity.start(requireContext())
+                LoginMainActivity.start(requireContext())
             }
         }
 
@@ -145,9 +146,9 @@ class HomeFragment : Fragment() {
                 setReminder(comePlan)
 
                 if(comePlan.isEmpty()) {
-                    setNoReminderListMsgVisible(true)
+                    setViewVisible(binding.clHomeNoReminder, true)
                 } else {
-                    setNoReminderListMsgVisible(false)
+                    setViewVisible(binding.clHomeNoReminder, false)
                 }
             }
         }
@@ -168,11 +169,11 @@ class HomeFragment : Fragment() {
                     message = "소켓 오류 / 서버와 연결에 실패하였습니다."
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {
-                   val code = (it.first as HttpException).code()
-                    message = "$code ERROR : \n ${it.first.message}"
+                    val error = (it.first as HttpException)
+                    message = "${error.code()} ERROR : \n ${error.response()!!.errorBody()!!.string().split("\"")[7]}"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                    setViewVisible(binding.clErrorNetwork, true)
                 }
                 else ->  {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
@@ -181,17 +182,20 @@ class HomeFragment : Fragment() {
             }
 
             Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
-            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
-            setNoReminderListMsgVisible(true)
+
+            if(message != "") {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+                setViewVisible(binding.clHomeNoReminder, true)
+            }
         }
 
     }
 
-    private fun setNoReminderListMsgVisible(flag : Boolean){
+    private fun setViewVisible(view: View, flag : Boolean){
          if(flag){
-             binding.clHomeNoReminder.visibility = View.VISIBLE
+            view.visibility = View.VISIBLE
          } else {
-             binding.clHomeNoReminder.visibility = View.INVISIBLE
+             view.visibility = View.GONE
          }
     }
 
@@ -234,11 +238,13 @@ class HomeFragment : Fragment() {
             viewmodel.requestFriendList()
             viewmodel.requestComePlanList()
             viewmodel.requestLastPlanData()
-            setNoReminderListMsgVisible(false)
+            setViewVisible(binding.clHomeNoReminder, false)
         } else {
             setHomeBanner(-1)
-            setNoReminderListMsgVisible(true)
+            setViewVisible(binding.clHomeNoReminder, true)
         }
+
+        setViewVisible(binding.clErrorNetwork, false)
     }
 
 }

@@ -7,6 +7,7 @@ import android.os.Parcelable
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -17,7 +18,9 @@ import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityReceiveBinding
 import org.seemeet.seemeet.ui.receive.adapter.ReceiveCheckListAdapter
 import org.seemeet.seemeet.ui.receive.adapter.ReceiveSchduleListAdapter
+import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.ReceiveViewModel
+import retrofit2.HttpException
 
 
 class ReceiveActivity : AppCompatActivity() {
@@ -46,6 +49,9 @@ class ReceiveActivity : AppCompatActivity() {
 
             initButtonClick()
         }
+
+        setViewVisible(binding.nsvRecieve, true)
+        setViewVisible(binding.clErrorNetwork, false)
 
     }
 
@@ -172,7 +178,42 @@ class ReceiveActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.fetchState.observe(this){
+            var message = ""
+            when( it.second){
+                BaseViewModel.FetchState.BAD_INTERNET-> {
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                }
+                BaseViewModel.FetchState.PARSE_ERROR -> {
+                    val error = (it.first as HttpException)
+                    message = "${error.code()} ERROR : \n ${error.response()!!.errorBody()!!.string().split("\"")[7]}"
+                }
+                BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    setViewVisible(binding.nsvRecieve, false)
+                    setViewVisible(binding.clErrorNetwork, true)
+                }
+                else ->  {
+                    message = "통신에 실패하였습니다.\n ${it.first.message}"
+                }
+
+            }
+
+            if(message != "") {
+                Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            }
+        }
+
     }
+
+    private fun setViewVisible(view: View, flag : Boolean){
+        if(flag){
+            view.visibility = View.VISIBLE
+        } else {
+            view.visibility = View.GONE
+        }
+    }
+
 
     private fun initButtonClick(){
 
@@ -225,6 +266,12 @@ class ReceiveActivity : AppCompatActivity() {
         binding.ivReceiveBack.setOnClickListener {
             finish()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setViewVisible(binding.nsvRecieve, true)
+        setViewVisible(binding.clErrorNetwork, false)
     }
 
     companion object {

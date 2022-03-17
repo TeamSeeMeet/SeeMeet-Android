@@ -18,7 +18,7 @@ import org.seemeet.seemeet.databinding.ActivityFriendBinding
 import org.seemeet.seemeet.ui.apply.ApplyActivity
 import org.seemeet.seemeet.ui.friend.adapter.FriendListAdapter
 import org.seemeet.seemeet.ui.receive.DialogHomeNoLoginFragment
-import org.seemeet.seemeet.ui.registration.LoginActivity
+import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.FriendViewModel
 import retrofit2.HttpException
@@ -125,6 +125,10 @@ class FriendActivity : AppCompatActivity() {
         intent.putExtra(
             "username",
             viewModel.friendList.value?.let { friendList -> friendList.data[pos].username })
+        intent.putExtra(
+            "userposition",pos)
+        intent.putExtra("useremail", viewModel.friendList.value?.let { friendList -> friendList.data[pos].email })
+        intent.putExtra("userid",viewModel.friendList.value?.let { friendList -> friendList.data[pos].id })
         startActivity(intent)
         finish()
     }
@@ -136,7 +140,7 @@ class FriendActivity : AppCompatActivity() {
             }
 
             override fun onLoginClicked() {
-                LoginActivity.start(this@FriendActivity)
+                LoginMainActivity.start(this@FriendActivity)
             }
         })
         dialogView.show(supportFragmentManager, "add friend with login")

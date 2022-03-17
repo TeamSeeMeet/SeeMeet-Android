@@ -1,15 +1,19 @@
 package org.seemeet.seemeet.ui.notification
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.databinding.FragmentNotiInProgressBinding
 import org.seemeet.seemeet.ui.notification.adapter.NotiInProgressListAdapter
+import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.NotiViewModel
+import retrofit2.HttpException
 
 class NotiInProgressFragment : Fragment() {
     private var _binding: FragmentNotiInProgressBinding? = null
@@ -57,6 +61,32 @@ class NotiInProgressFragment : Fragment() {
                 } else {
                     setNotiNullVisibility(View.GONE)
                 }
+            }
+        }
+
+        viewmodel.fetchState.observe(viewLifecycleOwner){
+            var message = ""
+            when(it.second){
+                BaseViewModel.FetchState.BAD_INTERNET-> {
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                }
+                BaseViewModel.FetchState.PARSE_ERROR -> {
+                    val code = (it.first as HttpException).code()
+                    message = "$code ERROR : \n ${it.first.message}"
+                }
+                BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    binding.ivInProgressNetwork.visibility = View.VISIBLE
+                }
+                else ->  {
+                    message = "통신에 실패하였습니다.\n ${it.first.message}"
+                }
+            }
+
+            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+
+            if(message != ""){
+                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+                binding.clNotiInProgressNull.visibility = View.VISIBLE
             }
         }
     }
