@@ -58,6 +58,7 @@ class FriendActivity : AppCompatActivity() {
         viewModel.friendList.observe(this, Observer { friendList ->
             with(binding.rvFriend.adapter as FriendListAdapter) {
                 setFriendList(friendList.data)
+                setVisibility(binding.ivFriendNetwork,View.GONE)
                 if (friendList.data.isEmpty()) {
                     setVisibility(binding.clFriendNull, View.VISIBLE)
                 } else {
@@ -77,7 +78,8 @@ class FriendActivity : AppCompatActivity() {
                     message = "$code ERROR : \n ${it.first.message}"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                    setVisibility(binding.clFriendNull, View.GONE)
+                    setVisibility(binding.ivFriendNetwork, View.VISIBLE)
                 }
                 else ->  {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
@@ -85,8 +87,10 @@ class FriendActivity : AppCompatActivity() {
             }
 
             Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-            setVisibility(binding.clFriendNull, View.VISIBLE)
+
+            if(message != ""){
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
