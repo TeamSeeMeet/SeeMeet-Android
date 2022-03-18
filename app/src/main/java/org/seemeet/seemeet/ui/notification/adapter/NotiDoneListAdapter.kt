@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
@@ -26,12 +25,12 @@ class NotiDoneListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             binding.doneData = doneData
 
             binding.ivDeleteList.setOnClickListener {
-                Log.d("*************************", "클릭")
+                Log.d("****************Delete", "클릭됨")
             }
             
             binding.ivDetail.setOnClickListener {
                 val intent = Intent( context, DetailActivity::class.java)
-                intent.putExtra("planId", doneData.planId)
+                intent.putExtra("planId", doneData.planId) //이 부분을 id or planId 적용해서 필요한 값 넘겨주도록 하면 됨
                 context?.startActivity(intent)
             }
 
@@ -56,7 +55,7 @@ class NotiDoneListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             if(doneData.isCancled){
                 binding.tvConfirmOrCancel.text = context?.getResources()?.getString(R.string.noti_cancel)
-                binding.ivDetail.visibility = View.GONE
+                //binding.ivDetail.visibility = View.GONE //약속 취소도 상세뷰 보여줌
             } else{
                 binding.tvConfirmOrCancel.text = context?.getResources()?.getString(R.string.noti_confirm)
             }
