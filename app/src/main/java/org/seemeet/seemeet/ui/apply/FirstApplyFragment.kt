@@ -110,7 +110,11 @@ class FirstApplyFragment : Fragment() {
 
         binding.etToWho.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                binding.rvFriend.makeVisible()
+                if(binding.chipGroup.childCount == 3) {
+                    binding.rvFriend.makeInVisible()
+                    binding.etToWho.isEnabled = false
+                }
+                else binding.rvFriend.makeVisible()
                 if (binding.chipGroup.childCount == 0) {
                     viewModel.requestFriendList() //chip 개수가 0이면서 포커스 눌렀을 때 친구 리스트 통신 시작
                     friendPos = -1 //친구 목록에서 버튼 클릭해서 들어왔는데 바로 그 칩 하나를 삭제하고 포커스 눌렀을 경우 버그 해결
@@ -224,6 +228,7 @@ class FirstApplyFragment : Fragment() {
                     //Chip의 x버튼 누를 경우
                     setOnCloseIconClickListener {
                         binding.chipGroup.removeView(this)
+                        binding.etToWho.isEnabled = true
                         binding.etToWho.setPadding(binding.etToWho.paddingLeft - 95, 0, 0, 0)
                         if (isEmpty()) {
                             binding.btnNext.inactiveBtn(R.drawable.rectangle_gray02_10)
@@ -275,6 +280,7 @@ class FirstApplyFragment : Fragment() {
                         //Chip의 x버튼 누를 경우
                         setOnCloseIconClickListener {
                             binding.chipGroup.removeView(this)
+                            binding.etToWho.isEnabled = true
                             binding.etToWho.setPadding(binding.etToWho.paddingLeft - 95, 0, 0, 0)
                             if (isEmpty()) {
                                 binding.btnNext.inactiveBtn(R.drawable.rectangle_gray02_10)
