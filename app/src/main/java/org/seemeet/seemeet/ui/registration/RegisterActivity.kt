@@ -7,6 +7,7 @@ import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.util.Patterns
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -66,7 +67,8 @@ class RegisterActivity : AppCompatActivity() {
                     }"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                    binding.clContent.visibility = View.INVISIBLE
+                    binding.clNetworkError.visibility = View.VISIBLE
                 }
                 else -> {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
@@ -74,7 +76,9 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            if (message != "") {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            }
         }
     }
 
