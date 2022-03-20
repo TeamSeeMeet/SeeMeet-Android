@@ -1,11 +1,14 @@
 package org.seemeet.seemeet.ui.apply
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -55,11 +58,9 @@ class FirstApplyFragment : Fragment() {
             friendPos = it.getInt("pos")
             friendEmail = it.getString("email").toString()
         }
-
         setFriendObserver()
         initClickListener()
         makeChip()
-
         return binding.root
     }
 
@@ -94,6 +95,37 @@ class FirstApplyFragment : Fragment() {
     }
 
     private fun initClickListener() {
+        binding.svFirstApply.setOnTouchListener { _, event ->
+            val view = activity?.currentFocus
+            if (view == binding.etToWho) {
+                val outRect = Rect()
+                view.getGlobalVisibleRect(outRect)
+                val outRect2 = Rect()
+                binding.rvFriend.getGlobalVisibleRect(outRect2)
+                if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt()) && !outRect2.contains(
+                        event.rawX.toInt(),
+                        event.rawY.toInt()
+                    )
+                ) {
+                    view.clearFocus()
+                    val imm =
+                        view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+                    imm!!.hideSoftInputFromWindow(view.getWindowToken(), 0)
+                    setVisibility(true)
+                }
+            } else if (view != null && event != null) {
+                val outRect = Rect()
+                view.getGlobalVisibleRect(outRect)
+                if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
+                    view.clearFocus()
+                    val imm =
+                        view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+                    imm!!.hideSoftInputFromWindow(view.getWindowToken(), 0)
+                }
+            }
+            false
+        }
+
         binding.btnNext.setOnClickListener {
             val intent = Intent(context, SecondApplyActivity::class.java)
             intent.putExtra("chipFriendData", friendArr)
@@ -110,11 +142,13 @@ class FirstApplyFragment : Fragment() {
 
         binding.etToWho.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                if(binding.chipGroup.childCount == 3) {
-                    binding.rvFriend.makeInVisible()
+                if (binding.chipGroup.childCount == 3) {
+                    setVisibility(true)
                     binding.etToWho.isEnabled = false
+                } else {
+                    setVisibility(false)
+                    setHeightwithKeyboard(binding.rvFriend, binding.clBg)
                 }
-                else binding.rvFriend.makeVisible()
                 if (binding.chipGroup.childCount == 0) {
                     viewModel.requestFriendList() //chip 개수가 0이면서 포커스 눌렀을 때 친구 리스트 통신 시작
                     friendPos = -1 //친구 목록에서 버튼 클릭해서 들어왔는데 바로 그 칩 하나를 삭제하고 포커스 눌렀을 경우 버그 해결
@@ -125,7 +159,7 @@ class FirstApplyFragment : Fragment() {
                     }
                 }
             } else {
-                binding.rvFriend.makeInVisible()
+                setVisibility(true)
                 if (!binding.etToWho.text.isNullOrBlank()) {
                     binding.etToWho.text.clear()
                 }
@@ -195,7 +229,7 @@ class FirstApplyFragment : Fragment() {
             }
             binding.tvWho.makeVisible()
             binding.etToWho.clearFocus()
-            binding.rvFriend.makeInVisible()
+            setVisibility(true)
             false
         }
     }
@@ -316,6 +350,45 @@ class FirstApplyFragment : Fragment() {
                 binding.etTitle.text.isNullOrBlank() ||
                 binding.etDetail.text.isNullOrBlank() ||
                 !binding.etToWho.text.isNullOrBlank()
+    }
+
+    // flag=true 이면 rv만 보이고 뒤에 배경 다 안 보이게
+    // flag=false 이면 rv 숨기고 뒤에 배경이 보이게
+    private fun setVisibility(flag: Boolean) {
+        if (flag) {
+            binding.rvFriend.makeInVisible()
+            binding.clContentBg.visibility = View.VISIBLE
+            binding.btnNext.visibility = View.VISIBLE
+        } else {
+            binding.rvFriend.makeVisible()
+            binding.clContentBg.visibility = View.GONE
+            binding.btnNext.visibility = View.GONE
+        }
+    }
+
+    companion object {
+        //키보드 높이 제외한 만큼 rv 높이 세팅, cl 높이도 똑같이 세팅
+        fun setHeightwithKeyboard(view: View, view2: View) {
+            view.viewTreeObserver.addOnGlobalLayoutListener {
+                val targetViewHeight = getTargetViewHeight(view)
+                val param = view.layoutParams as ViewGroup.MarginLayoutParams
+                param.height = targetViewHeight - 200
+                view.layoutParams = param
+            }
+            view2.viewTreeObserver.addOnGlobalLayoutListener {
+                val targetViewHeight2 = getTargetViewHeight(view)
+                val param2 = view2.layoutParams as ViewGroup.MarginLayoutParams
+                param2.height = targetViewHeight2
+                view2.layoutParams = param2
+            }
+        }
+
+        //현재 뷰의 높이 구하는 함수
+        private fun getTargetViewHeight(view: View): Int {
+            val targetView = Rect()
+            view.getWindowVisibleDisplayFrame(targetView)
+            return targetView.bottom
+        }
     }
 
     override fun onDestroyView() {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_first_apply"
@@ -8,15 +9,20 @@
     android:layout_gravity="top"
     tools:context=".ui.apply.FirstApplyFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/sv_first_apply"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_bg"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -116,6 +122,8 @@
                 android:id="@+id/cl_content_bg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_to_who">
 
                 <TextView
@@ -221,16 +229,14 @@
                         android:id="@+id/et_detail"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_marginStart="9dp"
                         android:layout_marginTop="3dp"
-                        android:layout_marginEnd="12dp"
                         android:background="@null"
                         android:fontFamily="@font/spoqa_han_sans_neo_medium"
                         android:gravity="top"
                         android:hint="@string/first_apply_detail"
                         android:inputType="textMultiLine|textPersonName"
                         android:overScrollMode="always"
-                        android:paddingStart="16dp"
+                        android:paddingStart="25dp"
                         android:paddingTop="10dp"
                         android:paddingEnd="8dp"
                         android:scrollbarStyle="insideInset"
@@ -239,7 +245,7 @@
                         android:textSize="14sp"
                         android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/cl_content"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/apply_content_view" />
 
@@ -256,11 +262,43 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_content_bg"
+                tools:ignore="NotSibling">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_next"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="28dp"
+                    android:background="@drawable/rectangle_gray02_10"
+                    android:clickable="true"
+                    android:enabled="false"
+                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                    android:text="@string/first_apply_next"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_friend"
                 android:layout_width="0dp"
-                android:layout_height="196dp"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
                 android:visibility="invisible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="@+id/et_to_who"
@@ -268,30 +306,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/et_to_who"
                 tools:listitem="@layout/item_apply_search_friend" />
 
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_next"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="28dp"
-                android:background="@drawable/rectangle_gray02_10"
-                android:clickable="true"
-                android:enabled="false"
-                android:fontFamily="@font/spoqa_han_sans_neo_medium"
-                android:paddingTop="13dp"
-                android:paddingBottom="13dp"
-                android:text="@string/first_apply_next"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_content_bg" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
