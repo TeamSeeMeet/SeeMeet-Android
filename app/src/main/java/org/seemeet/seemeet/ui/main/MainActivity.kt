@@ -9,6 +9,9 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.databinding.ActivityMainBinding
@@ -43,6 +46,8 @@ class MainActivity : AppCompatActivity() {
 
         initView()
 
+        //firebase _ 토큰 확인용
+        getFireBaseInstanceId()
     }
 
     private fun initView(){
@@ -149,6 +154,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //일단 메인에 둔다. _ fcm 토큰 등록확인.
+    private fun getFireBaseInstanceId(){
+        Firebase.messaging.token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.d("******firebaseToken_Main_FAILED", task.exception.toString())
+                return@OnCompleteListener
+            }
+
+            val token = task.result
+            Log.d("******firebaseToken_Main", token)
+        })
+    }
     companion object {
         fun start(context: Context) {
             val intent = Intent(context, MainActivity::class.java)
