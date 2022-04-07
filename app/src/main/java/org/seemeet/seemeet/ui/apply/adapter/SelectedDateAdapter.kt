@@ -1,22 +1,20 @@
 package org.seemeet.seemeet.ui.apply.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.data.local.StartEndDateData
+import org.seemeet.seemeet.data.model.response.calendar.CalendarEvent
 import org.seemeet.seemeet.databinding.ItemSelectedDateBinding
+import org.seemeet.seemeet.util.BindingRecyclerViewAdapter
 import org.seemeet.seemeet.util.TimeParsing
 
-class SelectedDateAdapter() : RecyclerView.Adapter<SelectedDateAdapter.ViewHolder>() {
-    private var deleteListener: (() -> Unit)? = null
-    val selectedDateList = mutableListOf<StartEndDateData>()
+class SelectedDateAdapter(private val deleteListener: (StartEndDateData, Int) -> Unit) : RecyclerView.Adapter<SelectedDateAdapter.ViewHolder>(),
+    BindingRecyclerViewAdapter<List<StartEndDateData>> {
+    var selectedDateList = mutableListOf<StartEndDateData>()
     private var context: Context? = null
-
-    fun setDeleteListener(listener: (() -> Unit)) {
-        deleteListener = listener
-    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -37,7 +35,6 @@ class SelectedDateAdapter() : RecyclerView.Adapter<SelectedDateAdapter.ViewHolde
 
     override fun getItemCount(): Int = selectedDateList.size
 
-
     inner class ViewHolder(private val binding: ItemSelectedDateBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -45,7 +42,7 @@ class SelectedDateAdapter() : RecyclerView.Adapter<SelectedDateAdapter.ViewHolde
             binding.apply {
                 startEndDate = date
                 imgRemove.setOnClickListener {
-                    removeItem(position)
+                    removeItem(position,date)
                 }
                 tvStartTime.text = date.start.TimeParsing()
                 tvEndTime.text = date.end.TimeParsing()
@@ -53,9 +50,9 @@ class SelectedDateAdapter() : RecyclerView.Adapter<SelectedDateAdapter.ViewHolde
         }
     }
 
-    fun removeItem(position: Int) {
+    fun removeItem(position: Int,startEndDateData: StartEndDateData) {
         selectedDateList.removeAt(position)
-        deleteListener?.invoke()
+        deleteListener(startEndDateData, selectedDateList.size)
         notifyDataSetChanged()
 
     }
@@ -65,4 +62,9 @@ class SelectedDateAdapter() : RecyclerView.Adapter<SelectedDateAdapter.ViewHolde
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    override fun setData(data: List<StartEndDateData>) {
+        selectedDateList = data.toMutableList()
+        notifyDataSetChanged()
+    }
 }
