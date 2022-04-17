@@ -1,6 +1,7 @@
 package org.seemeet.seemeet.ui.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,6 +21,15 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
     fun requestPlanId(planId: Int) = viewModelScope.launch(Dispatchers.IO) {
         try {
             _planDetail.postValue(listOf(RetrofitBuilder.planService.getPlanDetail(planId, SeeMeetSharedPreference.getToken())))
+        } catch (e: HttpException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun deletePlan(planId: Int) = viewModelScope.launch (Dispatchers.IO){
+        try {
+            RetrofitBuilder.planService.deletePlan(planId, SeeMeetSharedPreference.getToken())
+            Log.d("*******DeletedPlanId", planId.toString())
         } catch (e: HttpException) {
             e.printStackTrace()
         }
