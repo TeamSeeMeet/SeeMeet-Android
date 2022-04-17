@@ -2,7 +2,6 @@ package org.seemeet.seemeet.ui.notification.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -95,7 +94,6 @@ class NotiIngListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     isCheckable = false
                     isClickable = false
                 })
-                Log.d("**********************받은이", it.username)
             }
         }
     }

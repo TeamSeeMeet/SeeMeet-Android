@@ -50,7 +50,6 @@ class NotiDoneListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     isCheckable = false
                     isClickable = false
                 })
-                Log.d("**********************받은이", it.username)
             }
 
             if(doneData.isCancled){
