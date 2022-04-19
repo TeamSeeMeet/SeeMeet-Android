@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.SeeMeetSharedPreference.getToken
 import org.seemeet.seemeet.databinding.ActivityMainBinding
 import org.seemeet.seemeet.ui.apply.ApplyActivity
 import org.seemeet.seemeet.ui.friend.FriendActivity
@@ -37,6 +38,30 @@ class MainActivity : AppCompatActivity() {
         setBottomNavigation()
 
         setFriendListObserver()
+<<<<<<< Updated upstream
+=======
+
+        initView()
+
+        //firebase _ 토큰 확인용
+        getFireBaseInstanceId()
+        Log.d("*************token", getToken())
+    }
+
+    private fun initView(){
+        //디바이스 크기에 딱 맞게 하기. (statusbar, navibar 높이 포함 _ 투명 statusbar를 위해)
+        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+
+        binding.clMainLayout.setPadding(0,0,0, getNaviBarHeight(this))
+
+        //바텀 네비 높이 만큼 FragmentContainerView의 bottom에 마진 주기.
+        binding.bnvMain.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val height = binding.bnvMain.measuredHeight
+
+        val layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        layoutParams.setMargins(0, 0, 0, height)
+        binding.fcvMain.layoutParams = layoutParams
+>>>>>>> Stashed changes
     }
 
     private fun setBottomNavigation() {

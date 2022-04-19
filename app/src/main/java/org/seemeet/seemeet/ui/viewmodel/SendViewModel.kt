@@ -11,10 +11,7 @@ import kotlinx.coroutines.launch
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.request.invitation.RequestSendInvitationConfirm
-import org.seemeet.seemeet.data.model.response.invitation.SendGuest
-import org.seemeet.seemeet.data.model.response.invitation.SendHost
-import org.seemeet.seemeet.data.model.response.invitation.SendInvitationData
-import org.seemeet.seemeet.data.model.response.invitation.SendInvitationDate
+import org.seemeet.seemeet.data.model.response.invitation.*
 import retrofit2.HttpException
 
 class SendViewModel(application: Application) : AndroidViewModel(application) {
@@ -28,6 +25,10 @@ class SendViewModel(application: Application) : AndroidViewModel(application) {
     val sendInvitationDateList : LiveData<List<SendInvitationDate>>
         get() = _sendInvitationDateList
 
+    private val _sendInvitationRejects = MutableLiveData<String>()
+    val sendInvitationRejects : LiveData<String>
+        get() = _sendInvitationRejects
+
     init {
         _sendInvitationData.value = SendInvitationData(
             "", listOf(SendGuest(-1, false, "")), SendHost(-1, ""),
@@ -35,6 +36,7 @@ class SendViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
+<<<<<<< Updated upstream
     fun requestSendInvitationData(invitationId : Int) = viewModelScope.launch (Dispatchers.IO){
         try {
             val send = RetrofitBuilder.invitationService.getSendInvitationData(invitationId, SeeMeetSharedPreference.getToken()).data
@@ -43,6 +45,13 @@ class SendViewModel(application: Application) : AndroidViewModel(application) {
         } catch (e: HttpException) {
             e.printStackTrace()
         }
+=======
+    fun requestSendInvitationData(invitationId : Int) = viewModelScope.launch (exceptionHandler){
+        val send = RetrofitBuilder.invitationService.getSendInvitationData(invitationId, SeeMeetSharedPreference.getToken()).data
+        _sendInvitationData.postValue(send.invitation)
+        _sendInvitationDateList.postValue(send.invitationDates)
+        _sendInvitationRejects.postValue(send.rejectGuests.joinToString(" ") { it.username })
+>>>>>>> Stashed changes
     }
 
     fun requestSendConfirmInvitation(invitationId: Int, dateId : Int) = viewModelScope.launch (Dispatchers.IO){
