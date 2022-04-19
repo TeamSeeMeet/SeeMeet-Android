@@ -14,7 +14,7 @@ import org.seemeet.seemeet.data.model.request.invitation.RequestSendInvitationCo
 import org.seemeet.seemeet.data.model.response.invitation.*
 import retrofit2.HttpException
 
-class SendViewModel(application: Application) : AndroidViewModel(application) {
+class SendViewModel(application: Application) : BaseViewModel(application) {
 
     private val _sendInvitationData  = MutableLiveData<SendInvitationData>()
     val sendInvitationData : LiveData<SendInvitationData>
@@ -31,45 +31,26 @@ class SendViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         _sendInvitationData.value = SendInvitationData(
-            "", listOf(SendGuest(-1, false, "")), SendHost(-1, ""),
-            -1, -1,"","", isCancled = false, isConfirmed = false, isDeleted = false
+            "", listOf(SendGuest(-1, false, "받은 이")), SendHost(-1, "보낸 이"),
+            -1, -1,"내용","제목", isCancled = false, isConfirmed = false, isDeleted = false
         )
     }
 
-<<<<<<< Updated upstream
-    fun requestSendInvitationData(invitationId : Int) = viewModelScope.launch (Dispatchers.IO){
-        try {
-            val send = RetrofitBuilder.invitationService.getSendInvitationData(invitationId, SeeMeetSharedPreference.getToken()).data
-            _sendInvitationData.postValue(send.invitation)
-            _sendInvitationDateList.postValue(send.invitationDates)
-        } catch (e: HttpException) {
-            e.printStackTrace()
-        }
-=======
     fun requestSendInvitationData(invitationId : Int) = viewModelScope.launch (exceptionHandler){
         val send = RetrofitBuilder.invitationService.getSendInvitationData(invitationId, SeeMeetSharedPreference.getToken()).data
         _sendInvitationData.postValue(send.invitation)
         _sendInvitationDateList.postValue(send.invitationDates)
         _sendInvitationRejects.postValue(send.rejectGuests.joinToString(" ") { it.username })
->>>>>>> Stashed changes
     }
 
-    fun requestSendConfirmInvitation(invitationId: Int, dateId : Int) = viewModelScope.launch (Dispatchers.IO){
-        try {
-            Log.d("**********sendId", invitationId.toString())
-            val confirm = RequestSendInvitationConfirm(dateId)
-            RetrofitBuilder.invitationService.setConfirmSendInvitation(invitationId, confirm, SeeMeetSharedPreference.getToken())
-        } catch (e: HttpException) {
-            e.printStackTrace()
-        }
+    fun requestSendConfirmInvitation(invitationId: Int, dateId : Int) = viewModelScope.launch (exceptionHandler){
+        Log.d("**********sendId", invitationId.toString())
+        val confirm = RequestSendInvitationConfirm(dateId)
+        RetrofitBuilder.invitationService.setConfirmSendInvitation(invitationId, confirm, SeeMeetSharedPreference.getToken())
     }
 
-    fun requestSendCancelInvitation(invitationId: Int) = viewModelScope.launch (Dispatchers.IO){
-        try {
-            RetrofitBuilder.invitationService.setCancelSendInvitation(invitationId, SeeMeetSharedPreference.getToken())
-        } catch (e: HttpException) {
-            e.printStackTrace()
-        }
+    fun requestSendCancelInvitation(invitationId: Int) = viewModelScope.launch (exceptionHandler){
+        RetrofitBuilder.invitationService.setCancelSendInvitation(invitationId, SeeMeetSharedPreference.getToken())
     }
 
 }

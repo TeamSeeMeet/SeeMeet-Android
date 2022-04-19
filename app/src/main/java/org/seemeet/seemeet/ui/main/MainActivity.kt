@@ -4,22 +4,23 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
-import android.widget.Toast
+import android.view.View
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.activityViewModels
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.SeeMeetSharedPreference.getToken
 import org.seemeet.seemeet.databinding.ActivityMainBinding
 import org.seemeet.seemeet.ui.apply.ApplyActivity
-import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.ui.main.calendar.CalendarFragment
 import org.seemeet.seemeet.ui.main.home.HomeFragment
 import org.seemeet.seemeet.ui.receive.DialogHomeNoLoginFragment
-import org.seemeet.seemeet.ui.registration.LoginActivity
+import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
+import org.seemeet.seemeet.util.CustomToast
+import org.seemeet.seemeet.util.getNaviBarHeight
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
@@ -29,6 +30,8 @@ class MainActivity : AppCompatActivity() {
     private val homeFragment by lazy { HomeFragment() }
     private val calendarFragment by lazy { CalendarFragment() }
 
+    //뒤로가기 연속 클릭 대기 시간
+    var mBackWait:Long = 0
     var friendCnt : Int = 0
     private val viewmodel : HomeViewModel by viewModels()
 
@@ -38,14 +41,8 @@ class MainActivity : AppCompatActivity() {
         setBottomNavigation()
 
         setFriendListObserver()
-<<<<<<< Updated upstream
-=======
 
         initView()
-
-        //firebase _ 토큰 확인용
-        getFireBaseInstanceId()
-        Log.d("*************token", getToken())
     }
 
     private fun initView(){
@@ -61,7 +58,6 @@ class MainActivity : AppCompatActivity() {
         val layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         layoutParams.setMargins(0, 0, 0, height)
         binding.fcvMain.layoutParams = layoutParams
->>>>>>> Stashed changes
     }
 
     private fun setBottomNavigation() {
@@ -73,8 +69,7 @@ class MainActivity : AppCompatActivity() {
             else if (!SeeMeetSharedPreference.getLogin()){
                 setNoLoginDailog()
             } else {
-                val toast = Toast.makeText(applicationContext, "친구를 먼저 추가해보세요", Toast.LENGTH_LONG)
-                toast.show()
+                CustomToast.createToast(applicationContext, "친구를 먼저 추가해보세요")?.show()
             }
 
         }
@@ -127,7 +122,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onLoginClicked() {
-                LoginActivity.start(context)
+                LoginMainActivity.start(context)
             }
 
         })
@@ -138,8 +133,19 @@ class MainActivity : AppCompatActivity() {
     private fun setFriendListObserver() {
         viewmodel.friendList.observe(this){
                 friendList ->
-            Log.d("***********HOME_FIREND_COUNT2", friendList.data.size.toString())
+            Log.d("***********HOME_FRIEND_COUNT2", friendList.data.size.toString())
             friendCnt = friendList.data.size
+        }
+    }
+
+    override fun onBackPressed() {
+        // 뒤로가기 버튼 클릭
+        if(System.currentTimeMillis() - mBackWait < 2000 ) {
+            finish()
+            return
+        } else {
+            mBackWait = System.currentTimeMillis()
+            CustomToast.createToast(this,"뒤로가기 버튼을 한번 더 누르면 종료됩니다.")?.show()
         }
     }
 

@@ -21,11 +21,12 @@ import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.ui.main.home.adapter.ReminderListAdapter
 import org.seemeet.seemeet.ui.notification.NotificationActivity
-import org.seemeet.seemeet.ui.registration.LoginActivity
+import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
+import org.seemeet.seemeet.util.CustomToast
 import org.seemeet.seemeet.util.calDday
-import org.seemeet.seemeet.util.changeStatusBarColor
+import org.seemeet.seemeet.util.getStatusBarHeight
 import org.seemeet.seemeet.util.setBetweenDays2
 import retrofit2.HttpException
 
@@ -51,6 +52,7 @@ class HomeFragment : Fragment() {
         initClickListener()
         initNaviDrawer()
 
+        binding.clHomeTop.setPadding(0, getStatusBarHeight(requireContext()), 0, 0)
         binding.nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
         binding.nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserEmail()
 
@@ -67,8 +69,6 @@ class HomeFragment : Fragment() {
         setReminderAdapter()
         setViewModelObserve()
 
-        //해당 뷰 status bar 색상 변경
-        changeStatusBarColor(R.color.pink01, requireActivity(), requireContext())
     }
 
     private fun initClickListener(){
@@ -90,27 +90,27 @@ class HomeFragment : Fragment() {
 
             nvMypage.clMypageLogin.setOnClickListener{
                 if(!getLogin())
-                    LoginActivity.start(requireContext())
+                    LoginMainActivity.start(requireContext())
             }
 
             nvMypage.clMypageContent.setOnClickListener {
-                Toast.makeText(requireContext(), "아직 준비중인 서비스예요",Toast.LENGTH_SHORT
-                ).show()
+                CustomToast.createToast(requireContext(), "아직 준비중인 서비스예요")?.show()
             }
 
             nvMypage.tvEmail.setOnClickListener {
                 SeeMeetSharedPreference.clearStorage()
-                LoginActivity.start(requireContext())
+                LoginMainActivity.start(requireContext())
             }
         }
 
     }
 
     private fun initNaviDrawer(){
+
         val toggle = ActionBarDrawerToggle(
             this.activity, binding.dlHomeMypage, R.string.home_drawer_open, R.string.home_drawer_close
         )
-
+        binding.dlHomeMypage.setStatusBarBackground(R.color.gray06)
         binding.dlHomeMypage.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -167,8 +167,8 @@ class HomeFragment : Fragment() {
                     message = "소켓 오류 / 서버와 연결에 실패하였습니다."
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {
-                   val code = (it.first as HttpException).code()
-                    message = "$code ERROR : \n ${it.first.message}"
+                    val error = (it.first as HttpException)
+                    message = "${error.code()} ERROR : \n ${error.response()!!.errorBody()!!.string().split("\"")[7]}"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
                     message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"

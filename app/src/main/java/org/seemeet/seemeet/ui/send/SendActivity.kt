@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -17,7 +18,9 @@ import org.seemeet.seemeet.databinding.ActivitySendBinding
 import org.seemeet.seemeet.ui.receive.SendCancelDialogFragment
 import org.seemeet.seemeet.ui.receive.SendConfirmDialogFragment
 import org.seemeet.seemeet.ui.send.adapter.SendInvitationAdapter
+import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.SendViewModel
+import retrofit2.HttpException
 
 class SendActivity : AppCompatActivity() {
 
@@ -128,6 +131,29 @@ class SendActivity : AppCompatActivity() {
             dateList -> with(binding.rvSendTimelist.adapter as SendInvitationAdapter){
                 setInviList(dateList)
             }
+        }
+
+        viewModel.fetchState.observe(this){
+            var message = ""
+            when( it.second){
+                BaseViewModel.FetchState.BAD_INTERNET-> {
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                }
+                BaseViewModel.FetchState.PARSE_ERROR -> {
+                    val error = (it.first as HttpException)
+                    message = "${error.code()} ERROR : \n ${error.response()!!.errorBody()!!.string().split("\"")[7]}"
+                }
+                BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                }
+                else ->  {
+                    message = "통신에 실패하였습니다.\n ${it.first.message}"
+                }
+
+            }
+
+            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         }
 
     }
