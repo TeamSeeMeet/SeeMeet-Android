@@ -7,15 +7,17 @@ import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
+import android.util.Patterns
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.databinding.BindingAdapter
-
 import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.model.response.invitation.GuestX
 import org.seemeet.seemeet.data.model.response.invitation.SendGuest
 import org.seemeet.seemeet.data.model.response.invitation.SendRespondent
+import java.util.regex.Pattern
 
 object BindingAdapters {
     //더미용
@@ -235,12 +237,17 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("setWordPinkBoldAllText", "setPinkBoldText")
-    fun setWordPinkBoldText(textView: TextView, text : String, pink : String) {
+    fun setWordPinkBoldText(textView: TextView, text: String, pink: String) {
         val start = text.indexOf(pink)
         val end = start + pink.length
 
         val ss = SpannableStringBuilder(text)
-        ss.setSpan(ForegroundColorSpan(Color.parseColor("#FA555C")), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+        ss.setSpan(
+            ForegroundColorSpan(Color.parseColor("#FA555C")),
+            start,
+            end,
+            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+        )
         ss.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         ss.setSpan(RelativeSizeSpan(1.2f), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         textView.text = ss
@@ -285,5 +292,17 @@ object BindingAdapters {
         if (recyclerView.adapter is BindingRecyclerViewAdapter<*> && data != null) {
             (recyclerView.adapter as BindingRecyclerViewAdapter<T>).setData(data)
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("isPossibleEmail", "isPossiblePw")
+    fun isPossible(button: AppCompatButton, email: String?, pw: String?) {
+        val pattern: Pattern = Patterns.EMAIL_ADDRESS
+        val state: Boolean =
+            (pw.isNullOrBlank() || email.isNullOrBlank() || !pattern.matcher(email).matches())
+        if (state) {
+            button.inactiveBtn(R.drawable.rectangle_gray04_10)
+        } else
+            button.activeBtn()
     }
 }

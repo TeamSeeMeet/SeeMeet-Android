@@ -12,7 +12,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
@@ -29,13 +29,13 @@ class LoginActivity : AppCompatActivity() {
     private var pwValue: Int = HIDDEN_PW
     private val pattern: Pattern = Patterns.EMAIL_ADDRESS
     private val viewModel: LoginViewModel by viewModels()
-    private val binding: ActivityLoginBinding by lazy {
-        ActivityLoginBinding.inflate(layoutInflater)
-    }
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
         statusObserver()
         initClickListener()
     }
@@ -54,10 +54,10 @@ class LoginActivity : AppCompatActivity() {
             this@LoginActivity.startActivity(intent)
         })
 
-        viewModel.fetchState.observe(this){
+        viewModel.fetchState.observe(this) {
             var message = ""
-            when( it.second){
-                BaseViewModel.FetchState.BAD_INTERNET-> {
+            when (it.second) {
+                BaseViewModel.FetchState.BAD_INTERNET -> {
                     message = "소켓 오류 / 서버와 연결에 실패하였습니다."
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {
@@ -68,13 +68,13 @@ class LoginActivity : AppCompatActivity() {
                     binding.clContent.visibility = View.INVISIBLE
                     binding.clNetwork.visibility = View.VISIBLE
                 }
-                else ->  {
+                else -> {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
                 }
             }
 
             Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
-            if(message!=""){
+            if (message != "") {
                 CustomToast.createToast(this@LoginActivity, message)?.show()
             }
         }
@@ -114,18 +114,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        //둘 다 채우면 로그인 버튼 색깔 바뀌게
-        binding.etEmail.addTextChangedListener {
-            if (!isNullOrBlank()) { //다 작성했을 때
-                binding.btnLogin.activeBtn()
-            } else binding.btnLogin.inactiveBtn(R.drawable.rectangle_gray04_10)
-        }
-        binding.etPw.addTextChangedListener {
-            if (!isNullOrBlank()) { //다 작성했을 때
-                binding.btnLogin.activeBtn()
-            } else binding.btnLogin.inactiveBtn(R.drawable.rectangle_gray04_10)
-        }
-
         binding.etPw.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 binding.ivPwShowHidden.makeVisible()
@@ -136,12 +124,6 @@ class LoginActivity : AppCompatActivity() {
                 } else binding.ivPwShowHidden.makeVisible()
             }
         }
-    }
-
-    private fun isNullOrBlank(): Boolean {
-        return binding.etPw.text.isNullOrBlank() ||
-                binding.etEmail.text.isNullOrBlank() ||
-                !pattern.matcher(binding.etEmail.text).matches()
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

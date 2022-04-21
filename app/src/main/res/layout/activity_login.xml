@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="org.seemeet.seemeet.ui.viewmodel.LoginViewModel" />
@@ -113,6 +114,8 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_login"
+                isPossibleEmail="@{viewModel.loginEmail}"
+                isPossiblePw="@{viewModel.loginPw}"
                 android:layout_width="0dp"
                 android:layout_height="54dp"
                 android:layout_marginTop="26dp"

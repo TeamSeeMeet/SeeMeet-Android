@@ -11,7 +11,7 @@ import org.seemeet.seemeet.data.model.response.login.ResponseLoginList
 
 class LoginViewModel(application: Application) : BaseViewModel(application) {
 
-    var loginEmail = MutableLiveData("")
+    val loginEmail = MutableLiveData("")
     val loginPw = MutableLiveData("")
 
     private val _loginList = MutableLiveData<ResponseLoginList>()
