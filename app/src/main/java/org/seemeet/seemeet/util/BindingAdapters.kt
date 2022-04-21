@@ -7,15 +7,18 @@ import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
+import android.util.Patterns
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.databinding.BindingAdapter
-
 import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.model.response.invitation.GuestX
 import org.seemeet.seemeet.data.model.response.invitation.SendGuest
 import org.seemeet.seemeet.data.model.response.invitation.SendRespondent
+import org.seemeet.seemeet.ui.registration.RegisterActivity
+import java.util.regex.Pattern
 
 object BindingAdapters {
     //더미용
@@ -235,12 +238,17 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("setWordPinkBoldAllText", "setPinkBoldText")
-    fun setWordPinkBoldText(textView: TextView, text : String, pink : String) {
+    fun setWordPinkBoldText(textView: TextView, text: String, pink: String) {
         val start = text.indexOf(pink)
         val end = start + pink.length
 
         val ss = SpannableStringBuilder(text)
-        ss.setSpan(ForegroundColorSpan(Color.parseColor("#FA555C")), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+        ss.setSpan(
+            ForegroundColorSpan(Color.parseColor("#FA555C")),
+            start,
+            end,
+            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+        )
         ss.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         ss.setSpan(RelativeSizeSpan(1.2f), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         textView.text = ss
@@ -285,5 +293,62 @@ object BindingAdapters {
         if (recyclerView.adapter is BindingRecyclerViewAdapter<*> && data != null) {
             (recyclerView.adapter as BindingRecyclerViewAdapter<T>).setData(data)
         }
+    }
+
+    //여기서는 버튼 활성화 비활성화
+    @JvmStatic
+    @BindingAdapter("warningEmail", "warningPw", "warningCheckpw", "etEmail", "etPw", "etCheckpw")
+    fun registerNextBtn(
+        button: AppCompatButton,
+        warningEmail: String?,
+        warningPw: String?,
+        warningCheckpw: String?,
+        etEmail: String?,
+        etPw: String?,
+        etCheckpw: String?
+    ) {
+        val state: Boolean =
+            (!warningEmail.isNullOrBlank() || !warningPw.isNullOrBlank() || !warningCheckpw.isNullOrBlank() || etEmail.isNullOrBlank() || etPw.isNullOrBlank() || etCheckpw.isNullOrBlank())
+        if (state) {
+            button.inactiveBtn(R.drawable.rectangle_gray02_10)
+        } else
+            button.activeBtn()
+    }
+
+    @JvmStatic
+    @BindingAdapter("warningEmailtext")
+    fun setWarningEmailtext(textView: TextView, etEmail: String?) {
+        val pattern: Pattern = Patterns.EMAIL_ADDRESS
+        if (pattern.matcher(etEmail).matches()) {
+            //이메일 형식 맞음
+            textView.text = ""
+        } else
+            textView.setText(R.string.register_incorrectEmail)
+        if(etEmail.isNullOrBlank()) textView.text=""
+    }
+
+    @JvmStatic
+    @BindingAdapter("warningPwtext")
+    fun setWarningPwtext(textView: TextView, etPw: String?) {
+        if (etPw?.length ?: 0 < 8) {
+            textView.setText(R.string.register_lengthPassword)
+        } else { // 8자 이상인 경우
+            if (!(etPw?.matches(RegisterActivity.PASSWORD_FORMAT.toRegex())!!)) { // 영문, 숫자 , 특수문자 중 2가지 이상 사용안했을 경우
+                textView.setText(R.string.register_formatPassword)
+            } else textView.text = ""
+        }
+        if (etPw.isNullOrBlank())
+            textView.text = ""
+    }
+
+    @JvmStatic
+    @BindingAdapter("warningCheckpwtext", "etPw")
+    fun setWarningCheckpwtext(textView: TextView, etCheckpw: String?, etPw: String?) {
+        if (etCheckpw != etPw) {
+            textView.setText(R.string.register_incorrectPassword)
+        } else textView.text = "" // 일치할 경우 tv 안 뜨게
+
+        if (etCheckpw.isNullOrBlank())
+            textView.text = ""
     }
 }
