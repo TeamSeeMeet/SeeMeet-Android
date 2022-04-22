@@ -8,6 +8,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.util.Patterns
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
@@ -324,7 +325,7 @@ object BindingAdapters {
             textView.text = ""
         } else
             textView.setText(R.string.register_incorrectEmail)
-        if(etEmail.isNullOrBlank()) textView.text=""
+        if (etEmail.isNullOrBlank()) textView.text = ""
     }
 
     @JvmStatic
@@ -350,5 +351,51 @@ object BindingAdapters {
 
         if (etCheckpw.isNullOrBlank())
             textView.text = ""
+    }
+
+    @JvmStatic
+    @BindingAdapter("warningId", "etName", "etId")
+    fun registerBtn(button: AppCompatButton, status: Int, etName: String?, etId: String?) {
+        val state: Boolean =
+            (status != 6 || etName.isNullOrBlank() || etId.isNullOrBlank())
+        if (state) {
+            button.inactiveBtn(R.drawable.rectangle_gray02_10)
+        } else
+            button.activeBtn()
+    }
+
+    @JvmStatic
+    @BindingAdapter("status")
+    fun setWarningId(textView: TextView, status: Int) {
+        if (status == 0) textView.text = ""
+        else if (status == 1) {
+            textView.setText(R.string.register_formatId)
+        } else if (status == 2) {
+            textView.setText(R.string.register_lengthId)
+        } else if (status == 3) {
+            textView.setText(R.string.register_numberId)
+        } else if (status == 4) textView.setText("_로만은 만들 수 없어요")
+        else if (status == 5) textView.setText("마침표로만은 만들 수 없어요")
+        else if (status == 6) textView.text = ""
+    }
+
+    @JvmStatic
+    @BindingAdapter("etId", "status")
+    fun setId(editText: EditText, etId: String?, status: Int) {
+        val length = etId?.length ?: 0
+        if (length != 0) {
+            val it = etId?.get(length - 1)
+            // 대문자 입력할 시 소문자로 변환
+            if (it!! >= 'A' && it!! <= 'Z') {
+                editText.setText(etId.substring(0, length - 1))
+                editText.text.append(it.lowercase())
+                editText.setSelection(length)
+            }
+        }
+        // 불가능한 문자 입력 시 입력 막기
+        if (status == 7) {
+            editText.setText(etId?.substring(0, length - 1))
+            editText.setSelection(length - 1)
+        }
     }
 }

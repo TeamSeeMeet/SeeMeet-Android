@@ -1,156 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="registerNameIdviewModel"
+            type="org.seemeet.seemeet.ui.viewmodel.RegisterNameIdViewModel" />
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="10dp"
-        tools:context=".ui.registration.RegisterNameIdActivity">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/iv_register_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_btn_back_48"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_seemeet_start"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_seemeet_start" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp"
+            tools:context=".ui.registration.RegisterNameIdActivity">
 
-        <TextView
-            android:id="@+id/tv_seemeet_start"
-            android:layout_width="wrap_content"
-            android:layout_height="58dp"
-            android:fontFamily="@font/spoqa_han_sans_neo_bold"
-            android:gravity="center_vertical"
-            android:lineSpacingExtra="14sp"
-            android:text="@string/startSeeMeet"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/iv_register_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_btn_back_48"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_seemeet_start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_seemeet_start" />
 
-        <ImageView
-            android:id="@+id/iv_register_x"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:clickable="true"
-            android:padding="17dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_x" />
+            <TextView
+                android:id="@+id/tv_seemeet_start"
+                android:layout_width="wrap_content"
+                android:layout_height="58dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                android:gravity="center_vertical"
+                android:lineSpacingExtra="14sp"
+                android:text="@string/startSeeMeet"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_register_x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:padding="17dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_x" />
 
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            android:text="@string/register_text"
-            android:textAlignment="center"
-            android:textColor="@color/gray05"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/tv_seemeet_start"
-            app:layout_constraintStart_toStartOf="@+id/tv_seemeet_start"
-            app:layout_constraintTop_toBottomOf="@+id/tv_seemeet_start" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:text="@string/register_text"
+                android:textAlignment="center"
+                android:textColor="@color/gray05"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_seemeet_start"
+                app:layout_constraintStart_toStartOf="@+id/tv_seemeet_start"
+                app:layout_constraintTop_toBottomOf="@+id/tv_seemeet_start" />
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            android:text="@string/register_name"
-            android:textColor="@color/gray06"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:text="@string/register_name"
+                android:textColor="@color/gray06"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <EditText
-            android:id="@+id/et_name"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/selector_apply_search"
-            android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            android:hint="@string/register_hint_name"
-            android:inputType="textPersonName"
-            android:paddingStart="12dp"
-            android:textColor="@color/gray06"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/selector_apply_search"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:hint="@string/register_hint_name"
+                android:inputType="textPersonName"
+                android:paddingStart="12dp"
+                android:text="@={registerNameIdviewModel.registerName}"
+                android:textColor="@color/gray06"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
-        <TextView
-            android:id="@+id/tv_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            android:text="@string/register_id"
-            android:textColor="@color/gray06"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_name"
-            app:layout_constraintTop_toBottomOf="@+id/et_name" />
+            <TextView
+                android:id="@+id/tv_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:text="@string/register_id"
+                android:textColor="@color/gray06"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_name"
+                app:layout_constraintTop_toBottomOf="@+id/et_name" />
 
-        <EditText
-            android:id="@+id/et_id"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/selector_apply_search"
-            android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            android:hint="@string/register_hint_id"
-            android:inputType="textPersonName"
-            android:maxLength="16"
-            android:paddingStart="12dp"
-            android:textColor="@color/gray06"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/et_name"
-            app:layout_constraintStart_toStartOf="@+id/et_name"
-            app:layout_constraintTop_toBottomOf="@+id/tv_id" />
+            <EditText
+                android:id="@+id/et_id"
+                etId="@{registerNameIdviewModel.registerId}"
+                status="@{registerNameIdviewModel.status}"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/selector_apply_search"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:hint="@string/register_hint_id"
+                android:inputType="textPersonName"
+                android:maxLength="16"
+                android:paddingStart="12dp"
+                android:text="@={registerNameIdviewModel.registerId}"
+                android:textColor="@color/gray06"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/et_name"
+                app:layout_constraintStart_toStartOf="@+id/et_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_id" />
 
-        <TextView
-            android:id="@+id/tv_warning_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            android:textColor="@color/red"
-            android:textSize="12sp"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/et_id"
-            app:layout_constraintTop_toBottomOf="@+id/et_id" />
+            <TextView
+                android:id="@+id/tv_warning_id"
+                status="@{registerNameIdviewModel.status}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:text="@={registerNameIdviewModel.tvWarningId}"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/et_id"
+                app:layout_constraintTop_toBottomOf="@+id/et_id" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_start"
-            android:layout_width="0dp"
-            android:layout_height="53dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/rectangle_gray02_10"
-            android:clickable="false"
-            android:enabled="false"
-            android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            android:text="@string/register_start"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/et_id"
-            app:layout_constraintStart_toStartOf="@+id/et_id"
-            app:layout_constraintTop_toBottomOf="@+id/tv_warning_id" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_start"
+                etId="@{registerNameIdviewModel.registerId}"
+                etName="@{registerNameIdviewModel.registerName}"
+                warningId="@{registerNameIdviewModel.status}"
+                android:layout_width="0dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rectangle_gray02_10"
+                android:clickable="false"
+                android:enabled="false"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:text="@string/register_start"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/et_id"
+                app:layout_constraintStart_toStartOf="@+id/et_id"
+                app:layout_constraintTop_toBottomOf="@+id/tv_warning_id" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+    </ScrollView>
 
+</layout>
