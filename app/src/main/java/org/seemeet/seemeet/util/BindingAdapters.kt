@@ -354,29 +354,14 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("warningId", "etName", "etId")
+    @BindingAdapter("status", "etName", "etId")
     fun registerBtn(button: AppCompatButton, status: Int, etName: String?, etId: String?) {
         val state: Boolean =
-            (status != 6 || etName.isNullOrBlank() || etId.isNullOrBlank())
+            (status != 3 || etName.isNullOrBlank() || etId.isNullOrBlank())
         if (state) {
             button.inactiveBtn(R.drawable.rectangle_gray02_10)
         } else
             button.activeBtn()
-    }
-
-    @JvmStatic
-    @BindingAdapter("status")
-    fun setWarningId(textView: TextView, status: Int) {
-        if (status == 0) textView.text = ""
-        else if (status == 1) {
-            textView.setText(R.string.register_formatId)
-        } else if (status == 2) {
-            textView.setText(R.string.register_lengthId)
-        } else if (status == 3) {
-            textView.setText(R.string.register_numberId)
-        } else if (status == 4) textView.setText("_로만은 만들 수 없어요")
-        else if (status == 5) textView.setText("마침표로만은 만들 수 없어요")
-        else if (status == 6) textView.text = ""
     }
 
     @JvmStatic
@@ -393,7 +378,7 @@ object BindingAdapters {
             }
         }
         // 불가능한 문자 입력 시 입력 막기
-        if (status == 7) {
+        if (status == 2) {
             editText.setText(etId?.substring(0, length - 1))
             editText.setSelection(length - 1)
         }

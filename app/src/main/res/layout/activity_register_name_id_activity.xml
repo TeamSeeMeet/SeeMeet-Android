@@ -137,7 +137,6 @@
 
             <TextView
                 android:id="@+id/tv_warning_id"
-                status="@{registerNameIdviewModel.status}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -152,7 +151,7 @@
                 android:id="@+id/btn_start"
                 etId="@{registerNameIdviewModel.registerId}"
                 etName="@{registerNameIdviewModel.registerName}"
-                warningId="@{registerNameIdviewModel.status}"
+                status="@{registerNameIdviewModel.status}"
                 android:layout_width="0dp"
                 android:layout_height="53dp"
                 android:layout_marginTop="16dp"

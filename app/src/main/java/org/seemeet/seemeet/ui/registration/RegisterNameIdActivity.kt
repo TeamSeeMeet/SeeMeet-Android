@@ -40,7 +40,8 @@ class RegisterNameIdActivity : AppCompatActivity() {
         }
 
         binding.etId.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && viewModel.registerId.value?.length == 0 && viewModel.status.value == 1) { //포커스가 나가고
+            // 아이디 길이가 0이면서 warning에 불가능한 문자 입력했던 기록 있을 때 포커스 나가면 warning 없애기
+            if (!hasFocus && viewModel.registerId.value?.length == 0 && viewModel.status.value == 1) {
                 viewModel.tvWarningId.value = ""
             }
         }
