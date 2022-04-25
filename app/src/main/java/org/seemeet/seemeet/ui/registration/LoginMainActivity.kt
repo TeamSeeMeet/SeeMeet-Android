@@ -16,6 +16,7 @@ import org.seemeet.seemeet.data.api.LoginService
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.request.login.RequestKakaoLogin
 import org.seemeet.seemeet.databinding.ActivityLoginMainBinding
+import org.seemeet.seemeet.ui.main.MainActivity
 
 
 class LoginMainActivity : AppCompatActivity() {
@@ -69,7 +70,7 @@ class LoginMainActivity : AppCompatActivity() {
     private val kakaoLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (token != null) {
             Log.d("kakaoLogin", "카카오계정 로그인 성공 ${token.accessToken}")
-            trySeeMeetLogin(token.accessToken)
+            trySeeMeetSocialLogin(token.accessToken)
             // 사용자 정보 가져오기
             userApiClient.me { user, error ->
                 if (error != null) {
@@ -93,10 +94,22 @@ class LoginMainActivity : AppCompatActivity() {
         }
     }
 
-    private fun trySeeMeetLogin(socialToken: String) {
+    private fun trySeeMeetSocialLogin(socialToken: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                RetrofitBuilder.loginService.postKakaoLogin(RequestKakaoLogin(socialToken, "kakao"))
+                val body = RetrofitBuilder.loginService.postKakaoLogin(
+                    RequestKakaoLogin(
+                        socialToken,
+                        "kakao"
+                    )
+                )
+
+                // 이름,닉네임 입력 안했으면 입력화면으로 이동, 했으면 메인으로 이동
+                if (body.data.exUser.nickname.isNullOrEmpty()) {
+                    RegisterNameIdActivity.start(this@LoginMainActivity)
+                } else {
+                    MainActivity.start(this@LoginMainActivity)
+                }
             } catch (e: Exception) {
                 Log.e("network error", e.toString())
             }

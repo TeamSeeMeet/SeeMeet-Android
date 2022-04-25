@@ -1,11 +1,22 @@
 package org.seemeet.seemeet.ui.registration
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.api.RetrofitBuilder
+import org.seemeet.seemeet.data.model.request.login.RequestKakaoLogin
+import org.seemeet.seemeet.data.model.request.register.RequestRegisterNameId
 import org.seemeet.seemeet.databinding.ActivityRegisterNameIdActivityBinding
+import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.util.activeBtn
 import org.seemeet.seemeet.util.inactiveBtn
 import org.seemeet.seemeet.util.makeInVisible
@@ -65,7 +76,20 @@ class RegisterNameIdActivity : AppCompatActivity() {
         }
 
         binding.btnStart.setOnClickListener {
-
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val body = RetrofitBuilder.registerService.putRegisterNameId(
+                        SeeMeetSharedPreference.getToken(),
+                        RequestRegisterNameId(
+                            binding.etName.text.toString(),
+                            binding.etId.text.toString()
+                        )
+                    )
+                    MainActivity.start(this@RegisterNameIdActivity)
+                } catch (e: Exception) {
+                    Log.e("network error", e.toString())
+                }
+            }
         }
     }
 
@@ -81,5 +105,12 @@ class RegisterNameIdActivity : AppCompatActivity() {
         return binding.tvWarningId.isVisible ||
                 binding.etName.text.isNullOrBlank() ||
                 binding.etId.text.isNullOrBlank()
+    }
+
+    companion object {
+        fun start(context: Context) {
+            val intent = Intent(context, RegisterNameIdActivity::class.java)
+            context.startActivity(intent)
+        }
     }
 }
