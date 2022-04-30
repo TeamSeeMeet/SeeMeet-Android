@@ -1,14 +1,11 @@
 package org.seemeet.seemeet.ui.splash
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.kakao.sdk.common.util.Utility
 import org.seemeet.seemeet.ui.main.MainActivity
-import org.seemeet.seemeet.ui.registration.SocialLoginActivity
-
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
