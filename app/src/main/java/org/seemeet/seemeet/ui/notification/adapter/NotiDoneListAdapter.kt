@@ -30,7 +30,8 @@ class NotiDoneListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             
             binding.ivDetail.setOnClickListener {
                 val intent = Intent( context, DetailActivity::class.java)
-                intent.putExtra("planId", doneData.planId) //이 부분을 id or planId 적용해서 필요한 값 넘겨주도록 하면 됨
+                intent.putExtra("planId", doneData.planId)
+                intent.putExtra("id", doneData.id)
                 context?.startActivity(intent)
             }
 

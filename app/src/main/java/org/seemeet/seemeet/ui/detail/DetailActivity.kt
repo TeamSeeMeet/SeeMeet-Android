@@ -24,13 +24,41 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val planId = intent.getIntExtra("planId", -1)
+        val id = intent.getIntExtra("id", -1)
 
         viewModel.requestPlanId(planId)
+        viewModel.requestInvitationId(id)
+        viewModel.requestInvitationDetail(id)
         initClickListener()
         setListObserver()
     }
 
     private fun setListObserver() {
+        viewModel.canceledDetail.observe(this, Observer { canceledDetail ->
+            canceledDetail.forEach {
+                if(it.data.isCanceled) {
+                    onCanceled()
+                    Log.d("***************status","canceled")
+                } else {
+                    onConfirmed()
+                    Log.d("***************status","confirmed")
+                }
+            }
+        })
+
+    }
+
+    private fun initClickListener() {
+        binding.ivDetailBack.setOnClickListener {
+            finish()
+        }
+
+        binding.btnAppointmentCancel.setOnClickListener {
+            showDialog()
+        }
+    }
+
+    private fun onConfirmed(){
         viewModel.planDetail.observe(this, Observer { planDetail ->
             planDetail.forEach {
                 BindingAdapters.setYearMonthDate(binding.tvDetailDay, it.data.date)
@@ -71,14 +99,40 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun initClickListener() {
-        binding.ivDetailBack.setOnClickListener {
-            finish()
-        }
+    private fun onCanceled(){
+        viewModel.canceledDetail.observe(this, Observer { canceledDetail ->
+            canceledDetail.forEach {
+                binding.tvDetailTime.apply {
+                    text = getString(R.string.noti_done_canceled)
+                    setTextColor(getColor(R.color.pink01))
+                }
 
-        binding.btnAppointmentCancel.setOnClickListener {
-            showDialog()
-        }
+                binding.apply {
+                    tvDetailTitle.text = it.data.invitationTitle
+                    tvRecieveLetterTitle.text = it.data.invitationTitle
+                    tvRecieveLetterContent.text = it.data.invitationDesc
+                }
+
+                // 받은 모든 사람 이름 칩그룹
+                it.data.guest.forEach {
+                    binding.cgDetailFriendList.addView(Chip(this).apply {
+                        text = it.username
+                        setChipBackgroundColorResource(R.color.gray04)
+                        setTextAppearance(R.style.chipTextWhiteStyle2)
+                        isCheckable = false
+                        isEnabled = false
+                    })
+                }
+            }
+        })
+
+        viewModel.canceledHostDetail.observe(this, Observer { canceledHostDetail ->
+            canceledHostDetail.forEach {
+                binding.apply {
+                    tvDetailHostName.text = it.data.invitation.host.username
+                }
+            }
+        })
     }
 
 
