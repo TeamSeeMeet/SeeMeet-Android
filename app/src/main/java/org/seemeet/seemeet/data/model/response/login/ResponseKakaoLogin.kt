@@ -13,8 +13,8 @@ data class ResponseKakaoLogin(
 data class SocialData(
     @SerializedName("accesstoken")
     val accessToken: Accesstoken,
-    @SerializedName("exuser")
-    val exUser: ExUser
+    @SerializedName("user")
+    val user: ExUser
 )
 
 data class Accesstoken(

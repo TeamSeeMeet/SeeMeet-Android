@@ -12,6 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.LoginService
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.request.login.RequestKakaoLogin
@@ -103,9 +104,9 @@ class LoginMainActivity : AppCompatActivity() {
                         "kakao"
                     )
                 )
-
+                SeeMeetSharedPreference.setToken(body.data.accessToken.accessToken)
                 // 이름,닉네임 입력 안했으면 입력화면으로 이동, 했으면 메인으로 이동
-                if (body.data.exUser.nickname.isNullOrEmpty()) {
+                if (body.data.user.nickname.isNullOrEmpty()) {
                     RegisterNameIdActivity.start(this@LoginMainActivity)
                 } else {
                     MainActivity.start(this@LoginMainActivity)

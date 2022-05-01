@@ -13,7 +13,7 @@ interface RegisterService {
         @Body body: RequestRegisterList
     ): ResponseRegisterList
 
-    @PUT("auth/register")
+    @PUT("auth")
     suspend fun putRegisterNameId(
         @Header("accesstoken") token: String,
         @Body body: RequestRegisterNameId

@@ -17,7 +17,7 @@ interface LoginService {
         @Body body : RequestLoginList
     ): ResponseLoginList
 
-    @POST("auth/login")
+    @POST("auth/social")
     suspend fun postKakaoLogin(
         @Body body : RequestKakaoLogin
     ): ResponseKakaoLogin
