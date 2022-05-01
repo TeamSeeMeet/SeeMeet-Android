@@ -24,7 +24,6 @@ class RegisterViewModel(application: Application) : BaseViewModel(application) {
         get() = _status
 
     fun requestRegisterList(
-        username: String,
         email: String,
         password: String,
         passwordConfirm: String
@@ -32,7 +31,7 @@ class RegisterViewModel(application: Application) : BaseViewModel(application) {
         try {
             _registerList.postValue(
                 RetrofitBuilder.registerService.postRegister(
-                    RequestRegisterList(username, email, password, passwordConfirm)
+                    RequestRegisterList(email, password, passwordConfirm)
                 )
             )
             _status.postValue(true)

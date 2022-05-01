@@ -5,7 +5,6 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
-import android.util.Patterns
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -15,18 +14,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityRegisterBinding
-import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.RegisterViewModel
 import org.seemeet.seemeet.util.makeInVisible
 import org.seemeet.seemeet.util.makeVisible
 import retrofit2.HttpException
-import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
 
     private var pwValue: Int = LoginActivity.HIDDEN_PW
-    private val pattern: Pattern = Patterns.EMAIL_ADDRESS
     private val binding: ActivityRegisterBinding by lazy {
         ActivityRegisterBinding.inflate(layoutInflater)
     }
@@ -44,7 +40,8 @@ class RegisterActivity : AppCompatActivity() {
     private fun statusObserver() {
         viewModel.status.observe(this, Observer { status ->
             if (status) {
-                MainActivity.start(this@RegisterActivity)
+                val intent = Intent(this, RegisterNameIdActivity::class.java)
+                startActivity(intent)
             } else {
                 binding.etEmailRegister.requestFocus()
                 binding.tvWarningEmail.text = resources.getString(R.string.register_registeredEmail)
@@ -81,14 +78,11 @@ class RegisterActivity : AppCompatActivity() {
 
     fun initClickListener() {
         binding.btnRegisterNext.setOnClickListener {
-//            viewModel.requestRegisterList(
-//                "",
-//                binding.etEmailRegister.text.toString(),
-//                binding.etPw.text.toString(),
-//                binding.etCheckpw.text.toString()
-//            )
-            val intent = Intent(this, RegisterNameIdActivity::class.java)
-            startActivity(intent)
+            viewModel.requestRegisterList(
+                binding.etEmailRegister.text.toString(),
+                binding.etPw.text.toString(),
+                binding.etCheckpw.text.toString()
+            )
         }
 
         binding.ivRegisterBack.setOnClickListener {

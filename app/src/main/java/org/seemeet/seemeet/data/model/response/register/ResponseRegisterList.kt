@@ -8,19 +8,22 @@ data class ResponseRegisterList(
     val message: String,
     val data: Data
 )
+
 data class Data(
-    val user : UserInfo,
+    val user: UserInfo,
     val accesstoken: String
 )
+
 data class UserInfo(
     val id: Int,
     val email: String,
     val idFirebase: String,
     val username: String,
-    val gender : String,
-    val birth: Date,
     val isNoticed: Boolean,
     val createdAt: Date,
     val updatedAt: Date,
-    val isDeleted: Boolean
+    val isDeleted: Boolean,
+    val provider: String,
+    val socialId: String,
+    val nickname: String
 )
