@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.model.response.friend.FriendListData
 import org.seemeet.seemeet.databinding.ActivityFriendBinding
 import org.seemeet.seemeet.ui.apply.ApplyActivity
 import org.seemeet.seemeet.ui.friend.adapter.FriendListAdapter
@@ -27,6 +28,7 @@ class FriendActivity : AppCompatActivity() {
     private var friendAdapter = FriendListAdapter()
     private lateinit var binding: ActivityFriendBinding
     private val viewModel: FriendViewModel by viewModels()
+    private lateinit var friendlist: List<FriendListData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +61,7 @@ class FriendActivity : AppCompatActivity() {
             with(binding.rvFriend.adapter as FriendListAdapter) {
                 setFriendList(friendList.data)
                 setVisibility(binding.ivFriendNetwork,View.GONE)
+                friendlist = friendList.data.sortedBy { it.username }
                 if (friendList.data.isEmpty()) {
                     setVisibility(binding.clFriendNull, View.VISIBLE)
                 } else {
@@ -67,10 +70,10 @@ class FriendActivity : AppCompatActivity() {
             }
         })
 
-        viewModel.fetchState.observe(this){
+        viewModel.fetchState.observe(this) {
             var message = ""
-            when( it.second){
-                BaseViewModel.FetchState.BAD_INTERNET-> {
+            when (it.second) {
+                BaseViewModel.FetchState.BAD_INTERNET -> {
                     message = "소켓 오류 / 서버와 연결에 실패하였습니다."
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {
@@ -81,7 +84,7 @@ class FriendActivity : AppCompatActivity() {
                     setVisibility(binding.clFriendNull, View.GONE)
                     setVisibility(binding.ivFriendNetwork, View.VISIBLE)
                 }
-                else ->  {
+                else -> {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
                 }
             }
@@ -126,15 +129,25 @@ class FriendActivity : AppCompatActivity() {
 
     private fun initIntent(pos: Int) {
         val intent = Intent(this, ApplyActivity::class.java)
-        intent.putExtra(
-            "username",
-            viewModel.friendList.value?.let { friendList -> friendList.data[pos].username })
-        intent.putExtra(
-            "userposition",pos)
-        intent.putExtra("useremail", viewModel.friendList.value?.let { friendList -> friendList.data[pos].email })
-        intent.putExtra("userid",viewModel.friendList.value?.let { friendList -> friendList.data[pos].id })
-        startActivity(intent)
-        finish()
+        for (changePos in 0..friendlist.size - 1) {
+            if (viewModel.friendList.value?.data?.get(changePos)?.username == friendlist.get(pos).username) {
+                intent.putExtra(
+                    "username",
+                    viewModel.friendList.value?.let { friendList -> friendList.data[changePos].username })
+                intent.putExtra(
+                    "userposition", pos
+                )
+                intent.putExtra(
+                    "useremail",
+                    viewModel.friendList.value?.let { friendList -> friendList.data[changePos].email })
+                intent.putExtra(
+                    "userid",
+                    viewModel.friendList.value?.let { friendList -> friendList.data[changePos].id })
+                startActivity(intent)
+                finish()
+                break
+            }
+        }
     }
 
     private fun setNoLoginDialog() {
@@ -150,7 +163,7 @@ class FriendActivity : AppCompatActivity() {
         dialogView.show(supportFragmentManager, "add friend with login")
     }
 
-    private fun setVisibility(view: View, visibility: Int){
+    private fun setVisibility(view: View, visibility: Int) {
         view.visibility = visibility
     }
 
