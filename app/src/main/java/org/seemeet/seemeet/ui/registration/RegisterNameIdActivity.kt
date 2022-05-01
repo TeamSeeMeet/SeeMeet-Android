@@ -46,9 +46,9 @@ class RegisterNameIdActivity : AppCompatActivity() {
             }
         }
 
-//        binding.btnStart.setOnClickListener {
-//
-//        }
+        binding.btnStart.setOnClickListener {
+
+        }
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
