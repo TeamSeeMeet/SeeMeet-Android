@@ -46,8 +46,10 @@ class MainActivity : AppCompatActivity() {
 
         initView()
 
-        //firebase _ 토큰 확인용
-        getFireBaseInstanceId()
+        if (SeeMeetSharedPreference.getLogin()) {
+            //firebase _ 토큰 확인용
+            getFireBaseInstanceId()
+        }
     }
 
     private fun initView(){
