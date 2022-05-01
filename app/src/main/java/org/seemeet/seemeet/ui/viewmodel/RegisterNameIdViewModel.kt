@@ -1,16 +1,41 @@
 package org.seemeet.seemeet.ui.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.api.RetrofitBuilder
+import org.seemeet.seemeet.data.model.request.register.RequestRegisterNameId
+import org.seemeet.seemeet.data.model.response.register.ResponseRegisterNameId
 import org.seemeet.seemeet.ui.registration.RegisterNameIdActivity
+import retrofit2.HttpException
 
 class RegisterNameIdViewModel(application: Application) : BaseViewModel(application) {
+    private val _registerNameIdList = MutableLiveData<ResponseRegisterNameId>()
     val registerName = MutableLiveData("")
     val tvWarningId = MutableLiveData("")
     val registerId = MutableLiveData("")
     val temp = MutableLiveData<Boolean>(false)
 
     val status = MutableLiveData<Int>(0)
+
+    fun requestRegisterNameIdList(
+        name: String,
+        nickname: String
+    ) = viewModelScope.launch(exceptionHandler) {
+        try {
+            _registerNameIdList.postValue(
+                RetrofitBuilder.registerService.putRegisterNameId(
+                    SeeMeetSharedPreference.getToken(),
+                    RequestRegisterNameId(name, nickname)
+                )
+            )
+        } catch (e: HttpException) {
+            Log.e("network error", e.toString())
+        }
+    }
 
     fun check() {
         // 불가능한 문자 입력했던 기록이 있을 때 status 1

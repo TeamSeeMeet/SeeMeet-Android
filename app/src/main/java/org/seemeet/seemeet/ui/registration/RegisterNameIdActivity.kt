@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import org.seemeet.seemeet.databinding.ActivityRegisterNameIdActivityBinding
+import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.ui.viewmodel.RegisterNameIdViewModel
 import java.util.regex.Pattern
 
@@ -47,7 +48,11 @@ class RegisterNameIdActivity : AppCompatActivity() {
         }
 
         binding.btnStart.setOnClickListener {
-
+            viewModel.requestRegisterNameIdList(
+                binding.etName.text.toString(),
+                binding.etId.text.toString()
+            )
+            MainActivity.start(this@RegisterNameIdActivity)
         }
     }
 
