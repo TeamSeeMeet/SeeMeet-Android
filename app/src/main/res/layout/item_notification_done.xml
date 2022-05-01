@@ -25,7 +25,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="14dp"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            android:text="@string/noti_day"
+            setNotiDay="@{doneData.createdAt}"
             android:textColor="@color/gray04"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"

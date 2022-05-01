@@ -28,6 +28,8 @@ data class ConfirmedAndCanceld(
     val isCancled: Boolean,
     @SerializedName("is_confirmed")
     val isConfirmed: Boolean,
+    @SerializedName("created_at")
+    val createdAt: String,
     @SerializedName("planId")
     val planId: Int
 )
