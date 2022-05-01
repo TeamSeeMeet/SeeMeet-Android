@@ -257,13 +257,13 @@ class FirstApplyFragment : Fragment() {
                     this.setChipBackgroundColorResource(R.color.chipbackground) //container color
                     this.setTextAppearance(R.style.ChipTextAppearance) //글자 색, 글자 크기 적용
                     binding.etToWho.text.clear()
-                    binding.etToWho.setPadding(binding.etToWho.paddingLeft + 95, 0, 0, 0)
+                    binding.etToWho.setPadding(binding.etToWho.paddingLeft + 333, 0, 0, 0)
 
                     //Chip의 x버튼 누를 경우
                     setOnCloseIconClickListener {
                         binding.chipGroup.removeView(this)
                         binding.etToWho.isEnabled = true
-                        binding.etToWho.setPadding(binding.etToWho.paddingLeft - 95, 0, 0, 0)
+                        binding.etToWho.setPadding(binding.etToWho.paddingLeft - 333, 0, 0, 0)
                         if (isEmpty()) {
                             binding.btnNext.inactiveBtn(R.drawable.rectangle_gray02_10)
                         } else {
@@ -309,13 +309,13 @@ class FirstApplyFragment : Fragment() {
                         this.setChipBackgroundColorResource(R.color.chipbackground) //container color
                         this.setTextAppearance(R.style.ChipTextAppearance) //글자 색, 글자 크기 적용
                         binding.etToWho.text.clear()
-                        binding.etToWho.setPadding(binding.etToWho.paddingLeft + 95, 0, 0, 0)
+                        binding.etToWho.setPadding(binding.etToWho.paddingLeft + 333, 0, 0, 0)
 
                         //Chip의 x버튼 누를 경우
                         setOnCloseIconClickListener {
                             binding.chipGroup.removeView(this)
                             binding.etToWho.isEnabled = true
-                            binding.etToWho.setPadding(binding.etToWho.paddingLeft - 95, 0, 0, 0)
+                            binding.etToWho.setPadding(binding.etToWho.paddingLeft - 333, 0, 0, 0)
                             if (isEmpty()) {
                                 binding.btnNext.inactiveBtn(R.drawable.rectangle_gray02_10)
                             } else {
