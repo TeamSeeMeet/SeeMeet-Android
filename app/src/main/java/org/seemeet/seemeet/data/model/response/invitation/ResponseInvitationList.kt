@@ -24,7 +24,7 @@ data class ConfirmedAndCanceld(
     val id: Int,
     @SerializedName("invitation_title")
     val invitationTitle: String,
-    @SerializedName("is_cancled")
+    @SerializedName("is_canceled")
     val isCancled: Boolean,
     @SerializedName("is_confirmed")
     val isConfirmed: Boolean,
