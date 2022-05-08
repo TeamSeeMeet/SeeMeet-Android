@@ -82,7 +82,8 @@ class FirstApplyFragment : Fragment() {
                     message = "$code ERROR : \n ${it.first.message}"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                    message = "인터넷 연결을 확인해주세요"
+                    setVisibility(true)
                 }
                 else -> {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
