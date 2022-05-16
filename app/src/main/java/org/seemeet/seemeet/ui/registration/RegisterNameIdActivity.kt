@@ -15,6 +15,7 @@ import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.request.login.RequestKakaoLogin
 import org.seemeet.seemeet.data.model.request.register.RequestRegisterNameId
+import org.seemeet.seemeet.data.model.response.login.ExUser
 import org.seemeet.seemeet.databinding.ActivityRegisterNameIdActivityBinding
 import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.util.activeBtn
@@ -85,12 +86,20 @@ class RegisterNameIdActivity : AppCompatActivity() {
                             binding.etId.text.toString()
                         )
                     )
+                    setSharedPreference(body.data)
                     MainActivity.start(this@RegisterNameIdActivity)
                 } catch (e: Exception) {
                     Log.e("network error", e.toString())
                 }
             }
         }
+    }
+
+    // sharedPreference setting
+    private fun setSharedPreference(list : ExUser) {
+        SeeMeetSharedPreference.setUserId(list.id)
+        SeeMeetSharedPreference.setLogin(true)
+        SeeMeetSharedPreference.setUserName(list.username)
     }
 
     private fun isNumberFormat(password: String): Boolean {

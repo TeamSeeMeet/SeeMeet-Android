@@ -16,6 +16,7 @@ import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.LoginService
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.request.login.RequestKakaoLogin
+import org.seemeet.seemeet.data.model.response.login.ExUser
 import org.seemeet.seemeet.databinding.ActivityLoginMainBinding
 import org.seemeet.seemeet.ui.main.MainActivity
 
@@ -110,11 +111,19 @@ class LoginMainActivity : AppCompatActivity() {
                     RegisterNameIdActivity.start(this@LoginMainActivity)
                 } else {
                     MainActivity.start(this@LoginMainActivity)
+                    setSharedPreference(body.data.user)
                 }
             } catch (e: Exception) {
                 Log.e("network error", e.toString())
             }
         }
+    }
+
+    // sharedPreference setting
+    private fun setSharedPreference(list : ExUser) {
+        SeeMeetSharedPreference.setUserId(list.id)
+        SeeMeetSharedPreference.setLogin(true)
+        SeeMeetSharedPreference.setUserName(list.username)
     }
 
     companion object {
