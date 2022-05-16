@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="secondApplyViewModel"
+            type="org.seemeet.seemeet.ui.viewmodel.SecondApplyViewModel" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -10,7 +17,6 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -48,8 +54,8 @@
                     android:id="@+id/layout_selected_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="6dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="6dp"
                     android:background="@drawable/rectangle_gray01_10"
                     app:layout_constraintBottom_toBottomOf="@+id/btn_add"
                     app:layout_constraintEnd_toStartOf="@+id/btn_add"
@@ -60,7 +66,7 @@
                         android:id="@+id/tv_selected_date_top"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="13dp"
+                        android:layout_marginStart="13dp"
                         android:layout_marginTop="14dp"
                         android:layout_marginBottom="16dp"
                         android:fontFamily="@font/din_pro_bold"
@@ -104,7 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:layout_marginRight="13dp"
+                        android:layout_marginEnd="13dp"
                         android:layout_marginBottom="19dp"
                         android:fontFamily="@font/din_pro_regular"
                         android:textColor="@color/gray06"
@@ -121,7 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="26dp"
                     android:src="@drawable/ic_btn_embody"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -131,7 +137,7 @@
                     android:id="@+id/layout_apply_sentence"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="36dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btn_add">
@@ -188,7 +194,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            android:id="@+id/tv_current_year"
+                            android:id="@+id/tv_current_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/din_pro_medium"
@@ -196,18 +202,7 @@
                             android:textSize="22sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            tools:text="2022년" />
-
-                        <TextView
-                            android:id="@+id/tv_current_month"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/din_pro_medium"
-                            android:textColor="@color/pink"
-                            android:textSize="22sp"
-                            app:layout_constraintStart_toEndOf="@+id/tv_current_year"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:text="1월" />
+                            tools:text="2022년 2월" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -215,8 +210,8 @@
                         android:id="@+id/calendar"
                         android:layout_width="match_parent"
                         android:layout_height="90dp"
-                        android:layout_marginTop="16dp"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginTop="16dp"
                         android:layout_marginRight="10dp"
                         app:cv_dayViewResource="@layout/item_picker_date"
                         app:cv_hasBoundaries="false"
@@ -242,7 +237,7 @@
                         android:id="@+id/tv_selected_day"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
                         android:layout_marginTop="15dp"
                         android:fontFamily="@font/spoqa_han_sans_neo_bold"
                         android:textAllCaps="true"
@@ -255,7 +250,7 @@
                         android:id="@+id/rv_calendar_event"
                         android:layout_width="match_parent"
                         android:layout_height="110dp"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="20dp"
                         android:orientation="vertical"
@@ -430,12 +425,12 @@
                 android:id="@+id/tv_sentence_selected_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:textSize="16sp"
+                android:fontFamily="@font/spoqa_han_sans_neo_medium"
                 android:text="선택한 날짜"
                 android:textColor="@color/gray06"
-                android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -443,12 +438,12 @@
                 android:id="@+id/tv_selected_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp"
                 android:layout_marginTop="24dp"
-                android:textSize="14sp"
-                android:textColor="#fa555c"
                 android:fontFamily="@font/din_pro_medium"
                 android:text="0"
+                android:textColor="#fa555c"
+                android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/tv_sentence_selected_date"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -456,15 +451,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="/4"
-                android:textSize="14sp"
-                android:textColor="#a3a3a3"
                 android:fontFamily="@font/din_pro_medium"
+                android:text="/4"
+                android:textColor="#a3a3a3"
+                android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/tv_selected_count"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_selected_date"
+                data="@{secondApplyViewModel.selectedDateList}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="10dp"
@@ -496,6 +492,7 @@
                 android:layout_marginBottom="28dp"
                 android:background="@drawable/rectangle_pink01_10"
                 android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                android:onClick="@{()->secondApplyViewModel.tryApply()}"
                 android:text="약속 신청"
                 android:textColor="@color/white"
                 android:textSize="16sp"
