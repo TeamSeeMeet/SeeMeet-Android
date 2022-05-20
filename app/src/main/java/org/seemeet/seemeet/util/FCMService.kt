@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import org.seemeet.seemeet.R
@@ -33,43 +34,47 @@ class FCMService : FirebaseMessagingService() {
     }
 
     private fun sendDataMessage(data : MutableMap<String, String>){
+        //TODO : Main 이거 부르지말고, 팝업 디자인 나오면, 팝업으로 띄울 화면 열어서 보여주는게 좋을듯...?
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
         val pendingIntent = PendingIntent.getActivity(
-            this, (System.currentTimeMillis()/1000).toInt(), intent, PendingIntent.FLAG_ONE_SHOT)
+            this, (System.currentTimeMillis()/1000).toInt(), intent, PendingIntent.FLAG_IMMUTABLE)
 
         val groupId = "group1"
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        createNotificationChannel(notificationManager)
+        createNotificationChannel()
 
         val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle(data["title"]) //제목
+        notificationBuilder.setContentTitle(data["title"]) //제목
             .setContentText(data["message"]) //메세지
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentIntent(pendingIntent) //이동 장소.
             .setAutoCancel(true)
             .setGroup(groupId)
 
-        notificationManager.notify((System.currentTimeMillis()/1000).toInt(), notificationBuilder.build() )
+        notificationBuilder.setFullScreenIntent(pendingIntent, true)
+        notificationBuilder.priority = NotificationCompat.PRIORITY_HIGH
+
+        NotificationManagerCompat.from(this).notify((System.currentTimeMillis()/1000).toInt(), notificationBuilder.build() )
 
     }
 
     //채널 관리 : oreo 버전 이상의 경우, 채널별로 관리
     // 즉, noti 여러개 보낼 경우, 각각 쌓이는게 아니라 앱별로 그룹을 지어서 묶이게 됨.
-    private fun createNotificationChannel(notificationManager: NotificationManager){
+    private fun createNotificationChannel(){
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
                 CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_HIGH
             )
 
             channel.enableLights(true)
             channel.enableVibration(true)
 
-            notificationManager.createNotificationChannel(channel)
+            (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
         }
     }
 
