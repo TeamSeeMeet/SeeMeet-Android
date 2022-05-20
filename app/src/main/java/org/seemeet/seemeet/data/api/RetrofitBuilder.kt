@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitBuilder {
-    private const val BASE_URL = "https://asia-northeast3-seemeet-700c2.cloudfunctions.net/api/"
+    private const val BASE_URL = "http://3.34.126.253:3000/"
 
     private val gson = GsonBuilder()
         .setLenient()
