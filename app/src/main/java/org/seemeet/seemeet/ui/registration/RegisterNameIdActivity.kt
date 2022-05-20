@@ -1,12 +1,23 @@
 package org.seemeet.seemeet.ui.registration
 
+
+import android.content.Context
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.api.RetrofitBuilder
+import org.seemeet.seemeet.data.model.request.register.RequestRegisterNameId
+import org.seemeet.seemeet.data.model.response.login.ExUser
 import org.seemeet.seemeet.databinding.ActivityRegisterNameIdActivityBinding
 import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.ui.viewmodel.RegisterNameIdViewModel
@@ -48,12 +59,29 @@ class RegisterNameIdActivity : AppCompatActivity() {
         }
 
         binding.btnStart.setOnClickListener {
-            viewModel.requestRegisterNameIdList(
-                binding.etName.text.toString(),
-                binding.etId.text.toString()
-            )
-            MainActivity.start(this@RegisterNameIdActivity)
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val body = RetrofitBuilder.registerService.putRegisterNameId(
+                        SeeMeetSharedPreference.getToken(),
+                        RequestRegisterNameId(
+                            binding.etName.text.toString(),
+                            binding.etId.text.toString()
+                        )
+                    )
+                    setSharedPreference(body.data)
+                    MainActivity.start(this@RegisterNameIdActivity)
+                } catch (e: Exception) {
+                    Log.e("network error", e.toString())
+                }
+            }
         }
+    }
+
+    // sharedPreference setting
+    private fun setSharedPreference(list : ExUser) {
+        SeeMeetSharedPreference.setUserId(list.id)
+        SeeMeetSharedPreference.setLogin(true)
+        SeeMeetSharedPreference.setUserName(list.username)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -88,6 +116,11 @@ class RegisterNameIdActivity : AppCompatActivity() {
 
         fun isdotFormat(password: String): Boolean {
             return Pattern.matches("^[.]*\$", password)
+        }
+
+        fun start(context: Context) {
+            val intent = Intent(context, RegisterNameIdActivity::class.java)
+            context.startActivity(intent)
         }
     }
 }

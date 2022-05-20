@@ -7,9 +7,9 @@ data class ResponseInvitationPlan(
 )
 
 data class InvitationPlan(
-    val planId: Int,
-    val invitationTitle: String,
-    val date: String,
-    val start: String,
-    val end: String,
+    val planId: Int = 0,
+    val invitationTitle: String = "",
+    val date: String = "",
+    val start: String = "",
+    val end: String = "",
 )
