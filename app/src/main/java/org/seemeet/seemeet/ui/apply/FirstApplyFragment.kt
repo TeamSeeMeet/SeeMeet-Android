@@ -37,10 +37,10 @@ class FirstApplyFragment : Fragment() {
     private var friendPos = -1
     private var friendName: String? = null
     private var friendEmail: String? = null
+    var err: Boolean = false    // 서버통신에 실패할 경우 err=true
 
     //SecondApplyActivity로 친구 Array 넘기기 위해
     private var friendArr: ArrayList<ApplyFriendData> = arrayListOf()
-
     private val viewModel: ApplyViewModel by viewModels()
 
     override fun onCreateView(
@@ -76,17 +76,21 @@ class FirstApplyFragment : Fragment() {
             when (it.second) {
                 BaseViewModel.FetchState.BAD_INTERNET -> {
                     message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                    err = true
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {
                     val code = (it.first as HttpException).code()
                     message = "$code ERROR : \n ${it.first.message}"
+                    err = true
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
                     message = "인터넷 연결을 확인해주세요"
                     setVisibility(true)
+                    err = true
                 }
                 else -> {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
+                    err = true
                 }
             }
 
@@ -154,10 +158,12 @@ class FirstApplyFragment : Fragment() {
                     viewModel.requestFriendList() //chip 개수가 0이면서 포커스 눌렀을 때 친구 리스트 통신 시작
                     friendPos = -1 //친구 목록에서 버튼 클릭해서 들어왔는데 바로 그 칩 하나를 삭제하고 포커스 눌렀을 경우 버그 해결
                 } else {
-                    if (friendPos != -1) {
+                    if (friendPos != -1 && !err) {
                         adapter.removeItem(friendPos)
                         friendPos = -1
                     }
+                    if (binding.chipGroup.childCount == 1 && err)
+                        viewModel.requestFriendList()
                 }
             } else {
                 setVisibility(true)
@@ -350,7 +356,8 @@ class FirstApplyFragment : Fragment() {
         return binding.chipGroup.childCount == 0 ||
                 binding.etTitle.text.isNullOrBlank() ||
                 binding.etDetail.text.isNullOrBlank() ||
-                !binding.etToWho.text.isNullOrBlank()
+                !binding.etToWho.text.isNullOrBlank() ||
+                err
     }
 
     // flag=true 이면 rv만 보이고 뒤에 배경 다 안 보이게
