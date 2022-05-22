@@ -8,11 +8,10 @@ import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.util.Patterns
 import android.view.MotionEvent
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
@@ -29,13 +28,13 @@ class LoginActivity : AppCompatActivity() {
     private var pwValue: Int = HIDDEN_PW
     private val pattern: Pattern = Patterns.EMAIL_ADDRESS
     private val viewModel: LoginViewModel by viewModels()
-    private lateinit var binding: ActivityLoginBinding
+    private val binding: ActivityLoginBinding by lazy {
+        ActivityLoginBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
+        setContentView(binding.root)
         statusObserver()
         initClickListener()
     }
@@ -54,10 +53,10 @@ class LoginActivity : AppCompatActivity() {
             this@LoginActivity.startActivity(intent)
         })
 
-        viewModel.fetchState.observe(this) {
+        viewModel.fetchState.observe(this){
             var message = ""
-            when (it.second) {
-                BaseViewModel.FetchState.BAD_INTERNET -> {
+            when( it.second){
+                BaseViewModel.FetchState.BAD_INTERNET-> {
                     message = "소켓 오류 / 서버와 연결에 실패하였습니다."
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {
@@ -65,18 +64,15 @@ class LoginActivity : AppCompatActivity() {
                     message = "${error.response()!!.errorBody()!!.string().split("\"")[7]}"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    binding.clContent.visibility = View.INVISIBLE
-                    binding.clNetwork.visibility = View.VISIBLE
+                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
                 }
-                else -> {
+                else ->  {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
                 }
             }
 
             Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
-            if (message != "") {
-                CustomToast.createToast(this@LoginActivity, message)?.show()
-            }
+            CustomToast.createToast(this@LoginActivity, message)?.show()
         }
     }
 
@@ -114,6 +110,18 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        //둘 다 채우면 로그인 버튼 색깔 바뀌게
+        binding.etEmail.addTextChangedListener {
+            if (!isNullOrBlank()) { //다 작성했을 때
+                binding.btnLogin.activeBtn()
+            } else binding.btnLogin.inactiveBtn(R.drawable.rectangle_gray02_10)
+        }
+        binding.etPw.addTextChangedListener {
+            if (!isNullOrBlank()) { //다 작성했을 때
+                binding.btnLogin.activeBtn()
+            } else binding.btnLogin.inactiveBtn(R.drawable.rectangle_gray02_10)
+        }
+
         binding.etPw.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 binding.ivPwShowHidden.makeVisible()
@@ -124,6 +132,12 @@ class LoginActivity : AppCompatActivity() {
                 } else binding.ivPwShowHidden.makeVisible()
             }
         }
+    }
+
+    private fun isNullOrBlank(): Boolean {
+        return binding.etPw.text.isNullOrBlank() ||
+                binding.etEmail.text.isNullOrBlank() ||
+                !pattern.matcher(binding.etEmail.text).matches()
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
