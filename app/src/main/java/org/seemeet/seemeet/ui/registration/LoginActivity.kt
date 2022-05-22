@@ -8,6 +8,7 @@ import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.util.Patterns
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -57,14 +58,16 @@ class LoginActivity : AppCompatActivity() {
             var message = ""
             when( it.second){
                 BaseViewModel.FetchState.BAD_INTERNET-> {
-                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                    binding.clContent.visibility = View.INVISIBLE
+                    binding.clNetwork.visibility = View.VISIBLE
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {
                     val error = (it.first as HttpException)
                     message = "${error.response()!!.errorBody()!!.string().split("\"")[7]}"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                    binding.clContent.visibility = View.INVISIBLE
+                    binding.clNetwork.visibility = View.VISIBLE
                 }
                 else ->  {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
@@ -72,7 +75,9 @@ class LoginActivity : AppCompatActivity() {
             }
 
             Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
-            CustomToast.createToast(this@LoginActivity, message)?.show()
+            if(message!="") {
+                CustomToast.createToast(this@LoginActivity, message)?.show()
+            }
         }
     }
 
