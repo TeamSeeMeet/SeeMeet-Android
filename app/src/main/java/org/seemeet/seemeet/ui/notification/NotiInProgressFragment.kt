@@ -1,21 +1,25 @@
 package org.seemeet.seemeet.ui.notification
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.databinding.FragmentNotiInProgressBinding
-import org.seemeet.seemeet.ui.notification.adapter.NotiIngListAdapter
+import org.seemeet.seemeet.ui.notification.adapter.NotiInProgressListAdapter
+import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.NotiViewModel
+import retrofit2.HttpException
 
 class NotiInProgressFragment : Fragment() {
-    private var _binding : FragmentNotiInProgressBinding? = null
+    private var _binding: FragmentNotiInProgressBinding? = null
     val binding get() = _binding!!
 
-    private val viewmodel : NotiViewModel by activityViewModels()
+    private val viewmodel: NotiViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,56 +31,76 @@ class NotiInProgressFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if(SeeMeetSharedPreference.getLogin()){
-            // (1) 더미데이터 셋팅 _ 이후 서버통신 시 교체
-            viewmodel.requestAllInvitaionList()
-
-            // (2) 어뎁터와 옵저버 셋팅
-            setIngAdapter()
-            setIngObserve()
+        if (SeeMeetSharedPreference.getLogin()) {
+            viewmodel.requestAllInvitationList()
+            setInProgressAdapter()
+            setInProgressObserve()
         } else {
-            binding.clNotiIngNull.visibility = View.VISIBLE
+            setNotiNullVisibility(View.VISIBLE)
             binding.tvInProgressNum.text = "0"
         }
     }
 
-    // 어댑터
-    private fun setIngAdapter() {
-        val ingListAdapter = NotiIngListAdapter()
-        binding.rvIngList.adapter = ingListAdapter
-        binding.tvInProgressNum.text = "${ingListAdapter.itemCount}"
+    private fun setInProgressAdapter() {
+        val inProgressListAdapter = NotiInProgressListAdapter()
+        binding.rvInProgressList.adapter = inProgressListAdapter
+        binding.tvInProgressNum.text = "${inProgressListAdapter.itemCount}"
     }
 
-    // 옵저버 _ 위에서 (1)로 데이터 넣을 경우 옵저버가 관찰하다가 업데이트함.
-    private fun setIngObserve() {
-        viewmodel.invitationList.observe(viewLifecycleOwner){
-            viewmodel.setInviIngList()
+    private fun setInProgressObserve() {
+        viewmodel.invitationList.observe(viewLifecycleOwner) {
+            viewmodel.setInviInProgressList()
         }
 
-        viewmodel.inviIngList.observe(viewLifecycleOwner){
-            ingList -> with(binding.rvIngList.adapter as NotiIngListAdapter){
-                setIng(ingList)
-
-                binding.tvInProgressNum.text = ingList.size.toString()
-
-                if(ingList.isEmpty()) {
-                    binding.clNotiIngNull.visibility = View.VISIBLE
-                }else {
-                    binding.clNotiIngNull.visibility = View.GONE
+        viewmodel.inviInProgressList.observe(viewLifecycleOwner) { inProgressList ->
+            with(binding.rvInProgressList.adapter as NotiInProgressListAdapter) {
+                setInProgressList(inProgressList)
+                binding.tvInProgressNum.text = inProgressList.size.toString()
+                if (inProgressList.isEmpty()) {
+                    setNotiNullVisibility(View.VISIBLE)
+                } else {
+                    setNotiNullVisibility(View.GONE)
                 }
+            }
+        }
+
+        viewmodel.fetchState.observe(viewLifecycleOwner){
+            var message = ""
+            when(it.second){
+                BaseViewModel.FetchState.BAD_INTERNET-> {
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                }
+                BaseViewModel.FetchState.PARSE_ERROR -> {
+                    val code = (it.first as HttpException).code()
+                    message = "$code ERROR : \n ${it.first.message}"
+                }
+                BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    binding.ivInProgressNetwork.visibility = View.VISIBLE
+                }
+                else ->  {
+                    message = "통신에 실패하였습니다.\n ${it.first.message}"
+                }
+            }
+
+            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+
+            if(message != ""){
+                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+                binding.clNotiInProgressNull.visibility = View.VISIBLE
             }
         }
     }
 
+    private fun setNotiNullVisibility(notificationNull: Int) {
+        binding.clNotiInProgressNull.visibility = notificationNull
+    }
+
     override fun onResume() {
         super.onResume()
-        if(SeeMeetSharedPreference.getLogin()){
-            // (1) 더미데이터 셋팅 _ 이후 서버통신 시 교체
-            viewmodel.requestAllInvitaionList()
-
+        if (SeeMeetSharedPreference.getLogin()) {
+            viewmodel.requestAllInvitationList()
         } else {
-            binding.clNotiIngNull.visibility = View.VISIBLE
+            setNotiNullVisibility(View.VISIBLE)
             binding.tvInProgressNum.text = "0"
         }
     }

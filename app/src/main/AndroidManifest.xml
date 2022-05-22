@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.seemeet.seemeet" >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="org.seemeet.seemeet">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".SeeMeetApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher_logo"
         android:label="@string/app_name"
+        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SeeMeet" >
+        android:theme="@style/Theme.SeeMeet"
+        tools:replace="android:allowBackup">
+        <activity
+            android:name=".ui.registration.RegisterNameIdActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.registration.LoginMainActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.send.SendActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SeeMeet.TransparentStatusBar" />
         <activity
             android:name=".ui.apply.SecondApplyActivity"
             android:exported="false" />
         <activity
             android:name=".ui.receive.ReceiveActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ui.detail.DetailActivity"
             android:exported="false" />
@@ -46,14 +57,29 @@
             android:exported="true" />
         <activity
             android:name=".ui.splash.SplashActivity"
-            android:theme="@style/SplashTheme"
-            android:exported="true" >
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".ui.registration.LoginActivity" />
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oauth"
+                    android:scheme="kakao${KAKAO_APP_KEY}" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

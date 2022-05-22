@@ -1,6 +1,6 @@
 package org.seemeet.seemeet.data.local
 
-data class NotificationIngData(
+data class NotificationInProgressData(
     val day : String,
     val requestTitle : String,
     val msg : String,

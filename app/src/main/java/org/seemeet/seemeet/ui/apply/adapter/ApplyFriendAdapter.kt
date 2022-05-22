@@ -5,20 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.data.model.response.friend.FriendListData
-import org.seemeet.seemeet.data.model.response.friend.ResponseFriendList
-import org.seemeet.seemeet.data.model.response.invitation.UserData
-import org.seemeet.seemeet.data.model.response.plan.ComePlanData
 import org.seemeet.seemeet.databinding.ItemApplySearchFriendBinding
 
 class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendViewHolder>() {
 
-    val applyfriendList = mutableListOf<FriendListData>()
+    private val applyfriendList = mutableListOf<FriendListData>()
     private var searchWord: String = ""
-
     private var listener: ((FriendListData) -> Unit)? = null
-    fun setOnItemClickListener(listener: ((FriendListData) -> Unit)?) {
-        this.listener = listener
-    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -60,15 +53,20 @@ class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendVi
         }
     }
 
+    fun setOnItemClickListener(listener: ((FriendListData) -> Unit)?) {
+        this.listener = listener
+    }
+
     fun setSearchWord(text: String) {
         searchWord = text
         notifyDataSetChanged()
     }
 
 
-    fun setFriend(friendList: List<FriendListData>){
+    fun setFriend(friendList: List<FriendListData>) {
         this.applyfriendList.removeAll(this.applyfriendList)
         this.applyfriendList.addAll(friendList)
+        sortItem()
         notifyDataSetChanged()
     }
 
@@ -82,7 +80,7 @@ class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendVi
         notifyDataSetChanged()
     }
 
-    fun sortItem(data: FriendListData) {
+    fun sortItem() {
         applyfriendList.sortBy { it.username }
         notifyDataSetChanged()
     }

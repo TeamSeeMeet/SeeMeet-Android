@@ -4,6 +4,8 @@ dependencyResolutionManagement {
         google()
         maven { url "https://jitpack.io" }
         jcenter() // Warning: this repository is going to shut down soon
+        mavenCentral()
+        maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
     }
 }
 rootProject.name = "SeeMeet"

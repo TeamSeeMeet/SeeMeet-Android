@@ -12,34 +12,49 @@ import org.seemeet.seemeet.data.model.response.invitation.ConfirmedAndCanceld
 import org.seemeet.seemeet.databinding.ItemNotificationDoneBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
 
-class NotiDoneListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NotiDoneListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val doneList = mutableListOf<ConfirmedAndCanceld>()
-    private var context : Context? = null
+    private var context: Context? = null
 
-    inner class NotiDoneViewHolder(
-        private val binding : ItemNotificationDoneBinding
-    ): RecyclerView.ViewHolder(binding.root){
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val binding = ItemNotificationDoneBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        context = parent.context
+        return NotiDoneViewHolder(binding)
+    }
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as NotiDoneViewHolder).bind(doneList[position])
+    }
+
+    inner class NotiDoneViewHolder(private val binding: ItemNotificationDoneBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(doneData: ConfirmedAndCanceld) {
             binding.doneData = doneData
 
+            // 완료 내역 삭제 버튼 (일단 비활성화 상태)
             binding.ivDeleteList.setOnClickListener {
                 Log.d("****************Delete", "클릭됨")
             }
-            
+
+            // 약속 상세 클릭리스너
             binding.ivDetail.setOnClickListener {
-                val intent = Intent( context, DetailActivity::class.java)
+                val intent = Intent(context, DetailActivity::class.java)
                 intent.putExtra("planId", doneData.planId)
                 intent.putExtra("id", doneData.id)
                 context?.startActivity(intent)
             }
 
+            // 이름 칩그룹
             binding.cgDoneFriendList.removeAllViews()
-            doneData.guests.forEach{
-                binding.cgDoneFriendList.addView(Chip(context).apply{
+            doneData.guests.forEach {
+                binding.cgDoneFriendList.addView(Chip(context).apply {
                     text = it.username
-                    if(it.isResponse){
+                    if (it.isResponse) {
                         setChipBackgroundColorResource(R.color.gray02)
                         setTextAppearance(R.style.chipTextBlackStyle)
                     } else {
@@ -62,27 +77,11 @@ class NotiDoneListAdapter :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = ItemNotificationDoneBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-
-        context = parent.context
-        return NotiDoneViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as NotiDoneViewHolder).bind(doneList[position])
-    }
-
     override fun getItemCount() = doneList.size
 
-    fun setDone(newList: List<ConfirmedAndCanceld>){
+    fun setDone(newList: List<ConfirmedAndCanceld>) {
         doneList.clear()
         doneList.addAll(newList)
         notifyDataSetChanged()
     }
-
 }

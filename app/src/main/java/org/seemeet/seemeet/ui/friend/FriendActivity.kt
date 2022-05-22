@@ -4,39 +4,167 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.model.response.friend.FriendListData
 import org.seemeet.seemeet.databinding.ActivityFriendBinding
 import org.seemeet.seemeet.ui.apply.ApplyActivity
 import org.seemeet.seemeet.ui.friend.adapter.FriendListAdapter
 import org.seemeet.seemeet.ui.receive.DialogHomeNoLoginFragment
-import org.seemeet.seemeet.ui.registration.LoginActivity
+import org.seemeet.seemeet.ui.registration.LoginMainActivity
+import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.FriendViewModel
+import retrofit2.HttpException
 
 class FriendActivity : AppCompatActivity() {
     private var friendAdapter = FriendListAdapter()
     private lateinit var binding: ActivityFriendBinding
     private val viewModel: FriendViewModel by viewModels()
+    private lateinit var friendlist: List<FriendListData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFriendBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (SeeMeetSharedPreference.getLogin()) {
-            viewModel.requestFriendList()
-        } else {
-            setNullFriendList()
-        }
+        setLogin()
         setFriendAdapter()
         setFriendObserver()
         initClickListener()
+    }
+
+    private fun setLogin() {
+        if (SeeMeetSharedPreference.getLogin()) {
+            viewModel.requestFriendList()
+        } else {
+            setVisibility(binding.clFriendNull, View.VISIBLE)
+        }
+    }
+
+    private fun setFriendAdapter() {
+        friendAdapter.setOnItemClickListener { _, pos ->
+            initIntent(pos)
+        }
+        binding.rvFriend.adapter = friendAdapter
+    }
+
+    private fun setFriendObserver() {
+        viewModel.friendList.observe(this, Observer { friendList ->
+            with(binding.rvFriend.adapter as FriendListAdapter) {
+                setFriendList(friendList.data)
+                setVisibility(binding.ivFriendNetwork,View.GONE)
+                friendlist = friendList.data.sortedBy { it.username }
+                if (friendList.data.isEmpty()) {
+                    setVisibility(binding.clFriendNull, View.VISIBLE)
+                } else {
+                    setVisibility(binding.clFriendNull, View.GONE)
+                }
+            }
+        })
+
+        viewModel.fetchState.observe(this) {
+            var message = ""
+            when (it.second) {
+                BaseViewModel.FetchState.BAD_INTERNET -> {
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                }
+                BaseViewModel.FetchState.PARSE_ERROR -> {
+                    val code = (it.first as HttpException).code()
+                    message = "$code ERROR : \n ${it.first.message}"
+                }
+                BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    setVisibility(binding.clFriendNull, View.GONE)
+                    setVisibility(binding.ivFriendNetwork, View.VISIBLE)
+                }
+                else -> {
+                    message = "통신에 실패하였습니다.\n ${it.first.message}"
+                }
+            }
+
+            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+
+            if(message != ""){
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun initClickListener() {
+        // 친구 추가 버튼
+        binding.ivAddFriend.setOnClickListener {
+            if (SeeMeetSharedPreference.getLogin()) {
+                val nextIntent = Intent(this, AddFriendActivity::class.java)
+                startActivity(nextIntent)
+            } else {
+                setNoLoginDialog()
+            }
+        }
+
+        // 뒤로가기 버튼
+        binding.ivFriendBack.setOnClickListener {
+            finish()
+        }
+
+        // 입력창 리스너 (x버튼, 필터링)
+        binding.etSearchFriend.addTextChangedListener {
+            if (binding.etSearchFriend.text.isNullOrBlank()) { //공백일 때
+                setVisibility(binding.ivFriendRemoveAll, View.GONE)
+            } else {
+                setVisibility(binding.ivFriendRemoveAll, View.VISIBLE)
+                binding.ivFriendRemoveAll.setOnClickListener {
+                    binding.etSearchFriend.text = null
+                }
+            }
+            friendAdapter.setSearchWord(binding.etSearchFriend.text.toString())
+        }
+    }
+
+    private fun initIntent(pos: Int) {
+        val intent = Intent(this, ApplyActivity::class.java)
+        for (changePos in 0..friendlist.size - 1) {
+            if (viewModel.friendList.value?.data?.get(changePos)?.username == friendlist.get(pos).username) {
+                intent.putExtra(
+                    "username",
+                    viewModel.friendList.value?.let { friendList -> friendList.data[changePos].username })
+                intent.putExtra(
+                    "userposition", pos
+                )
+                intent.putExtra(
+                    "useremail",
+                    viewModel.friendList.value?.let { friendList -> friendList.data[changePos].email })
+                intent.putExtra(
+                    "userid",
+                    viewModel.friendList.value?.let { friendList -> friendList.data[changePos].id })
+                startActivity(intent)
+                finish()
+                break
+            }
+        }
+    }
+
+    private fun setNoLoginDialog() {
+        val dialogView = DialogHomeNoLoginFragment()
+        dialogView.setButtonClickListener(object : DialogHomeNoLoginFragment.OnButtonClickListener {
+            override fun onCancelClicked() {
+            }
+
+            override fun onLoginClicked() {
+                LoginMainActivity.start(this@FriendActivity)
+            }
+        })
+        dialogView.show(supportFragmentManager, "add friend with login")
+    }
+
+    private fun setVisibility(view: View, visibility: Int) {
+        view.visibility = visibility
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -56,93 +184,9 @@ class FriendActivity : AppCompatActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
-    // 어댑터
-    private fun setFriendAdapter() {
-        friendAdapter.setOnItemClickListener { FriendListData, pos ->
-            initIntent(pos)
-        }
-        binding.rvFriend.adapter = friendAdapter
-    }
-
-
-    // 옵저버
-    private fun setFriendObserver() {
-        viewModel.friendList.observe(this, Observer { friendList ->
-            with(binding.rvFriend.adapter as FriendListAdapter) {
-                setFriendList(friendList.data)
-
-                if (friendList.data.isEmpty()) {
-                    binding.clFriendNull.visibility = View.VISIBLE
-                } else {
-                    binding.clFriendNull.visibility = View.GONE
-                }
-            }
-        })
-    }
-
-    private fun initIntent(pos: Int){
-        val intent = Intent(this, ApplyActivity::class.java)
-        intent.putExtra("username",viewModel.friendList.value!!.data[pos].username)
-        startActivity(intent)
-        finish()
-    }
-
-
-    private fun setNullFriendList() {
-        binding.clFriendNull.visibility = View.VISIBLE
-    }
-
-    private fun initClickListener() {
-
-        // 친구 추가 버튼
-        binding.ivAddFriend.setOnClickListener {
-            if (SeeMeetSharedPreference.getLogin()) {
-                    val nextIntent = Intent(this, AddFriendActivity::class.java)
-                startActivity(nextIntent)
-            } else
-                setNoLoginDailog()
-        }
-
-        // 뒤로가기 버튼
-        binding.ivFriendBack.setOnClickListener {
-            finish()
-        }
-
-        // 입력창 리스너 (x버튼, 필터링)
-        binding.etSearchFriend.addTextChangedListener {
-            if (binding.etSearchFriend.text.isNullOrBlank()) { //공백일 때
-                binding.ivFriendRemoveAll.visibility = View.GONE
-            } else {
-                binding.ivFriendRemoveAll.visibility = View.VISIBLE
-                binding.ivFriendRemoveAll.setOnClickListener {
-                    binding.etSearchFriend.setText(null)
-                }
-            }
-            friendAdapter.setSearchWord(binding.etSearchFriend.text.toString())
-        }
-
-    }
-
-
-    private fun setNoLoginDailog() {
-
-        val dialogView = DialogHomeNoLoginFragment()
-
-        dialogView.setButtonClickListener(object : DialogHomeNoLoginFragment.OnButtonClickListener {
-            override fun onCancelClicked() {
-            }
-
-            override fun onLoginClicked() {
-                val nextIntent = Intent(this@FriendActivity, LoginActivity::class.java)
-                startActivity(nextIntent)
-            }
-        })
-        dialogView.show(supportFragmentManager, "send wish checkbox time")
-    }
-
     override fun onResume() {
         super.onResume()
-        if(SeeMeetSharedPreference.getLogin()){
+        if (SeeMeetSharedPreference.getLogin()) {
             viewModel.requestFriendList()
         }
     }
@@ -153,5 +197,4 @@ class FriendActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
     }
-
 }

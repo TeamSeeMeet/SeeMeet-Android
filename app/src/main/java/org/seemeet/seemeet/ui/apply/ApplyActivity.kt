@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityApplyBinding
 
@@ -13,7 +12,6 @@ class ApplyActivity : AppCompatActivity() {
     private val binding: ActivityApplyBinding by lazy {
         ActivityApplyBinding.inflate(layoutInflater)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,29 +22,66 @@ class ApplyActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().add(R.id.container_apply, fragment).commit()
 
         val username = intent.getStringExtra("username")
+        val userposition = intent.getIntExtra("userposition",-1)
+        val userid = intent.getIntExtra("userid",-1)
+        val useremail = intent.getStringExtra("useremail")
 
         if (username != null) {
-            Log.d("********************username", username)
-        }
-        val bundle = Bundle()
-        bundle.putString("name", username)
-        bundle.putInt("id", 0)
+            Log.d("********************username", username+ userposition.toString()+userid + useremail.toString())
+            val bundle = Bundle()
+            bundle.putString("name", username)
+            bundle.putInt("id", userid)
+            bundle.putInt("pos",userposition)
+            bundle.putString("email",useremail)
 
-        fragment.arguments = bundle
+            fragment.arguments = bundle
+        }
+
         supportFragmentManager.beginTransaction().replace(R.id.container_apply, fragment)
         supportFragmentManager.beginTransaction().commit()
-
     }
 
     private fun initClickListener() {
         binding.ivX.setOnClickListener {
-            finish()
+            val dialogView = ApplyBackDialogFragment()
+            val bundle = Bundle()
+
+            dialogView.arguments = bundle
+
+            dialogView.setButtonClickListener(object :
+                ApplyBackDialogFragment.OnButtonClickListener {
+                override fun onCancelNoClicked() {
+                }
+                override fun onCancelYesClicked() {
+                    finish()
+                    backPressed()
+                }
+            })
+            dialogView.show(supportFragmentManager, "send wish checkbox time")
         }
     }
-/*
-    override fun onBackPressed() {
+
+    fun backPressed(){
         super.onBackPressed()
-    }*/
+    }
+
+    override fun onBackPressed() {
+            val dialogView = ApplyBackDialogFragment()
+            val bundle = Bundle()
+
+            dialogView.arguments = bundle
+
+            dialogView.setButtonClickListener(object :
+                ApplyBackDialogFragment.OnButtonClickListener {
+                override fun onCancelNoClicked() {
+                }
+                override fun onCancelYesClicked() {
+                    finish()
+                    backPressed()
+                }
+            })
+            dialogView.show(supportFragmentManager, "send wish checkbox time")
+    }
 
     companion object {
         fun start(context: Context) {

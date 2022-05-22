@@ -2,20 +2,19 @@ package org.seemeet.seemeet.ui.receive.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import org.seemeet.seemeet.data.local.CheckboxData
-import org.seemeet.seemeet.databinding.ItemReceiveCheckboxBinding
 import android.widget.CheckBox
+import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.model.response.invitation.ReceiveInvitationDate
+import org.seemeet.seemeet.databinding.ItemReceiveCheckboxBinding
 
 class ReceiveCheckListAdapter(  val onClickCheckbox : (receiveInvitationDate : ReceiveInvitationDate) -> Unit )
-    : RecyclerView.Adapter<ReceiveCheckListAdapter.RecieveTimeListViewHolder>() {
+    : RecyclerView.Adapter<ReceiveCheckListAdapter.ReceiveTimeListViewHolder>() {
 
     private var checkboxList = emptyList<ReceiveInvitationDate>()
     private var isResponse = false
 
-    class RecieveTimeListViewHolder(
+    class ReceiveTimeListViewHolder(
         private val binding : ItemReceiveCheckboxBinding
     ): RecyclerView.ViewHolder(binding.root){
         val cb : CheckBox
@@ -24,24 +23,22 @@ class ReceiveCheckListAdapter(  val onClickCheckbox : (receiveInvitationDate : R
             }
 
         fun bind(data: ReceiveInvitationDate){
-
             binding.checkboxData = data
             binding.cbReceive.isChecked = data.isSelected
-
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):  RecieveTimeListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):  ReceiveTimeListViewHolder {
         val binding = ItemReceiveCheckboxBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
 
-        return  RecieveTimeListViewHolder(binding)
+        return  ReceiveTimeListViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder:  RecieveTimeListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder:  ReceiveTimeListViewHolder, position: Int) {
         holder.bind(checkboxList[position])
 
         holder.cb.setOnClickListener {

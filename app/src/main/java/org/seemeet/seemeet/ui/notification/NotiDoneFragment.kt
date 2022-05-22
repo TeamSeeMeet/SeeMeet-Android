@@ -1,9 +1,11 @@
 package org.seemeet.seemeet.ui.notification
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -11,7 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.databinding.FragmentNotiDoneBinding
 import org.seemeet.seemeet.ui.notification.adapter.NotiDoneListAdapter
+import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.NotiViewModel
+import retrofit2.HttpException
 
 class NotiDoneFragment : Fragment() {
     private var _binding: FragmentNotiDoneBinding? = null
@@ -31,7 +35,7 @@ class NotiDoneFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (SeeMeetSharedPreference.getLogin()) {
-            viewmodel.requestAllInvitaionList()
+            viewmodel.requestAllInvitationList()
 
             setDoneAdapter()
             setDoneObserve()
@@ -41,7 +45,6 @@ class NotiDoneFragment : Fragment() {
         }
     }
 
-    // 어댑터
     private fun setDoneAdapter() {
         val doneListAdapter = NotiDoneListAdapter()
         binding.rvDoneList.adapter = doneListAdapter
@@ -54,7 +57,6 @@ class NotiDoneFragment : Fragment() {
         binding.tvDoneNum.text = "${doneListAdapter.itemCount}"
     }
 
-    // 옵저버 _ 위에서 (1)로 데이터 넣을 경우 옵저버가 관찰하다가 업데이트함.
     private fun setDoneObserve() {
         viewmodel.invitationList.observe(viewLifecycleOwner) {
             viewmodel.setInviDoneList()
@@ -70,6 +72,32 @@ class NotiDoneFragment : Fragment() {
                 } else {
                     binding.clNotiDoneNull.visibility = View.GONE
                 }
+            }
+        }
+
+        viewmodel.fetchState.observe(viewLifecycleOwner){
+            var message = ""
+            when(it.second){
+                BaseViewModel.FetchState.BAD_INTERNET-> {
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                }
+                BaseViewModel.FetchState.PARSE_ERROR -> {
+                    val code = (it.first as HttpException).code()
+                    message = "$code ERROR : \n ${it.first.message}"
+                }
+                BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    binding.ivInProgressNetwork.visibility = View.VISIBLE
+                }
+                else ->  {
+                    message = "통신에 실패하였습니다.\n ${it.first.message}"
+                }
+            }
+
+            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+
+            if(message != ""){
+                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+                binding.clNotiDoneNull.visibility = View.VISIBLE
             }
         }
     }

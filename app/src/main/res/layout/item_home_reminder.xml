@@ -13,10 +13,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_home_reminder"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp">
-
 
         <ImageView
             android:id="@+id/iv_home_reminder_bg"
@@ -34,7 +33,6 @@
             android:id="@+id/tv_home_reminder_dday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:background="@drawable/rectangle_pink_50"
             android:paddingTop="2dp"
             android:paddingHorizontal="15dp"
@@ -45,7 +43,6 @@
             setDday="@{comePlanData.date}"
             android:textColor="@color/white"
             tools:text="D-5"
-            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toTopOf="@id/iv_home_reminder"
             app:layout_constraintEnd_toEndOf="@id/iv_home_reminder_bg"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,10 +51,13 @@
         <ImageView
             android:id="@+id/iv_home_reminder"
             android:src="@drawable/ic_home_reminder_together"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="11dp"
+            android:layout_marginStart="37dp"
+            android:layout_marginEnd="37dp"
             app:layout_constraintBottom_toTopOf="@id/tv_home_reminder_name"
             app:layout_constraintEnd_toEndOf="@id/iv_home_reminder_bg"
             app:layout_constraintStart_toStartOf="@id/iv_home_reminder_bg"
@@ -67,7 +67,6 @@
             android:id="@+id/tv_home_reminder_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
             android:text="@{comePlanData.invitationTitle}"
             android:textSize="14sp"
             tools:text="대방어 데이"
@@ -84,13 +83,12 @@
             app:layout_constraintStart_toStartOf="@+id/iv_home_reminder"
             app:layout_constraintTop_toBottomOf="@id/iv_home_reminder" />
 
-
         <TextView
             android:id="@+id/tv_home_reminder_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="21dp"
             setMonthDayDate="@{comePlanData.date}"
             android:textSize="14sp"
             tools:text="1월 15일"
@@ -99,10 +97,9 @@
             android:letterSpacing="-0.08"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             app:layout_constraintBottom_toBottomOf="@id/iv_home_reminder_bg"
-            app:layout_constraintEnd_toEndOf="@+id/iv_home_reminder"
-            app:layout_constraintStart_toStartOf="@+id/iv_home_reminder"
+            app:layout_constraintEnd_toEndOf="@+id/tv_home_reminder_name"
+            app:layout_constraintStart_toStartOf="@+id/tv_home_reminder_name"
             app:layout_constraintTop_toBottomOf="@id/tv_home_reminder_name" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

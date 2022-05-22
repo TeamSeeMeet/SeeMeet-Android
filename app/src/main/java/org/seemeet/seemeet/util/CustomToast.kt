@@ -1,4 +1,4 @@
-package org.seemeet.seemeet.ui.registration
+package org.seemeet.seemeet.util
 
 import android.content.Context
 import android.view.Gravity

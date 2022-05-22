@@ -5,16 +5,17 @@ data class ResponseCalendarInfo(
     val success: Boolean,
     val data: List<CalendarEvent>
 )
+
 data class CalendarEvent(
-    val planId: Int,
-    val invitationTitle: String,
-    val date: String,
-    val start: String,
-    val end: String,
-    val users: List<UserData>
+    val planId: Int = 0,
+    val invitationTitle: String = "",
+    val date: String = "",
+    val start: String = "",
+    val end: String = "",
+    val users: List<UserData> = listOf()
 )
 
 data class UserData(
-    val user_id: Int,
-    val username: String
+    val user_id: Int = 0,
+    val username: String = ""
 )
