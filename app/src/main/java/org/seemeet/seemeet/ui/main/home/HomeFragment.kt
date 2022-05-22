@@ -60,11 +60,13 @@ class HomeFragment : Fragment() {
             viewmodel.requestFriendList()
             viewmodel.requestComePlanList()
             viewmodel.requestLastPlanData()
-            setNoReminderListMsgVisible(false)
+            setViewVisible(binding.clHomeNoReminder, false)
         } else {
             setHomeBanner(-1)
-            setNoReminderListMsgVisible(true)
+            setViewVisible(binding.clHomeNoReminder, true)
         }
+
+        setViewVisible(binding.clErrorNetwork, false)
 
         setReminderAdapter()
         setViewModelObserve()
@@ -144,9 +146,9 @@ class HomeFragment : Fragment() {
                 setReminder(comePlan)
 
                 if(comePlan.isEmpty()) {
-                    setNoReminderListMsgVisible(true)
+                    setViewVisible(binding.clHomeNoReminder, true)
                 } else {
-                    setNoReminderListMsgVisible(false)
+                    setViewVisible(binding.clHomeNoReminder, false)
                 }
             }
         }
@@ -171,7 +173,7 @@ class HomeFragment : Fragment() {
                     message = "${error.code()} ERROR : \n ${error.response()!!.errorBody()!!.string().split("\"")[7]}"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                    setViewVisible(binding.clErrorNetwork, true)
                 }
                 else ->  {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
@@ -180,17 +182,20 @@ class HomeFragment : Fragment() {
             }
 
             Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
-            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
-            setNoReminderListMsgVisible(true)
+
+            if(message != "") {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+                setViewVisible(binding.clHomeNoReminder, true)
+            }
         }
 
     }
 
-    private fun setNoReminderListMsgVisible(flag : Boolean){
+    private fun setViewVisible(view: View, flag : Boolean){
          if(flag){
-             binding.clHomeNoReminder.visibility = View.VISIBLE
+            view.visibility = View.VISIBLE
          } else {
-             binding.clHomeNoReminder.visibility = View.INVISIBLE
+             view.visibility = View.GONE
          }
     }
 
@@ -233,11 +238,13 @@ class HomeFragment : Fragment() {
             viewmodel.requestFriendList()
             viewmodel.requestComePlanList()
             viewmodel.requestLastPlanData()
-            setNoReminderListMsgVisible(false)
+            setViewVisible(binding.clHomeNoReminder, false)
         } else {
             setHomeBanner(-1)
-            setNoReminderListMsgVisible(true)
+            setViewVisible(binding.clHomeNoReminder, true)
         }
+
+        setViewVisible(binding.clErrorNetwork, false)
     }
 
 }

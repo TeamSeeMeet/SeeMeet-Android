@@ -8,6 +8,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.util.Patterns
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
@@ -17,6 +18,7 @@ import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.model.response.invitation.GuestX
 import org.seemeet.seemeet.data.model.response.invitation.SendGuest
 import org.seemeet.seemeet.data.model.response.invitation.SendRespondent
+import org.seemeet.seemeet.ui.registration.RegisterActivity
 import java.util.regex.Pattern
 
 object BindingAdapters {
@@ -294,15 +296,91 @@ object BindingAdapters {
         }
     }
 
+    //여기서는 버튼 활성화 비활성화
     @JvmStatic
-    @BindingAdapter("isPossibleEmail", "isPossiblePw")
-    fun isPossible(button: AppCompatButton, email: String?, pw: String?) {
-        val pattern: Pattern = Patterns.EMAIL_ADDRESS
+    @BindingAdapter("warningEmail", "warningPw", "warningCheckpw", "etEmail", "etPw", "etCheckpw")
+    fun registerNextBtn(
+        button: AppCompatButton,
+        warningEmail: String?,
+        warningPw: String?,
+        warningCheckpw: String?,
+        etEmail: String?,
+        etPw: String?,
+        etCheckpw: String?
+    ) {
         val state: Boolean =
-            (pw.isNullOrBlank() || email.isNullOrBlank() || !pattern.matcher(email).matches())
+            (!warningEmail.isNullOrBlank() || !warningPw.isNullOrBlank() || !warningCheckpw.isNullOrBlank() || etEmail.isNullOrBlank() || etPw.isNullOrBlank() || etCheckpw.isNullOrBlank())
         if (state) {
-            button.inactiveBtn(R.drawable.rectangle_gray04_10)
+            button.inactiveBtn(R.drawable.rectangle_gray02_10)
         } else
             button.activeBtn()
+    }
+
+    @JvmStatic
+    @BindingAdapter("warningEmailtext")
+    fun setWarningEmailtext(textView: TextView, etEmail: String?) {
+        val pattern: Pattern = Patterns.EMAIL_ADDRESS
+        if (pattern.matcher(etEmail).matches()) {
+            //이메일 형식 맞음
+            textView.text = ""
+        } else
+            textView.setText(R.string.register_incorrectEmail)
+        if (etEmail.isNullOrBlank()) textView.text = ""
+    }
+
+    @JvmStatic
+    @BindingAdapter("warningPwtext")
+    fun setWarningPwtext(textView: TextView, etPw: String?) {
+        if (etPw?.length ?: 0 < 8) {
+            textView.setText(R.string.register_lengthPassword)
+        } else { // 8자 이상인 경우
+            if (!(etPw?.matches(RegisterActivity.PASSWORD_FORMAT.toRegex())!!)) { // 영문, 숫자 , 특수문자 중 2가지 이상 사용안했을 경우
+                textView.setText(R.string.register_formatPassword)
+            } else textView.text = ""
+        }
+        if (etPw.isNullOrBlank())
+            textView.text = ""
+    }
+
+    @JvmStatic
+    @BindingAdapter("warningCheckpwtext", "etPw")
+    fun setWarningCheckpwtext(textView: TextView, etCheckpw: String?, etPw: String?) {
+        if (etCheckpw != etPw) {
+            textView.setText(R.string.register_incorrectPassword)
+        } else textView.text = "" // 일치할 경우 tv 안 뜨게
+
+        if (etCheckpw.isNullOrBlank())
+            textView.text = ""
+    }
+
+    @JvmStatic
+    @BindingAdapter("status", "etName", "etId")
+    fun registerBtn(button: AppCompatButton, status: Int, etName: String?, etId: String?) {
+        val state: Boolean =
+            (status != 3 || etName.isNullOrBlank() || etId.isNullOrBlank())
+        if (state) {
+            button.inactiveBtn(R.drawable.rectangle_gray02_10)
+        } else
+            button.activeBtn()
+    }
+
+    @JvmStatic
+    @BindingAdapter("etId", "status")
+    fun setId(editText: EditText, etId: String?, status: Int) {
+        val length = etId?.length ?: 0
+        if (length != 0) {
+            val it = etId?.get(length - 1)
+            // 대문자 입력할 시 소문자로 변환
+            if (it!! >= 'A' && it!! <= 'Z') {
+                editText.setText(etId.substring(0, length - 1))
+                editText.text.append(it.lowercase())
+                editText.setSelection(length)
+            }
+        }
+        // 불가능한 문자 입력 시 입력 막기
+        if (status == 2) {
+            editText.setText(etId?.substring(0, length - 1))
+            editText.setSelection(length - 1)
+        }
     }
 }
