@@ -50,9 +50,7 @@ class ApplyActivity : AppCompatActivity() {
 
             dialogView.setButtonClickListener(object :
                 ApplyBackDialogFragment.OnButtonClickListener {
-                override fun onCancelNoClicked() {
-                }
-                override fun onCancelYesClicked() {
+                override fun onCancelOutClicked() {
                     finish()
                     backPressed()
                 }
@@ -73,9 +71,7 @@ class ApplyActivity : AppCompatActivity() {
 
             dialogView.setButtonClickListener(object :
                 ApplyBackDialogFragment.OnButtonClickListener {
-                override fun onCancelNoClicked() {
-                }
-                override fun onCancelYesClicked() {
+                override fun onCancelOutClicked() {
                     finish()
                     backPressed()
                 }

@@ -29,11 +29,10 @@ class ApplyBackDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnApplyDiaOut.setOnClickListener {
-            buttonClickListener.onCancelYesClicked()
+            buttonClickListener.onCancelOutClicked()
             dismiss()
         }
         binding.btnApplyDiaContinue.setOnClickListener {
-            buttonClickListener.onCancelNoClicked()
             dismiss()
         }
 
@@ -59,8 +58,7 @@ class ApplyBackDialogFragment : DialogFragment() {
 
     // 인터페이스
     interface OnButtonClickListener {
-        fun onCancelNoClicked()
-        fun onCancelYesClicked()
+        fun onCancelOutClicked()
     }
 
     // 클릭 이벤트 실행
