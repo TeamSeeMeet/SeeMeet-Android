@@ -69,7 +69,7 @@ class AddFriendActivity : AppCompatActivity() {
         viewModel.userList.observe(this, Observer { userData ->
             binding.apply {
                 setVisibility(binding.clFriendSearchList, View.VISIBLE)
-                tvSearchFriendEmail.text = userData.data.email
+                tvSearchFriendEmail.text = userData.data.nickname
                 tvSearchFriendName.text = userData.data.username
             }
         })
