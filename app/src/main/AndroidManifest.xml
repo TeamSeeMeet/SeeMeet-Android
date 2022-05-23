@@ -11,11 +11,14 @@
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher_logo"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SeeMeet"
+        android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
+        <activity
+            android:name=".ui.main.home.MyPageActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.registration.RegisterNameIdActivity"
             android:exported="false" />

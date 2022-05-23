@@ -93,6 +93,7 @@ class HomeFragment : Fragment() {
             nvMypage.clMypageLogin.setOnClickListener{
                 if(!getLogin())
                     LoginMainActivity.start(requireContext())
+                else MyPageActivity.start(requireContext())
             }
 
             nvMypage.clMypageContent.setOnClickListener {
