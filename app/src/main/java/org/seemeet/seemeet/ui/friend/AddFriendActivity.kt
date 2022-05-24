@@ -2,7 +2,6 @@ package org.seemeet.seemeet.ui.friend
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -11,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
+import org.seemeet.seemeet.data.model.response.friend.UserListData
 import org.seemeet.seemeet.databinding.ActivityAddFriendBinding
 import org.seemeet.seemeet.ui.friend.adapter.UserListAdapter
 import org.seemeet.seemeet.ui.viewmodel.AddFriendViewModel
@@ -19,6 +19,7 @@ class AddFriendActivity : AppCompatActivity() {
     private var userAdapter = UserListAdapter()
     private lateinit var binding: ActivityAddFriendBinding
     private val viewModel: AddFriendViewModel by viewModels()
+    private lateinit var userlist: List<UserListData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +28,7 @@ class AddFriendActivity : AppCompatActivity() {
 
         initClickListener()
         setUserAdapter()
-    }
+   }
 
     private fun initClickListener() {
         // x버튼
@@ -64,21 +65,28 @@ class AddFriendActivity : AppCompatActivity() {
 
     private fun setUserAdapter(){
         binding.rvUserSearch.adapter = userAdapter
-
-        /*
-        userAdapter.setOnItemClickListener{ _, pos ->
-            viewModel.requestAddFriend(userList.get(pos).nickname) //리사이클러뷰 위치의 닉네임 보내기
-        }*/
     }
 
     private fun setUserObserver(){
         viewModel.userList.observe(this, Observer { userData ->
             with(binding.rvUserSearch.adapter as UserListAdapter) {
                 setVisibility(binding.rvUserSearch, View.VISIBLE)
-                Log.d("리사이클러뷰","VISIBLE")
                 setUserList(userData.data)
+                userlist = mutableListOf(userData.data)
+                initItemClickListener()
             }
         })
+    }
+
+    private fun initItemClickListener(){
+        userAdapter.setOnItemClickListener{ _, pos ->
+            //for (changePos in userList.indices) {
+                //if (listOf(viewModel.userList.value?.data)[changePos]?.nickname == userList[pos].nickname) {
+                    val nickname = userlist[pos].nickname
+                    viewModel.requestAddFriend(nickname)
+                //}
+            //}
+        }
     }
 
     private fun setVisibility(view: View, visibility: Int){
