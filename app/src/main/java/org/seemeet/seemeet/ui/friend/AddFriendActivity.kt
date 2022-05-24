@@ -2,6 +2,7 @@ package org.seemeet.seemeet.ui.friend
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -11,9 +12,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import org.seemeet.seemeet.databinding.ActivityAddFriendBinding
+import org.seemeet.seemeet.ui.friend.adapter.UserListAdapter
 import org.seemeet.seemeet.ui.viewmodel.AddFriendViewModel
 
 class AddFriendActivity : AppCompatActivity() {
+    private var userAdapter = UserListAdapter()
     private lateinit var binding: ActivityAddFriendBinding
     private val viewModel: AddFriendViewModel by viewModels()
 
@@ -23,6 +26,7 @@ class AddFriendActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initClickListener()
+        setUserAdapter()
     }
 
     private fun initClickListener() {
@@ -32,52 +36,48 @@ class AddFriendActivity : AppCompatActivity() {
         }
 
         // 입력창 리스너 (x버튼)
-        binding.etSearchFriendId.addTextChangedListener {
-            if (binding.etSearchFriendId.text.isNullOrBlank()) { //공백일 때
-                setVisibility(binding.ivFriendIdRemoveAll, View.GONE)
+        binding.etSearchUser.addTextChangedListener {
+            if (binding.etSearchUser.text.isNullOrBlank()) { //공백일 때
+                setVisibility(binding.ivRemoveAll, View.GONE)
             } else {
-                setVisibility(binding.ivFriendIdRemoveAll, View.VISIBLE)
-                binding.ivFriendIdRemoveAll.setOnClickListener {
-                    binding.etSearchFriendId.text = null
+                setVisibility(binding.ivRemoveAll, View.VISIBLE)
+                binding.ivRemoveAll.setOnClickListener {
+                    binding.etSearchUser.text = null
                 }
             }
         }
 
         // 검색 enter 버튼
-        binding.etSearchFriendId.setOnEditorActionListener { _, action, _ ->
+        binding.etSearchUser.setOnEditorActionListener { _, action, _ ->
             var handled = false
             if (action == EditorInfo.IME_ACTION_DONE) {
-                val email = binding.etSearchFriendId.text
-                viewModel.requestUserList(email)
+                val nickname = binding.etSearchUser.text
+                viewModel.requestUserList(nickname)
                 handled = true
-                setVisibility(binding.tvSearchFriendNull, View.VISIBLE)
+                setVisibility(binding.tvSearchUserNull, View.VISIBLE)
                 setUserObserver()
-                setVisibility(binding.clFriendSearchList, View.GONE)
+                setVisibility(binding.rvUserSearch, View.GONE)
             }
             handled
         }
-
-        // 친구 추가 버튼
-        binding.ivAddFriendList.setOnClickListener {
-            val email = binding.etSearchFriendId.text
-            viewModel.requestAddFriend(email)
-            setAddFriendObserver()
-        }
     }
 
-    private fun setUserObserver() {
+    private fun setUserAdapter(){
+        binding.rvUserSearch.adapter = userAdapter
+
+        /*
+        userAdapter.setOnItemClickListener{ _, pos ->
+            viewModel.requestAddFriend(userList.get(pos).nickname) //리사이클러뷰 위치의 닉네임 보내기
+        }*/
+    }
+
+    private fun setUserObserver(){
         viewModel.userList.observe(this, Observer { userData ->
-            binding.apply {
-                setVisibility(binding.clFriendSearchList, View.VISIBLE)
-                tvSearchFriendEmail.text = userData.data.nickname
-                tvSearchFriendName.text = userData.data.username
+            with(binding.rvUserSearch.adapter as UserListAdapter) {
+                setVisibility(binding.rvUserSearch, View.VISIBLE)
+                Log.d("리사이클러뷰","VISIBLE")
+                setUserList(userData.data)
             }
-        })
-    }
-
-    private fun setAddFriendObserver() {
-        viewModel.userList.observe(this, Observer {
-            binding.ivAddFriendList.isSelected = true
         })
     }
 

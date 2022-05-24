@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ResponseUserList(
     @SerializedName("data")
-    val `data`: Data,
+    val `data`: UserListData,
     @SerializedName("message")
     val message: String,
     @SerializedName("status")
@@ -13,7 +13,7 @@ data class ResponseUserList(
     val success: Boolean
 )
 
-data class Data(
+data class UserListData(
     @SerializedName("createdAt")
     val createdAt: String,
     @SerializedName("email")
