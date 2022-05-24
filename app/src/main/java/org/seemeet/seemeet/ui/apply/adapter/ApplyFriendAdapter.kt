@@ -66,6 +66,7 @@ class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendVi
     fun setFriend(friendList: List<FriendListData>) {
         this.applyfriendList.removeAll(this.applyfriendList)
         this.applyfriendList.addAll(friendList)
+        sortItem()
         notifyDataSetChanged()
     }
 
@@ -79,7 +80,7 @@ class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendVi
         notifyDataSetChanged()
     }
 
-    fun sortItem(data: FriendListData) {
+    fun sortItem() {
         applyfriendList.sortBy { it.username }
         notifyDataSetChanged()
     }

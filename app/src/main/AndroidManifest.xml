@@ -11,10 +11,14 @@
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher_logo"
         android:label="@string/app_name"
+        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SeeMeet"
         tools:replace="android:allowBackup">
+        <activity
+            android:name=".ui.registration.RegisterNameIdActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.registration.LoginMainActivity"
             android:exported="false" />
@@ -57,10 +61,25 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".ui.registration.LoginActivity" />
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oauth"
+                    android:scheme="kakao${KAKAO_APP_KEY}" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

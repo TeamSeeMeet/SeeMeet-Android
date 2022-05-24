@@ -17,98 +17,90 @@
             android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_apply_dialog_top"
+                android:id="@+id/cl_back_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/cl_apply_dialog_bottom"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/tv_apply_dialog_back"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="25dp"
-                    android:fontFamily="@font/spoqa_han_sans_neo_bold"
-                    android:letterSpacing="-0.01"
-                    android:text="@string/apply_dialog_goback"
-                    android:textColor="@color/gray06"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_apply_dialog_bottom"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@color/white"
-                app:layout_constraintDimensionRatio="280:126"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_apply_dialog_top">
 
                 <TextView
                     android:id="@+id/tv_apply_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="51dp"
-                    android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="33dp"
+                    android:layout_marginEnd="63dp"
+                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                    android:gravity="center"
                     android:letterSpacing="-0.01"
-                    android:text="@string/apply_dialog_really_goback"
+                    android:text="@string/apply_dialog_goback"
                     android:textColor="@color/gray05"
                     android:textSize="16sp"
-                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/btn_apply_dia_no"
+                    android:id="@+id/tv_apply_back2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="6dp"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="63dp"
                     android:fontFamily="@font/spoqa_han_sans_neo_medium"
-                    android:gravity="center_horizontal"
+                    android:gravity="center"
                     android:letterSpacing="-0.01"
-                    android:paddingStart="14dp"
-                    android:paddingTop="14dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="14dp"
-                    android:text="@string/send_cancel_no"
-                    android:textColor="@color/gray06"
+                    android:text="@string/apply_dialog_goback2"
+                    android:textColor="@color/gray05"
                     android:textSize="16sp"
-                    android:textStyle="normal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/btn_apply_dia_yes"
-                    app:layout_constraintTop_toBottomOf="@id/tv_apply_back" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_apply_back" />
 
                 <TextView
-                    android:id="@+id/btn_apply_dia_yes"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/btn_apply_dia_continue"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="34dp"
+                    android:background="@color/pink01"
                     android:fontFamily="@font/spoqa_han_sans_neo_medium"
-                    android:gravity="center_horizontal"
+                    android:gravity="center|center_horizontal"
                     android:letterSpacing="-0.01"
                     android:paddingStart="20dp"
                     android:paddingTop="14dp"
                     android:paddingEnd="25dp"
                     android:paddingBottom="14dp"
-                    android:text="@string/send_cancel_yes"
-                    android:textColor="@color/pink01"
+                    android:text="@string/apply_dialog_continue"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="normal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_apply_back" />
+                    app:layout_constraintStart_toEndOf="@+id/btn_apply_dia_out"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_apply_back2" />
 
+                <TextView
+                    android:id="@+id/btn_apply_dia_out"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="34dp"
+                    android:background="@color/gray02"
+                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                    android:gravity="center"
+                    android:letterSpacing="-0.01"
+                    android:paddingStart="14dp"
+                    android:paddingTop="14dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="14dp"
+                    android:text="@string/apply_dialog_out"
+                    android:textColor="@color/gray05"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_apply_dia_continue"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_apply_back2" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

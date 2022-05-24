@@ -112,7 +112,7 @@ class FirstApplyFragment : Fragment() {
             if (hasFocus) {
                 binding.rvFriend.makeVisible()
                 if (binding.chipGroup.childCount == 0) {
-                    viewModel.requestFriendList() //chip 개수가 0이면서 포커스 눌렀을 때  친구 리스트 통신 시작
+                    viewModel.requestFriendList() //chip 개수가 0이면서 포커스 눌렀을 때 친구 리스트 통신 시작
                     friendPos = -1 //친구 목록에서 버튼 클릭해서 들어왔는데 바로 그 칩 하나를 삭제하고 포커스 눌렀을 경우 버그 해결
                 } else {
                     if (friendPos != -1) {
@@ -122,6 +122,9 @@ class FirstApplyFragment : Fragment() {
                 }
             } else {
                 binding.rvFriend.makeInVisible()
+                if (!binding.etToWho.text.isNullOrBlank()) {
+                    binding.etToWho.text.clear()
+                }
             }
         }
 
@@ -234,9 +237,7 @@ class FirstApplyFragment : Fragment() {
                         adapter.addItem(
                             FriendListData(friendEmail.toString(), friendId, friendName!!)
                         )
-                        adapter.sortItem(
-                            FriendListData(friendEmail.toString(), friendId, friendName!!)
-                        )
+                        adapter.sortItem()
                         if (binding.chipGroup.childCount < 3) {
                             binding.etToWho.isEnabled = true
                         }
@@ -283,9 +284,7 @@ class FirstApplyFragment : Fragment() {
                             adapter.addItem(
                                 friendData
                             )
-                            adapter.sortItem(
-                                friendData
-                            )
+                            adapter.sortItem()
                             if (binding.chipGroup.childCount < 3) {
                                 binding.etToWho.isEnabled = true
                             }
