@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".ui.main.home.ChangePwActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.home.MyPageActivity"
             android:exported="false" />
         <activity

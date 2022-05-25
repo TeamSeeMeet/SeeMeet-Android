@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.databinding.ActivityMyPageBinding
-import org.seemeet.seemeet.ui.apply.FirstApplyFragment
 import org.seemeet.seemeet.ui.registration.LoginMainActivity
 
 class MyPageActivity : AppCompatActivity() {
@@ -25,25 +24,23 @@ class MyPageActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().add(R.id.container_mypage, fragment).commit()
         supportFragmentManager.beginTransaction().addToBackStack(null)
 
-        binding.backMypage.setOnClickListener{
+        binding.backMypage.setOnClickListener {
             finish()
         }
 
-        binding.btnChangePw.setOnClickListener{
+        binding.btnChangePw.setOnClickListener {
             //비번 바꾸는 창으로 넘어가기
+            ChangePwActivity.start(this)
         }
 
-        binding.btnLogout.setOnClickListener{
+        binding.btnLogout.setOnClickListener {
             SeeMeetSharedPreference.clearStorage()
             LoginMainActivity.start(this)
         }
 
-        binding.btnResign.setOnClickListener{
+        binding.btnResign.setOnClickListener {
             //탈퇴하기
         }
-
-        //fragment =
-        //supportFragmentManager.beginTransaction().replace(R.id.container_mypage, fragment).commit()
     }
 
     companion object {
