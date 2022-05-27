@@ -63,7 +63,7 @@ class SendActivity : AppCompatActivity() {
 
                         view?.isActivated = true
                         Log.d("*******************tag", viewModel.sendInvitationDateList.value!![position].start)
-                        choiceInvi = viewModel.sendInvitationDateList.value!![position]
+                        choiceInvi = viewModel.sendInvitationDateList.value?.get(position)
 
                         if(!binding.btnSendDecide.isEnabled) {
                             binding.btnSendDecide.isEnabled = true
@@ -100,8 +100,7 @@ class SendActivity : AppCompatActivity() {
     }
 
     private fun setListObserver(){
-        viewModel.sendInvitationData.observe(this) {
-            invitation ->
+        viewModel.sendInvitationData.observe(this) { invitation ->
 
             //초대장 받은 사람들에 대한 chip 그리기
             if(invitation.guests[0].id != -1) {
@@ -134,7 +133,7 @@ class SendActivity : AppCompatActivity() {
         }
 
         viewModel.fetchState.observe(this){
-            var message = ""
+            val message: String
             when( it.second){
                 BaseViewModel.FetchState.BAD_INTERNET-> {
                     message = "소켓 오류 / 서버와 연결에 실패하였습니다."
@@ -193,8 +192,8 @@ class SendActivity : AppCompatActivity() {
             val choiceCnt = choiceInvi?.respondent?.size
 
             when(true){
-                responseCnt != respondent -> bundle.putInt("check", 3)
-                responseCnt != choiceCnt ->  bundle.putInt("check", 2)
+                (responseCnt != respondent) -> bundle.putInt("check", 3)
+                (responseCnt != choiceCnt) ->  bundle.putInt("check", 2)
                 else -> bundle.putInt("check", 1)
             }
 
