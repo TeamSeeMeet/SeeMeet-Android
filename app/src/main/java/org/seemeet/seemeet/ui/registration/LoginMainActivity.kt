@@ -10,10 +10,8 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
-import org.seemeet.seemeet.data.api.LoginService
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.request.login.RequestKakaoLogin
 import org.seemeet.seemeet.data.model.response.login.ExUser
@@ -120,8 +118,8 @@ class LoginMainActivity : AppCompatActivity() {
     }
 
     // sharedPreference setting
-    private fun setSharedPreference(list : ExUser) {
-        SeeMeetSharedPreference.setUserId(list.id)
+    private fun setSharedPreference(list: ExUser) {
+        SeeMeetSharedPreference.setUserId(list.nickname ?: return)
         SeeMeetSharedPreference.setLogin(true)
         SeeMeetSharedPreference.setUserName(list.username)
     }
