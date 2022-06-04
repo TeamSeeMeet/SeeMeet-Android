@@ -1,7 +1,7 @@
 package org.seemeet.seemeet.ui.viewmodel
 
 import android.app.Application
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
@@ -10,10 +10,11 @@ import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.request.register.RequestRegisterNameId
 import org.seemeet.seemeet.data.model.response.register.ResponseRegisterNameId
 import org.seemeet.seemeet.ui.registration.RegisterNameIdActivity
-import retrofit2.HttpException
 
 class RegisterNameIdViewModel(application: Application) : BaseViewModel(application) {
     private val _registerNameIdList = MutableLiveData<ResponseRegisterNameId>()
+    val registerNameIdList: LiveData<ResponseRegisterNameId>
+        get() = _registerNameIdList
     val registerName = MutableLiveData("")
     val tvWarningId = MutableLiveData("")
     val registerId = MutableLiveData("")
@@ -21,20 +22,21 @@ class RegisterNameIdViewModel(application: Application) : BaseViewModel(applicat
 
     val status = MutableLiveData<Int>(0)
 
+    private val _registerStatus = MutableLiveData<Boolean>(false)
+    val registerStatus: LiveData<Boolean>
+        get() = _registerStatus
+
     fun requestRegisterNameIdList(
         name: String,
         nickname: String
     ) = viewModelScope.launch(exceptionHandler) {
-        try {
-            _registerNameIdList.postValue(
-                RetrofitBuilder.registerService.putRegisterNameId(
-                    SeeMeetSharedPreference.getToken(),
-                    RequestRegisterNameId(name, nickname)
-                )
+        _registerNameIdList.postValue(
+            RetrofitBuilder.registerService.putRegisterNameId(
+                SeeMeetSharedPreference.getToken(),
+                RequestRegisterNameId(name, nickname)
             )
-        } catch (e: HttpException) {
-            Log.e("network error", e.toString())
-        }
+        )
+        _registerStatus.value = true
     }
 
     fun check() {

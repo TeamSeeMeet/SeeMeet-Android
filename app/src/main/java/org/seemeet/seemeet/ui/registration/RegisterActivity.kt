@@ -57,7 +57,8 @@ class RegisterActivity : AppCompatActivity() {
             var message = ""
             when (it.second) {
                 BaseViewModel.FetchState.BAD_INTERNET -> {
-                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                    binding.clContent.visibility = View.INVISIBLE
+                    binding.clNetworkError.visibility = View.VISIBLE
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {
                     val error = (it.first as HttpException)
