@@ -41,12 +41,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun statusObserver() {
         viewModel.loginList.observe(this, Observer { list ->
-            SeeMeetSharedPreference.setToken(list.data.accesstoken)
-            SeeMeetSharedPreference.setUserId(list.data.user.id)
+            SeeMeetSharedPreference.setToken(list.data.accesstoken.accessToken)
+            SeeMeetSharedPreference.setUserId(list.data.user.nickname!!)
             SeeMeetSharedPreference.setLogin(true)
             SeeMeetSharedPreference.setUserName(list.data.user.username)
-            SeeMeetSharedPreference.setUserEmail(list.data.user.email)
-
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //기존에 쌓여있던 액티비티를 삭제
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

@@ -12,6 +12,8 @@ import retrofit2.HttpException
 
 class RegisterViewModel(application: Application) : BaseViewModel(application) {
     private val _registerList = MutableLiveData<ResponseRegisterList>()
+    val registerList: LiveData<ResponseRegisterList>
+        get() = _registerList
     private val _status = MutableLiveData<Boolean>()
     val registerEmail = MutableLiveData("")
     val registerPw = MutableLiveData("")

@@ -13,6 +13,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.databinding.ActivityRegisterBinding
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.RegisterViewModel
@@ -38,6 +39,10 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun statusObserver() {
+        viewModel.registerList.observe(this, Observer { list ->
+            SeeMeetSharedPreference.setToken(list.data.accesstoken.accessToken)
+        })
+
         viewModel.status.observe(this, Observer { status ->
             if (status) {
                 val intent = Intent(this, RegisterNameIdActivity::class.java)

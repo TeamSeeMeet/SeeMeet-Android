@@ -1,5 +1,6 @@
 package org.seemeet.seemeet.data.model.response.register
 
+import org.seemeet.seemeet.data.model.response.login.Accesstoken
 import java.util.*
 
 data class ResponseRegisterList(
@@ -11,7 +12,7 @@ data class ResponseRegisterList(
 
 data class Data(
     val user: UserInfo,
-    val accesstoken: String
+    val accesstoken: Accesstoken
 )
 
 data class UserInfo(
