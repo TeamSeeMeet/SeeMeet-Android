@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun statusObserver() {
         viewModel.loginList.observe(this, Observer { list ->
-            SeeMeetSharedPreference.setToken(list.data.accesstoken)
+            SeeMeetSharedPreference.setToken(list.data.accesstoken.accessToken)
             SeeMeetSharedPreference.setUserId(list.data.user.nickname?:"")
             SeeMeetSharedPreference.setLogin(true)
             SeeMeetSharedPreference.setUserName(list.data.user.username)

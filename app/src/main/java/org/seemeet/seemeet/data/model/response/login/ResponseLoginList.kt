@@ -9,5 +9,5 @@ data class ResponseLoginList(
 
 data class Data(
     val user: ExUser,
-    val accesstoken: String
+    val accesstoken: Accesstoken
 )
