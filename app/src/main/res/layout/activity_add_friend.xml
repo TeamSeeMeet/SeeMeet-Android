@@ -44,7 +44,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <EditText
-            android:id="@+id/et_search_friend_id"
+            android:id="@+id/et_search_user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
@@ -62,28 +62,28 @@
             app:layout_constraintTop_toBottomOf="@id/cl_friend_add_top_bar" />
 
         <ImageView
-            android:id="@+id/iv_search_friend"
+            android:id="@+id/iv_search_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_search"
-            app:layout_constraintBottom_toBottomOf="@+id/et_search_friend_id"
-            app:layout_constraintStart_toStartOf="@+id/et_search_friend_id"
-            app:layout_constraintTop_toTopOf="@+id/et_search_friend_id" />
+            app:layout_constraintBottom_toBottomOf="@+id/et_search_user"
+            app:layout_constraintStart_toStartOf="@+id/et_search_user"
+            app:layout_constraintTop_toTopOf="@+id/et_search_user" />
 
         <ImageView
-            android:id="@+id/iv_friend_id_remove_all"
+            android:id="@+id/iv_remove_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_btn_remove"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/et_search_friend_id"
-            app:layout_constraintEnd_toEndOf="@+id/et_search_friend_id"
-            app:layout_constraintTop_toTopOf="@+id/et_search_friend_id" />
+            app:layout_constraintBottom_toBottomOf="@+id/et_search_user"
+            app:layout_constraintEnd_toEndOf="@+id/et_search_user"
+            app:layout_constraintTop_toTopOf="@+id/et_search_user" />
 
 
         <TextView
-            android:id="@+id/tv_search_friend_null"
+            android:id="@+id/tv_search_user_null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
@@ -94,62 +94,38 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_search_friend_id" />
+            app:layout_constraintTop_toBottomOf="@id/et_search_user" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_friend_search_list"
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="35dp"
-            android:layout_marginEnd="9dp"
-            android:background="@color/white"
-            android:visibility="gone"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_search_friend_id">
+            app:layout_constraintTop_toBottomOf="@+id/et_search_user">
 
-            <ImageView
-                android:id="@+id/iv_search_profile_image"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:layout_marginVertical="13dp"
-                android:src="@drawable/ic_img_profile"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_search_friend_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:fontFamily="@font/spoqa_han_sans_neo_medium"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@id/iv_search_profile_image"
-                app:layout_constraintTop_toTopOf="@+id/iv_search_profile_image" />
-
-            <TextView
-                android:id="@+id/tv_search_friend_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                android:textColor="@color/gray04"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_search_profile_image"
-                app:layout_constraintStart_toStartOf="@+id/tv_search_friend_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_search_friend_name" />
-
-            <ImageView
-                android:id="@+id/iv_add_friend_list"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/selector_add_friend"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_user_search"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="9dp"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:background="@color/white"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/item_user_list" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

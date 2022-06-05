@@ -10,12 +10,16 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
+import org.seemeet.seemeet.data.model.response.friend.UserListData
 import org.seemeet.seemeet.databinding.ActivityAddFriendBinding
+import org.seemeet.seemeet.ui.friend.adapter.UserListAdapter
 import org.seemeet.seemeet.ui.viewmodel.AddFriendViewModel
 
 class AddFriendActivity : AppCompatActivity() {
+    private var userAdapter = UserListAdapter()
     private lateinit var binding: ActivityAddFriendBinding
     private val viewModel: AddFriendViewModel by viewModels()
+    private lateinit var userlist: List<UserListData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +27,8 @@ class AddFriendActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initClickListener()
-    }
+        setUserAdapter()
+   }
 
     private fun initClickListener() {
         // x버튼
@@ -32,53 +37,56 @@ class AddFriendActivity : AppCompatActivity() {
         }
 
         // 입력창 리스너 (x버튼)
-        binding.etSearchFriendId.addTextChangedListener {
-            if (binding.etSearchFriendId.text.isNullOrBlank()) { //공백일 때
-                setVisibility(binding.ivFriendIdRemoveAll, View.GONE)
+        binding.etSearchUser.addTextChangedListener {
+            if (binding.etSearchUser.text.isNullOrBlank()) { //공백일 때
+                setVisibility(binding.ivRemoveAll, View.GONE)
             } else {
-                setVisibility(binding.ivFriendIdRemoveAll, View.VISIBLE)
-                binding.ivFriendIdRemoveAll.setOnClickListener {
-                    binding.etSearchFriendId.text = null
+                setVisibility(binding.ivRemoveAll, View.VISIBLE)
+                binding.ivRemoveAll.setOnClickListener {
+                    binding.etSearchUser.text = null
                 }
             }
         }
 
         // 검색 enter 버튼
-        binding.etSearchFriendId.setOnEditorActionListener { _, action, _ ->
+        binding.etSearchUser.setOnEditorActionListener { _, action, _ ->
             var handled = false
             if (action == EditorInfo.IME_ACTION_DONE) {
-                val email = binding.etSearchFriendId.text
-                viewModel.requestUserList(email)
+                val nickname = binding.etSearchUser.text
+                viewModel.requestUserList(nickname)
                 handled = true
-                setVisibility(binding.tvSearchFriendNull, View.VISIBLE)
+                setVisibility(binding.tvSearchUserNull, View.VISIBLE)
                 setUserObserver()
-                setVisibility(binding.clFriendSearchList, View.GONE)
+                setVisibility(binding.rvUserSearch, View.GONE)
             }
             handled
         }
-
-        // 친구 추가 버튼
-        binding.ivAddFriendList.setOnClickListener {
-            val email = binding.etSearchFriendId.text
-            viewModel.requestAddFriend(email)
-            setAddFriendObserver()
-        }
     }
 
-    private fun setUserObserver() {
+    private fun setUserAdapter(){
+        binding.rvUserSearch.adapter = userAdapter
+    }
+
+    private fun setUserObserver(){
         viewModel.userList.observe(this, Observer { userData ->
-            binding.apply {
-                setVisibility(binding.clFriendSearchList, View.VISIBLE)
-                tvSearchFriendEmail.text = userData.data.email
-                tvSearchFriendName.text = userData.data.username
+            with(binding.rvUserSearch.adapter as UserListAdapter) {
+                setVisibility(binding.rvUserSearch, View.VISIBLE)
+                setUserList(userData.data)
+                userlist = mutableListOf(userData.data)
+                initItemClickListener()
             }
         })
     }
 
-    private fun setAddFriendObserver() {
-        viewModel.userList.observe(this, Observer {
-            binding.ivAddFriendList.isSelected = true
-        })
+    private fun initItemClickListener(){
+        userAdapter.setOnItemClickListener{ _, pos ->
+            //for (changePos in userList.indices) {
+                //if (listOf(viewModel.userList.value?.data)[changePos]?.nickname == userList[pos].nickname) {
+                    val nickname = userlist[pos].nickname
+                    viewModel.requestAddFriend(nickname)
+                //}
+            //}
+        }
     }
 
     private fun setVisibility(view: View, visibility: Int){
