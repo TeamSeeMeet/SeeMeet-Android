@@ -47,6 +47,7 @@
                 android:id="@+id/iv_mypage_profile"
                 android:layout_width="99dp"
                 android:layout_height="99dp"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/ic_img_list_null" />
 
             <ImageView
