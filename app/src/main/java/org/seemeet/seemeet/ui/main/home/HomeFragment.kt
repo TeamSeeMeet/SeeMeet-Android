@@ -20,6 +20,7 @@ import org.seemeet.seemeet.ui.detail.DetailActivity
 import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.ui.main.home.adapter.ReminderListAdapter
+import org.seemeet.seemeet.ui.mypage.MyPageActivity
 import org.seemeet.seemeet.ui.notification.NotificationActivity
 import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
