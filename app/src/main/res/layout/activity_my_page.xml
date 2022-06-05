@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.home.MyPageActivity">
+    tools:context=".ui.mypage.MyPageActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_top_mypage"
@@ -27,7 +27,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container_mypage"
-        android:name="org.seemeet.seemeet.ui.main.home.FirstMyPageFragment"
+        android:name="org.seemeet.seemeet.ui.mypage.FirstMyPageFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/cl_mypage_bottom"
@@ -51,7 +51,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:background="@color/white"
-            app:layout_constraintTop_toTopOf="parent">
+            android:clickable="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
 
             <TextView
                 android:id="@+id/tv_change_pw"
@@ -73,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="35dp"
-                android:clickable="true"
+                android:clickable="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

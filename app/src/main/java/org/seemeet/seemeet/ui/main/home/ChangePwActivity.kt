@@ -21,9 +21,7 @@ class ChangePwActivity : AppCompatActivity() {
         binding.btnBacKChangePw.setOnClickListener {
             finish()
         }
-        binding.btnCancelPw.setOnClickListener {
-            finish()
-        }
+
         binding.btnSave.setOnClickListener {
             //비밀번호 변경
         }
