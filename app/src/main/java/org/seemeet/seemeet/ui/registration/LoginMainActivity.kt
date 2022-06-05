@@ -41,13 +41,11 @@ class LoginMainActivity : AppCompatActivity() {
         binding.tvEmailRegister.setOnClickListener {
             val nextIntent = Intent(this, RegisterActivity::class.java)
             startActivity(nextIntent)
-            //finish()
         }
 
         binding.tvEmailLogin.setOnClickListener {
             val nextIntent = Intent(this, LoginActivity::class.java)
             startActivity(nextIntent)
-            //finish()
         }
     }
 
