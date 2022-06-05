@@ -112,12 +112,12 @@ class LoginActivity : AppCompatActivity() {
         binding.etEmail.addTextChangedListener {
             if (!isNullOrBlank()) { //다 작성했을 때
                 binding.btnLogin.activeBtn()
-            } else binding.btnLogin.inactiveBtn(R.drawable.rectangle_gray04_10)
+            } else binding.btnLogin.inactiveBtn(R.drawable.rectangle_gray02_10)
         }
         binding.etPw.addTextChangedListener {
             if (!isNullOrBlank()) { //다 작성했을 때
                 binding.btnLogin.activeBtn()
-            } else binding.btnLogin.inactiveBtn(R.drawable.rectangle_gray04_10)
+            } else binding.btnLogin.inactiveBtn(R.drawable.rectangle_gray02_10)
         }
 
         binding.etPw.setOnFocusChangeListener { _, hasFocus ->
