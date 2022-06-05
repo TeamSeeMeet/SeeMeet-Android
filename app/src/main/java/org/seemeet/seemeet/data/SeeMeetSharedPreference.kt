@@ -13,6 +13,7 @@ object SeeMeetSharedPreference {
     private const val USER_FB = "USER_FB"
     private const val TOKEN = "TOKEN"
     private const val USER_EMAIL = "USER_EMAIL"
+    private const val IS_SOCIAL_LOGIN = "IS_SOCIAL_LOGIN"
 
     fun init(context: Context) {
         preferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
@@ -73,6 +74,14 @@ object SeeMeetSharedPreference {
 
     fun getLogin(): Boolean = preferences.getBoolean(IS_LOGIN, false)
 
+    fun setSocialLogin(value: Boolean){
+        preferences.edit{
+            putBoolean(IS_SOCIAL_LOGIN, value)
+            apply()
+        }
+    }
+
+    fun getSocialLogin(): Boolean = preferences.getBoolean(IS_SOCIAL_LOGIN, false)
 
     fun clearStorage() : Boolean{
         return preferences.edit().clear().commit()
