@@ -5,18 +5,28 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.model.response.login.ExUser
 import org.seemeet.seemeet.databinding.ActivityMyPageBinding
 import org.seemeet.seemeet.ui.registration.LoginMainActivity
+import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
+import org.seemeet.seemeet.ui.viewmodel.MyPageViewModel
+import retrofit2.HttpException
 
 class MyPageActivity : AppCompatActivity() {
     private var profile_position = DEFAULT
     private var nameId_position = DEFAULT
     var currentImageUrl: String? = SeeMeetSharedPreference.getUserProfile()
+
+    private val viewModel: MyPageViewModel by viewModels()
 
     private val binding: ActivityMyPageBinding by lazy {
         ActivityMyPageBinding.inflate(layoutInflater)
@@ -25,7 +35,10 @@ class MyPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        binding.myPageviewModel = viewModel
+        binding.lifecycleOwner = this
         initSetting()
+        statusObserver()
         initClickListener()
     }
 
@@ -40,6 +53,38 @@ class MyPageActivity : AppCompatActivity() {
 
         binding.etMypageName.setText(SeeMeetSharedPreference.getUserName())
         binding.etMypageId.setText(SeeMeetSharedPreference.getUserId())
+    }
+
+    private fun statusObserver() {
+        viewModel.fetchState.observe(this) {
+            var message = ""
+            when (it.second) {
+                BaseViewModel.FetchState.BAD_INTERNET -> {
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                }
+                BaseViewModel.FetchState.PARSE_ERROR -> {
+                    val error = (it.first as HttpException)
+                    if (error.response()!!.errorBody()!!.string()
+                            .split("\"")[7] == "이미 사용중인 닉네임입니다."
+                    ) {
+                        Toast.makeText(this, "이미 사용 중이에요", Toast.LENGTH_LONG).show()
+                    }
+                }
+                BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                }
+                else -> {
+                    message = "통신에 실패하였습니다.\n ${it.first.message}"
+                }
+            }
+            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+            if (message != "") {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            }
+        }
+        viewModel.MyPageNameIdList.observe(this, Observer {
+            setSharedPreference(it.data)
+        })
     }
 
     fun initClickListener() {
@@ -78,6 +123,10 @@ class MyPageActivity : AppCompatActivity() {
                 ONEDITNAMEID -> {
                     //저장하기 버튼을 누를 때
                     //이름, 아이디 바꾸는 서버 연결
+                    viewModel.requestMyPageNameIdList(
+                        binding.etMypageName.text.toString(),
+                        binding.etMypageId.text.toString()
+                    )
                     BtnSave()
                 }
             }
@@ -157,12 +206,20 @@ class MyPageActivity : AppCompatActivity() {
         }
     }
 
+    // sharedPreference setting
+    private fun setSharedPreference(list: ExUser) {
+        SeeMeetSharedPreference.setUserId(list.nickname ?: return)
+        SeeMeetSharedPreference.setUserName(list.username)
+    }
+
     private fun BtnEdit() {
         binding.btnMypageCancel.visibility = View.VISIBLE
         binding.btnEditOrSave.text = "저장"
         binding.etMypageName.isEnabled = true
+        binding.etMypageName.setText(SeeMeetSharedPreference.getUserName())
         binding.mypageLine.visibility = View.VISIBLE
         binding.etMypageId.isEnabled = true
+        binding.etMypageId.setText(SeeMeetSharedPreference.getUserId())
         binding.mypageLine2.visibility = View.VISIBLE
         nameId_position = ONEDITNAMEID
     }
@@ -170,10 +227,10 @@ class MyPageActivity : AppCompatActivity() {
     private fun BtnSave() {
         binding.btnMypageCancel.visibility = View.INVISIBLE
         binding.btnEditOrSave.text = "수정"
-        binding.etMypageName.setText(SeeMeetSharedPreference.getUserName())
+        binding.etMypageName.setText(binding.etMypageName.text.toString())
         binding.etMypageName.isEnabled = false
         binding.mypageLine.visibility = View.INVISIBLE
-        binding.etMypageId.setText(SeeMeetSharedPreference.getUserId())
+        binding.etMypageId.setText(binding.etMypageId.text.toString())
         binding.etMypageId.isEnabled = false
         binding.mypageLine2.visibility = View.INVISIBLE
         nameId_position = DEFAULT
