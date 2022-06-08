@@ -42,10 +42,10 @@
                 android:id="@+id/cl_logout_dialog_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="280:126"
                 android:background="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintDimensionRatio="280:125"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cl_logout_dialog_top">
 
                 <TextView
@@ -53,8 +53,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="97dp"
+                    android:layout_marginTop="23dp"
+                    android:layout_marginEnd="80dp"
                     android:fontFamily="@font/spoqa_han_sans_neo_bold"
                     android:letterSpacing="-0.01"
                     android:text="정말 로그아웃 하시겠어요?"
@@ -70,8 +70,8 @@
                     android:id="@+id/btn_logout_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="42dp"
+                    android:layout_marginBottom="20dp"
                     android:fontFamily="@font/spoqa_han_sans_neo_medium"
                     android:gravity="center_horizontal"
                     android:letterSpacing="-0.01"
@@ -91,9 +91,9 @@
                     android:id="@+id/btn_logout_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="42dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="6dp"
+                    android:layout_marginBottom="20dp"
                     android:fontFamily="@font/spoqa_han_sans_neo_medium"
                     android:gravity="center_horizontal"
                     android:letterSpacing="-0.01"
@@ -108,7 +108,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_detail_logout" />
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

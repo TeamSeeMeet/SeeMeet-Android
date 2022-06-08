@@ -67,7 +67,7 @@
             android:layout_width="84sp"
             android:layout_height="20sp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/rectangle_gray06_10_line"
+            android:background="@drawable/rectangle_gray06_6_line"
             android:text="프로필 사진 편집"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"

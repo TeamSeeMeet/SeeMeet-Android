@@ -1,4 +1,4 @@
-package org.seemeet.seemeet.ui.main.home
+package org.seemeet.seemeet.ui.mypage
 
 import android.content.Context
 import android.content.Intent

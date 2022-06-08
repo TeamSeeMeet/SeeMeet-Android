@@ -11,7 +11,6 @@ import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.databinding.ActivityMyPageBinding
-import org.seemeet.seemeet.ui.main.home.ChangePwActivity
 import org.seemeet.seemeet.ui.registration.LoginMainActivity
 
 class MyPageActivity : AppCompatActivity() {
