@@ -174,6 +174,11 @@ class MyPageActivity : AppCompatActivity() {
 
                 override fun onResignYesClicked() {
                     //탈퇴 서버 연결
+                    viewModel.requestMyPageWithdrawal()
+                    val intent = Intent(this@MyPageActivity, LoginMainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    SeeMeetSharedPreference.clearStorage()
+                    this@MyPageActivity.startActivity(intent)
                 }
             })
             dialogView.show(supportFragmentManager, "send wish checkbox time")

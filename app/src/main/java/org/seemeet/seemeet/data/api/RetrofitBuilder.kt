@@ -22,5 +22,5 @@ object RetrofitBuilder {
     val calendarService: CalendarService = seeMeetRetrofit.create(CalendarService::class.java)
     val loginService: LoginService = seeMeetRetrofit.create(LoginService::class.java)
     val registerService: RegisterService = seeMeetRetrofit.create(RegisterService::class.java)
-
+    val withdrawalService: WithdrawalService = seeMeetRetrofit.create(WithdrawalService::class.java)
 }
