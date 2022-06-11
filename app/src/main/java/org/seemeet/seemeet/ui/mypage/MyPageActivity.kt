@@ -53,7 +53,7 @@ class MyPageActivity : AppCompatActivity() {
         }
 
         binding.etMypageName.setText(SeeMeetSharedPreference.getUserName())
-        binding.etMypageId.setText(SeeMeetSharedPreference.getUserId())
+        viewModel.mypageId.postValue(SeeMeetSharedPreference.getUserId())
     }
 
     private fun statusObserver() {
@@ -93,6 +93,15 @@ class MyPageActivity : AppCompatActivity() {
         viewModel.MyPageNameIdList.observe(this, Observer {
             setSharedPreference(it.data)
         })
+
+        viewModel.mypageId.observe(this, Observer {
+            viewModel.check()
+        })
+        viewModel.warning.observe(this, Observer {
+            if (it != "") {
+                CustomToast.createToast(this, it)?.show()
+            }
+        })
     }
 
     fun initClickListener() {
@@ -131,10 +140,15 @@ class MyPageActivity : AppCompatActivity() {
                 ONEDITNAMEID -> {
                     //저장하기 버튼을 누를 때
                     //이름, 아이디 바꾸는 서버 연결
-                    viewModel.requestMyPageNameIdList(
-                        binding.etMypageName.text.toString(),
-                        binding.etMypageId.text.toString()
-                    )
+                    val state =
+                        (viewModel.status.value != 3 || binding.etMypageName.text.isNullOrBlank() || binding.etMypageId.text.isNullOrBlank())
+                    if (state) {
+                        //button.inactiveBtn(R.drawable.rectangle_gray02_10)
+                    } else
+                        viewModel.requestMyPageNameIdList(
+                            binding.etMypageName.text.toString(),
+                            binding.etMypageId.text.toString()
+                        )
                 }
             }
         }

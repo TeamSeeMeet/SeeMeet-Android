@@ -136,12 +136,16 @@
 
             <EditText
                 android:id="@+id/et_mypage_id"
+                etId="@{myPageviewModel.mypageId}"
+                status="@{myPageviewModel.status}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:enabled="false"
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:inputType="textPersonName"
+                android:maxLength="16"
+                android:text="@={myPageviewModel.mypageId}"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/et_mypage_name"
