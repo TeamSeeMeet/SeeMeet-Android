@@ -31,6 +31,12 @@ class FCMService : FirebaseMessagingService() {
 
         //여기서 생성되거나 갱신된 token 서버에 알리기.
         Log.d("******firebaseToken_FCMS", token)
+
+        sendRegistrationToServer(token)
+    }
+
+    private fun sendRegistrationToServer (token : String?){
+
     }
 
     private fun sendDataMessage(data : MutableMap<String, String>){

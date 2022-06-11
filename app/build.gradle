@@ -5,6 +5,9 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+Properties properties = new Properties()
+properties.load(new FileInputStream(rootProject.file("local.properties")))
+
 android {
     compileSdk 31
 
@@ -17,6 +20,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
+        buildConfigField ("String", "KAKAO_APP_KEY", properties.get('KAKAO_APP_KEY'))
+        manifestPlaceholders = [KAKAO_APP_KEY: properties.get('KAKAO_APP_KEY')]
     }
 
     buildFeatures {
@@ -108,4 +114,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging-ktx:23.0.3'
 
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
+    //kakao
+    implementation "com.kakao.sdk:v2-user:2.8.6" // 카카오 로그인
+
 }

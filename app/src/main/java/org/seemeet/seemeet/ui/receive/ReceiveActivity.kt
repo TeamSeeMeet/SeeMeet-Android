@@ -50,6 +50,9 @@ class ReceiveActivity : AppCompatActivity() {
             initButtonClick()
         }
 
+        setViewVisible(binding.nsvRecieve, true)
+        setViewVisible(binding.clErrorNetwork, false)
+
     }
 
     //리싸이클러 뷰 단일 선택 용 함수
@@ -186,7 +189,8 @@ class ReceiveActivity : AppCompatActivity() {
                     message = "${error.code()} ERROR : \n ${error.response()!!.errorBody()!!.string().split("\"")[7]}"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                    setViewVisible(binding.nsvRecieve, false)
+                    setViewVisible(binding.clErrorNetwork, true)
                 }
                 else ->  {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
@@ -194,15 +198,22 @@ class ReceiveActivity : AppCompatActivity() {
 
             }
 
-            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-            
-            binding.tvReceiveSMsg.text = "통신 실패로 정보를 받아오거나 보낼 수 없어요."
-            binding.rvReceiveSchdule.visibility = View.GONE
-
+            if(message != "") {
+                Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            }
         }
 
     }
+
+    private fun setViewVisible(view: View, flag : Boolean){
+        if(flag){
+            view.visibility = View.VISIBLE
+        } else {
+            view.visibility = View.GONE
+        }
+    }
+
 
     private fun initButtonClick(){
 
@@ -255,6 +266,12 @@ class ReceiveActivity : AppCompatActivity() {
         binding.ivReceiveBack.setOnClickListener {
             finish()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setViewVisible(binding.nsvRecieve, true)
+        setViewVisible(binding.clErrorNetwork, false)
     }
 
     companion object {
