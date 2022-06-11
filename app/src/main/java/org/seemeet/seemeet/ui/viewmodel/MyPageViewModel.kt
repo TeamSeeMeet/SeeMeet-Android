@@ -10,6 +10,7 @@ import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.request.register.RequestRegisterNameId
 import org.seemeet.seemeet.data.model.response.register.ResponseRegisterNameId
 import org.seemeet.seemeet.data.model.response.withdrawal.ResponseWithdrawal
+import org.seemeet.seemeet.ui.registration.RegisterNameIdActivity
 
 class MyPageViewModel(application: Application) : BaseViewModel(application) {
 
@@ -19,6 +20,10 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
     private val _MyPageWithdrawalList = MutableLiveData<ResponseWithdrawal>()
     val mypageName = MutableLiveData("")
     val mypageId = MutableLiveData("")
+
+    private val _mypageStatus = MutableLiveData<Boolean>(false)
+    val mypageStatus: LiveData<Boolean>
+        get() = _mypageStatus
 
     fun requestMyPageNameIdList(
         name: String,
@@ -30,6 +35,7 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
                 RequestRegisterNameId(name, nickname)
             )
         )
+        _mypageStatus.value = true
     }
 
     fun requestMyPageWithdrawal(

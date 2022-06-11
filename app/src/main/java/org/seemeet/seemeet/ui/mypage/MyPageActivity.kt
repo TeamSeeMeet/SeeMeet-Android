@@ -19,6 +19,7 @@ import org.seemeet.seemeet.databinding.ActivityMyPageBinding
 import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.MyPageViewModel
+import org.seemeet.seemeet.util.CustomToast
 import retrofit2.HttpException
 
 class MyPageActivity : AppCompatActivity() {
@@ -67,7 +68,7 @@ class MyPageActivity : AppCompatActivity() {
                     if (error.response()!!.errorBody()!!.string()
                             .split("\"")[7] == "이미 사용중인 닉네임입니다."
                     ) {
-                        Toast.makeText(this, "이미 사용 중이에요", Toast.LENGTH_LONG).show()
+                        CustomToast.createToast(this, "이미 사용 중이에요")?.show()
                     }
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
@@ -82,6 +83,13 @@ class MyPageActivity : AppCompatActivity() {
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             }
         }
+
+        viewModel.mypageStatus.observe(this) {
+            if (it) {
+                BtnSave()
+            }
+        }
+
         viewModel.MyPageNameIdList.observe(this, Observer {
             setSharedPreference(it.data)
         })
@@ -127,7 +135,6 @@ class MyPageActivity : AppCompatActivity() {
                         binding.etMypageName.text.toString(),
                         binding.etMypageId.text.toString()
                     )
-                    BtnSave()
                 }
             }
         }
