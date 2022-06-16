@@ -19,17 +19,29 @@
         android:elevation="10dp">
 
         <TextView
-            android:id="@+id/tv_done_day"
+            android:id="@+id/tv_done_day_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="14dp"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
-            setNotiDay="@{doneData.createdAt}"
             android:textColor="@color/gray04"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_done_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+            android:text="@string/noti_day"
+            android:textColor="@color/gray04"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_done_day_num"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_done_day_num"/>
+
 
         <TextView
             android:id="@+id/tv_confirm_or_cancel"
@@ -61,8 +73,8 @@
             android:text="@{doneData.invitationTitle}"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@id/tv_done_day"
-            app:layout_constraintTop_toBottomOf="@id/tv_done_day" />
+            app:layout_constraintStart_toStartOf="@id/tv_done_day_num"
+            app:layout_constraintTop_toBottomOf="@id/tv_done_day_num" />
 
         <ImageView
             android:id="@+id/iv_delete_list"

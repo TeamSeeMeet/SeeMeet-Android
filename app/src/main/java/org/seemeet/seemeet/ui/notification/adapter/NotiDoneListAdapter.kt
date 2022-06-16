@@ -65,11 +65,13 @@ class NotiDoneListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     isCheckable = false
                     isClickable = false
                 })
-                Log.d("**********************받은이", it.username)
             }
 
+            //n일
+            binding.tvDoneDayNum.text = doneData.days.toString()
+
             // 약속 확정 or 취소
-            if (doneData.isCancled) {
+            if (doneData.isCanceled) {
                 binding.tvConfirmOrCancel.text =
                     context?.getResources()?.getString(R.string.noti_cancel)
             } else {

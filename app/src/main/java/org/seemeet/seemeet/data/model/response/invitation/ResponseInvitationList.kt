@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName
 data class ResponseInvitationList(
     @SerializedName("data")
     val `data`: InvitationListData,
+    @SerializedName("message")
+    val message: String,
     @SerializedName("status")
     val status: Int,
     @SerializedName("success")
@@ -25,22 +27,22 @@ data class ConfirmedAndCanceld(
     @SerializedName("invitation_title")
     val invitationTitle: String,
     @SerializedName("is_canceled")
-    val isCancled: Boolean,
+    val isCanceled: Boolean,
     @SerializedName("is_confirmed")
     val isConfirmed: Boolean,
-    @SerializedName("created_at")
-    val createdAt: String,
     @SerializedName("planId")
-    val planId: Int
+    val planId: Int,
+    @SerializedName("days")
+    val days: Int
 )
 
 data class Invitation(
+    @SerializedName("canceled_at")
+    val canceledAt: Any,
     @SerializedName("created_at")
     val createdAt: String,
     @SerializedName("guests")
     val guests: List<GuestX>,
-    @SerializedName("host")
-    val host: Host,
     @SerializedName("host_id")
     val hostId: Int,
     @SerializedName("id")
@@ -49,8 +51,8 @@ data class Invitation(
     val invitationDesc: String,
     @SerializedName("invitation_title")
     val invitationTitle: String,
-    @SerializedName("is_cancled")
-    val isCancled: Boolean,
+    @SerializedName("is_canceled")
+    val isCanceled: Boolean,
     @SerializedName("is_confirmed")
     val isConfirmed: Boolean,
     @SerializedName("is_deleted")
@@ -58,7 +60,7 @@ data class Invitation(
     @SerializedName("isReceived")
     val isReceived: Boolean,
     @SerializedName("isResponse")
-    val isResponse : Boolean
+    val isResponse: Boolean
 )
 
 data class Guest(
@@ -77,13 +79,6 @@ data class GuestX(
     val id: Int,
     @SerializedName("isResponse")
     val isResponse: Boolean,
-    @SerializedName("username")
-    val username: String
-)
-
-data class Host(
-    @SerializedName("id")
-    val id: Int,
     @SerializedName("username")
     val username: String
 )
