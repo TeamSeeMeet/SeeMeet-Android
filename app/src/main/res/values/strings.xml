@@ -146,4 +146,11 @@
     <string name="apply_dialog_out">나가기</string>
     <string name="apply_dialog_continue">계속</string>
 
+    <!-- mypage -->
+    <string name="mypage_info1">로그인시 </string>
+    <string name="mypage_info2"><u>개인정보 처리방침 </u></string>
+    <string name="mypage_info3">및 </string>
+    <string name="mypage_info4"><u>이용약관</u></string>
+    <string name="mypage_info5">에 동의합니다.</string>
+
 </resources>

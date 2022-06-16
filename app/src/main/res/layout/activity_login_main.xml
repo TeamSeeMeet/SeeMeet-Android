@@ -83,6 +83,78 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_email_register" />
 
+        <TextView
+            android:id="@+id/mypage_info1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/mypage_info1"
+            android:textColor="@color/gray05"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/mypage_info2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/mypage_info2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/mypage_info2"
+            android:textColor="@color/gray05"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@+id/mypage_info3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/mypage_info1"
+            app:layout_constraintTop_toTopOf="@+id/mypage_info1" />
+
+        <TextView
+            android:id="@+id/mypage_info3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/mypage_info3"
+            android:textColor="@color/gray05"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@+id/mypage_info4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/mypage_info2"
+            app:layout_constraintTop_toTopOf="@+id/mypage_info2" />
+
+        <TextView
+            android:id="@+id/mypage_info4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/mypage_info4"
+            android:textColor="@color/gray05"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@+id/mypage_info5"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/mypage_info3"
+            app:layout_constraintTop_toTopOf="@+id/mypage_info3" />
+
+        <TextView
+            android:id="@+id/mypage_info5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/mypage_info5"
+            android:textColor="@color/gray05"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/mypage_info4"
+            app:layout_constraintTop_toTopOf="@+id/mypage_info4" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
