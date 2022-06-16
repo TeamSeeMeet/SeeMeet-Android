@@ -67,6 +67,7 @@ class HomeFragment : Fragment() {
         }
 
         setViewVisible(binding.clErrorNetwork, false)
+        setViewVisible(binding.rvHomeReminder, true)
 
         setReminderAdapter()
         setViewModelObserve()
@@ -174,6 +175,7 @@ class HomeFragment : Fragment() {
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
                     setViewVisible(binding.clErrorNetwork, true)
+                    setViewVisible(binding.rvHomeReminder, false)
                 }
                 else ->  {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
@@ -195,7 +197,7 @@ class HomeFragment : Fragment() {
          if(flag){
             view.visibility = View.VISIBLE
          } else {
-             view.visibility = View.GONE
+             view.visibility = View.INVISIBLE
          }
     }
 
@@ -245,6 +247,8 @@ class HomeFragment : Fragment() {
         }
 
         setViewVisible(binding.clErrorNetwork, false)
+        setViewVisible(binding.rvHomeReminder, true)
+
     }
 
 }
