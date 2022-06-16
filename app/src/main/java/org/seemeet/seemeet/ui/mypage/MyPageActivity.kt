@@ -223,7 +223,15 @@ class MyPageActivity : AppCompatActivity() {
         }
 
         binding.btnMypageCancel.setOnClickListener {
-            BtnSave()
+            binding.btnMypageCancel.visibility = View.INVISIBLE
+            binding.btnEditOrSave.text = "수정"
+            binding.etMypageName.setText(SeeMeetSharedPreference.getUserName())
+            binding.etMypageName.isEnabled = false
+            binding.mypageLine.visibility = View.INVISIBLE
+            binding.etMypageId.setText(SeeMeetSharedPreference.getUserId())
+            binding.etMypageId.isEnabled = false
+            binding.mypageLine2.visibility = View.INVISIBLE
+            nameId_position = DEFAULT
         }
 
         binding.clChangepw.setOnClickListener {
