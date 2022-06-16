@@ -1,26 +1,41 @@
 package org.seemeet.seemeet.ui.mypage
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.DocumentsContract
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.net.toUri
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.response.login.ExUser
+import org.seemeet.seemeet.data.model.response.mypage.ResponseMyPageProfile
 import org.seemeet.seemeet.databinding.ActivityMyPageBinding
 import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.MyPageViewModel
 import org.seemeet.seemeet.util.CustomToast
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.HttpException
+import retrofit2.Response
+import java.io.File
+
 
 class MyPageActivity : AppCompatActivity() {
     private var profile_position = DEFAULT
@@ -97,11 +112,38 @@ class MyPageActivity : AppCompatActivity() {
         viewModel.mypageId.observe(this, Observer {
             viewModel.check()
         })
+
         viewModel.warning.observe(this, Observer {
             if (it != "") {
                 CustomToast.createToast(this, it)?.show()
             }
         })
+    }
+
+    //content uri를 File path로 바꿔주는 함수
+    fun getRealPathFromURI(contentUri: Uri): String? {
+        if (contentUri.path!!.startsWith("/storage")) {
+            return contentUri.path!!
+        }
+        val id = DocumentsContract.getDocumentId(contentUri).split(":")[1]
+        val columns = arrayOf(MediaStore.Files.FileColumns.DATA)
+        val selection = MediaStore.Files.FileColumns._ID + " = " + id
+        val cursor = contentResolver.query(
+            MediaStore.Files.getContentUri("external"),
+            columns,
+            selection,
+            null,
+            null
+        )
+        try {
+            val columnIndex = cursor!!.getColumnIndex(columns[0])
+            if (cursor!!.moveToFirst()) {
+                return cursor.getString(columnIndex)
+            }
+        } finally {
+            cursor!!.close()
+        }
+        return null
     }
 
     fun initClickListener() {
@@ -118,10 +160,35 @@ class MyPageActivity : AppCompatActivity() {
                 }
                 ONEDITPROFILE -> {
                     //프로필 사진 바꾸는 서버 연결
-                    SeeMeetSharedPreference.setUserProfile(currentImageUrl)
-                    binding.btnProfileEditOrSave.text = "프로필 사진 편집"
-                    binding.btnSelectImage.visibility = View.INVISIBLE
-                    profile_position = DEFAULT
+                    val url = currentImageUrl?.toUri()
+                    //절대 경로 받아오기
+                    val file = File(getRealPathFromURI(url!!))
+                    val requestFile =
+                        RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
+                    val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+
+                    RetrofitBuilder.mypageService.postProfile(
+                        SeeMeetSharedPreference.getToken(),
+                        body
+                    )    // body 가 Multipart.Part
+                        .enqueue(object : Callback<ResponseMyPageProfile> {
+                            override fun onFailure(
+                                call: Call<ResponseMyPageProfile>,
+                                t: Throwable
+                            ) {
+                                Log.e("error : ", t.message ?: return)
+                            }
+
+                            override fun onResponse(
+                                call: Call<ResponseMyPageProfile>,
+                                response: Response<ResponseMyPageProfile>
+                            ) {
+                                SeeMeetSharedPreference.setUserProfile(currentImageUrl)
+                                binding.btnProfileEditOrSave.text = "프로필 사진 편집"
+                                binding.btnSelectImage.visibility = View.INVISIBLE
+                                profile_position = DEFAULT
+                            }
+                        })
                 }
             }
         }
@@ -143,7 +210,6 @@ class MyPageActivity : AppCompatActivity() {
                     val state =
                         (viewModel.status.value != 3 || binding.etMypageName.text.isNullOrBlank() || binding.etMypageId.text.isNullOrBlank())
                     if (state) {
-                        //button.inactiveBtn(R.drawable.rectangle_gray02_10)
                     } else
                         viewModel.requestMyPageNameIdList(
                             binding.etMypageName.text.toString(),
@@ -208,27 +274,57 @@ class MyPageActivity : AppCompatActivity() {
 
     private val OPEN_GALLERY = 1
     private fun openGallery() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.setType("image/*")
-        startActivityForResult(intent, OPEN_GALLERY)
+        /* 권한 받기 */
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 200)
+        } else {
+            //허용했을 경우
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent.setType("image/*")
+            startActivityForResult(intent, OPEN_GALLERY)
+        }
+    }
+
+    //권한 관련
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            200 -> {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    val intent = Intent(Intent.ACTION_GET_CONTENT)
+                    intent.setType("image/*")
+                    startActivityForResult(intent, OPEN_GALLERY)
+                } else {
+                    CustomToast.createToast(this@MyPageActivity, "스토리지에 접근 권한을 허가해주세요")?.show()
+                }
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     @Override
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == OPEN_GALLERY) {
-                var ImageUrl: Uri? = data?.data
-                currentImageUrl = ImageUrl.toString()
+                // 갤러리에서 이미지 가져온 경우
+                currentImageUrl = data?.data.toString()
+                Log.d("갤러리에서 가져온 사진 url", currentImageUrl.toString())
                 try {
-                    Glide.with(this).load(ImageUrl).circleCrop()
+                    Glide.with(this).load(data?.data).circleCrop()
                         .into(binding.ivMypageProfile)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
-        } else {
         }
     }
 
@@ -239,6 +335,7 @@ class MyPageActivity : AppCompatActivity() {
     }
 
     private fun BtnEdit() {
+        //수정 버튼을 누를 경우
         binding.btnMypageCancel.visibility = View.VISIBLE
         binding.btnEditOrSave.text = "저장"
         binding.etMypageName.isEnabled = true
@@ -251,6 +348,7 @@ class MyPageActivity : AppCompatActivity() {
     }
 
     private fun BtnSave() {
+        //저장 버튼을 누를 경우
         binding.btnMypageCancel.visibility = View.INVISIBLE
         binding.btnEditOrSave.text = "수정"
         binding.etMypageName.setText(binding.etMypageName.text.toString())
