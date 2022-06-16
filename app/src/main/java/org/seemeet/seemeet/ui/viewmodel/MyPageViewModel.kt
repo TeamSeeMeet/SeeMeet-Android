@@ -21,8 +21,9 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
     val mypageName = MutableLiveData("")
     val mypageId = MutableLiveData("")
     val warning = MutableLiveData("")
-    val temp = MutableLiveData<Boolean>(false)
-    val status = MutableLiveData<Int>(0)
+    val status = MutableLiveData(false)
+    val cursorPos = MutableLiveData(0)
+    val upperCase = MutableLiveData(false)
 
     private val _mypageStatus = MutableLiveData<Boolean>(false)
     val mypageStatus: LiveData<Boolean>
@@ -41,57 +42,6 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
         _mypageStatus.value = true
     }
 
-    fun check() {
-        // 불가능한 문자 입력했던 기록이 있을 때 status 1
-        if (temp.value == true) {
-            status.value = 1
-            warning.value = "아이디는 알파벳, 숫자, 밑줄, 마침표만 사용 가능해요"
-            temp.value = false
-        } else {
-            // 길이가 0일 때 status 0
-            if (mypageId.value?.length == 0) {
-                status.value = 0
-                warning.value = ""
-            } else {
-                // 불가능한 문자 입력했을 때 status 2
-                if (!RegisterNameIdActivity.isIdFormat(mypageId.value.toString())) {
-                    status.value = 2
-                    temp.value = true
-                } else {
-                    // 길이가 7 미만일 때 status 0
-                    if (mypageId.value?.length!! < 7) {
-                        status.value = 0
-                        warning.value = "7자 이상 써주세요"
-                    } else {
-                        // 모두 숫자로만 이루어져있을 때 status 0
-                        if (RegisterNameIdActivity.isNumberFormat(mypageId.value.toString())) {
-                            status.value = 0
-                            warning.value = "숫자로만은 만들 수 없어요"
-                        }
-
-                        // 모두 _으로만 이루어져있을 때 status 0
-                        else if (RegisterNameIdActivity.is_Format(mypageId.value.toString())) {
-                            status.value = 0
-                            warning.value = "_로만은 만들 수 없어요"
-                        }
-
-                        // 모두 .으로만 이루어져있을 때 status 0
-                        else if (RegisterNameIdActivity.isdotFormat(mypageId.value.toString())) {
-                            status.value = 0
-                            warning.value = "마침표로만은 만들 수 없어요"
-                        }
-
-                        // 형식이 모두 올바를 때 status 3
-                        else {
-                            status.value = 3
-                            warning.value = ""
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     fun requestMyPageWithdrawal(
     ) = viewModelScope.launch(exceptionHandler) {
         _MyPageWithdrawalList.postValue(
@@ -99,5 +49,49 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
                 SeeMeetSharedPreference.getToken()
             )
         )
+    }
+
+    fun check() {
+        // 이름이나 아이디 길이가 0일 때 status false
+        if (mypageName.value?.length == 0) {
+            status.value = false
+            warning.value = "이름을 입력해주세요"
+        } else if (mypageId.value?.length == 0) {
+            status.value = false
+            warning.value = "아이디를 입력해주세요"
+        } else {
+            // 길이가 7 미만일 때 status false
+            if (mypageId.value?.length!! < 7) {
+                status.value = false
+                warning.value = "아이디는 7자 이상 입력해주세요"
+            } else {
+                // 불가능한 문자 입력했을 때 status false
+                if (!RegisterNameIdActivity.isIdFormat(mypageId.value.toString())) {
+                    status.value = false
+                    warning.value = "아이디는 알파벳, 숫자, 밑줄, 마침표만 사용 가능해요"
+                } else {
+                    // 모두 숫자로만 이루어져있을 때 status false
+                    if (RegisterNameIdActivity.isNumberFormat(mypageId.value.toString())) {
+                        status.value = false
+                        warning.value = "아이디는 숫자로만은 만들 수 없어요"
+                    }
+                    // 모두 _으로만 이루어져있을 때 status false
+                    else if (RegisterNameIdActivity.is_Format(mypageId.value.toString())) {
+                        status.value = false
+                        warning.value = "아이디는 _로만은 만들 수 없어요"
+                    }
+                    // 모두 .으로만 이루어져있을 때 status false
+                    else if (RegisterNameIdActivity.isdotFormat(mypageId.value.toString())) {
+                        status.value = false
+                        warning.value = "아이디는 마침표로만은 만들 수 없어요"
+                    }
+                    // 형식이 모두 올바를 때 status true
+                    else {
+                        status.value = true
+                        warning.value = ""
+                    }
+                }
+            }
+        }
     }
 }

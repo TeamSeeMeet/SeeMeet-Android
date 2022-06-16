@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,9 +10,7 @@
             type="org.seemeet.seemeet.ui.viewmodel.MyPageViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.mypage.MyPageActivity">
@@ -115,7 +115,9 @@
                 android:background="@android:color/transparent"
                 android:enabled="false"
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:hint=""
                 android:inputType="textPersonName"
+                android:text="@={myPageviewModel.mypageName}"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/fl_img"
@@ -136,13 +138,14 @@
 
             <EditText
                 android:id="@+id/et_mypage_id"
-                etId="@{myPageviewModel.mypageId}"
-                status="@{myPageviewModel.status}"
+                cursorPos="@{myPageviewModel.cursorPos}"
+                upperCase="@{myPageviewModel.upperCase}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:enabled="false"
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:hint=""
                 android:inputType="textPersonName"
                 android:maxLength="16"
                 android:text="@={myPageviewModel.mypageId}"

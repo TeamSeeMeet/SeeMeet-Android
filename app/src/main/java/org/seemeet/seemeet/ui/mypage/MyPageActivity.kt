@@ -21,15 +21,12 @@ import com.bumptech.glide.Glide
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.response.login.ExUser
 import org.seemeet.seemeet.data.model.response.mypage.ResponseMyPageProfile
 import org.seemeet.seemeet.databinding.ActivityMyPageBinding
 import org.seemeet.seemeet.ui.main.MainActivity
-import org.seemeet.seemeet.ui.main.home.HomeFragment
-import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.MyPageViewModel
 import org.seemeet.seemeet.util.CustomToast
@@ -44,6 +41,7 @@ class MyPageActivity : AppCompatActivity() {
     private var profile_position = DEFAULT
     private var nameId_position = DEFAULT
     var currentImageUrl: String? = SeeMeetSharedPreference.getUserProfile()
+    var prev_etId: String? = SeeMeetSharedPreference.getUserId()
 
     private val viewModel: MyPageViewModel by viewModels()
 
@@ -70,8 +68,10 @@ class MyPageActivity : AppCompatActivity() {
                 .into(binding.ivMypageProfile)
         }
 
-        binding.etMypageName.setText(SeeMeetSharedPreference.getUserName())
+        viewModel.mypageName.postValue(SeeMeetSharedPreference.getUserName())
+        binding.etMypageName.hint = SeeMeetSharedPreference.getUserName()
         viewModel.mypageId.postValue(SeeMeetSharedPreference.getUserId())
+        binding.etMypageId.hint = SeeMeetSharedPreference.getUserId()
     }
 
     private fun statusObserver() {
@@ -108,12 +108,35 @@ class MyPageActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.mypageId.observe(this) {
+            //대문자 입력해서 바뀐 경우
+            if(prev_etId!!.length==it.length && viewModel.upperCase.value==true) {}
+            else{
+                //그 직전 값이랑 입력값 비교해서 현재 커서 위치 알아내기
+                var cursor_pos=it.length
+                if (it.length > 0 && prev_etId!!.length < it.length) {
+                    for (i in 0..prev_etId!!.length - 1) {
+                        if (prev_etId!![i] != it[i]) {
+                            cursor_pos = i + 1
+                            break
+                        }
+                    }
+                    if (it[cursor_pos - 1] >= 'A' && it[cursor_pos - 1] <= 'Z') {
+                        viewModel.mypageId.value = it.substring(
+                            0,
+                            cursor_pos - 1
+                        ) + it[cursor_pos - 1].lowercase() + it.substring(cursor_pos)
+
+                        viewModel.upperCase.value=true
+                        viewModel.cursorPos.value=cursor_pos
+                    }
+                }
+                prev_etId = it
+            }
+        }
+
         viewModel.MyPageNameIdList.observe(this, Observer {
             setSharedPreference(it.data)
-        })
-
-        viewModel.mypageId.observe(this, Observer {
-            viewModel.check()
         })
 
         viewModel.warning.observe(this, Observer {
@@ -210,14 +233,13 @@ class MyPageActivity : AppCompatActivity() {
                 ONEDITNAMEID -> {
                     //저장하기 버튼을 누를 때
                     //이름, 아이디 바꾸는 서버 연결
-                    val state =
-                        (viewModel.status.value != 3 || binding.etMypageName.text.isNullOrBlank() || binding.etMypageId.text.isNullOrBlank())
-                    if (state) {
-                    } else
+                    viewModel.check()
+                    if (viewModel.status.value == true) {
                         viewModel.requestMyPageNameIdList(
                             binding.etMypageName.text.toString(),
                             binding.etMypageId.text.toString()
                         )
+                    }
                 }
             }
         }
