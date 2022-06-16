@@ -21,11 +21,14 @@ import com.bumptech.glide.Glide
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.response.login.ExUser
 import org.seemeet.seemeet.data.model.response.mypage.ResponseMyPageProfile
 import org.seemeet.seemeet.databinding.ActivityMyPageBinding
+import org.seemeet.seemeet.ui.main.MainActivity
+import org.seemeet.seemeet.ui.main.home.HomeFragment
 import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.MyPageViewModel
@@ -238,10 +241,9 @@ class MyPageActivity : AppCompatActivity() {
                 }
 
                 override fun onLogoutYesClicked() {
-                    val intent = Intent(this@MyPageActivity, LoginMainActivity::class.java)
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //기존에 쌓여있던 액티비티를 삭제
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     SeeMeetSharedPreference.clearStorage()
+                    val intent = Intent(this@MyPageActivity, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //기존에 쌓여있던 액티비티를 삭제
                     this@MyPageActivity.startActivity(intent)
                 }
             })
@@ -262,9 +264,9 @@ class MyPageActivity : AppCompatActivity() {
                 override fun onResignYesClicked() {
                     //탈퇴 서버 연결
                     viewModel.requestMyPageWithdrawal()
-                    val intent = Intent(this@MyPageActivity, LoginMainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     SeeMeetSharedPreference.clearStorage()
+                    val intent = Intent(this@MyPageActivity, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //기존에 쌓여있던 액티비티를 삭제
                     this@MyPageActivity.startActivity(intent)
                 }
             })
