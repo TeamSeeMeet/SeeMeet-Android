@@ -69,9 +69,9 @@ class MyPageActivity : AppCompatActivity() {
         }
 
         viewModel.mypageName.postValue(SeeMeetSharedPreference.getUserName())
-        binding.etMypageName.hint = SeeMeetSharedPreference.getUserName()
+        //binding.etMypageName.hint = SeeMeetSharedPreference.getUserName()
         viewModel.mypageId.postValue(SeeMeetSharedPreference.getUserId())
-        binding.etMypageId.hint = SeeMeetSharedPreference.getUserId()
+        //binding.etMypageId.hint = SeeMeetSharedPreference.getUserId()
     }
 
     private fun statusObserver() {
