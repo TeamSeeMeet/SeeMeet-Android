@@ -78,6 +78,7 @@
             android:layout_width="164dp"
             android:layout_height="164dp"
             android:layout_marginBottom="20dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/tv_done_null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
@@ -92,11 +93,23 @@
             android:text="@string/noti_done_null"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:textColor="@color/gray05"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/iv_done_null"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@+id/iv_done_null"
             app:layout_constraintTop_toBottomOf="@+id/iv_done_null" />
+
+        <ImageView
+            android:id="@+id/iv_inProgress_network"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_error_network"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.core.widget.NestedScrollView
@@ -119,6 +132,7 @@
                     android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:listitem="@layout/item_notification_done" />

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -37,7 +38,10 @@ class SendActivity : AppCompatActivity() {
 
 
         invitationId =  intent.getIntExtra("invitationId", -1)
-        
+
+        setViewVisible(binding.nsvSend, true)
+        setViewVisible(binding.clErrorNetwork, false)
+
         if(invitationId != -1){
             Log.d("********SEND_INVITATION_ID", invitationId.toString())
             viewModel.requestSendInvitationData(invitationId)
@@ -143,7 +147,8 @@ class SendActivity : AppCompatActivity() {
                     message = "${error.code()} ERROR : \n ${error.response()!!.errorBody()!!.string().split("\"")[7]}"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                    setViewVisible(binding.nsvSend, false)
+                    setViewVisible(binding.clErrorNetwork, true)
                 }
                 else ->  {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
@@ -151,12 +156,21 @@ class SendActivity : AppCompatActivity() {
 
             }
 
-            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            if(message != "") {
+                Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            }
         }
 
     }
 
+    private fun setViewVisible(view: View, flag : Boolean){
+        if(flag){
+            view.visibility = View.VISIBLE
+        } else {
+            view.visibility = View.GONE
+        }
+    }
 
     private fun initButtonClick(){
 
@@ -219,6 +233,12 @@ class SendActivity : AppCompatActivity() {
         binding.ivSendBack.setOnClickListener {
             finish()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setViewVisible(binding.nsvSend, true)
+        setViewVisible(binding.clErrorNetwork, false)
     }
 
     companion object {

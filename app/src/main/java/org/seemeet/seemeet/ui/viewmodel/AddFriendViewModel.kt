@@ -25,25 +25,27 @@ class AddFriendViewModel(application: Application) : AndroidViewModel(applicatio
     val addFriend : LiveData<ResponseAddFriendData>
         get() = _addFriend
 
+
     //  유저 목록 요청하기
-    fun requestUserList(email: Editable) = viewModelScope.launch(Dispatchers.IO) {
+    fun requestUserList(nickname: Editable) = viewModelScope.launch(Dispatchers.IO) {
         try {
             _userList.postValue(
                 RetrofitBuilder.friendService.searchUserList(
                     SeeMeetSharedPreference.getToken(),
-                    RequestUserData(email.toString())
-                ))
+                    RequestUserData(nickname.toString()),
+                )
+            )
         } catch (e: HttpException) {
         }
     }
 
     // 친구 추가 요청하기
-    fun requestAddFriend(email: Editable) = viewModelScope.launch(Dispatchers.IO) {
+    fun requestAddFriend(nickname:String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             _addFriend.postValue(
                 RetrofitBuilder.friendService.addFriendData(
                     SeeMeetSharedPreference.getToken(),
-                    RequestAddFriendData(email.toString())
+                    RequestAddFriendData(nickname)
                 ))
         } catch (e: HttpException) {
         }

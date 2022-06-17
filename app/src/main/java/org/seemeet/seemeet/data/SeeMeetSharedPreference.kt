@@ -18,9 +18,9 @@ object SeeMeetSharedPreference {
         preferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
     }
 
-    fun setUserId(value : Int){
+    fun setUserId(value : String){
         preferences.edit{
-            putInt(USER_ID, value)
+            putString(USER_ID, value)
             apply()
         }
     }
@@ -43,7 +43,7 @@ object SeeMeetSharedPreference {
 
     fun getUserEmail(): String? = preferences.getString(USER_EMAIL, "SeeMeet에서 친구와 약속을 잡아보세요!")
 
-    fun getUserId(): Int= preferences.getInt(USER_ID, -1)
+    fun getUserId(): String? = preferences.getString(USER_ID, "SeeMeet에서 친구와 약속을 잡아보세요!")
 
     fun setUserFb(value : String){
         preferences.edit{
