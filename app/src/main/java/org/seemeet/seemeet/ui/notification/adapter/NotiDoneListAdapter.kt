@@ -68,11 +68,16 @@ class NotiDoneListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 })
             }
 
-            if(doneData.isCancled){
-                binding.tvConfirmOrCancel.text = context?.getResources()?.getString(R.string.noti_cancel)
-                //binding.ivDetail.visibility = View.GONE //약속 취소도 상세뷰 보여줌
-            } else{
-                binding.tvConfirmOrCancel.text = context?.getResources()?.getString(R.string.noti_confirm)
+            //n일
+            binding.tvDoneDayNum.text = doneData.days.toString()
+
+            // 약속 확정 or 취소
+            if (doneData.isCanceled) {
+                binding.tvConfirmOrCancel.text =
+                    context?.getResources()?.getString(R.string.noti_cancel)
+            } else {
+                binding.tvConfirmOrCancel.text =
+                    context?.getResources()?.getString(R.string.noti_confirm)
             }
         }
     }

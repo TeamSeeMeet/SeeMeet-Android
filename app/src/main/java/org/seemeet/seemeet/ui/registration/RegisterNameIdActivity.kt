@@ -79,7 +79,7 @@ class RegisterNameIdActivity : AppCompatActivity() {
 
     // sharedPreference setting
     private fun setSharedPreference(list : ExUser) {
-        SeeMeetSharedPreference.setUserId(list.id)
+        SeeMeetSharedPreference.setUserId(list.nickname?:return)
         SeeMeetSharedPreference.setLogin(true)
         SeeMeetSharedPreference.setUserName(list.username)
     }
