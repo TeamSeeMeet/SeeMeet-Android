@@ -130,6 +130,12 @@ class SendActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.sendInvitationRejects.observe(this){
+            if(it.isBlank()){
+                setViewVisible(binding.tvSendRejectsMsg, false)
+            }
+        }
+
         viewModel.sendInvitationDateList.observe(this) {
             dateList -> with(binding.rvSendTimelist.adapter as SendInvitationAdapter){
                 setInviList(dateList)
@@ -137,7 +143,7 @@ class SendActivity : AppCompatActivity() {
         }
 
         viewModel.fetchState.observe(this){
-            val message: String
+            var message: String = ""
             when( it.second){
                 BaseViewModel.FetchState.BAD_INTERNET-> {
                     message = "소켓 오류 / 서버와 연결에 실패하였습니다."

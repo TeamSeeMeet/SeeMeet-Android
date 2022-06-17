@@ -108,7 +108,7 @@
                     android:orientation="vertical"
                     android:overScrollMode="never"
                     tools:listitem="@layout/item_send_timelist"
-                    tools:itemCount="4"
+                    tools:itemCount="2"
                     app:layout_constraintTop_toBottomOf="@id/cl_send_response"/>
 
                 <TextView
@@ -131,18 +131,20 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rv_send_timelist"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="6dp"
                     android:textColor="@color/gray06"
                     android:fontFamily="@font/din_pro_bold"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:text="@{viewModel.sendInvitationRejects.toString() }" />
+                    android:text="@{viewModel.sendInvitationRejects.toString() }"
+                    tools:text="김차차 이당당 박뫄뫄 "/>
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_send_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_send_rejects"
+                    app:layout_constraintTop_toBottomOf="@id/rv_send_timelist"
                     android:layout_marginTop="40dp">
 
                     <TextView
