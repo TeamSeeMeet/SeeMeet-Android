@@ -32,7 +32,6 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
         try {
             _planDetail.postValue(listOf(RetrofitBuilder.planService.getPlanDetail(planId, SeeMeetSharedPreference.getToken())))
         } catch (e: HttpException) {
-            e.printStackTrace()
         }
     }
 
@@ -41,7 +40,6 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
             Log.d("**********invitationId", invitationId.toString())
             _canceledDetail.postValue(listOf(RetrofitBuilder.invitationService.getCanceledInvitationData(invitationId, SeeMeetSharedPreference.getToken())))
         } catch (e: HttpException) {
-            e.printStackTrace()
         }
     }
 
@@ -49,7 +47,6 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
         try {
             _canceledHostDetail.postValue(listOf(RetrofitBuilder.invitationService.getReceiveInvitationData(invitationId, SeeMeetSharedPreference.getToken())))
         } catch (e: HttpException) {
-            e.printStackTrace()
         }
     }
 
@@ -58,7 +55,6 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
             RetrofitBuilder.planService.deletePlan(planId, SeeMeetSharedPreference.getToken())
             Log.d("*******DeletedPlanId", planId.toString())
         } catch (e: HttpException) {
-            e.printStackTrace()
         }
     }
 

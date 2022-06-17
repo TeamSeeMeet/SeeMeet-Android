@@ -3,7 +3,6 @@ package org.seemeet.seemeet.ui.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -38,10 +37,8 @@ class DetailActivity : AppCompatActivity() {
             canceledDetail.forEach {
                 if(it.data.isCanceled) {
                     onCanceled()
-                    Log.d("***************status","canceled")
                 } else {
                     onConfirmed()
-                    Log.d("***************status","confirmed")
                 }
             }
         })
