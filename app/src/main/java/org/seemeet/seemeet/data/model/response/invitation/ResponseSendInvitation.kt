@@ -17,7 +17,9 @@ data class SendInvitation(
     @SerializedName("invitation")
     val invitation: SendInvitationData,
     @SerializedName("invitationDates")
-    val invitationDates: List<SendInvitationDate>
+    val invitationDates: List<SendInvitationDate>,
+    @SerializedName("rejectGuests")
+    val rejectGuests: List<SendRejectGuest>
 ): Serializable
 
 data class SendInvitationData(
@@ -80,3 +82,9 @@ data class SendRespondent(
     @SerializedName("username")
     val username: String
 ): Serializable
+data class SendRejectGuest(
+    @SerializedName("id")
+    val id: Int,
+    @SerializedName("username")
+    val username: String
+) : Serializable

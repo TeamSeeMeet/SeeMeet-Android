@@ -11,10 +11,7 @@ import kotlinx.coroutines.launch
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.request.invitation.RequestSendInvitationConfirm
-import org.seemeet.seemeet.data.model.response.invitation.SendGuest
-import org.seemeet.seemeet.data.model.response.invitation.SendHost
-import org.seemeet.seemeet.data.model.response.invitation.SendInvitationData
-import org.seemeet.seemeet.data.model.response.invitation.SendInvitationDate
+import org.seemeet.seemeet.data.model.response.invitation.*
 import retrofit2.HttpException
 
 class SendViewModel(application: Application) : BaseViewModel(application) {
@@ -28,6 +25,10 @@ class SendViewModel(application: Application) : BaseViewModel(application) {
     val sendInvitationDateList : LiveData<List<SendInvitationDate>>
         get() = _sendInvitationDateList
 
+    private val _sendInvitationRejects = MutableLiveData<String>()
+    val sendInvitationRejects : LiveData<String>
+        get() = _sendInvitationRejects
+
     init {
         _sendInvitationData.value = SendInvitationData(
             "", listOf(SendGuest(-1, false, "받은 이")), SendHost(-1, "보낸 이"),
@@ -39,6 +40,7 @@ class SendViewModel(application: Application) : BaseViewModel(application) {
         val send = RetrofitBuilder.invitationService.getSendInvitationData(invitationId, SeeMeetSharedPreference.getToken()).data
         _sendInvitationData.postValue(send.invitation)
         _sendInvitationDateList.postValue(send.invitationDates)
+        _sendInvitationRejects.postValue(send.rejectGuests.joinToString(" ") { it.username })
     }
 
     fun requestSendConfirmInvitation(invitationId: Int, dateId : Int) = viewModelScope.launch (exceptionHandler){

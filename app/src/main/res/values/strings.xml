@@ -124,7 +124,7 @@
     <string name="send_cancel_content">약속을 취소하시겠어요?</string>
     <string name="send_cancel_yes">예</string>
     <string name="send_cancel_no">아니오</string>
-
+    <string name="send_reject">불참 &#124; </string>
 
     <string name="time_start_end">%s ~ %s</string>
 
