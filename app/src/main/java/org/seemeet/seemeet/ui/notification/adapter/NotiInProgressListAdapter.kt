@@ -2,7 +2,6 @@ package org.seemeet.seemeet.ui.notification.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -74,7 +73,6 @@ class NotiInProgressListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                     isCheckable = false
                     isClickable = false
                 })
-                Log.d("**********************받은이", it.username)
             }
         }
     }
@@ -94,7 +92,7 @@ class NotiInProgressListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
             // 이름 칩그룹
             binding.cgReceiveFriendList.removeAllViews()
             binding.cgReceiveFriendList.addView(Chip(context).apply {
-                text = inProgressData.host.username
+                text = inProgressData.guests.toString()
                 setChipBackgroundColorResource(R.color.gray06)
                 setTextAppearance(R.style.chipTextWhiteStyle)
                 isCheckable = false

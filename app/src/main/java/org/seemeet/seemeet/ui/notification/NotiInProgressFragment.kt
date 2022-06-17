@@ -36,7 +36,7 @@ class NotiInProgressFragment : Fragment() {
             setInProgressAdapter()
             setInProgressObserve()
         } else {
-            setNotiNullVisibility(View.VISIBLE)
+            setVisibility(binding.clNotiInProgressNull, View.VISIBLE)
             binding.tvInProgressNum.text = "0"
         }
     }
@@ -56,10 +56,11 @@ class NotiInProgressFragment : Fragment() {
             with(binding.rvInProgressList.adapter as NotiInProgressListAdapter) {
                 setInProgressList(inProgressList)
                 binding.tvInProgressNum.text = inProgressList.size.toString()
+                setVisibility(binding.ivInProgressNetwork, View.GONE)
                 if (inProgressList.isEmpty()) {
-                    setNotiNullVisibility(View.VISIBLE)
+                    setVisibility(binding.clNotiInProgressNull, View.VISIBLE)
                 } else {
-                    setNotiNullVisibility(View.GONE)
+                    setVisibility(binding.clNotiInProgressNull, View.GONE)
                 }
             }
         }
@@ -75,7 +76,8 @@ class NotiInProgressFragment : Fragment() {
                     message = "$code ERROR : \n ${it.first.message}"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    binding.ivInProgressNetwork.visibility = View.VISIBLE
+                    setVisibility(binding.clNotiInProgressNull, View.GONE)
+                    setVisibility(binding.ivInProgressNetwork, View.VISIBLE)
                 }
                 else ->  {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
@@ -86,13 +88,12 @@ class NotiInProgressFragment : Fragment() {
 
             if(message != ""){
                 Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
-                binding.clNotiInProgressNull.visibility = View.VISIBLE
             }
         }
     }
 
-    private fun setNotiNullVisibility(notificationNull: Int) {
-        binding.clNotiInProgressNull.visibility = notificationNull
+    private fun setVisibility(view: View, visibility: Int){
+        view.visibility = visibility
     }
 
     override fun onResume() {
@@ -100,7 +101,7 @@ class NotiInProgressFragment : Fragment() {
         if (SeeMeetSharedPreference.getLogin()) {
             viewmodel.requestAllInvitationList()
         } else {
-            setNotiNullVisibility(View.VISIBLE)
+            setVisibility(binding.clNotiInProgressNull, View.VISIBLE)
             binding.tvInProgressNum.text = "0"
         }
     }
