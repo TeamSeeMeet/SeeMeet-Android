@@ -11,11 +11,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.databinding.ActivityChangePwBinding
 import org.seemeet.seemeet.ui.registration.LoginActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.ChangePWViewModel
+import org.seemeet.seemeet.util.CustomToast
 import org.seemeet.seemeet.util.makeInVisible
 import org.seemeet.seemeet.util.makeVisible
 import retrofit2.HttpException
@@ -46,10 +48,10 @@ class ChangePwActivity : AppCompatActivity() {
         binding.btnSave.setOnClickListener {
             //비밀번호 변경
             if (viewModel.tvWarningPW.value == "" && viewModel.tvWarningCheckPW.value == "" && !binding.etNewpw.text.isNullOrBlank() && !binding.etCheckPw.text.isNullOrBlank()) {
-//                viewModel.requestChangePW(
-//                    binding.etNewpw.text.toString(),
-//                    binding.etCheckPw.text.toString()
-//                )
+                viewModel.requestChangePW(
+                    binding.etNewpw.text.toString(),
+                    binding.etCheckPw.text.toString()
+                )
             }
         }
 
@@ -138,6 +140,14 @@ class ChangePwActivity : AppCompatActivity() {
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             }
         }
+
+        viewModel.status.observe(this, Observer { status ->
+            if(status){
+                CustomToast.createToast(this,"비밀번호가 변경되었습니다")!!.show()
+                val intent = Intent(this, MyPageActivity::class.java)
+                startActivity(intent)
+            }
+        })
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
