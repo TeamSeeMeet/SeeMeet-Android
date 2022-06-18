@@ -109,14 +109,12 @@ class MyPageActivity : AppCompatActivity() {
         }
 
         viewModel.mypageId.observe(this) {
-            //대문자 입력해서 바뀐 경우
-            if(prev_etId!!.length==it.length && viewModel.upperCase.value==true) {}
-            else{
                 //그 직전 값이랑 입력값 비교해서 현재 커서 위치 알아내기
                 var cursor_pos=it.length
+                //입력한 경우
                 if (it.length > 0 && prev_etId!!.length < it.length) {
                     for (i in 0..prev_etId!!.length - 1) {
-                        if (prev_etId!![i] != it[i]) {
+                        if (prev_etId!![i].lowercase() != it[i].lowercase()) {
                             cursor_pos = i + 1
                             break
                         }
@@ -126,13 +124,29 @@ class MyPageActivity : AppCompatActivity() {
                             0,
                             cursor_pos - 1
                         ) + it[cursor_pos - 1].lowercase() + it.substring(cursor_pos)
-
                         viewModel.upperCase.value=true
                         viewModel.cursorPos.value=cursor_pos
                     }
+                    prev_etId = it
                 }
-                prev_etId = it
-            }
+                //지운 경우(드래그 전체 선택 후 입력한 경우도 포함)
+                if(it.length > 0 && prev_etId!!.length>=it.length){
+                    for (i in 0..it.length - 1) {
+                        if (it[i].toString() != prev_etId!![i].lowercase()) {
+                            cursor_pos = i + 1
+                            break
+                        }
+                    }
+                    if (it[cursor_pos - 1] >= 'A' && it[cursor_pos - 1] <= 'Z') {
+                        viewModel.mypageId.value = it.substring(
+                            0,
+                            cursor_pos - 1
+                        ) + it[cursor_pos - 1].lowercase() + it.substring(cursor_pos)
+                        viewModel.upperCase.value=true
+                        viewModel.cursorPos.value=cursor_pos
+                    }
+                    prev_etId = it
+                }
         }
 
         viewModel.MyPageNameIdList.observe(this, Observer {
@@ -250,7 +264,7 @@ class MyPageActivity : AppCompatActivity() {
             binding.etMypageName.setText(SeeMeetSharedPreference.getUserName())
             binding.etMypageName.isEnabled = false
             binding.mypageLine.visibility = View.INVISIBLE
-            binding.etMypageId.setText(SeeMeetSharedPreference.getUserId())
+            binding.etMypageId.setText("abcdefg_")
             binding.etMypageId.isEnabled = false
             binding.mypageLine2.visibility = View.INVISIBLE
             nameId_position = DEFAULT
@@ -374,7 +388,7 @@ class MyPageActivity : AppCompatActivity() {
         binding.etMypageName.setText(SeeMeetSharedPreference.getUserName())
         binding.mypageLine.visibility = View.VISIBLE
         binding.etMypageId.isEnabled = true
-        binding.etMypageId.setText(SeeMeetSharedPreference.getUserId())
+        binding.etMypageId.setText("abcdefg_")
         binding.mypageLine2.visibility = View.VISIBLE
         nameId_position = ONEDITNAMEID
     }
