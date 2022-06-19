@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.response.login.ExUser
@@ -66,8 +67,12 @@ class MyPageActivity : AppCompatActivity() {
         if (!SeeMeetSharedPreference.getSocialLogin())
             binding.clChangepw.visibility = View.VISIBLE
 
-        if (!currentImageUrl.isNullOrEmpty()) {
-            Glide.with(this).load(currentImageUrl!!.toUri()).circleCrop()
+        if(currentImageUrl=="null"|| currentImageUrl.isNullOrEmpty()) {
+            Glide.with(this).load(R.drawable.ic_img_friend_list_null).circleCrop().into(binding.ivMypageProfile)
+        }
+        else {
+            Glide.with(this).load(currentImageUrl!!.toUri())
+                .circleCrop()
                 .into(binding.ivMypageProfile)
         }
 
