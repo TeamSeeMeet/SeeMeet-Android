@@ -259,35 +259,44 @@ class MyPageActivity : AppCompatActivity() {
 
     //프로필 사진 변경하는 함수
     private fun changeProfile() {
-        val url = currentImageUrl?.toUri()
-        //절대 경로 받아오기
-        val file = File(getRealPathFromURI(url!!))
-        val requestFile =
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
-        val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+        // 사진이 똑같은 경우 서버 통신 안함
+        if (SeeMeetSharedPreference.getUserProfile() == currentImageUrl) {
+            binding.btnProfileEditOrSave.text = "프로필 사진 편집"
+            binding.btnSelectImage.visibility = View.INVISIBLE
+            profile_position = DEFAULT
+        }
+        // 사진이 변경된 경우 서버 통신
+        else {
+            val url = currentImageUrl?.toUri()
+            //절대 경로 받아오기
+            val file = File(getRealPathFromURI(url!!))
+            val requestFile =
+                RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
+            val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
-        RetrofitBuilder.mypageService.postProfile(
-            SeeMeetSharedPreference.getToken(),
-            body
-        )    // body 가 Multipart.Part
-            .enqueue(object : Callback<ResponseMyPageProfile> {
-                override fun onFailure(
-                    call: Call<ResponseMyPageProfile>,
-                    t: Throwable
-                ) {
-                    Log.e("error : ", t.message ?: return)
-                }
+            RetrofitBuilder.mypageService.postProfile(
+                SeeMeetSharedPreference.getToken(),
+                body
+            )    // body 가 Multipart.Part
+                .enqueue(object : Callback<ResponseMyPageProfile> {
+                    override fun onFailure(
+                        call: Call<ResponseMyPageProfile>,
+                        t: Throwable
+                    ) {
+                        Log.e("error : ", t.message ?: return)
+                    }
 
-                override fun onResponse(
-                    call: Call<ResponseMyPageProfile>,
-                    response: Response<ResponseMyPageProfile>
-                ) {
-                    SeeMeetSharedPreference.setUserProfile(currentImageUrl)
-                    binding.btnProfileEditOrSave.text = "프로필 사진 편집"
-                    binding.btnSelectImage.visibility = View.INVISIBLE
-                    profile_position = DEFAULT
-                }
-            })
+                    override fun onResponse(
+                        call: Call<ResponseMyPageProfile>,
+                        response: Response<ResponseMyPageProfile>
+                    ) {
+                        SeeMeetSharedPreference.setUserProfile(currentImageUrl)
+                        binding.btnProfileEditOrSave.text = "프로필 사진 편집"
+                        binding.btnSelectImage.visibility = View.INVISIBLE
+                        profile_position = DEFAULT
+                    }
+                })
+        }
     }
 
     //content uri를 File path로 바꿔주는 함수
