@@ -8,19 +8,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
-import org.seemeet.seemeet.data.api.RetrofitBuilder
-import org.seemeet.seemeet.data.model.request.register.RequestRegisterNameId
 import org.seemeet.seemeet.data.model.response.login.ExUser
 import org.seemeet.seemeet.databinding.ActivityRegisterNameIdActivityBinding
 import org.seemeet.seemeet.ui.main.MainActivity
+import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.RegisterNameIdViewModel
+import retrofit2.HttpException
 import java.util.regex.Pattern
 
 class RegisterNameIdActivity : AppCompatActivity() {
@@ -34,15 +32,54 @@ class RegisterNameIdActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.registerNameIdviewModel = viewModel
         binding.lifecycleOwner = this
+        statusObserver()
         initClickListener()
     }
 
-    fun initClickListener() {
+    private fun statusObserver() {
+        viewModel.fetchState.observe(this) {
+            var message = ""
+            when (it.second) {
+                BaseViewModel.FetchState.BAD_INTERNET -> {
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                }
+                BaseViewModel.FetchState.PARSE_ERROR -> {
+                    val error = (it.first as HttpException)
+                    if (error.response()!!.errorBody()!!.string()
+                            .split("\"")[7] == "이미 사용중인 닉네임입니다."
+                    ) {
+                        binding.tvWarningId.text = "이미 사용 중이에요"
+                    }
+                }
+                BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                }
+                else -> {
+                    message = "통신에 실패하였습니다.\n ${it.first.message}"
+                }
+            }
+            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+            if (message != "") {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            }
+        }
 
         viewModel.registerId.observe(this, Observer {
             viewModel.check()
         })
 
+        viewModel.registerNameIdList.observe(this, Observer {
+            setSharedPreference(it.data)
+        })
+
+        viewModel.registerStatus.observe(this) {
+            if (it) {
+                MainActivity.start(this@RegisterNameIdActivity)
+            }
+        }
+    }
+
+    fun initClickListener() {
         binding.ivRegisterBack.setOnClickListener {
             finish()
         }
@@ -59,27 +96,16 @@ class RegisterNameIdActivity : AppCompatActivity() {
         }
 
         binding.btnStart.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    val body = RetrofitBuilder.registerService.putRegisterNameId(
-                        SeeMeetSharedPreference.getToken(),
-                        RequestRegisterNameId(
-                            binding.etName.text.toString(),
-                            binding.etId.text.toString()
-                        )
-                    )
-                    setSharedPreference(body.data)
-                    MainActivity.start(this@RegisterNameIdActivity)
-                } catch (e: Exception) {
-                    Log.e("network error", e.toString())
-                }
-            }
+            viewModel.requestRegisterNameIdList(
+                binding.etName.text.toString(),
+                binding.etId.text.toString()
+            )
         }
     }
 
     // sharedPreference setting
-    private fun setSharedPreference(list : ExUser) {
-        SeeMeetSharedPreference.setUserId(list.nickname?:return)
+    private fun setSharedPreference(list: ExUser) {
+        SeeMeetSharedPreference.setUserId(list.nickname ?: return)
         SeeMeetSharedPreference.setLogin(true)
         SeeMeetSharedPreference.setUserName(list.username)
     }
