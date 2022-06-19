@@ -144,8 +144,10 @@ class ChangePwActivity : AppCompatActivity() {
         viewModel.status.observe(this, Observer { status ->
             if(status){
                 CustomToast.createToast(this,"비밀번호가 변경되었습니다")!!.show()
-                val intent = Intent(this, MyPageActivity::class.java)
-                startActivity(intent)
+                val intent = Intent(this@ChangePwActivity, MyPageActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                this@ChangePwActivity.startActivity(intent)
             }
         })
     }
