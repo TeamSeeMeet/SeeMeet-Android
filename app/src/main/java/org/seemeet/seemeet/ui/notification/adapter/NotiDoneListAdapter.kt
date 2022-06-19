@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
@@ -66,17 +65,18 @@ class NotiDoneListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     isCheckable = false
                     isClickable = false
                 })
-                Log.d("**********************받은이", it.username)
             }
 
+            //n일
+            binding.tvDoneDayNum.text = doneData.days.toString()
+
             // 약속 확정 or 취소
-            if (doneData.isCancled) {
+            if (doneData.isCanceled) {
                 binding.tvConfirmOrCancel.text =
                     context?.getResources()?.getString(R.string.noti_cancel)
             } else {
                 binding.tvConfirmOrCancel.text =
                     context?.getResources()?.getString(R.string.noti_confirm)
-                binding.ivDetail.visibility = View.VISIBLE
             }
         }
     }
