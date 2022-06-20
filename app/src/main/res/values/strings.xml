@@ -93,6 +93,7 @@
     <string name="noti_done_title">강화도 여행</string>
     <string name="noti_in_progress_null">진행중인 약속이 없어요!</string>
     <string name="noti_done_null">완료된 약속이 없어요!</string>
+    <string name="noti_done_canceled">취소된 약속</string>
 
     <!-- detail -->
     <string name="detail_delete">약속 삭제</string>
