@@ -1,5 +1,6 @@
 package org.seemeet.seemeet.ui.main
 
+
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -23,6 +24,7 @@ import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
 import org.seemeet.seemeet.util.CustomToast
 import org.seemeet.seemeet.util.getNaviBarHeight
+
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
@@ -168,6 +170,29 @@ class MainActivity : AppCompatActivity() {
             Log.d("******firebaseToken_Main", token)
         })
     }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        Log.d("************main_newIntent1", intent.toString())
+        if (intent != null) {
+            val push = intent.getBooleanExtra("pushPlan", false)
+            Log.d("************main_newIntent2", push.toString())
+            if (push) {
+                binding.bnvMain.menu.getItem(2).isChecked = true
+                val bundle = Bundle()
+                bundle.putBoolean("tomorrow", true)
+
+                val calFragment = CalendarFragment()
+                calFragment.arguments = bundle
+
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fcv_main, calFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
+    }
+
     companion object {
         fun start(context: Context) {
             val intent = Intent(context, MainActivity::class.java)

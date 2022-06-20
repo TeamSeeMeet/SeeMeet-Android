@@ -40,9 +40,9 @@ class FCMService : FirebaseMessagingService() {
     }
 
     private fun sendDataMessage(data : MutableMap<String, String>){
-        //TODO : Main 이거 부르지말고, 팝업 디자인 나오면, 팝업으로 띄울 화면 열어서 보여주는게 좋을듯...?
         val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.putExtra("pushPlan", true)
 
         val pendingIntent = PendingIntent.getActivity(
             this, (System.currentTimeMillis()/1000).toInt(), intent, PendingIntent.FLAG_IMMUTABLE)

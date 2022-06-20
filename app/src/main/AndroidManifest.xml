@@ -28,7 +28,8 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false"
-            android:theme="@style/Theme.SeeMeet.TransparentStatusBar" />
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.SeeMeet.TransparentStatusBar"/>
         <activity
             android:name=".ui.apply.SecondApplyActivity"
             android:exported="false" />
@@ -72,7 +73,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
