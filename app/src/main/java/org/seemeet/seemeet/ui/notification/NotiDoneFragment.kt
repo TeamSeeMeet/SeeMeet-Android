@@ -36,11 +36,10 @@ class NotiDoneFragment : Fragment() {
 
         if (SeeMeetSharedPreference.getLogin()) {
             viewmodel.requestAllInvitationList()
-
             setDoneAdapter()
             setDoneObserve()
         } else {
-            binding.clNotiDoneNull.visibility = View.VISIBLE
+            setVisibility(binding.clNotiDoneNull, View.VISIBLE)
             binding.tvDoneNum.text = "0"
         }
     }
@@ -66,7 +65,7 @@ class NotiDoneFragment : Fragment() {
             with(binding.rvDoneList.adapter as NotiDoneListAdapter) {
                 setDone(doneList)
                 binding.tvDoneNum.text = doneList.size.toString()
-
+                setVisibility(binding.ivDoneNetwork, View.GONE)
                 if (doneList.isEmpty()) {
                     binding.clNotiDoneNull.visibility = View.VISIBLE
                 } else {
@@ -86,7 +85,8 @@ class NotiDoneFragment : Fragment() {
                     message = "$code ERROR : \n ${it.first.message}"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    binding.ivInProgressNetwork.visibility = View.VISIBLE
+                    setVisibility(binding.clNotiDoneNull, View.GONE)
+                    setVisibility(binding.ivDoneNetwork, View.VISIBLE)
                 }
                 else ->  {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
@@ -100,6 +100,10 @@ class NotiDoneFragment : Fragment() {
                 binding.clNotiDoneNull.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun setVisibility(view: View, visibility: Int){
+        view.visibility = visibility
     }
 }
 

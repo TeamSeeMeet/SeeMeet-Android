@@ -15,6 +15,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.SeeMeetSharedPreference.getToken
 import org.seemeet.seemeet.databinding.ActivityMainBinding
 import org.seemeet.seemeet.ui.apply.ApplyActivity
 import org.seemeet.seemeet.ui.main.calendar.CalendarFragment
@@ -52,6 +53,7 @@ class MainActivity : AppCompatActivity() {
             //firebase _ 토큰 확인용
             getFireBaseInstanceId()
         }
+
     }
 
     private fun initView(){

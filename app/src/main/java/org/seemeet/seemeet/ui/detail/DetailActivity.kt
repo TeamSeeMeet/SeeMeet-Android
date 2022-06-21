@@ -3,7 +3,8 @@ package org.seemeet.seemeet.ui.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -23,14 +24,39 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val planId = intent.getIntExtra("planId", -1)
-        Log.d("*************DETAIL_PLANID", planId.toString())
+        val id = intent.getIntExtra("id", -1)
 
         viewModel.requestPlanId(planId)
+        viewModel.requestInvitationId(id)
+        viewModel.requestInvitationDetail(id)
         initClickListener()
         setListObserver()
     }
 
     private fun setListObserver() {
+        viewModel.canceledDetail.observe(this, Observer { canceledDetail ->
+            canceledDetail.forEach {
+                if(it.data.isCanceled) {
+                    onCanceled()
+                } else {
+                    onConfirmed()
+                }
+            }
+        })
+
+    }
+
+    private fun initClickListener() {
+        binding.ivDetailBack.setOnClickListener {
+            finish()
+        }
+
+        binding.btnAppointmentCancel.setOnClickListener {
+            showDialog()
+        }
+    }
+
+    private fun onConfirmed(){
         viewModel.planDetail.observe(this, Observer { planDetail ->
             planDetail.forEach {
                 BindingAdapters.setYearMonthDate(binding.tvDetailDay, it.data.date)
@@ -71,32 +97,62 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun initClickListener() {
-        binding.ivDetailBack.setOnClickListener {
-            finish()
-        }
-
-/* 취소버튼 사라져서 관련 코드는 일단 지움
-        binding.btnAppointmentCancel.setOnClickListener {
-            var dialogView = DetailDialogFragment()
-            val bundle = Bundle()
-
-            //서버 달 때 고치자. cancel 시에는 초대장 id가 있으면 될듯.
-            dialogView.arguments = bundle
-            dialogView.setButtonClickListener( object :  DetailDialogFragment.OnButtonClickListener {
-                override fun onCancelNoClicked() {
+    private fun onCanceled(){
+        viewModel.canceledDetail.observe(this, Observer { canceledDetail ->
+            canceledDetail.forEach {
+                binding.tvDetailTime.apply {
+                    text = getString(R.string.noti_done_canceled)
+                    setTextColor(getColor(R.color.pink01))
                 }
 
-                override fun onCancelYesClicked() {
-                    Toast.makeText(this@DetailActivity, "약속이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-                    finish()
-                    //여기서 데이터 전송.
-                    //위의 cblist에서 flag가 true인 애들 아이디만 골라서 전송해주기.
+                binding.apply {
+                    tvDetailTitle.text = it.data.invitationTitle
+                    tvRecieveLetterTitle.text = it.data.invitationTitle
+                    tvRecieveLetterContent.text = it.data.invitationDesc
                 }
-            })
-            dialogView.show(supportFragmentManager, "send wish checkbox time")
-        }
- */
+
+                // 받은 모든 사람 이름 칩그룹
+                it.data.guest.forEach {
+                    binding.cgDetailFriendList.addView(Chip(this).apply {
+                        text = it.username
+                        setChipBackgroundColorResource(R.color.gray04)
+                        setTextAppearance(R.style.chipTextWhiteStyle2)
+                        isCheckable = false
+                        isEnabled = false
+                    })
+                }
+
+                binding.btnAppointmentCancel.visibility = View.GONE
+            }
+        })
+
+        viewModel.canceledHostDetail.observe(this, Observer { canceledHostDetail ->
+            canceledHostDetail.forEach {
+                binding.apply {
+                    tvDetailHostName.text = it.data.invitation.host.username
+                }
+            }
+        })
+    }
+
+
+    private fun showDialog(){
+        val planId = intent.getIntExtra("planId", -1)
+        var dialogView = DetailDialogFragment()
+        val bundle = Bundle()
+
+        dialogView.arguments = bundle
+        dialogView.setButtonClickListener( object :  DetailDialogFragment.OnButtonClickListener {
+            override fun onCancelNoClicked() {
+            }
+
+            override fun onCancelYesClicked() {
+                viewModel.deletePlan(planId)
+                Toast.makeText(this@DetailActivity, "약속이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        })
+        dialogView.show(supportFragmentManager, "send wish checkbox time")
     }
 
     companion object {

@@ -35,5 +35,7 @@ data class UserListData(
     @SerializedName("updatedAt")
     val updatedAt: String,
     @SerializedName("username")
-    val username: String
+    val username: String,
+    @SerializedName("imgLink")
+    val imgLink: String?
 )

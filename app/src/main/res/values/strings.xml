@@ -77,7 +77,7 @@
     <string name="noti_in_progress">진행 중</string>
     <string name="noti_done">완료</string>
     <string name="noti_send">보낸 요청</string>
-    <string name="noti_day">0일전</string>
+    <string name="noti_day">일전</string>
     <string name="noti_send_msg_wait">친구</string>
     <string name="noti_send_msg_wait_num">3</string>
     <string name="noti_send_msg_wait2">명의 답변을 기다리고 있어요!</string>
@@ -93,6 +93,7 @@
     <string name="noti_done_title">강화도 여행</string>
     <string name="noti_in_progress_null">진행중인 약속이 없어요!</string>
     <string name="noti_done_null">완료된 약속이 없어요!</string>
+    <string name="noti_done_canceled">취소된 약속</string>
 
     <!-- detail -->
     <string name="detail_delete">약속 삭제</string>
@@ -124,7 +125,7 @@
     <string name="send_cancel_content">약속을 취소하시겠어요?</string>
     <string name="send_cancel_yes">예</string>
     <string name="send_cancel_no">아니오</string>
-
+    <string name="send_reject">불참 &#124; </string>
 
     <string name="time_start_end">%s ~ %s</string>
 
