@@ -37,7 +37,7 @@ class NotiInProgressListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(!inProgressList[position].isReceived){
+        if (!inProgressList[position].isReceived) {
             (holder as NotiInProgressViewHolder1).bind(inProgressList[position])
         } else {
             (holder as NotiInProgressViewHolder2).bind(inProgressList[position])
@@ -92,12 +92,13 @@ class NotiInProgressListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
             // 이름 칩그룹
             binding.cgReceiveFriendList.removeAllViews()
             binding.cgReceiveFriendList.addView(Chip(context).apply {
-                text = inProgressData.guests.toString()
+                text = inProgressData.host.username
                 setChipBackgroundColorResource(R.color.gray06)
                 setTextAppearance(R.style.chipTextWhiteStyle)
                 isCheckable = false
                 isClickable = false
             })
+
         }
     }
 
