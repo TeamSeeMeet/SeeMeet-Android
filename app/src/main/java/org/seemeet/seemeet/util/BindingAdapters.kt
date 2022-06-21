@@ -391,4 +391,12 @@ object BindingAdapters {
             editText.setSelection(cursorPos)
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("cursorPos", "invalidCase")
+    fun setCursorPos(editText: EditText, cursorPos: Int, invalidCase: Boolean) {
+        if(invalidCase == true){
+            editText.setSelection(cursorPos-1)
+        }
+    }
 }

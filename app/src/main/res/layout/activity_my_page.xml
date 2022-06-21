@@ -110,6 +110,8 @@
 
             <EditText
                 android:id="@+id/et_mypage_name"
+                cursorPos="@{myPageviewModel.cursorPos}"
+                invalidCase="@{myPageviewModel.invalidCase}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -117,6 +119,7 @@
                 android:enabled="false"
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:inputType="textPersonName"
+                android:maxLength="6"
                 android:text="@={myPageviewModel.mypageName}"
                 android:textColor="@color/black"
                 android:textSize="16sp"

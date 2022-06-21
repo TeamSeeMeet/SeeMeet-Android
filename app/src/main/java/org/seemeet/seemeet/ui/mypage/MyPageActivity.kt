@@ -2,12 +2,16 @@ package org.seemeet.seemeet.ui.mypage
 
 import android.Manifest
 import android.app.Activity
+import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.graphics.Rect
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
@@ -18,6 +22,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
@@ -39,6 +44,7 @@ import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.File
+import java.util.regex.Pattern
 
 
 class MyPageActivity : AppCompatActivity() {
@@ -46,7 +52,7 @@ class MyPageActivity : AppCompatActivity() {
     private var nameId_position = DEFAULT
     var currentImageUrl: String? = SeeMeetSharedPreference.getUserProfile()
     var prev_etId: String? = SeeMeetSharedPreference.getUserId()
-
+    var prev_etName: String? = SeeMeetSharedPreference.getUserName()
     private val viewModel: MyPageViewModel by viewModels()
 
     private val binding: ActivityMyPageBinding by lazy {
@@ -67,10 +73,10 @@ class MyPageActivity : AppCompatActivity() {
         if (!SeeMeetSharedPreference.getSocialLogin())
             binding.clChangepw.visibility = View.VISIBLE
 
-        if(currentImageUrl=="null"|| currentImageUrl.isNullOrEmpty()) {
-            Glide.with(this).load(R.drawable.ic_img_friend_list_null).circleCrop().into(binding.ivMypageProfile)
-        }
-        else {
+        if (currentImageUrl == "null" || currentImageUrl.isNullOrEmpty()) {
+            Glide.with(this).load(R.drawable.ic_img_friend_list_null).circleCrop()
+                .into(binding.ivMypageProfile)
+        } else {
             Glide.with(this).load(currentImageUrl!!.toUri())
                 .circleCrop()
                 .into(binding.ivMypageProfile)
@@ -78,6 +84,32 @@ class MyPageActivity : AppCompatActivity() {
 
         viewModel.mypageName.postValue(SeeMeetSharedPreference.getUserName())
         viewModel.mypageId.postValue(SeeMeetSharedPreference.getUserId())
+    }
+
+    fun inputCase(case: String, it: String, cursor_pos: Int) {
+        // 이름에 입력 불가능한 문자를 입력했을 경우
+        if (case == "name") {
+            if (!isNameFormat(it[cursor_pos - 1].toString())) {
+                viewModel.mypageName.value = it.substring(
+                    0,
+                    cursor_pos - 1
+                ) + it.substring(cursor_pos)
+                viewModel.cursorPos.value = cursor_pos
+                viewModel.invalidCase.value = true
+            }
+            prev_etName = it
+        } else {
+            // 아이디에 대문자를 입력했을 경우
+            if (it[cursor_pos - 1] >= 'A' && it[cursor_pos - 1] <= 'Z') {
+                viewModel.mypageId.value = it.substring(
+                    0,
+                    cursor_pos - 1
+                ) + it[cursor_pos - 1].lowercase() + it.substring(cursor_pos)
+                viewModel.upperCase.value = true
+                viewModel.cursorPos.value = cursor_pos
+            }
+            prev_etId = it
+        }
     }
 
     private fun statusObserver() {
@@ -114,10 +146,37 @@ class MyPageActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.mypageId.observe(this) {
+        viewModel.mypageName.observe(this) {
             //그 직전 값이랑 입력값 비교해서 현재 커서 위치 알아내기
             var cursor_pos = it.length
+
             //입력한 경우
+            if (it.length > 0 && prev_etName!!.length < it.length) {
+                for (i in 0..prev_etName!!.length - 1) {
+                    if (prev_etName!![i].lowercase() != it[i].lowercase()) {
+                        cursor_pos = i + 1
+                        break
+                    }
+                }
+                //입력불가 문자 입력한 경우
+                inputCase("name", it, cursor_pos)
+            }
+
+            //지운 경우(드래그 전체 선택 후 입력한 경우도 포함)
+            if (it.length > 0 && prev_etName!!.length >= it.length) {
+                for (i in 0..it.length - 1) {
+                    if (it[i].toString() != prev_etName!![i].lowercase()) {
+                        cursor_pos = i + 1
+                        break
+                    }
+                }
+                //입력불가 문자 입력한 경우
+                inputCase("name", it, cursor_pos)
+            }
+        }
+
+        viewModel.mypageId.observe(this) {
+            var cursor_pos = it.length
             if (it.length > 0 && prev_etId!!.length < it.length) {
                 for (i in 0..prev_etId!!.length - 1) {
                     if (prev_etId!![i].lowercase() != it[i].lowercase()) {
@@ -125,17 +184,8 @@ class MyPageActivity : AppCompatActivity() {
                         break
                     }
                 }
-                if (it[cursor_pos - 1] >= 'A' && it[cursor_pos - 1] <= 'Z') {
-                    viewModel.mypageId.value = it.substring(
-                        0,
-                        cursor_pos - 1
-                    ) + it[cursor_pos - 1].lowercase() + it.substring(cursor_pos)
-                    viewModel.upperCase.value = true
-                    viewModel.cursorPos.value = cursor_pos
-                }
-                prev_etId = it
+                inputCase("id", it, cursor_pos)
             }
-            //지운 경우(드래그 전체 선택 후 입력한 경우도 포함)
             if (it.length > 0 && prev_etId!!.length >= it.length) {
                 for (i in 0..it.length - 1) {
                     if (it[i].toString() != prev_etId!![i].lowercase()) {
@@ -143,15 +193,7 @@ class MyPageActivity : AppCompatActivity() {
                         break
                     }
                 }
-                if (it[cursor_pos - 1] >= 'A' && it[cursor_pos - 1] <= 'Z') {
-                    viewModel.mypageId.value = it.substring(
-                        0,
-                        cursor_pos - 1
-                    ) + it[cursor_pos - 1].lowercase() + it.substring(cursor_pos)
-                    viewModel.upperCase.value = true
-                    viewModel.cursorPos.value = cursor_pos
-                }
-                prev_etId = it
+                inputCase("id", it, cursor_pos)
             }
         }
 
@@ -273,8 +315,9 @@ class MyPageActivity : AppCompatActivity() {
         // 사진이 변경된 경우 서버 통신
         else {
             val url = currentImageUrl?.toUri()
+
             //절대 경로 받아오기
-            val file = File(getRealPathFromURI(url!!))
+            val file = File(getPath(this, url!!))
             val requestFile =
                 RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
             val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
@@ -290,7 +333,6 @@ class MyPageActivity : AppCompatActivity() {
                     ) {
                         Log.e("error : ", t.message ?: return)
                     }
-
                     override fun onResponse(
                         call: Call<ResponseMyPageProfile>,
                         response: Response<ResponseMyPageProfile>
@@ -304,48 +346,144 @@ class MyPageActivity : AppCompatActivity() {
         }
     }
 
-    //content uri를 File path로 바꿔주는 함수
-    fun getRealPathFromURI(contentUri: Uri): String? {
-        if (contentUri.path!!.startsWith("/storage")) {
-            return contentUri.path!!
-        }
-        val id = DocumentsContract.getDocumentId(contentUri).split(":")[1]
-        val columns = arrayOf(MediaStore.Files.FileColumns.DATA)
-        val selection = MediaStore.Files.FileColumns._ID + " = " + id
-        val cursor = contentResolver.query(
-            MediaStore.Files.getContentUri("external"),
-            columns,
-            selection,
-            null,
-            null
-        )
-        try {
-            val columnIndex = cursor!!.getColumnIndex(columns[0])
-            if (cursor!!.moveToFirst()) {
-                return cursor.getString(columnIndex)
+    fun getPath(context: Context, uri: Uri): String? {
+        val isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+
+        // DocumentProvider
+        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+            // ExternalStorageProvider
+            if (isExternalStorageDocument(uri)) {
+                val docId = DocumentsContract.getDocumentId(uri)
+                val split = docId.split(":").toTypedArray()
+                val type = split[0]
+                if ("primary".equals(type, ignoreCase = true)) {
+                    return Environment.getExternalStorageDirectory().toString() + "/" + split[1]
+                }
+            } else if (isDownloadsDocument(uri)) {
+                val id = DocumentsContract.getDocumentId(uri)
+                val contentUri = ContentUris.withAppendedId(
+                    Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id)
+                )
+                return getDataColumn(context, contentUri, null, null)
+            } else if (isMediaDocument(uri)) {
+                val docId = DocumentsContract.getDocumentId(uri)
+                val split = docId.split(":").toTypedArray()
+                val type = split[0]
+                var contentUri: Uri? = null
+                if ("image" == type) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                } else if ("video" == type) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                } else if ("audio" == type) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                }
+                val selection = "_id=?"
+                val selectionArgs = arrayOf(
+                    split[1]
+                )
+                return getDataColumn(context, contentUri, selection, selectionArgs)
             }
-        } finally {
-            cursor!!.close()
+        } else if ("content".equals(uri.scheme, ignoreCase = true)) {
+
+            // Return the remote address
+            return if (isGooglePhotosUri(uri)) uri.lastPathSegment else getDataColumn(
+                context,
+                uri,
+                null,
+                null
+            )
+        } else if ("file".equals(uri.scheme, ignoreCase = true)) {
+            return uri.path
         }
         return null
+    }
+
+    /**
+     * Get the value of the data column for this Uri. This is useful for
+     * MediaStore Uris, and other file-based ContentProviders.
+     *
+     * @param context The context.
+     * @param uri The Uri to query.
+     * @param selection (Optional) Filter used in the query.
+     * @param selectionArgs (Optional) Selection arguments used in the query.
+     * @return The value of the _data column, which is typically a file path.
+     */
+    fun getDataColumn(
+        context: Context, uri: Uri?, selection: String?,
+        selectionArgs: Array<String>?
+    ): String? {
+        var cursor: Cursor? = null
+        val column = "_data"
+        val projection = arrayOf(
+            column
+        )
+        try {
+            cursor = context.contentResolver.query(
+                uri!!, projection, selection, selectionArgs,
+                null
+            )
+            if (cursor != null && cursor.moveToFirst()) {
+                val index: Int = cursor.getColumnIndexOrThrow(column)
+                return cursor.getString(index)
+            }
+        } finally {
+            if (cursor != null) cursor.close()
+        }
+        return null
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is ExternalStorageProvider.
+     */
+    fun isExternalStorageDocument(uri: Uri): Boolean {
+        return "com.android.externalstorage.documents" == uri.authority
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    fun isDownloadsDocument(uri: Uri): Boolean {
+        return "com.android.providers.downloads.documents" == uri.authority
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    fun isMediaDocument(uri: Uri): Boolean {
+        return "com.android.providers.media.documents" == uri.authority
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is Google Photos.
+     */
+    fun isGooglePhotosUri(uri: Uri): Boolean {
+        return "com.google.android.apps.photos.content" == uri.authority
     }
 
     //갤러리 들어가는 함수
     private val OPEN_GALLERY = 1
     private fun openGallery() {
         /* 권한 받기 */
-        if (ActivityCompat.checkSelfPermission(
+        if (//ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED&&
+            ContextCompat.checkSelfPermission(
                 this,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
-            requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 200)
-        } else {
-            //허용했을 경우
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             intent.setType("image/*")
             startActivityForResult(intent, OPEN_GALLERY)
+        } else {
+            val permissions: Array<String> = arrayOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+
+            ActivityCompat.requestPermissions(this, permissions, 0)
         }
     }
 
@@ -355,18 +493,46 @@ class MyPageActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
         when (requestCode) {
-            200 -> {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    val intent = Intent(Intent.ACTION_GET_CONTENT)
-                    intent.setType("image/*")
-                    startActivityForResult(intent, OPEN_GALLERY)
-                } else {
-                    CustomToast.createToast(this@MyPageActivity, "스토리지에 접근 권한을 허가해주세요")?.show()
+            0 -> {
+                if (grantResults.isNotEmpty()) {
+                    var isAllGranted = true
+                    // 요청한 권한 허용/거부 상태 한번에 체크
+                    for (grant in grantResults) {
+                        if (grant != PackageManager.PERMISSION_GRANTED) {
+                            isAllGranted = false
+                            break;
+                        }
+                    }
+                    // 요청한 권한을 모두 허용했음.
+                    if (isAllGranted) {
+                        // 다음 step으로 ~
+                        val intent = Intent(Intent.ACTION_GET_CONTENT)
+                        intent.setType("image/*")
+                        startActivityForResult(intent, OPEN_GALLERY)
+                    }
+                    // 허용하지 않은 권한이 있음. 필수권한/선택권한 여부에 따라서 별도 처리를 해주어야 함.
+                    else {
+                        if (!ActivityCompat.shouldShowRequestPermissionRationale(
+                                this,
+                                Manifest.permission.READ_EXTERNAL_STORAGE
+                            )
+                        // || !ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)
+                        ) {
+                            // 다시 묻지 않기 체크하면서 권한 거부 되었음.
+                            CustomToast.createToast(this@MyPageActivity, "스토리지에 접근 권한을 허가해주세요")
+                                ?.show()
+                        } else {
+                            // 접근 권한 거부하였음.
+                            CustomToast.createToast(this@MyPageActivity, "스토리지에 접근 권한을 허가해주세요")
+                                ?.show()
+                        }
+                    }
                 }
             }
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     @Override
@@ -453,6 +619,10 @@ class MyPageActivity : AppCompatActivity() {
         fun start(context: Context) {
             val intent = Intent(context, MyPageActivity::class.java)
             context.startActivity(intent)
+        }
+
+        fun isNameFormat(password: String): Boolean {
+            return Pattern.matches("^[가-힣a-zA-Z]*$", password)
         }
 
         const val DEFAULT = 1
