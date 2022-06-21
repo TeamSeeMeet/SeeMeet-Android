@@ -13,17 +13,17 @@
         android:background="@color/gray06"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tv_detail_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            android:layout_marginBottom="17dp"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:layout_marginTop="42dp"
-            android:layout_marginBottom="17dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,165 +39,181 @@
             app:layout_constraintTop_toTopOf="@+id/tv_detail_day" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/tv_detail_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/spoqa_han_sans_neo_bold"
-        android:textColor="@color/gray06"
-        android:textSize="22sp"
-        android:layout_marginTop="26dp"
-        android:layout_marginStart="15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_detail_top_bar" />
 
-    <TextView
-        android:id="@+id/tv_detail_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/din_pro_regular"
-        android:textColor="@color/gray06"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_detail_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_detail_title" />
-
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/cg_detail_friend_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_detail_time"
-        app:layout_constraintTop_toBottomOf="@id/tv_detail_time" >
-    </com.google.android.material.chip.ChipGroup>
-
-    <View
-        android:id="@+id/divider4"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/gray02"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cg_detail_friend_list" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_detail_letter"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="328:255"
-        android:background="@drawable/bg_receive_content_card"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="20dp"
-        android:paddingBottom="18dp"
-        app:layout_constraintTop_toBottomOf="@+id/divider4"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_detail_top_bar">
 
-        <TextView
-            android:id="@+id/tv_recieve_letter_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="25dp"
-            app:layout_constraintTop_toTopOf="@id/cl_detail_letter"
-            app:layout_constraintStart_toStartOf="@id/cl_detail_letter"
-            android:fontFamily="@font/spoqa_han_sans_neo_bold"
-            android:textSize="14sp"
-            android:textColor="@color/gray06" />
-
-        <androidx.core.widget.NestedScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="@id/tv_recieve_letter_title"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:overScrollMode="never"
-            android:scrollbars="none"
-            android:fadeScrollbars="false"
-            android:fillViewport="true"
-            android:orientation="vertical"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="50dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tv_recieve_letter_content"
-                android:layout_width="match_parent"
+                android:id="@+id/tv_detail_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="26dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                android:textColor="@color/gray06"
+                android:textSize="22sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_detail_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/din_pro_regular"
+                android:textColor="@color/gray06"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_detail_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_detail_title" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cg_detail_friend_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_detail_time"
+                app:layout_constraintTop_toBottomOf="@id/tv_detail_time"></com.google.android.material.chip.ChipGroup>
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/gray02"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cg_detail_friend_list" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_detail_letter"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_receive_content_card"
+                android:paddingBottom="18dp"
+                app:layout_constraintDimensionRatio="328:255"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider4">
+
+                <TextView
+                    android:id="@+id/tv_recieve_letter_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                    android:textColor="@color/gray06"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@id/cl_detail_letter"
+                    app:layout_constraintTop_toTopOf="@id/cl_detail_letter" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="20dp"
+                    android:fadeScrollbars="false"
+                    android:fillViewport="true"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_recieve_letter_title">
+
+                    <TextView
+                        android:id="@+id/tv_recieve_letter_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                        android:lineSpacingExtra="10sp"
+                        android:textColor="@color/gray06"
+                        android:textSize="14sp" />
+                </androidx.core.widget.NestedScrollView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_detail_host"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                android:text="@string/detail_host"
+                android:textColor="@color/gray04"
                 android:textSize="14sp"
-                android:lineSpacingExtra="10sp"
-                android:textColor="@color/gray06" />
-        </androidx.core.widget.NestedScrollView>
+                app:layout_constraintStart_toStartOf="@+id/cl_detail_letter"
+                app:layout_constraintTop_toBottomOf="@id/cl_detail_letter" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/tv_detail_host"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:fontFamily="@font/spoqa_han_sans_neo_bold"
-        android:text="@string/detail_host"
-        android:textColor="@color/gray04"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/cl_detail_letter"
-        app:layout_constraintTop_toBottomOf="@id/cl_detail_letter" />
-
-    <TextView
-        android:id="@+id/tv_detail_host_divider"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:fontFamily="@font/spoqa_han_sans_neo_bold"
-        android:text="@string/detail_divider"
-        android:textColor="@color/gray04"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_detail_host"
-        app:layout_constraintStart_toEndOf="@+id/tv_detail_host"
-        app:layout_constraintTop_toTopOf="@+id/tv_detail_host" />
+            <TextView
+                android:id="@+id/tv_detail_host_divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                android:text="@string/detail_divider"
+                android:textColor="@color/gray04"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_detail_host"
+                app:layout_constraintStart_toEndOf="@+id/tv_detail_host"
+                app:layout_constraintTop_toTopOf="@+id/tv_detail_host" />
 
 
-    <TextView
-        android:id="@+id/tv_detail_host_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/spoqa_han_sans_neo_bold"
-        android:textColor="@color/gray06"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_detail_host_divider"
-        app:layout_constraintStart_toEndOf="@+id/tv_detail_host_divider"
-        app:layout_constraintTop_toTopOf="@+id/tv_detail_host_divider" />
+            <TextView
+                android:id="@+id/tv_detail_host_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                android:textColor="@color/gray06"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_detail_host_divider"
+                app:layout_constraintStart_toEndOf="@+id/tv_detail_host_divider"
+                app:layout_constraintTop_toTopOf="@+id/tv_detail_host_divider" />
 
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="59dp"
+                android:background="@color/gray02"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_detail_host" />
 
-    <View
-        android:id="@+id/divider5"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="59dp"
-        android:background="@color/gray02"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_detail_host" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_appointment_cancel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/rectangle_gray04_10"
-        android:fontFamily="@font/spoqa_han_sans_neo_medium"
-        android:text="@string/detail_delete"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider5" />
-
-
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_appointment_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="28dp"
+                android:background="@drawable/rectangle_gray04_10"
+                android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                android:text="@string/detail_delete"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider5" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

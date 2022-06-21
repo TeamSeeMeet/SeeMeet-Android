@@ -2,18 +2,11 @@ package org.seemeet.seemeet.data.api
 
 import org.seemeet.seemeet.data.model.request.invitation.RequestApplyInvitation
 import org.seemeet.seemeet.data.model.request.invitation.RequestSendInvitationConfirm
-import org.seemeet.seemeet.data.model.request.login.RequestLoginList
-import org.seemeet.seemeet.data.model.response.invitation.ResponseApplyInvitation
-import org.seemeet.seemeet.data.model.response.invitation.ResponseInvitationList
-import org.seemeet.seemeet.data.model.response.invitation.ResponseReceiveInvitation
-import org.seemeet.seemeet.data.model.response.invitation.ResponseSendInvitation
-import org.seemeet.seemeet.data.model.response.invitationResponse.ResponseYesInvitationResponse
-import org.seemeet.seemeet.data.model.response.login.ResponseLoginList
-import retrofit2.Call
-import retrofit2.http.*
-import com.google.gson.annotations.SerializedName
 import org.seemeet.seemeet.data.model.request.invitationResponse.RequestInvitationResponse
+import org.seemeet.seemeet.data.model.response.invitation.*
 import org.seemeet.seemeet.data.model.response.invitationResponse.ResponseNoInvitationResponse
+import org.seemeet.seemeet.data.model.response.invitationResponse.ResponseYesInvitationResponse
+import retrofit2.http.*
 
 
 interface InvitationService {
@@ -76,6 +69,10 @@ interface InvitationService {
         @Body body : RequestApplyInvitation
     ): ResponseApplyInvitation
 
-    
-
+    //취소된 약속 조회
+    @GET("invitation/canceled/{invitationId}")
+    suspend fun getCanceledInvitationData(
+        @Path("invitationId") invitationId : Int,
+        @Header("accesstoken") token: String
+    ) : ResponseCanceledInvitation
 }

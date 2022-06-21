@@ -6,6 +6,7 @@ import org.seemeet.seemeet.data.model.response.plan.ResponsePlanDetail
 import org.seemeet.seemeet.data.model.response.plan.ResponsePlanResponseList
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface PlanService {
@@ -36,4 +37,10 @@ interface PlanService {
         @Path("planId") planId : Int,
         @Header("accesstoken") token : String
     ) : ResponsePlanDetail
+
+    @PUT("plan/delete/{planId}")
+    suspend fun deletePlan(
+        @Path("planId") planId : Int,
+        @Header("accesstoken") token: String
+    )
 }

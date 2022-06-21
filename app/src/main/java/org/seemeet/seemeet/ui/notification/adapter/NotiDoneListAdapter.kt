@@ -38,13 +38,14 @@ class NotiDoneListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             // 완료 내역 삭제 버튼 (일단 비활성화 상태)
             binding.ivDeleteList.setOnClickListener {
-                Log.d("*************************", "클릭")
+                Log.d("****************Delete", "클릭됨")
             }
 
             // 약속 상세 클릭리스너
             binding.ivDetail.setOnClickListener {
                 val intent = Intent(context, DetailActivity::class.java)
                 intent.putExtra("planId", doneData.planId)
+                intent.putExtra("id", doneData.id)
                 context?.startActivity(intent)
             }
 
