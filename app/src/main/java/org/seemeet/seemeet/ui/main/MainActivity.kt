@@ -3,6 +3,7 @@ package org.seemeet.seemeet.ui.main
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -44,15 +45,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setBottomNavigation()
-
         setFriendListObserver()
 
         initView()
-
-        if (SeeMeetSharedPreference.getLogin()) {
-            //firebase _ 토큰 확인용
-            getFireBaseInstanceId()
-        }
 
     }
 
@@ -158,19 +153,6 @@ class MainActivity : AppCompatActivity() {
             mBackWait = System.currentTimeMillis()
             CustomToast.createToast(this,"뒤로가기 버튼을 한번 더 누르면 종료됩니다.")?.show()
         }
-    }
-
-    //일단 메인에 둔다. _ fcm 토큰 등록확인.
-    private fun getFireBaseInstanceId(){
-        Firebase.messaging.token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.d("******firebaseToken_Main_FAILED", task.exception.toString())
-                return@OnCompleteListener
-            }
-
-            val token = task.result
-            Log.d("******firebaseToken_Main", token)
-        })
     }
 
     override fun onNewIntent(intent: Intent?) {

@@ -47,7 +47,7 @@ object SeeMeetSharedPreference {
 
     fun setUserFb(value : String){
         preferences.edit{
-            putString(USER_ID, value)
+            putString(USER_FB, value)
             apply()
         }
     }
