@@ -102,6 +102,11 @@ class HomeFragment : Fragment() {
 
             nvMypage.tvEmail.setOnClickListener {
                 SeeMeetSharedPreference.clearStorage()
+
+                //로그아웃 할 경우, viewModel에 기존 데이터가 남아서 보이는 경우 처리.
+                activity?.viewModelStore?.clear()
+                setViewVisible(binding.clHomeNoReminder, true)
+                
                 LoginMainActivity.start(requireContext())
             }
         }
@@ -234,7 +239,7 @@ class HomeFragment : Fragment() {
         super.onResume()
 
         binding.nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
-        binding.nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserEmail()
+        binding.nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserId()
 
         if(getLogin()) {
             viewmodel.requestFriendList()
