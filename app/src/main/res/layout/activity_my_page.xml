@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="myPageviewModel"
+            type="org.seemeet.seemeet.ui.viewmodel.MyPageViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.mypage.MyPageActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_top_mypage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/back_mypage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_btn_back48" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_mypage_middle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_top_mypage">
+
+            <FrameLayout
+                android:id="@+id/fl_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_mypage_profile"
+                    android:layout_width="99dp"
+                    android:layout_height="99dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_img_list_null" />
+
+                <ImageView
+                    android:id="@+id/btn_select_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:clickable="true"
+                    android:visibility="invisible"
+                    app:srcCompat="@android:drawable/ic_menu_camera"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+            </FrameLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_profile_edit_or_save"
+                android:layout_width="84sp"
+                android:layout_height="20sp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rectangle_gray06_6_line"
+                android:text="프로필 사진 편집"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fl_img" />
+
+            <TextView
+                android:id="@+id/tvname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                android:text="이름"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_profile_edit_or_save" />
+
+            <TextView
+                android:id="@+id/tvid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                android:text="아이디"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/tvname"
+                app:layout_constraintTop_toBottomOf="@+id/tvname" />
+
+            <EditText
+                android:id="@+id/et_mypage_name"
+                cursorPos="@{myPageviewModel.cursorPos}"
+                invalidCase="@{myPageviewModel.invalidCase}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/transparent"
+                android:enabled="false"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:inputType="textPersonName"
+                android:maxLength="6"
+                android:text="@={myPageviewModel.mypageName}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/fl_img"
+                app:layout_constraintTop_toTopOf="@+id/tvname" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mypage_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/gray02"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/mypage_line2"
+                app:layout_constraintStart_toStartOf="@+id/mypage_line2"
+                app:layout_constraintTop_toBottomOf="@+id/et_mypage_name">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <EditText
+                android:id="@+id/et_mypage_id"
+                cursorPos="@{myPageviewModel.cursorPos}"
+                upperCase="@{myPageviewModel.upperCase}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:enabled="false"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:inputType="textPersonName"
+                android:maxLength="16"
+                android:text="@={myPageviewModel.mypageId}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/et_mypage_name"
+                app:layout_constraintStart_toStartOf="@+id/et_mypage_name"
+                app:layout_constraintTop_toTopOf="@+id/tvid" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mypage_line2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="-8dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/gray02"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/et_mypage_id"
+                app:layout_constraintTop_toBottomOf="@+id/et_mypage_id"></androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/btn_mypage_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:padding="20dp"
+                android:text="취소"
+                android:textColor="@color/gray03"
+                android:textSize="16sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_edit_or_save"
+                app:layout_constraintEnd_toStartOf="@+id/btn_edit_or_save"
+                app:layout_constraintTop_toTopOf="@+id/btn_edit_or_save" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_edit_or_save"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/rectangle_gray06_10_line"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:text="수정"
+                android:textColor="@color/gray06"
+                android:textSize="16sp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mypage_line2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_mypage_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/gray01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_mypage_middle">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_changepw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+                android:clickable="true"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tv_change_pw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                    android:text="비밀번호 변경"
+                    android:textColor="@color/gray05"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btn_change_pw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="35dp"
+                    android:clickable="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_arrow_right" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/btn_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                android:text="로그아웃"
+                android:textColor="@color/gray04"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btn_resign"
+                app:layout_constraintTop_toTopOf="@+id/btn_resign" />
+
+            <TextView
+                android:id="@+id/btn_resign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="56dp"
+                android:clickable="true"
+                android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                android:text="회원탈퇴"
+                android:textColor="@color/gray04"
+                app:layout_constraintEnd_toStartOf="@+id/btn_logout"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_changepw" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

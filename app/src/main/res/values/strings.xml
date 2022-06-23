@@ -16,6 +16,11 @@
     <string name="login_main_email_register"><u>이메일로 가입</u></string>
     <string name="login_main_email_login_underline"><u>이메일로 로그인</u></string>
     <string name="login_main_email_login">이메일로 로그인</string>
+    <string name="login_main_info1">로그인시<hr> </hr></string>
+    <string name="login_main_info2"><u>개인정보 처리방침</u><hr> </hr></string>
+    <string name="login_main_info3">및<hr> </hr></string>
+    <string name="login_main_info4"><u>이용약관</u></string>
+    <string name="login_main_info5">에 동의합니다.</string>
 
     <!-- Register -->
     <string name="register_register">회원가입</string>

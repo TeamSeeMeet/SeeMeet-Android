@@ -383,4 +383,20 @@ object BindingAdapters {
             editText.setSelection(length - 1)
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("cursorPos", "upperCase")
+    fun setCursorPosition(editText: EditText, cursorPos: Int, upperCase: Boolean) {
+        if(upperCase == true){
+            editText.setSelection(cursorPos)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("cursorPos", "invalidCase")
+    fun setCursorPos(editText: EditText, cursorPos: Int, invalidCase: Boolean) {
+        if(invalidCase == true){
+            editText.setSelection(cursorPos-1)
+        }
+    }
 }

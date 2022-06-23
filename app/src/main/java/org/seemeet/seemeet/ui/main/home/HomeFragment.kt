@@ -20,6 +20,7 @@ import org.seemeet.seemeet.ui.detail.DetailActivity
 import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.ui.main.home.adapter.ReminderListAdapter
+import org.seemeet.seemeet.ui.mypage.MyPageActivity
 import org.seemeet.seemeet.ui.notification.NotificationActivity
 import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
@@ -94,20 +95,11 @@ class HomeFragment : Fragment() {
             nvMypage.clMypageLogin.setOnClickListener{
                 if(!getLogin())
                     LoginMainActivity.start(requireContext())
+                else MyPageActivity.start(requireContext())
             }
 
             nvMypage.clMypageContent.setOnClickListener {
                 CustomToast.createToast(requireContext(), "아직 준비중인 서비스예요")?.show()
-            }
-
-            nvMypage.tvEmail.setOnClickListener {
-                SeeMeetSharedPreference.clearStorage()
-
-                //로그아웃 할 경우, viewModel에 기존 데이터가 남아서 보이는 경우 처리.
-                activity?.viewModelStore?.clear()
-                setViewVisible(binding.clHomeNoReminder, true)
-                
-                LoginMainActivity.start(requireContext())
             }
         }
 
