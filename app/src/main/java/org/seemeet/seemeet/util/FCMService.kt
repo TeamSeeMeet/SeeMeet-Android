@@ -54,7 +54,7 @@ class FCMService : FirebaseMessagingService() {
         val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
         notificationBuilder.setContentTitle(data["title"]) //제목
             .setContentText(data["body"]) //메세지
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ic_logo_push)
             .setContentIntent(pendingIntent) //이동 장소.
             .setAutoCancel(true)
             .setGroup(groupId)
