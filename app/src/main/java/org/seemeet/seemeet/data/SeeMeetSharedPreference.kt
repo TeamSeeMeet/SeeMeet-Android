@@ -47,9 +47,9 @@ object SeeMeetSharedPreference {
 
     fun getUserId(): String? = preferences.getString(USER_ID, "SeeMeet에서 친구와 약속을 잡아보세요!")
 
-    fun setUserFb(value: String) {
-        preferences.edit {
-            putString(USER_ID, value)
+    fun setUserFb(value : String){
+        preferences.edit{
+            putString(USER_FB, value)
             apply()
         }
     }
