@@ -1,7 +1,9 @@
 package org.seemeet.seemeet.ui.main
 
+
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,6 +11,9 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.SeeMeetSharedPreference.getToken
@@ -21,6 +26,7 @@ import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
 import org.seemeet.seemeet.util.CustomToast
 import org.seemeet.seemeet.util.getNaviBarHeight
+
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
@@ -39,10 +45,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setBottomNavigation()
-
         setFriendListObserver()
 
         initView()
+
     }
 
     private fun initView(){
@@ -146,6 +152,28 @@ class MainActivity : AppCompatActivity() {
         } else {
             mBackWait = System.currentTimeMillis()
             CustomToast.createToast(this,"뒤로가기 버튼을 한번 더 누르면 종료됩니다.")?.show()
+        }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        Log.d("************main_newIntent1", intent.toString())
+        if (intent != null) {
+            val push = intent.getBooleanExtra("pushPlan", false)
+            Log.d("************main_newIntent2", push.toString())
+            if (push) {
+                binding.bnvMain.menu.getItem(2).isChecked = true
+                val bundle = Bundle()
+                bundle.putBoolean("tomorrow", true)
+
+                val calFragment = CalendarFragment()
+                calFragment.arguments = bundle
+
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fcv_main, calFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
     }
 

@@ -67,6 +67,7 @@ class HomeFragment : Fragment() {
         }
 
         setViewVisible(binding.clErrorNetwork, false)
+        setViewVisible(binding.rvHomeReminder, true)
 
         setReminderAdapter()
         setViewModelObserve()
@@ -101,6 +102,11 @@ class HomeFragment : Fragment() {
 
             nvMypage.tvEmail.setOnClickListener {
                 SeeMeetSharedPreference.clearStorage()
+
+                //로그아웃 할 경우, viewModel에 기존 데이터가 남아서 보이는 경우 처리.
+                activity?.viewModelStore?.clear()
+                setViewVisible(binding.clHomeNoReminder, true)
+                
                 LoginMainActivity.start(requireContext())
             }
         }
@@ -174,6 +180,7 @@ class HomeFragment : Fragment() {
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
                     setViewVisible(binding.clErrorNetwork, true)
+                    setViewVisible(binding.rvHomeReminder, false)
                 }
                 else ->  {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
@@ -195,7 +202,7 @@ class HomeFragment : Fragment() {
          if(flag){
             view.visibility = View.VISIBLE
          } else {
-             view.visibility = View.GONE
+             view.visibility = View.INVISIBLE
          }
     }
 
@@ -232,7 +239,7 @@ class HomeFragment : Fragment() {
         super.onResume()
 
         binding.nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
-        binding.nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserEmail()
+        binding.nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserId()
 
         if(getLogin()) {
             viewmodel.requestFriendList()
@@ -245,6 +252,8 @@ class HomeFragment : Fragment() {
         }
 
         setViewVisible(binding.clErrorNetwork, false)
+        setViewVisible(binding.rvHomeReminder, true)
+
     }
 
 }

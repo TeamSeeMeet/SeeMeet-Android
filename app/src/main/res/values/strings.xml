@@ -147,4 +147,8 @@
     <string name="apply_dialog_out">나가기</string>
     <string name="apply_dialog_continue">계속</string>
 
+
+    <!-- FCM -->
+    <string name="default_notification_channel_id">SeeMeet_Notification_Channel</string>
+
 </resources>

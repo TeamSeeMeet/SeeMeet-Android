@@ -21,9 +21,9 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
         throwable.printStackTrace()
         //각각의 에러 상황에서 값 설정. 400~500대 에러는 HttpException으로 처리 될 것.
         when(throwable){
-            is SocketException -> _fetchState.postValue(Pair(throwable, FetchState.BAD_INTERNET))
+            is UnknownHostException -> _fetchState.postValue(Pair(throwable, FetchState.BAD_INTERNET))
             is HttpException -> _fetchState.postValue(Pair(throwable, FetchState.PARSE_ERROR))
-            is UnknownHostException -> _fetchState.postValue(Pair(throwable, FetchState.WRONG_CONNECTION))
+            is SocketException -> _fetchState.postValue(Pair(throwable, FetchState.WRONG_CONNECTION))
             else -> _fetchState.postValue(Pair(throwable, FetchState.FAIL))
         }
     }

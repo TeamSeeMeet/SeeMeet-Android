@@ -6,6 +6,7 @@ import kotlinx.coroutines.launch
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.response.calendar.CalendarEvent
+import java.time.LocalDate
 
 class CalendarViewModel : ViewModel() {
     private val _calendarEventMap = MutableLiveData(listOf(CalendarEvent()).groupBy { it.date })
@@ -17,7 +18,7 @@ class CalendarViewModel : ViewModel() {
     val selectedEventList: LiveData<List<CalendarEvent>>
         get() = _selectedEventList
 
-    fun getCalendarDate(year: String, month: String) {
+    fun getCalendarDate(year: String, month: String, day : LocalDate, push : Boolean) {
         viewModelScope.launch {
             try {
                 val ob = RetrofitBuilder.calendarService.getFriendList(
@@ -26,6 +27,12 @@ class CalendarViewModel : ViewModel() {
                     month
                 ).data
                 _calendarEventMap.value = ob.groupBy { it.date }
+
+                if(push)
+                    getSelectedEvent(day.plusDays(1).toString())
+                else
+                    getSelectedEvent(day.toString())
+
             } catch (e: Exception) { }
         }
     }
