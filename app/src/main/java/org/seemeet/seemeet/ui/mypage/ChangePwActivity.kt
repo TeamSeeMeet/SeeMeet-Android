@@ -117,8 +117,7 @@ class ChangePwActivity : AppCompatActivity() {
             var message = ""
             when (it.second) {
                 BaseViewModel.FetchState.BAD_INTERNET -> {
-                    //binding.clContent.visibility = View.INVISIBLE
-                    //binding.clNetworkError.visibility = View.VISIBLE
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {
                     val error = (it.first as HttpException)
@@ -127,8 +126,7 @@ class ChangePwActivity : AppCompatActivity() {
                     }"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    //binding.clContent.visibility = View.INVISIBLE
-                    //binding.clNetworkError.visibility = View.VISIBLE
+                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
                 }
                 else -> {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"

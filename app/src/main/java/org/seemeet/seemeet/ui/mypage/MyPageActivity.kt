@@ -31,18 +31,13 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
-import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.response.login.ExUser
-import org.seemeet.seemeet.data.model.response.mypage.ResponseMyPageProfile
 import org.seemeet.seemeet.databinding.ActivityMyPageBinding
 import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.MyPageViewModel
 import org.seemeet.seemeet.util.CustomToast
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.HttpException
-import retrofit2.Response
 import java.io.File
 import java.util.regex.Pattern
 
@@ -143,6 +138,18 @@ class MyPageActivity : AppCompatActivity() {
         viewModel.mypageStatus.observe(this) {
             if (it) {
                 BtnSave()
+            }
+        }
+
+        viewModel.profileStatus.observe(this) {
+            if (it == 0) {
+                Toast.makeText(this, "소켓 오류 / 서버와 연결에 실패하였습니다.", Toast.LENGTH_LONG).show()
+            } else if (it == 1) {
+                CustomToast.createToast(this, "프로필 사진이 변경되었습니다")!!.show()
+                SeeMeetSharedPreference.setUserProfile(currentImageUrl)
+                binding.btnProfileEditOrSave.text = "프로필 사진 편집"
+                binding.btnSelectImage.visibility = View.INVISIBLE
+                profile_position = DEFAULT
             }
         }
 
@@ -322,27 +329,8 @@ class MyPageActivity : AppCompatActivity() {
                 RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
             val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
-            RetrofitBuilder.mypageService.postProfile(
-                SeeMeetSharedPreference.getToken(),
-                body
-            )    // body 가 Multipart.Part
-                .enqueue(object : Callback<ResponseMyPageProfile> {
-                    override fun onFailure(
-                        call: Call<ResponseMyPageProfile>,
-                        t: Throwable
-                    ) {
-                        Log.e("error : ", t.message ?: return)
-                    }
-                    override fun onResponse(
-                        call: Call<ResponseMyPageProfile>,
-                        response: Response<ResponseMyPageProfile>
-                    ) {
-                        SeeMeetSharedPreference.setUserProfile(currentImageUrl)
-                        binding.btnProfileEditOrSave.text = "프로필 사진 편집"
-                        binding.btnSelectImage.visibility = View.INVISIBLE
-                        profile_position = DEFAULT
-                    }
-                })
+            viewModel.requestMypageProfile(body = body)
+            CustomToast.createToast(this, "사진을 변경 중입니다. 조금만 기다려주세요!")!!.show()
         }
     }
 
@@ -468,8 +456,7 @@ class MyPageActivity : AppCompatActivity() {
     private val OPEN_GALLERY = 1
     private fun openGallery() {
         /* 권한 받기 */
-        if (//ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED&&
-            ContextCompat.checkSelfPermission(
+        if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ) == PackageManager.PERMISSION_GRANTED
@@ -519,7 +506,6 @@ class MyPageActivity : AppCompatActivity() {
                                 this,
                                 Manifest.permission.READ_EXTERNAL_STORAGE
                             )
-                        // || !ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)
                         ) {
                             // 다시 묻지 않기 체크하면서 권한 거부 되었음.
                             CustomToast.createToast(this@MyPageActivity, "스토리지에 접근 권한을 허가해주세요")
@@ -574,6 +560,7 @@ class MyPageActivity : AppCompatActivity() {
 
     private fun BtnSave() {
         //저장 버튼을 누를 경우
+        CustomToast.createToast(this, "이름, 아이디가 변경되었습니다")!!.show()
         binding.btnMypageCancel.visibility = View.INVISIBLE
         binding.btnEditOrSave.text = "수정"
         binding.etMypageName.setText(binding.etMypageName.text.toString())

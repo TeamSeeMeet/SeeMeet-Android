@@ -5,12 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.request.register.RequestRegisterNameId
+import org.seemeet.seemeet.data.model.response.mypage.ResponseMyPageProfile
 import org.seemeet.seemeet.data.model.response.register.ResponseRegisterNameId
 import org.seemeet.seemeet.data.model.response.withdrawal.ResponseWithdrawal
 import org.seemeet.seemeet.ui.registration.RegisterNameIdActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MyPageViewModel(application: Application) : BaseViewModel(application) {
 
@@ -29,6 +34,28 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
     private val _mypageStatus = MutableLiveData<Boolean>(false)
     val mypageStatus: LiveData<Boolean>
         get() = _mypageStatus
+
+    private val _profileStatus = MutableLiveData<Int>(-1)
+    val profileStatus: LiveData<Int>
+        get() = _profileStatus
+
+    fun requestMypageProfile(body: MultipartBody.Part) {
+        RetrofitBuilder.mypageService.postProfile(
+            SeeMeetSharedPreference.getToken(),
+            body
+        ).enqueue(object : Callback<ResponseMyPageProfile> {
+            override fun onFailure(call: Call<ResponseMyPageProfile>, t: Throwable) {
+                _profileStatus.value = 0
+            }
+
+            override fun onResponse(
+                call: Call<ResponseMyPageProfile>,
+                response: Response<ResponseMyPageProfile>
+            ) {
+                _profileStatus.value = 1
+            }
+        })
+    }
 
     fun requestMyPageNameIdList(
         name: String,
