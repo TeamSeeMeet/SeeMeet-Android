@@ -101,16 +101,6 @@ class HomeFragment : Fragment() {
             nvMypage.clMypageContent.setOnClickListener {
                 CustomToast.createToast(requireContext(), "아직 준비중인 서비스예요")?.show()
             }
-
-            nvMypage.tvEmail.setOnClickListener {
-                SeeMeetSharedPreference.clearStorage()
-
-                //로그아웃 할 경우, viewModel에 기존 데이터가 남아서 보이는 경우 처리.
-                activity?.viewModelStore?.clear()
-                setViewVisible(binding.clHomeNoReminder, true)
-                
-                LoginMainActivity.start(requireContext())
-            }
         }
 
     }
