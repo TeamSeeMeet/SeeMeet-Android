@@ -20,52 +20,67 @@
         tools:replace="android:allowBackup">
         <activity
             android:name=".ui.mypage.ChangePwActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ui.mypage.MyPageActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ui.registration.RegisterNameIdActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ui.registration.LoginMainActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ui.send.SendActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:launchMode="singleTask"
             android:theme="@style/Theme.SeeMeet.TransparentStatusBar"/>
         <activity
             android:name=".ui.apply.SecondApplyActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ui.receive.ReceiveActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".ui.detail.DetailActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ui.registration.RegisterActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:label="@string/title_activity_register"
             android:theme="@style/Theme.SeeMeet.NoActionBar" />
         <activity
             android:name=".ui.notification.NotificationActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ui.friend.AddFriendActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ui.friend.FriendActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".ui.apply.ApplyActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".ui.splash.SplashActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -74,7 +89,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.registration.LoginActivity" />
+        <activity android:name=".ui.registration.LoginActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"

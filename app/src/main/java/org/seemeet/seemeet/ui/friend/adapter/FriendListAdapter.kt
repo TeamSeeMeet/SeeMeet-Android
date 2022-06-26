@@ -45,6 +45,7 @@ class FriendListAdapter : RecyclerView.Adapter<FriendListAdapter.FriendViewHolde
             Glide.with(itemView)
                 .load(data.imgLink)
                 .fallback(R.drawable.ic_img_profile)
+                .circleCrop()
                 .into(binding.ivProfileImage)
 
             // 신청 보내기
