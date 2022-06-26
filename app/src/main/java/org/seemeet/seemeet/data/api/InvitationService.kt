@@ -75,4 +75,10 @@ interface InvitationService {
         @Path("invitationId") invitationId : Int,
         @Header("accesstoken") token: String
     ) : ResponseCanceledInvitation
+
+    @PUT("invitation/list/{invitationId}")
+    suspend fun deleteInvitation(
+        @Path("invitationId") invitationId : Int,
+        @Header("accesstoken") token: String
+    )
 }
