@@ -9,15 +9,15 @@
 
     <ImageView
         android:id="@+id/iv_apply_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="23dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_img_profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_img_profile" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_apply_name"
