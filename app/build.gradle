@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 Properties properties = new Properties()
@@ -107,6 +108,12 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.recyclerview:recyclerview-selection:1.2.0-alpha01'
 
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:29.2.1')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.3'
+
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
     //kakao
     implementation "com.kakao.sdk:v2-user:2.8.6" // 카카오 로그인
 

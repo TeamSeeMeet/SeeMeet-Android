@@ -36,11 +36,10 @@ class NotiDoneFragment : Fragment() {
 
         if (SeeMeetSharedPreference.getLogin()) {
             viewmodel.requestAllInvitationList()
-
             setDoneAdapter()
             setDoneObserve()
         } else {
-            binding.clNotiDoneNull.visibility = View.VISIBLE
+            setVisibility(binding.clNotiDoneNull, View.VISIBLE)
             binding.tvDoneNum.text = "0"
         }
     }
@@ -66,7 +65,7 @@ class NotiDoneFragment : Fragment() {
             with(binding.rvDoneList.adapter as NotiDoneListAdapter) {
                 setDone(doneList)
                 binding.tvDoneNum.text = doneList.size.toString()
-
+                setVisibility(binding.ivDoneNetwork, View.GONE)
                 if (doneList.isEmpty()) {
                     binding.clNotiDoneNull.visibility = View.VISIBLE
                 } else {
@@ -77,7 +76,7 @@ class NotiDoneFragment : Fragment() {
 
         viewmodel.fetchState.observe(viewLifecycleOwner){
             var message = ""
-            when( it.second){
+            when(it.second){
                 BaseViewModel.FetchState.BAD_INTERNET-> {
                     message = "소켓 오류 / 서버와 연결에 실패하였습니다."
                 }
@@ -86,7 +85,8 @@ class NotiDoneFragment : Fragment() {
                     message = "$code ERROR : \n ${it.first.message}"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                    setVisibility(binding.clNotiDoneNull, View.GONE)
+                    setVisibility(binding.ivDoneNetwork, View.VISIBLE)
                 }
                 else ->  {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
@@ -94,9 +94,16 @@ class NotiDoneFragment : Fragment() {
             }
 
             Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
-            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
-            binding.clNotiDoneNull.visibility = View.VISIBLE
+
+            if(message != ""){
+                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+                binding.clNotiDoneNull.visibility = View.VISIBLE
+            }
         }
+    }
+
+    private fun setVisibility(view: View, visibility: Int){
+        view.visibility = visibility
     }
 }
 

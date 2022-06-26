@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
@@ -39,13 +38,14 @@ class NotiDoneListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             // 완료 내역 삭제 버튼 (일단 비활성화 상태)
             binding.ivDeleteList.setOnClickListener {
-                Log.d("*************************", "클릭")
+                Log.d("****************Delete", "클릭됨")
             }
 
             // 약속 상세 클릭리스너
             binding.ivDetail.setOnClickListener {
                 val intent = Intent(context, DetailActivity::class.java)
                 intent.putExtra("planId", doneData.planId)
+                intent.putExtra("id", doneData.id)
                 context?.startActivity(intent)
             }
 
@@ -66,17 +66,18 @@ class NotiDoneListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     isCheckable = false
                     isClickable = false
                 })
-                Log.d("**********************받은이", it.username)
             }
 
+            //n일
+            binding.tvDoneDayNum.text = doneData.days.toString()
+
             // 약속 확정 or 취소
-            if (doneData.isCancled) {
+            if (doneData.isCanceled) {
                 binding.tvConfirmOrCancel.text =
                     context?.getResources()?.getString(R.string.noti_cancel)
             } else {
                 binding.tvConfirmOrCancel.text =
                     context?.getResources()?.getString(R.string.noti_confirm)
-                binding.ivDetail.visibility = View.VISIBLE
             }
         }
     }

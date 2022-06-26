@@ -69,6 +69,7 @@
         android:id="@+id/cl_noti_inProgress_null"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cl_noti_inProgress_topbar"
         app:layout_constraintVertical_bias="0.0"
@@ -98,8 +99,18 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@+id/iv_inProgress_null"
             app:layout_constraintTop_toBottomOf="@+id/iv_inProgress_null" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/iv_inProgress_network"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_error_network"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"

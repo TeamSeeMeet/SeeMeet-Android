@@ -6,14 +6,15 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
-import org.seemeet.seemeet.data.api.LoginService
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.request.login.RequestKakaoLogin
 import org.seemeet.seemeet.data.model.response.login.ExUser
@@ -32,7 +33,12 @@ class LoginMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        //fcm 토큰 발급.
+        getFireBaseInstanceId()
+
         initClickListener()
+
     }
 
     fun initClickListener() {
@@ -43,13 +49,11 @@ class LoginMainActivity : AppCompatActivity() {
         binding.tvEmailRegister.setOnClickListener {
             val nextIntent = Intent(this, RegisterActivity::class.java)
             startActivity(nextIntent)
-            //finish()
         }
 
         binding.tvEmailLogin.setOnClickListener {
             val nextIntent = Intent(this, LoginActivity::class.java)
             startActivity(nextIntent)
-            //finish()
         }
     }
 
@@ -102,9 +106,11 @@ class LoginMainActivity : AppCompatActivity() {
                 val body = RetrofitBuilder.loginService.postKakaoLogin(
                     RequestKakaoLogin(
                         socialToken,
-                        "kakao"
+                        "kakao",
+                        SeeMeetSharedPreference.getUserFb()
                     )
                 )
+
                 SeeMeetSharedPreference.setToken(body.data.accessToken.accessToken)
                 // 이름,닉네임 입력 안했으면 입력화면으로 이동, 했으면 메인으로 이동
                 if (body.data.user.nickname.isNullOrEmpty()) {
@@ -120,10 +126,26 @@ class LoginMainActivity : AppCompatActivity() {
     }
 
     // sharedPreference setting
-    private fun setSharedPreference(list : ExUser) {
-        SeeMeetSharedPreference.setUserId(list.id)
+    private fun setSharedPreference(list: ExUser) {
+        SeeMeetSharedPreference.setUserId(list.nickname ?: return)
         SeeMeetSharedPreference.setLogin(true)
+        SeeMeetSharedPreference.setSocialLogin(true)
         SeeMeetSharedPreference.setUserName(list.username)
+        SeeMeetSharedPreference.setUserProfile(list.imgLink.toString())
+    }
+
+    private fun getFireBaseInstanceId(){
+        Firebase.messaging.token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.d("******firebaseToken_Main_FAILED", task.exception.toString())
+                return@OnCompleteListener
+            }
+
+            val token = task.result
+            Log.d("******firebaseToken_LoginMain_before", SeeMeetSharedPreference.getUserFb())
+            SeeMeetSharedPreference.setUserFb(token)
+            Log.d("******firebaseToken_LoginMain_now", SeeMeetSharedPreference.getUserFb())
+        })
     }
 
     companion object {

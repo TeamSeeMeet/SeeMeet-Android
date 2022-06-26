@@ -36,7 +36,7 @@ class NotiInProgressFragment : Fragment() {
             setInProgressAdapter()
             setInProgressObserve()
         } else {
-            setNotiNullVisibility(View.VISIBLE)
+            setVisibility(binding.clNotiInProgressNull, View.VISIBLE)
             binding.tvInProgressNum.text = "0"
         }
     }
@@ -56,17 +56,18 @@ class NotiInProgressFragment : Fragment() {
             with(binding.rvInProgressList.adapter as NotiInProgressListAdapter) {
                 setInProgressList(inProgressList)
                 binding.tvInProgressNum.text = inProgressList.size.toString()
+                setVisibility(binding.ivInProgressNetwork, View.GONE)
                 if (inProgressList.isEmpty()) {
-                    setNotiNullVisibility(View.VISIBLE)
+                    setVisibility(binding.clNotiInProgressNull, View.VISIBLE)
                 } else {
-                    setNotiNullVisibility(View.GONE)
+                    setVisibility(binding.clNotiInProgressNull, View.GONE)
                 }
             }
         }
 
         viewmodel.fetchState.observe(viewLifecycleOwner){
             var message = ""
-            when( it.second){
+            when(it.second){
                 BaseViewModel.FetchState.BAD_INTERNET-> {
                     message = "소켓 오류 / 서버와 연결에 실패하였습니다."
                 }
@@ -75,7 +76,8 @@ class NotiInProgressFragment : Fragment() {
                     message = "$code ERROR : \n ${it.first.message}"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                    setVisibility(binding.clNotiInProgressNull, View.GONE)
+                    setVisibility(binding.ivInProgressNetwork, View.VISIBLE)
                 }
                 else ->  {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
@@ -83,13 +85,15 @@ class NotiInProgressFragment : Fragment() {
             }
 
             Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
-            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
-            binding.clNotiInProgressNull.visibility = View.VISIBLE
+
+            if(message != ""){
+                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+            }
         }
     }
 
-    private fun setNotiNullVisibility(notificationNull: Int) {
-        binding.clNotiInProgressNull.visibility = notificationNull
+    private fun setVisibility(view: View, visibility: Int){
+        view.visibility = visibility
     }
 
     override fun onResume() {
@@ -97,7 +101,7 @@ class NotiInProgressFragment : Fragment() {
         if (SeeMeetSharedPreference.getLogin()) {
             viewmodel.requestAllInvitationList()
         } else {
-            setNotiNullVisibility(View.VISIBLE)
+            setVisibility(binding.clNotiInProgressNull, View.VISIBLE)
             binding.tvInProgressNum.text = "0"
         }
     }

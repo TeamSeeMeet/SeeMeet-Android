@@ -2,7 +2,6 @@ package org.seemeet.seemeet.ui.notification.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -38,7 +37,7 @@ class NotiInProgressListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(!inProgressList[position].isReceived){
+        if (!inProgressList[position].isReceived) {
             (holder as NotiInProgressViewHolder1).bind(inProgressList[position])
         } else {
             (holder as NotiInProgressViewHolder2).bind(inProgressList[position])
@@ -74,7 +73,6 @@ class NotiInProgressListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                     isCheckable = false
                     isClickable = false
                 })
-                Log.d("**********************받은이", it.username)
             }
         }
     }
@@ -100,6 +98,7 @@ class NotiInProgressListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                 isCheckable = false
                 isClickable = false
             })
+
         }
     }
 

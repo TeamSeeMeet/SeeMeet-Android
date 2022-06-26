@@ -8,7 +8,7 @@ import retrofit2.http.*
 
 interface RegisterService {
     @Headers("Content-Type:application/json")
-    @POST("auth/register")
+    @POST("auth")
     suspend fun postRegister(
         @Body body: RequestRegisterList
     ): ResponseRegisterList

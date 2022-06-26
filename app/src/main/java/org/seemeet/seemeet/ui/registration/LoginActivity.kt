@@ -8,6 +8,7 @@ import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.util.Patterns
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -41,12 +42,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun statusObserver() {
         viewModel.loginList.observe(this, Observer { list ->
-            SeeMeetSharedPreference.setToken(list.data.accesstoken)
-            SeeMeetSharedPreference.setUserId(list.data.user.id)
+            SeeMeetSharedPreference.setToken(list.data.accesstoken.accessToken)
+            SeeMeetSharedPreference.setUserId(list.data.user.nickname?:"")
             SeeMeetSharedPreference.setLogin(true)
             SeeMeetSharedPreference.setUserName(list.data.user.username)
-            SeeMeetSharedPreference.setUserEmail(list.data.user.email)
-
+            SeeMeetSharedPreference.setUserProfile(list.data.user.imgLink.toString())
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //기존에 쌓여있던 액티비티를 삭제
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -57,14 +57,16 @@ class LoginActivity : AppCompatActivity() {
             var message = ""
             when( it.second){
                 BaseViewModel.FetchState.BAD_INTERNET-> {
-                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                    binding.clContent.visibility = View.INVISIBLE
+                    binding.clNetwork.visibility = View.VISIBLE
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {
                     val error = (it.first as HttpException)
                     message = "${error.response()!!.errorBody()!!.string().split("\"")[7]}"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                    binding.clContent.visibility = View.INVISIBLE
+                    binding.clNetwork.visibility = View.VISIBLE
                 }
                 else ->  {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
@@ -72,7 +74,9 @@ class LoginActivity : AppCompatActivity() {
             }
 
             Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
-            CustomToast.createToast(this@LoginActivity, message)?.show()
+            if(message!="") {
+                CustomToast.createToast(this@LoginActivity, message)?.show()
+            }
         }
     }
 
@@ -114,12 +118,12 @@ class LoginActivity : AppCompatActivity() {
         binding.etEmail.addTextChangedListener {
             if (!isNullOrBlank()) { //다 작성했을 때
                 binding.btnLogin.activeBtn()
-            } else binding.btnLogin.inactiveBtn(R.drawable.rectangle_gray04_10)
+            } else binding.btnLogin.inactiveBtn(R.drawable.rectangle_gray02_10)
         }
         binding.etPw.addTextChangedListener {
             if (!isNullOrBlank()) { //다 작성했을 때
                 binding.btnLogin.activeBtn()
-            } else binding.btnLogin.inactiveBtn(R.drawable.rectangle_gray04_10)
+            } else binding.btnLogin.inactiveBtn(R.drawable.rectangle_gray02_10)
         }
 
         binding.etPw.setOnFocusChangeListener { _, hasFocus ->

@@ -281,7 +281,7 @@ class FirstApplyFragment : Fragment() {
                             friendEmail.toString() + friendId.toString() + friendName
                         )
                         adapter.addItem(
-                            FriendListData(friendEmail.toString(), friendId, friendName!!)
+                            FriendListData(friendEmail.toString(), friendId, friendName!!,null)
                         )
                         adapter.sortItem()
                         if (binding.chipGroup.childCount < 3) {

@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName
 data class ResponseInvitationList(
     @SerializedName("data")
     val `data`: InvitationListData,
+    @SerializedName("message")
+    val message: String,
     @SerializedName("status")
     val status: Int,
     @SerializedName("success")
@@ -24,31 +26,33 @@ data class ConfirmedAndCanceld(
     val id: Int,
     @SerializedName("invitation_title")
     val invitationTitle: String,
-    @SerializedName("is_cancled")
-    val isCancled: Boolean,
+    @SerializedName("is_canceled")
+    val isCanceled: Boolean,
     @SerializedName("is_confirmed")
     val isConfirmed: Boolean,
     @SerializedName("planId")
-    val planId: Int
+    val planId: Int,
+    @SerializedName("days")
+    val days: Int
 )
 
 data class Invitation(
+    @SerializedName("canceled_at")
+    val canceledAt: Any,
     @SerializedName("created_at")
     val createdAt: String,
     @SerializedName("guests")
     val guests: List<GuestX>,
     @SerializedName("host")
     val host: Host,
-    @SerializedName("host_id")
-    val hostId: Int,
     @SerializedName("id")
     val id: Int,
     @SerializedName("invitation_desc")
     val invitationDesc: String,
     @SerializedName("invitation_title")
     val invitationTitle: String,
-    @SerializedName("is_cancled")
-    val isCancled: Boolean,
+    @SerializedName("is_canceled")
+    val isCanceled: Boolean,
     @SerializedName("is_confirmed")
     val isConfirmed: Boolean,
     @SerializedName("is_deleted")
@@ -56,7 +60,7 @@ data class Invitation(
     @SerializedName("isReceived")
     val isReceived: Boolean,
     @SerializedName("isResponse")
-    val isResponse : Boolean
+    val isResponse: Boolean
 )
 
 data class Guest(

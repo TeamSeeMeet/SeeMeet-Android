@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.model.response.friend.FriendListData
 import org.seemeet.seemeet.databinding.ItemFriendListBinding
 
@@ -38,6 +40,12 @@ class FriendListAdapter : RecyclerView.Adapter<FriendListAdapter.FriendViewHolde
                 binding.clFriendList.visibility = View.GONE
                 binding.clFriendList.layoutParams.height = 0
             }
+
+            // 유저 프로필 이미지
+            Glide.with(itemView)
+                .load(data.imgLink)
+                .fallback(R.drawable.ic_img_profile)
+                .into(binding.ivProfileImage)
 
             // 신청 보내기
             binding.ivAddMsg.setOnClickListener {

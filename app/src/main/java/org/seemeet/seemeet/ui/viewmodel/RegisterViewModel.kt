@@ -12,6 +12,8 @@ import retrofit2.HttpException
 
 class RegisterViewModel(application: Application) : BaseViewModel(application) {
     private val _registerList = MutableLiveData<ResponseRegisterList>()
+    val registerList: LiveData<ResponseRegisterList>
+        get() = _registerList
     private val _status = MutableLiveData<Boolean>()
     val registerEmail = MutableLiveData("")
     val registerPw = MutableLiveData("")
@@ -24,7 +26,6 @@ class RegisterViewModel(application: Application) : BaseViewModel(application) {
         get() = _status
 
     fun requestRegisterList(
-        username: String,
         email: String,
         password: String,
         passwordConfirm: String
@@ -32,7 +33,7 @@ class RegisterViewModel(application: Application) : BaseViewModel(application) {
         try {
             _registerList.postValue(
                 RetrofitBuilder.registerService.postRegister(
-                    RequestRegisterList(username, email, password, passwordConfirm)
+                    RequestRegisterList(email, password, passwordConfirm)
                 )
             )
             _status.postValue(true)

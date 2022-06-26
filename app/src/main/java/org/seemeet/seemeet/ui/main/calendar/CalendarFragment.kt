@@ -1,6 +1,7 @@
 package org.seemeet.seemeet.ui.main.calendar
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +46,8 @@ class CalendarFragment : Fragment() {
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
 
+    private var push = false
+
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("M월")
     private val selectionFormatter = DateTimeFormatter.ofPattern("M월 d일 E요일", Locale.KOREAN)
 
@@ -55,6 +58,7 @@ class CalendarFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_calendar,container,false)
 
         binding.appbarCalendar.setPadding(0, (22 + getStatusBarHeight(requireContext())), 0, 0)
+        Log.d("**********cal2", "calendar")
 
         return binding.root
     }
@@ -66,9 +70,25 @@ class CalendarFragment : Fragment() {
         binding.calendarViewModel = calendarViewModel
         binding.rvCalendarEvent.adapter = eventsAdapter
 
+        Log.d("**********cal", "calendar")
+
+        arguments?.let {
+            if(it.getBoolean("tomorrow")){
+                push = true
+            }
+        }
         calendarViewModel.calendarEventMap.observe(viewLifecycleOwner){
             binding.calendar.notifyCalendarChanged()
+            Log.d("**********calevent", "1111111")
         }
+
+        calendarViewModel.selectedEventList.observe(viewLifecycleOwner){
+            val d = if(push) today.plusDays(1) else today
+            updateEventViewVisibility(calendarViewModel.selectedEventList.value.isNullOrEmpty())
+            binding.tvSelectedDay.text = selectionFormatter.format(d)
+            Log.d("**********calselect", "2222222")
+        }
+
         setCalendar()
     }
 
@@ -81,7 +101,12 @@ class CalendarFragment : Fragment() {
         }
 
         binding.calendar.post {
-            selectDate(today)
+            if(push) {
+                selectDate(today.plusDays(1))
+                push = false
+            } else {
+                selectDate(today)
+            }
         }
 
         binding.calendar.dayBinder = object : DayBinder<DayViewContainer> {
@@ -146,7 +171,7 @@ class CalendarFragment : Fragment() {
             binding.tvCurrentYear.text = it.yearMonth.year.toString() + "년"
             binding.tvCurrentMonth.text = monthTitleFormatter.format(it.yearMonth)
 
-            calendarViewModel.getCalendarDate("" + it.year, "" + it.month)
+            calendarViewModel.getCalendarDate("" + it.year, "" + it.month, today, push)
         }
     }
 

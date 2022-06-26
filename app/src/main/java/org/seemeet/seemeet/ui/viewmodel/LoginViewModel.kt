@@ -5,13 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.request.login.RequestLoginList
 import org.seemeet.seemeet.data.model.response.login.ResponseLoginList
 
 class LoginViewModel(application: Application) : BaseViewModel(application) {
 
-    var loginEmail = MutableLiveData("")
+    val loginEmail = MutableLiveData("")
     val loginPw = MutableLiveData("")
 
     private val _loginList = MutableLiveData<ResponseLoginList>()
@@ -22,7 +23,8 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
         viewModelScope.launch(exceptionHandler) {
             _loginList.postValue(
                 RetrofitBuilder.loginService.postLogin(
-                    RequestLoginList(email, password)
+                    RequestLoginList(email, password,
+                        SeeMeetSharedPreference.getUserFb())
                 )
             )
         }
