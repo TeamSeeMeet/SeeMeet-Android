@@ -20,6 +20,8 @@ data class FriendListData(
     @SerializedName("id")
     val id: Int,
     @SerializedName("username")
-    val username: String
+    val username: String,
+    @SerializedName("imgLink")
+    val imgLink: String?
 )
 

@@ -13,33 +13,37 @@ object SeeMeetSharedPreference {
     private const val USER_FB = "USER_FB"
     private const val TOKEN = "TOKEN"
     private const val USER_EMAIL = "USER_EMAIL"
+    private const val IS_SOCIAL_LOGIN = "IS_SOCIAL_LOGIN"
+    private const val USER_PROFILE = "USER_PROFILE"
+    private const val PUSH_ON = "PUSH_ON"
+
 
     fun init(context: Context) {
         preferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
     }
 
-    fun setUserId(value : String){
-        preferences.edit{
+    fun setUserId(value: String) {
+        preferences.edit {
             putString(USER_ID, value)
             apply()
         }
     }
 
-    fun setUserName(value : String){
-        preferences.edit{
+    fun setUserName(value: String) {
+        preferences.edit {
             putString(USER_NAME, value)
             apply()
         }
     }
 
-    fun setUserEmail(value : String){
-        preferences.edit{
+    fun setUserEmail(value: String) {
+        preferences.edit {
             putString(USER_EMAIL, value)
             apply()
         }
     }
 
-    fun getUserName(): String? = preferences.getString(USER_NAME,"로그인")
+    fun getUserName(): String? = preferences.getString(USER_NAME, "로그인")
 
     fun getUserEmail(): String? = preferences.getString(USER_EMAIL, "SeeMeet에서 친구와 약속을 잡아보세요!")
 
@@ -47,15 +51,15 @@ object SeeMeetSharedPreference {
 
     fun setUserFb(value : String){
         preferences.edit{
-            putString(USER_ID, value)
+            putString(USER_FB, value)
             apply()
         }
     }
 
     fun getUserFb(): String = preferences.getString(USER_FB, "") ?: ""
 
-    fun setToken(value : String){
-        preferences.edit{
+    fun setToken(value: String) {
+        preferences.edit {
             putString(TOKEN, value)
             apply()
         }
@@ -65,7 +69,7 @@ object SeeMeetSharedPreference {
 
 
     fun setLogin(value: Boolean) {
-        preferences.edit{
+        preferences.edit {
             putBoolean(IS_LOGIN, value)
             apply()
         }
@@ -73,10 +77,34 @@ object SeeMeetSharedPreference {
 
     fun getLogin(): Boolean = preferences.getBoolean(IS_LOGIN, false)
 
+    fun setSocialLogin(value: Boolean) {
+        preferences.edit {
+            putBoolean(IS_SOCIAL_LOGIN, value)
+            apply()
+        }
+    }
 
-    fun clearStorage() : Boolean{
+    fun getSocialLogin(): Boolean = preferences.getBoolean(IS_SOCIAL_LOGIN, false)
+
+    fun setUserProfile(value: String?) {
+        preferences.edit {
+            putString(USER_PROFILE, value)
+        }
+    }
+
+    fun getUserProfile(): String? = preferences.getString(USER_PROFILE, "")
+    fun clearStorage(): Boolean {
         return preferences.edit().clear().commit()
     }
+
+    fun setPushOn(value: Boolean) {
+        preferences.edit {
+            putBoolean(PUSH_ON, value)
+            apply()
+        }
+    }
+
+    fun getPushOn(): Boolean = preferences.getBoolean(PUSH_ON, false)
 }
 
 

@@ -16,6 +16,11 @@
     <string name="login_main_email_register"><u>이메일로 가입</u></string>
     <string name="login_main_email_login_underline"><u>이메일로 로그인</u></string>
     <string name="login_main_email_login">이메일로 로그인</string>
+    <string name="login_main_info1">로그인시<hr> </hr></string>
+    <string name="login_main_info2"><u>개인정보 처리방침</u><hr> </hr></string>
+    <string name="login_main_info3">및<hr> </hr></string>
+    <string name="login_main_info4"><u>이용약관</u></string>
+    <string name="login_main_info5">에 동의합니다.</string>
 
     <!-- Register -->
     <string name="register_register">회원가입</string>
@@ -47,7 +52,7 @@
     <string name="mypage_login_msg">SeeMeet에서 친구와 약속을 잡아보세요!</string>
     <string name="mypage_notice">공지사항</string>
     <string name="mypage_setting">설정</string>
-    <string name="mypage_more">더보기</string>
+    <string name="mypage_push">푸시알림</string>
     <string name="mypage_terms_of_use">이용약관</string>
     <string name="mypage_privacy_policy">개인정보 정책</string>
     <string name="mypage_open_source">오픈소스</string>
@@ -93,6 +98,7 @@
     <string name="noti_done_title">강화도 여행</string>
     <string name="noti_in_progress_null">진행중인 약속이 없어요!</string>
     <string name="noti_done_null">완료된 약속이 없어요!</string>
+    <string name="noti_done_canceled">취소된 약속</string>
 
     <!-- detail -->
     <string name="detail_delete">약속 삭제</string>
@@ -145,5 +151,9 @@
     <string name="apply_dialog_goback2">여기서 나갈까요?</string>
     <string name="apply_dialog_out">나가기</string>
     <string name="apply_dialog_continue">계속</string>
+
+
+    <!-- FCM -->
+    <string name="default_notification_channel_id">SeeMeet_Notification_Channel</string>
 
 </resources>

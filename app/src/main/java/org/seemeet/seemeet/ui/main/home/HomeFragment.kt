@@ -15,11 +15,13 @@ import androidx.fragment.app.activityViewModels
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.SeeMeetSharedPreference.getLogin
+import org.seemeet.seemeet.data.SeeMeetSharedPreference.getToken
 import org.seemeet.seemeet.databinding.FragmentHomeBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
 import org.seemeet.seemeet.ui.friend.FriendActivity
 import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.ui.main.home.adapter.ReminderListAdapter
+import org.seemeet.seemeet.ui.mypage.MyPageActivity
 import org.seemeet.seemeet.ui.notification.NotificationActivity
 import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
@@ -51,6 +53,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initClickListener()
         initNaviDrawer()
+        setPushOption()
 
         binding.clHomeTop.setPadding(0, getStatusBarHeight(requireContext()), 0, 0)
         binding.nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
@@ -67,6 +70,7 @@ class HomeFragment : Fragment() {
         }
 
         setViewVisible(binding.clErrorNetwork, false)
+        setViewVisible(binding.rvHomeReminder, true)
 
         setReminderAdapter()
         setViewModelObserve()
@@ -93,18 +97,32 @@ class HomeFragment : Fragment() {
             nvMypage.clMypageLogin.setOnClickListener{
                 if(!getLogin())
                     LoginMainActivity.start(requireContext())
+                else MyPageActivity.start(requireContext())
             }
 
             nvMypage.clMypageContent.setOnClickListener {
                 CustomToast.createToast(requireContext(), "아직 준비중인 서비스예요")?.show()
             }
 
-            nvMypage.tvEmail.setOnClickListener {
-                SeeMeetSharedPreference.clearStorage()
-                LoginMainActivity.start(requireContext())
+            nvMypage.swPush.setOnClickListener {
+                changePushOption()
             }
         }
 
+    }
+
+    private fun setPushOption(){
+        binding.nvMypage.swPush.isChecked = SeeMeetSharedPreference.getPushOn()
+    }
+
+    private fun changePushOption(){
+        if(binding.nvMypage.swPush.isChecked) {
+            SeeMeetSharedPreference.setPushOn(true)
+            viewmodel.setPushNotification(true, getToken())
+        }else{
+            SeeMeetSharedPreference.setPushOn(false)
+            viewmodel.setPushNotification(false, getToken())
+        }
     }
 
     private fun initNaviDrawer(){
@@ -174,6 +192,7 @@ class HomeFragment : Fragment() {
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
                     setViewVisible(binding.clErrorNetwork, true)
+                    setViewVisible(binding.rvHomeReminder, false)
                 }
                 else ->  {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
@@ -195,7 +214,7 @@ class HomeFragment : Fragment() {
          if(flag){
             view.visibility = View.VISIBLE
          } else {
-             view.visibility = View.GONE
+             view.visibility = View.INVISIBLE
          }
     }
 
@@ -232,7 +251,7 @@ class HomeFragment : Fragment() {
         super.onResume()
 
         binding.nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
-        binding.nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserEmail()
+        binding.nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserId()
 
         if(getLogin()) {
             viewmodel.requestFriendList()
@@ -245,6 +264,8 @@ class HomeFragment : Fragment() {
         }
 
         setViewVisible(binding.clErrorNetwork, false)
+        setViewVisible(binding.rvHomeReminder, true)
+
     }
 
 }
