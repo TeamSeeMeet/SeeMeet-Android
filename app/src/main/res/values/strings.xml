@@ -99,6 +99,8 @@
     <string name="noti_in_progress_null">진행중인 약속이 없어요!</string>
     <string name="noti_done_null">완료된 약속이 없어요!</string>
     <string name="noti_done_canceled">취소된 약속</string>
+    <string name="noti_delete">내역 삭제</string>
+    <string name="noti_delete_content">선택한 약속내역을 삭제하시겠어요?</string>
 
     <!-- detail -->
     <string name="detail_delete">약속 삭제</string>
