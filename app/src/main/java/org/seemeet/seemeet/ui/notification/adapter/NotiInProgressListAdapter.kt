@@ -112,7 +112,7 @@ class NotiInProgressListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
     }
 
     fun setInProgressList(newList: List<Invitation>) {
-        this.inProgressList = newList.sortedBy { it.createdAt }
+        this.inProgressList = newList.sortedByDescending { it.createdAt }
         notifyDataSetChanged()
     }
 
