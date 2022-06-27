@@ -609,7 +609,7 @@ class MyPageActivity : AppCompatActivity() {
         }
 
         fun isNameFormat(password: String): Boolean {
-            return Pattern.matches("^[가-힣a-zA-Z]*$", password)
+            return Pattern.matches("^[ㄱ-ㅎ|가-힣|a-z|A-Z]*$", password)
         }
 
         const val DEFAULT = 1
