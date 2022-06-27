@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
+import org.seemeet.seemeet.data.model.request.mypage.RequestChangePush
 import org.seemeet.seemeet.data.model.request.register.RequestRegisterNameId
 import org.seemeet.seemeet.data.model.response.mypage.ResponseMyPageProfile
 import org.seemeet.seemeet.data.model.response.register.ResponseRegisterNameId
@@ -76,6 +77,14 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
             RetrofitBuilder.withdrawalService.putWithdrawal(
                 SeeMeetSharedPreference.getToken()
             )
+        )
+    }
+
+    //fcm 토큰 삭제 요청
+    fun requestPushTokenNull() = viewModelScope.launch(exceptionHandler) {
+        RetrofitBuilder.mypageService.postChangePush(
+            SeeMeetSharedPreference.getToken(),
+            RequestChangePush(SeeMeetSharedPreference.getPushOn(), null)
         )
     }
 
