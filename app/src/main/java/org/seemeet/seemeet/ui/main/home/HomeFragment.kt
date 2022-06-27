@@ -118,10 +118,10 @@ class HomeFragment : Fragment() {
     private fun changePushOption(){
         if(binding.nvMypage.swPush.isChecked) {
             SeeMeetSharedPreference.setPushOn(true)
-            viewmodel.setPushNotification(true, getToken())
+            viewmodel.setPushNotification(true, SeeMeetSharedPreference.getUserFb())
         }else{
             SeeMeetSharedPreference.setPushOn(false)
-            viewmodel.setPushNotification(false, getToken())
+            viewmodel.setPushNotification(false, SeeMeetSharedPreference.getUserFb())
         }
     }
 
