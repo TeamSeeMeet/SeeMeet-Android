@@ -2,7 +2,6 @@ package org.seemeet.seemeet.ui.notification.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -14,8 +13,10 @@ import org.seemeet.seemeet.ui.detail.DetailActivity
 
 class NotiDoneListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val doneList = mutableListOf<ConfirmedAndCanceld>()
+    private var doneList = emptyList<ConfirmedAndCanceld>()
     private var context: Context? = null
+    private var listener: ((ConfirmedAndCanceld, Int) -> Unit)? = null
+    var mPosition = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemNotificationDoneBinding.inflate(
@@ -36,12 +37,14 @@ class NotiDoneListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(doneData: ConfirmedAndCanceld) {
             binding.doneData = doneData
 
-            // 완료 내역 삭제 버튼 (일단 비활성화 상태)
+            // 완료 내역 삭제 버튼
             binding.ivDeleteList.setOnClickListener {
-                Log.d("****************Delete", "클릭됨")
+                val pos = adapterPosition
+                mPosition = pos
+                listener?.invoke(doneData, mPosition)
             }
 
-            // 약속 상세 클릭리스너
+            // 약속 상세
             binding.ivDetail.setOnClickListener {
                 val intent = Intent(context, DetailActivity::class.java)
                 intent.putExtra("planId", doneData.planId)
@@ -82,11 +85,14 @@ class NotiDoneListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
+    fun setOnItemClickListener(listener: ((ConfirmedAndCanceld, Int) -> Unit)?) {
+        this.listener = listener
+    }
+
     override fun getItemCount() = doneList.size
 
     fun setDone(newList: List<ConfirmedAndCanceld>) {
-        doneList.clear()
-        doneList.addAll(newList)
+        this.doneList = newList.sortedBy {it.days}
         notifyDataSetChanged()
     }
 }
