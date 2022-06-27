@@ -15,7 +15,7 @@ import org.seemeet.seemeet.ui.send.SendActivity
 
 class NotiInProgressListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val inProgressList = mutableListOf<Invitation>()
+    private var inProgressList = emptyList<Invitation>()
     private var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -112,8 +112,7 @@ class NotiInProgressListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
     }
 
     fun setInProgressList(newList: List<Invitation>) {
-        inProgressList.clear()
-        inProgressList.addAll(newList)
+        this.inProgressList = newList.sortedBy { it.createdAt }
         notifyDataSetChanged()
     }
 
