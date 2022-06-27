@@ -12,6 +12,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.ui.main.MainActivity
 
 class FCMService : FirebaseMessagingService() {
@@ -32,7 +33,7 @@ class FCMService : FirebaseMessagingService() {
         //여기서 생성되거나 갱신된 token 서버에 알리기.
         Log.d("******firebaseToken_FCMS", token)
 
-        sendRegistrationToServer(token)
+        SeeMeetSharedPreference.setUserFb(token)
     }
 
     private fun sendRegistrationToServer (token : String?){
@@ -83,16 +84,6 @@ class FCMService : FirebaseMessagingService() {
             (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
         }
     }
-
-
-    //핸들러 클래스 하나 더 만들어서 아래 처럼 토큰 관리하자...
-    /*
-        로그인시 _ 활성화
-        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
-        로그아웃 시  _ 비활성화
-        FirebaseMessaging.getInstance().setAutoInitEnabled(false);
-
-    */
 
     companion object {
         private const val CHANNEL_NAME = "FCM SEEMEET"
