@@ -16,6 +16,7 @@ import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.model.response.login.ExUser
 import org.seemeet.seemeet.databinding.ActivityRegisterNameIdActivityBinding
 import org.seemeet.seemeet.ui.main.MainActivity
+import org.seemeet.seemeet.ui.mypage.MyPageActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.RegisterNameIdViewModel
 import retrofit2.HttpException
@@ -26,6 +27,8 @@ class RegisterNameIdActivity : AppCompatActivity() {
         ActivityRegisterNameIdActivityBinding.inflate(layoutInflater)
     }
     private val viewModel: RegisterNameIdViewModel by viewModels()
+    var prev_etId: String? = SeeMeetSharedPreference.getUserId()
+    var prev_etName: String? = SeeMeetSharedPreference.getUserName()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,21 @@ class RegisterNameIdActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         statusObserver()
         initClickListener()
+    }
+
+    fun inputCase(case: String, it: String, cursor_pos: Int) {
+        // 이름에 입력 불가능한 문자를 입력했을 경우
+        if (case == "name") {
+            if (!MyPageActivity.isNameFormat(it[cursor_pos - 1].toString())) {
+                viewModel.registerName.value = it.substring(
+                    0,
+                    cursor_pos - 1
+                ) + it.substring(cursor_pos)
+                viewModel.cursorPos.value = cursor_pos
+                viewModel.invalidCase.value = true
+            }
+            prev_etName = it
+        }
     }
 
     private fun statusObserver() {
@@ -61,6 +79,35 @@ class RegisterNameIdActivity : AppCompatActivity() {
             Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
             if (message != "") {
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            }
+        }
+
+        viewModel.registerName.observe(this) {
+            //그 직전 값이랑 입력값 비교해서 현재 커서 위치 알아내기
+            var cursor_pos = it.length
+
+            //입력한 경우
+            if (it.length > 0 && prev_etName!!.length < it.length) {
+                for (i in 0..prev_etName!!.length - 1) {
+                    if (prev_etName!![i].lowercase() != it[i].lowercase()) {
+                        cursor_pos = i + 1
+                        break
+                    }
+                }
+                //입력불가 문자 입력한 경우
+                inputCase("name", it, cursor_pos)
+            }
+
+            //지운 경우(드래그 전체 선택 후 입력한 경우도 포함)
+            if (it.length > 0 && prev_etName!!.length >= it.length) {
+                for (i in 0..it.length - 1) {
+                    if (it[i].toString() != prev_etName!![i].lowercase()) {
+                        cursor_pos = i + 1
+                        break
+                    }
+                }
+                //입력불가 문자 입력한 경우
+                inputCase("name", it, cursor_pos)
             }
         }
 
