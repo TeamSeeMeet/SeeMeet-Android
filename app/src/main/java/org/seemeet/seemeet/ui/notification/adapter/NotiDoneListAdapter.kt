@@ -13,7 +13,7 @@ import org.seemeet.seemeet.ui.detail.DetailActivity
 
 class NotiDoneListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val doneList = mutableListOf<ConfirmedAndCanceld>()
+    private var doneList = emptyList<ConfirmedAndCanceld>()
     private var context: Context? = null
     private var listener: ((ConfirmedAndCanceld, Int) -> Unit)? = null
     var mPosition = 0
@@ -92,8 +92,7 @@ class NotiDoneListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount() = doneList.size
 
     fun setDone(newList: List<ConfirmedAndCanceld>) {
-        doneList.clear()
-        doneList.addAll(newList)
+        this.doneList = newList.sortedBy {it.days}
         notifyDataSetChanged()
     }
 }
