@@ -86,8 +86,8 @@
 
             <EditText
                 android:id="@+id/et_name"
-                cursorPos="@{registerNameIdviewModel.cursorPos}"
-                invalidCase="@{registerNameIdviewModel.invalidCase}"
+                nameCursorPos="@{registerNameIdviewModel.name_cursorPos}"
+                nameInvalidCase="@{registerNameIdviewModel.name_invalidCase}"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="16dp"
@@ -119,8 +119,8 @@
 
             <EditText
                 android:id="@+id/et_id"
-                cursor="@{registerNameIdviewModel.idCursorPos}"
-                upper="@{registerNameIdviewModel.idUpperCase}"
+                registerIdCursorPos="@{registerNameIdviewModel.id_cursorPos}"
+                registerIdUpperCase="@{registerNameIdviewModel.id_upperCase}"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="12dp"

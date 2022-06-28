@@ -48,8 +48,8 @@ class RegisterNameIdActivity : AppCompatActivity() {
                     0,
                     cursor_pos - 1
                 ) + it.substring(cursor_pos)
-                viewModel.cursorPos.value = cursor_pos
-                viewModel.invalidCase.value = true
+                viewModel.name_cursorPos.value = cursor_pos
+                viewModel.name_invalidCase.value = true
             }
             prev_etName = it
         }else {
@@ -59,8 +59,8 @@ class RegisterNameIdActivity : AppCompatActivity() {
                     0,
                     cursor_pos - 1
                 ) + it[cursor_pos - 1].lowercase() + it.substring(cursor_pos)
-                viewModel.idUpperCase.value = true
-                viewModel.idCursorPos.value = cursor_pos
+                viewModel.id_upperCase.value = true
+                viewModel.id_cursorPos.value = cursor_pos
             }
             prev_etId = it
         }

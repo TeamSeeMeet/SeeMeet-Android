@@ -366,16 +366,16 @@ object BindingAdapters {
 
     //회원가입 아이디 입력 시 대문자 입력했을 경우 소문자로 바꿔줄 때 커서 위치 조정
     @JvmStatic
-    @BindingAdapter("cursor", "upper")
-    fun registerUpperId_cursor(editText: EditText, cursor: Int, upper: Boolean) {
-        if (upper == true) {
-            editText.setSelection(cursor)
+    @BindingAdapter("registerIdCursorPos", "registerIdUpperCase")
+    fun registerUpperId_cursor(editText: EditText, cursorPos: Int, upperCase: Boolean) {
+        if (upperCase == true) {
+            editText.setSelection(cursorPos)
         }
     }
 
     //마이페이지에서 아이디 변경 시 대문자 입력했을 경우 소문자로 바꿔줄 때 커서 위치 조정
     @JvmStatic
-    @BindingAdapter("cursorPos", "upperCase")
+    @BindingAdapter("mypageIdCursorPos", "mypageIdUpperCase")
     fun myPageUpperId_cursor(editText: EditText, cursorPos: Int, upperCase: Boolean) {
         if (upperCase == true) {
             editText.setSelection(cursorPos)
@@ -384,7 +384,7 @@ object BindingAdapters {
 
     //마이페이지, 회원가입에서 이름 변경 시 불가능한 문자 입력할 때 커서 위치 조정
     @JvmStatic
-    @BindingAdapter("cursorPos", "invalidCase")
+    @BindingAdapter("nameCursorPos", "nameInvalidCase")
     fun invalidName_cursor(editText: EditText, cursorPos: Int, invalidCase: Boolean) {
         if (invalidCase == true) {
             editText.setSelection(cursorPos - 1)

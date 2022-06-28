@@ -27,9 +27,10 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
     val mypageId = MutableLiveData("")
     val warning = MutableLiveData("")
     val status = MutableLiveData(false)
-    val cursorPos = MutableLiveData(0)
-    val upperCase = MutableLiveData(false)
-    val invalidCase = MutableLiveData(false)
+    val name_cursorPos = MutableLiveData(0)
+    val name_invalidCase = MutableLiveData(false)
+    val id_cursorPos = MutableLiveData(0)
+    val id_upperCase = MutableLiveData(false)
 
     private val _mypageStatus = MutableLiveData<Boolean>(false)
     val mypageStatus: LiveData<Boolean>

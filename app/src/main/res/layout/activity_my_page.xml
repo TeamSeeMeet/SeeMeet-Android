@@ -110,8 +110,8 @@
 
             <EditText
                 android:id="@+id/et_mypage_name"
-                cursorPos="@{myPageviewModel.cursorPos}"
-                invalidCase="@{myPageviewModel.invalidCase}"
+                nameCursorPos="@{myPageviewModel.name_cursorPos}"
+                nameInvalidCase="@{myPageviewModel.name_invalidCase}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -142,8 +142,8 @@
 
             <EditText
                 android:id="@+id/et_mypage_id"
-                cursorPos="@{myPageviewModel.cursorPos}"
-                upperCase="@{myPageviewModel.upperCase}"
+                mypageIdCursorPos="@{myPageviewModel.id_cursorPos}"
+                mypageIdUpperCase="@{myPageviewModel.id_upperCase}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
