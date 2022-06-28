@@ -95,18 +95,27 @@ class RegisterNameIdActivity : AppCompatActivity() {
 
         viewModel.registerStatus.observe(this) {
             if (it) {
-                MainActivity.start(this@RegisterNameIdActivity)
+                val intent = Intent(this@RegisterNameIdActivity, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //기존에 쌓여있던 액티비티를 삭제
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                this@RegisterNameIdActivity.startActivity(intent)
             }
         }
     }
 
     fun initClickListener() {
         binding.ivRegisterBack.setOnClickListener {
-            finish()
+            val intent = Intent(this@RegisterNameIdActivity, LoginMainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
 
         binding.ivRegisterX.setOnClickListener {
-            finish()
+            val intent = Intent(this@RegisterNameIdActivity, LoginMainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
 
         binding.etName.setFilters(arrayOf(InputFilter { src, start, end, dest, dstart, dend ->
