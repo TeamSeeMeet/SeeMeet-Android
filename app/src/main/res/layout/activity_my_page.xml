@@ -110,8 +110,6 @@
 
             <EditText
                 android:id="@+id/et_mypage_name"
-                nameCursorPos="@{myPageviewModel.name_cursorPos}"
-                nameInvalidCase="@{myPageviewModel.name_invalidCase}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"

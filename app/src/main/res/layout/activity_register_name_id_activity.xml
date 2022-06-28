@@ -86,8 +86,6 @@
 
             <EditText
                 android:id="@+id/et_name"
-                nameCursorPos="@{registerNameIdviewModel.name_cursorPos}"
-                nameInvalidCase="@{registerNameIdviewModel.name_invalidCase}"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="16dp"
