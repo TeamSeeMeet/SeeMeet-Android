@@ -296,10 +296,10 @@ object BindingAdapters {
         }
     }
 
-    //여기서는 버튼 활성화 비활성화
+    //회원가입 시 버튼 활성화 여부
     @JvmStatic
     @BindingAdapter("warningEmail", "warningPw", "warningCheckpw", "etEmail", "etPw", "etCheckpw")
-    fun registerNextBtn(
+    fun setRegisterNextBtnActive(
         button: AppCompatButton,
         warningEmail: String?,
         warningPw: String?,
@@ -316,9 +316,10 @@ object BindingAdapters {
             button.activeBtn()
     }
 
+    //회원가입 시 이메일 형식 확인 후 warning 문구 띄우기
     @JvmStatic
-    @BindingAdapter("warningEmailtext")
-    fun setWarningEmailtext(textView: TextView, etEmail: String?) {
+    @BindingAdapter("registerEmail")
+    fun setWarningEmail(textView: TextView, etEmail: String?) {
         val pattern: Pattern = Patterns.EMAIL_ADDRESS
         if (pattern.matcher(etEmail).matches()) {
             //이메일 형식 맞음
@@ -328,13 +329,15 @@ object BindingAdapters {
         if (etEmail.isNullOrBlank()) textView.text = ""
     }
 
+    //회원가입, 비밀번호 변경 시 PW 형식 확인 후 PwWarning 문구 띄우기
     @JvmStatic
-    @BindingAdapter("warningPwtext")
-    fun setWarningPwtext(textView: TextView, etPw: String?) {
+    @BindingAdapter("PW")
+    fun setWarningPW(textView: TextView, etPw: String?) {
         if (etPw?.length ?: 0 < 8) {
             textView.setText(R.string.register_lengthPassword)
         } else { // 8자 이상인 경우
-            if (!(etPw?.matches(RegisterActivity.PASSWORD_FORMAT.toRegex())!!)) { // 영문, 숫자 , 특수문자 중 2가지 이상 사용안했을 경우
+            if (!(etPw?.matches(RegisterActivity.PASSWORD_FORMAT.toRegex())!!)) {
+                // 영문, 숫자 , 특수문자 중 2가지 이상 사용안했을 경우
                 textView.setText(R.string.register_formatPassword)
             } else textView.text = ""
         }
@@ -342,9 +345,10 @@ object BindingAdapters {
             textView.text = ""
     }
 
+    //회원가입, 비밀번호 변경 시 checkPW, newPW 비교 후 checkPwWarning 문구 띄우기
     @JvmStatic
-    @BindingAdapter("warningCheckpwtext", "etPw")
-    fun setWarningCheckpwtext(textView: TextView, etCheckpw: String?, etPw: String?) {
+    @BindingAdapter("checkPW", "newPW")
+    fun setWarningCheckPW(textView: TextView, etCheckpw: String?, etPw: String?) {
         if (etCheckpw != etPw) {
             textView.setText(R.string.register_incorrectPassword)
         } else textView.text = "" // 일치할 경우 tv 안 뜨게
@@ -353,9 +357,15 @@ object BindingAdapters {
             textView.text = ""
     }
 
+    //회원가입 시 status, 이름, 아이디 확인해서 버튼 활성화 여부
     @JvmStatic
-    @BindingAdapter("status", "etName", "etId")
-    fun registerBtn(button: AppCompatButton, status: Boolean, etName: String?, etId: String?) {
+    @BindingAdapter("status", "registerName", "registerId")
+    fun setRegisterBtnActive(
+        button: AppCompatButton,
+        status: Boolean,
+        etName: String?,
+        etId: String?
+    ) {
         val state: Boolean =
             (status != true || etName.isNullOrBlank() || etId.isNullOrBlank())
         if (state) {
@@ -367,7 +377,7 @@ object BindingAdapters {
     //회원가입 아이디 입력 시 대문자 입력했을 경우 소문자로 바꿔줄 때 커서 위치 조정
     @JvmStatic
     @BindingAdapter("registerIdCursorPos", "registerIdUpperCase")
-    fun registerUpperId_cursor(editText: EditText, cursorPos: Int, upperCase: Boolean) {
+    fun setRegisterUpperIdCursor(editText: EditText, cursorPos: Int, upperCase: Boolean) {
         if (upperCase == true) {
             editText.setSelection(cursorPos)
         }
@@ -376,7 +386,7 @@ object BindingAdapters {
     //마이페이지에서 아이디 변경 시 대문자 입력했을 경우 소문자로 바꿔줄 때 커서 위치 조정
     @JvmStatic
     @BindingAdapter("mypageIdCursorPos", "mypageIdUpperCase")
-    fun myPageUpperId_cursor(editText: EditText, cursorPos: Int, upperCase: Boolean) {
+    fun setMyPageUpperIdCursor(editText: EditText, cursorPos: Int, upperCase: Boolean) {
         if (upperCase == true) {
             editText.setSelection(cursorPos)
         }
@@ -385,7 +395,7 @@ object BindingAdapters {
     //마이페이지, 회원가입에서 이름 변경 시 불가능한 문자 입력할 때 커서 위치 조정
     @JvmStatic
     @BindingAdapter("nameCursorPos", "nameInvalidCase")
-    fun invalidName_cursor(editText: EditText, cursorPos: Int, invalidCase: Boolean) {
+    fun set_invalidName_cursor(editText: EditText, cursorPos: Int, invalidCase: Boolean) {
         if (invalidCase == true) {
             editText.setSelection(cursorPos - 1)
         }
