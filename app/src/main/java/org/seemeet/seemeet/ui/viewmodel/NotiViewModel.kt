@@ -4,12 +4,14 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.response.invitation.ConfirmedAndCanceld
 import org.seemeet.seemeet.data.model.response.invitation.Invitation
 import org.seemeet.seemeet.data.model.response.invitation.ResponseInvitationList
+import retrofit2.HttpException
 
 class NotiViewModel(application: Application) : BaseViewModel(application) {
 
@@ -25,6 +27,10 @@ class NotiViewModel(application: Application) : BaseViewModel(application) {
     val inviDoneList: LiveData<List<ConfirmedAndCanceld>>
         get() = _inviDoneList
 
+    private val _doneList = MutableLiveData<ResponseInvitationList>()
+    val doneList : LiveData<ResponseInvitationList>
+        get() = _doneList
+
 
     //약속 내역 모두 가져오는 함수
     fun requestAllInvitationList() = viewModelScope.launch(exceptionHandler) {
@@ -33,6 +39,13 @@ class NotiViewModel(application: Application) : BaseViewModel(application) {
                 SeeMeetSharedPreference.getToken()
             )
         )
+    }
+
+    fun deleteInvitation(Id: Int) = viewModelScope.launch (Dispatchers.IO){
+        try {
+            RetrofitBuilder.invitationService.deleteInvitation(Id, SeeMeetSharedPreference.getToken())
+        } catch (e: HttpException) {
+        }
     }
 
     fun setInviInProgressList() {

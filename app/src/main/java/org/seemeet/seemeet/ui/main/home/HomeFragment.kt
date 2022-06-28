@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.SeeMeetSharedPreference.getLogin
+import org.seemeet.seemeet.data.SeeMeetSharedPreference.getToken
 import org.seemeet.seemeet.databinding.FragmentHomeBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
 import org.seemeet.seemeet.ui.friend.FriendActivity
@@ -53,6 +54,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initClickListener()
         initNaviDrawer()
+        setPushOption()
 
         binding.clHomeTop.setPadding(0, getStatusBarHeight(requireContext()), 0, 0)
         binding.nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
@@ -110,8 +112,26 @@ class HomeFragment : Fragment() {
             nvMypage.clMypageContent.setOnClickListener {
                 CustomToast.createToast(requireContext(), "아직 준비중인 서비스예요")?.show()
             }
+
+            nvMypage.swPush.setOnClickListener {
+                changePushOption()
+            }
         }
 
+    }
+
+    private fun setPushOption(){
+        binding.nvMypage.swPush.isChecked = SeeMeetSharedPreference.getPushOn()
+    }
+
+    private fun changePushOption(){
+        if(binding.nvMypage.swPush.isChecked) {
+            SeeMeetSharedPreference.setPushOn(true)
+            viewmodel.setPushNotification(true, getToken())
+        }else{
+            SeeMeetSharedPreference.setPushOn(false)
+            viewmodel.setPushNotification(false, getToken())
+        }
     }
 
     private fun initNaviDrawer(){
