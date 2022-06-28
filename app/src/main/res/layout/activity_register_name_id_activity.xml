@@ -119,8 +119,8 @@
 
             <EditText
                 android:id="@+id/et_id"
-                etId="@{registerNameIdviewModel.registerId}"
-                status="@{registerNameIdviewModel.status}"
+                cursor="@{registerNameIdviewModel.idCursorPos}"
+                upper="@{registerNameIdviewModel.idUpperCase}"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="12dp"

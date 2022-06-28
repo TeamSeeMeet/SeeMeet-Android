@@ -355,41 +355,29 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("status", "etName", "etId")
-    fun registerBtn(button: AppCompatButton, status: Int, etName: String?, etId: String?) {
+    fun registerBtn(button: AppCompatButton, status: Boolean, etName: String?, etId: String?) {
         val state: Boolean =
-            (status != 3 || etName.isNullOrBlank() || etId.isNullOrBlank())
+            (status != true || etName.isNullOrBlank() || etId.isNullOrBlank())
         if (state) {
             button.inactiveBtn(R.drawable.rectangle_gray02_10)
         } else
             button.activeBtn()
     }
 
-    // TODO : 회원가입에서 불가능한 문자 입력 시, 대문자 입력 시 소문자로 바꾸고 커서 위치 조정하게 바꿔야함
+    //회원가입 아이디 입력 시 대문자 입력했을 경우 소문자로 바꿔줄 때 커서 위치 조정
     @JvmStatic
-    @BindingAdapter("etId", "status")
-    fun setId(editText: EditText, etId: String?, status: Int) {
-        val length = etId?.length ?: 0
-        if (length != 0) {
-            val it = etId?.get(length - 1)
-            // 대문자 입력할 시 소문자로 변환
-            if (it!! >= 'A' && it!! <= 'Z') {
-                editText.setText(etId.substring(0, length - 1))
-                editText.text.append(it.lowercase())
-                editText.setSelection(length)
-            }
-        }
-        // 불가능한 문자 입력 시 입력 막기
-        if (status == 2) {
-            editText.setText(etId?.substring(0, length - 1))
-            editText.setSelection(length - 1)
+    @BindingAdapter("cursor", "upper")
+    fun registerUpperId_cursor(editText: EditText, cursor: Int, upper: Boolean) {
+        if (upper == true) {
+            editText.setSelection(cursor)
         }
     }
 
     //마이페이지에서 아이디 변경 시 대문자 입력했을 경우 소문자로 바꿔줄 때 커서 위치 조정
     @JvmStatic
     @BindingAdapter("cursorPos", "upperCase")
-    fun setCursorPosition(editText: EditText, cursorPos: Int, upperCase: Boolean) {
-        if(upperCase == true){
+    fun myPageUpperId_cursor(editText: EditText, cursorPos: Int, upperCase: Boolean) {
+        if (upperCase == true) {
             editText.setSelection(cursorPos)
         }
     }
@@ -397,9 +385,9 @@ object BindingAdapters {
     //마이페이지, 회원가입에서 이름 변경 시 불가능한 문자 입력할 때 커서 위치 조정
     @JvmStatic
     @BindingAdapter("cursorPos", "invalidCase")
-    fun setCursorPos(editText: EditText, cursorPos: Int, invalidCase: Boolean) {
-        if(invalidCase == true){
-            editText.setSelection(cursorPos-1)
+    fun invalidName_cursor(editText: EditText, cursorPos: Int, invalidCase: Boolean) {
+        if (invalidCase == true) {
+            editText.setSelection(cursorPos - 1)
         }
     }
 }
