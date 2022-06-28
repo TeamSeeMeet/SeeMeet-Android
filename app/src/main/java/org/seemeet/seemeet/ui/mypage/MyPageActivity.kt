@@ -48,9 +48,7 @@ class MyPageActivity : AppCompatActivity() {
     private var nameId_position = DEFAULT
     var currentImageUrl: String? = SeeMeetSharedPreference.getUserProfile()
     var prev_etId: String? = SeeMeetSharedPreference.getUserId()
-    var prev_etName: String? = SeeMeetSharedPreference.getUserName()
     private val viewModel: MyPageViewModel by viewModels()
-
     private val binding: ActivityMyPageBinding by lazy {
         ActivityMyPageBinding.inflate(layoutInflater)
     }
@@ -60,6 +58,8 @@ class MyPageActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.myPageviewModel = viewModel
         binding.lifecycleOwner = this
+        if(intent.getBooleanExtra("NoNameId", false))
+            BtnEdit()
         initSetting()
         statusObserver()
         initClickListener()

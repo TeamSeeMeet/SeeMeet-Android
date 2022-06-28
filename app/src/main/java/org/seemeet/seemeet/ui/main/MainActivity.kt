@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity() {
                 DialogGotoMyPageFragment.OnButtonClickListener {
                 override fun onGotoMyPageClicked() {
                     val intent = Intent(this@MainActivity, MyPageActivity::class.java)
+                    intent.putExtra("NoNameId", true)
                     this@MainActivity.startActivity(intent)
                 }
             })
