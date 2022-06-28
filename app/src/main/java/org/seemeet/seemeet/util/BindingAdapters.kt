@@ -374,19 +374,10 @@ object BindingAdapters {
             button.activeBtn()
     }
 
-    //회원가입 아이디 입력 시 대문자 입력했을 경우 소문자로 바꿔줄 때 커서 위치 조정
+    //회원가입 아이디 입력 시, 마이페이지에서 아이디 변경 시 대문자 입력했을 경우 소문자로 바꿔줄 때 커서 위치 조정
     @JvmStatic
-    @BindingAdapter("registerIdCursorPos", "registerIdUpperCase")
-    fun setRegisterUpperIdCursor(editText: EditText, cursorPos: Int, upperCase: Boolean) {
-        if (upperCase == true) {
-            editText.setSelection(cursorPos)
-        }
-    }
-
-    //마이페이지에서 아이디 변경 시 대문자 입력했을 경우 소문자로 바꿔줄 때 커서 위치 조정
-    @JvmStatic
-    @BindingAdapter("mypageIdCursorPos", "mypageIdUpperCase")
-    fun setMyPageUpperIdCursor(editText: EditText, cursorPos: Int, upperCase: Boolean) {
+    @BindingAdapter("IdCursorPos", "IdUpperCase")
+    fun setUpperIdCursor(editText: EditText, cursorPos: Int, upperCase: Boolean) {
         if (upperCase == true) {
             editText.setSelection(cursorPos)
         }
