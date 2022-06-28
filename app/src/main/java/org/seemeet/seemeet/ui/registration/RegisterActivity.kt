@@ -46,6 +46,7 @@ class RegisterActivity : AppCompatActivity() {
         viewModel.status.observe(this, Observer { status ->
             if (status) {
                 val intent = Intent(this, RegisterNameIdActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY) //스택에 남지 않게
                 startActivity(intent)
             } else {
                 binding.etEmailRegister.requestFocus()
