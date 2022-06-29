@@ -56,7 +56,14 @@ class NotiDoneListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             binding.cgDoneFriendList.removeAllViews()
             doneData.guests.forEach {
                 binding.cgDoneFriendList.addView(Chip(context).apply {
-                    text = it.username
+
+                    val name = it.username
+                    text = if(name.length > 3) {
+                        name.substring(0,2) + " ..."
+                    } else {
+                        it.username
+                    }
+
                     if (it.isResponse) {
                         setChipBackgroundColorResource(R.color.gray02)
                         setTextAppearance(R.style.chipTextBlackStyle)
@@ -70,6 +77,7 @@ class NotiDoneListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     isClickable = false
                 })
             }
+
 
             //n일
             binding.tvDoneDayNum.text = doneData.days.toString()
