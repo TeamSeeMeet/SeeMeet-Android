@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.bumptech.glide.Glide
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.SeeMeetSharedPreference.getLogin
@@ -92,6 +93,14 @@ class HomeFragment : Fragment() {
             }
             nvMypage.ivMypageBack.setOnClickListener {
                 binding.dlHomeMypage.closeDrawer(GravityCompat.START)
+            }
+
+            if(SeeMeetSharedPreference.getUserProfile().isNullOrEmpty()){
+                Glide.with(activity!!).load(R.drawable.ic_img_profile).circleCrop()
+                    .into(nvMypage.ivMypageProfile)
+            }else{
+                Glide.with(activity!!).load(SeeMeetSharedPreference.getUserProfile()).circleCrop()
+                .into(nvMypage.ivMypageProfile)
             }
 
             nvMypage.clMypageLogin.setOnClickListener{

@@ -70,7 +70,7 @@ class MyPageActivity : AppCompatActivity() {
             binding.clChangepw.visibility = View.VISIBLE
 
         if (currentImageUrl == "null" || currentImageUrl.isNullOrEmpty()) {
-            Glide.with(this).load(R.drawable.ic_img_friend_list_null).circleCrop()
+            Glide.with(this).load(R.drawable.ic_img_profile).circleCrop()
                 .into(binding.ivMypageProfile)
         } else {
             Glide.with(this).load(currentImageUrl!!.toUri())
