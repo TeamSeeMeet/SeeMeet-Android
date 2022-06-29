@@ -47,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
             SeeMeetSharedPreference.setLogin(true)
             SeeMeetSharedPreference.setUserName(list.data.user.username)
             SeeMeetSharedPreference.setUserProfile(list.data.user.imgLink.toString())
+            SeeMeetSharedPreference.setPushOn(list.data.user.push)
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //기존에 쌓여있던 액티비티를 삭제
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

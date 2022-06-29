@@ -89,6 +89,7 @@ object SeeMeetSharedPreference {
     fun setUserProfile(value: String?) {
         preferences.edit {
             putString(USER_PROFILE, value)
+            apply()
         }
     }
 
