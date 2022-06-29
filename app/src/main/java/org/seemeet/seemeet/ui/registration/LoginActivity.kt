@@ -16,6 +16,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.model.response.login.Data
 import org.seemeet.seemeet.databinding.ActivityLoginBinding
 import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
@@ -42,21 +43,23 @@ class LoginActivity : AppCompatActivity() {
 
     private fun statusObserver() {
         viewModel.loginList.observe(this, Observer { list ->
-            SeeMeetSharedPreference.setToken(list.data.accesstoken.accessToken)
-            SeeMeetSharedPreference.setUserId(list.data.user.nickname?:"")
-            SeeMeetSharedPreference.setLogin(true)
-            SeeMeetSharedPreference.setUserName(list.data.user.username)
-            SeeMeetSharedPreference.setUserProfile(list.data.user.imgLink.toString())
+            if (list.data.user.username.isNullOrEmpty() && list.data.user.nickname.isNullOrEmpty()) {
+                SeeMeetSharedPreference.setUserName("0")
+            } else {
+                SeeMeetSharedPreference.setUserName(list.data.user.username)
+            }
+            setSharedPreference(list.data)
+
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //기존에 쌓여있던 액티비티를 삭제
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             this@LoginActivity.startActivity(intent)
         })
 
-        viewModel.fetchState.observe(this){
+        viewModel.fetchState.observe(this) {
             var message = ""
-            when( it.second){
-                BaseViewModel.FetchState.BAD_INTERNET-> {
+            when (it.second) {
+                BaseViewModel.FetchState.BAD_INTERNET -> {
                     binding.clContent.visibility = View.INVISIBLE
                     binding.clNetwork.visibility = View.VISIBLE
                 }
@@ -68,13 +71,13 @@ class LoginActivity : AppCompatActivity() {
                     binding.clContent.visibility = View.INVISIBLE
                     binding.clNetwork.visibility = View.VISIBLE
                 }
-                else ->  {
+                else -> {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
                 }
             }
 
             Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
-            if(message!="") {
+            if (message != "") {
                 CustomToast.createToast(this@LoginActivity, message)?.show()
             }
         }
@@ -136,6 +139,13 @@ class LoginActivity : AppCompatActivity() {
                 } else binding.ivPwShowHidden.makeVisible()
             }
         }
+    }
+
+    private fun setSharedPreference(data: Data) {
+        SeeMeetSharedPreference.setToken(data.accesstoken.accessToken)
+        SeeMeetSharedPreference.setUserId(data.user.nickname ?: "")
+        SeeMeetSharedPreference.setLogin(true)
+        SeeMeetSharedPreference.setUserProfile(data.user.imgLink.toString())
     }
 
     private fun isNullOrBlank(): Boolean {
