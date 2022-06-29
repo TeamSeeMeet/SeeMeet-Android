@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.text.InputFilter
 import android.util.Log
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
@@ -26,6 +27,7 @@ class RegisterNameIdActivity : AppCompatActivity() {
         ActivityRegisterNameIdActivityBinding.inflate(layoutInflater)
     }
     private val viewModel: RegisterNameIdViewModel by viewModels()
+    var prev_etId: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +67,25 @@ class RegisterNameIdActivity : AppCompatActivity() {
         }
 
         viewModel.registerId.observe(this, Observer {
+            var cursor_pos = it.length
+            if (it.length > 0 && prev_etId!!.length < it.length) {
+                for (i in 0..prev_etId!!.length - 1) {
+                    if (prev_etId!![i].lowercase() != it[i].lowercase()) {
+                        cursor_pos = i + 1
+                        break
+                    }
+                }
+                inputCase(it, cursor_pos)
+            }
+            if (it.length > 0 && prev_etId!!.length >= it.length) {
+                for (i in 0..it.length - 1) {
+                    if (it[i].toString() != prev_etId!![i].lowercase()) {
+                        cursor_pos = i + 1
+                        break
+                    }
+                }
+                inputCase(it, cursor_pos)
+            }
             viewModel.check()
         })
 
@@ -74,24 +95,56 @@ class RegisterNameIdActivity : AppCompatActivity() {
 
         viewModel.registerStatus.observe(this) {
             if (it) {
-                MainActivity.start(this@RegisterNameIdActivity)
+                val intent = Intent(this@RegisterNameIdActivity, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //기존에 쌓여있던 액티비티를 삭제
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                this@RegisterNameIdActivity.startActivity(intent)
             }
         }
     }
 
     fun initClickListener() {
         binding.ivRegisterBack.setOnClickListener {
-            finish()
+            val intent = Intent(this@RegisterNameIdActivity, LoginMainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
 
         binding.ivRegisterX.setOnClickListener {
-            finish()
+            val intent = Intent(this@RegisterNameIdActivity, LoginMainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
 
+        binding.etName.setFilters(arrayOf(InputFilter { src, start, end, dest, dstart, dend ->
+            for (i in start until end) {
+                if (src.matches(Regex("^[ㄱ-ㅎ|가-힣|a-z|A-Z]*$"))) {
+                    return@InputFilter src
+                }
+                return@InputFilter ""
+            }
+            null
+        }))
+
+        binding.etId.setFilters(arrayOf(InputFilter { src, start, end, dest, dstart, dend ->
+            for (i in start until end) {
+                if (src.matches(Regex("^[A-Za-z0-9._]*\$"))) {
+                    return@InputFilter src
+                }
+                viewModel.tvWarningId.value = "아이디는 알파벳, 숫자, 밑줄, 마침표만 사용 가능해요"
+                return@InputFilter ""
+            }
+            null
+        }))
+
         binding.etId.setOnFocusChangeListener { _, hasFocus ->
-            // 아이디 길이가 0이면서 warning에 불가능한 문자 입력했던 기록 있을 때 포커스 나가면 warning 없애기
-            if (!hasFocus && viewModel.registerId.value?.length == 0 && viewModel.status.value == 1) {
-                viewModel.tvWarningId.value = ""
+            //포커스 나가면 불가능한 문자 입력했던 기록 없애기
+            if (!hasFocus && viewModel.tvWarningId.value == "아이디는 알파벳, 숫자, 밑줄, 마침표만 사용 가능해요") {
+                if (binding.etId.text.length < 7 && binding.etId.text.length > 0)
+                    viewModel.tvWarningId.value = "7자 이상 써주세요"
+                else viewModel.tvWarningId.value = ""
             }
         }
 
@@ -101,6 +154,19 @@ class RegisterNameIdActivity : AppCompatActivity() {
                 binding.etId.text.toString()
             )
         }
+    }
+
+    private fun inputCase(it: String, cursor_pos: Int) {
+        // 아이디에 대문자를 입력했을 경우
+        if (it[cursor_pos - 1] >= 'A' && it[cursor_pos - 1] <= 'Z') {
+            viewModel.registerId.value = it.substring(
+                0,
+                cursor_pos - 1
+            ) + it[cursor_pos - 1].lowercase() + it.substring(cursor_pos)
+            viewModel.id_upperCase.value = true
+            viewModel.id_cursorPos.value = cursor_pos
+        }
+        prev_etId = it
     }
 
     // sharedPreference setting

@@ -8,13 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.net.toUri
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.bumptech.glide.Glide
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.SeeMeetSharedPreference.getLogin
+import org.seemeet.seemeet.data.SeeMeetSharedPreference.getToken
 import org.seemeet.seemeet.databinding.FragmentHomeBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
 import org.seemeet.seemeet.ui.friend.FriendActivity
@@ -32,10 +35,10 @@ import org.seemeet.seemeet.util.setBetweenDays2
 import retrofit2.HttpException
 
 class HomeFragment : Fragment() {
-    private var _binding : FragmentHomeBinding? = null
+    private var _binding: FragmentHomeBinding? = null
     val binding get() = _binding!!
 
-    private val viewmodel : HomeViewModel by activityViewModels()
+    private val viewmodel: HomeViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,16 +51,31 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (SeeMeetSharedPreference.getLogin() && SeeMeetSharedPreference.getUserProfile() != "null") {
+            Glide.with(activity!!)
+                .load(SeeMeetSharedPreference.getUserProfile()!!.toUri())
+                .circleCrop()
+                .into(binding.nvMypage.ivMypageProfile)
+        } else
+            Glide.with(activity!!)
+                .load(R.drawable.ic_img_profile)
+                .circleCrop()
+                .into(binding.nvMypage.ivMypageProfile)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initClickListener()
         initNaviDrawer()
+        setPushOption()
 
         binding.clHomeTop.setPadding(0, getStatusBarHeight(requireContext()), 0, 0)
         binding.nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
         binding.nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserEmail()
 
-        if(getLogin()) {
+        if (getLogin()) {
             viewmodel.requestFriendList()
             viewmodel.requestComePlanList()
             viewmodel.requestLastPlanData()
@@ -75,9 +93,9 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun initClickListener(){
+    private fun initClickListener() {
 
-        binding.apply{
+        binding.apply {
             ivHomeFriend.setOnClickListener {
                 FriendActivity.start(requireContext())
             }
@@ -85,15 +103,15 @@ class HomeFragment : Fragment() {
                 NotificationActivity.start(requireContext())
             }
 
-            ivMypageMenu.setOnClickListener{
+            ivMypageMenu.setOnClickListener {
                 binding.dlHomeMypage.openDrawer(GravityCompat.START)
             }
             nvMypage.ivMypageBack.setOnClickListener {
                 binding.dlHomeMypage.closeDrawer(GravityCompat.START)
             }
 
-            nvMypage.clMypageLogin.setOnClickListener{
-                if(!getLogin())
+            nvMypage.clMypageLogin.setOnClickListener {
+                if (!getLogin())
                     LoginMainActivity.start(requireContext())
                 else MyPageActivity.start(requireContext())
             }
@@ -101,14 +119,35 @@ class HomeFragment : Fragment() {
             nvMypage.clMypageContent.setOnClickListener {
                 CustomToast.createToast(requireContext(), "아직 준비중인 서비스예요")?.show()
             }
+
+            nvMypage.swPush.setOnClickListener {
+                changePushOption()
+            }
         }
 
     }
 
-    private fun initNaviDrawer(){
+    private fun setPushOption() {
+        binding.nvMypage.swPush.isChecked = SeeMeetSharedPreference.getPushOn()
+    }
+
+    private fun changePushOption() {
+        if (binding.nvMypage.swPush.isChecked) {
+            SeeMeetSharedPreference.setPushOn(true)
+            viewmodel.setPushNotification(true, getToken())
+        } else {
+            SeeMeetSharedPreference.setPushOn(false)
+            viewmodel.setPushNotification(false, getToken())
+        }
+    }
+
+    private fun initNaviDrawer() {
 
         val toggle = ActionBarDrawerToggle(
-            this.activity, binding.dlHomeMypage, R.string.home_drawer_open, R.string.home_drawer_close
+            this.activity,
+            binding.dlHomeMypage,
+            R.string.home_drawer_open,
+            R.string.home_drawer_close
         )
         binding.dlHomeMypage.setStatusBarBackground(R.color.gray06)
         binding.dlHomeMypage.addDrawerListener(toggle)
@@ -120,10 +159,11 @@ class HomeFragment : Fragment() {
     private fun setReminderAdapter() {
         val reminderListAdapter = ReminderListAdapter()
 
-        reminderListAdapter.setItemClickListener(object: ReminderListAdapter.OnItemClickListener{
+        reminderListAdapter.setItemClickListener(object : ReminderListAdapter.OnItemClickListener {
             override fun onClick(v: View, position: Int) {
-                viewmodel.comePlanList.value?.let{ listData ->
-                    val comePlanId = listData.data.filter{it.date.setBetweenDays2() <= 0}[position].planId
+                viewmodel.comePlanList.value?.let { listData ->
+                    val comePlanId =
+                        listData.data.filter { it.date.setBetweenDays2() <= 0 }[position].planId
                     val intent = Intent(requireContext(), DetailActivity::class.java)
                     intent.putExtra("planId", comePlanId)
                     startActivity(intent)
@@ -143,7 +183,7 @@ class HomeFragment : Fragment() {
                 val comePlan = comePlanList.data.filter { it.date.setBetweenDays2() <= 0 }
                 setReminder(comePlan)
 
-                if(comePlan.isEmpty()) {
+                if (comePlan.isEmpty()) {
                     setViewVisible(binding.clHomeNoReminder, true)
                 } else {
                     setViewVisible(binding.clHomeNoReminder, false)
@@ -151,30 +191,31 @@ class HomeFragment : Fragment() {
             }
         }
 
-        viewmodel.lastPlan.observe(viewLifecycleOwner){
-            lastPlan ->
-                if(lastPlan.date.isNullOrEmpty()){
-                    setHomeBanner(-1)
-                } else {
-                    setHomeBanner(lastPlan.date.calDday())
-                }
+        viewmodel.lastPlan.observe(viewLifecycleOwner) { lastPlan ->
+            if (lastPlan.date.isNullOrEmpty()) {
+                setHomeBanner(-1)
+            } else {
+                setHomeBanner(lastPlan.date.calDday())
+            }
         }
 
-        viewmodel.fetchState.observe(viewLifecycleOwner){
+        viewmodel.fetchState.observe(viewLifecycleOwner) {
             var message = ""
-            when( it.second){
-                BaseViewModel.FetchState.BAD_INTERNET-> {
+            when (it.second) {
+                BaseViewModel.FetchState.BAD_INTERNET -> {
                     message = "소켓 오류 / 서버와 연결에 실패하였습니다."
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {
                     val error = (it.first as HttpException)
-                    message = "${error.code()} ERROR : \n ${error.response()!!.errorBody()!!.string().split("\"")[7]}"
+                    message = "${error.code()} ERROR : \n ${
+                        error.response()!!.errorBody()!!.string().split("\"")[7]
+                    }"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
                     setViewVisible(binding.clErrorNetwork, true)
                     setViewVisible(binding.rvHomeReminder, false)
                 }
-                else ->  {
+                else -> {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
                 }
 
@@ -182,7 +223,7 @@ class HomeFragment : Fragment() {
 
             Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
 
-            if(message != "") {
+            if (message != "") {
                 Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
                 setViewVisible(binding.clHomeNoReminder, true)
             }
@@ -190,30 +231,30 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun setViewVisible(view: View, flag : Boolean){
-         if(flag){
+    private fun setViewVisible(view: View, flag: Boolean) {
+        if (flag) {
             view.visibility = View.VISIBLE
-         } else {
-             view.visibility = View.INVISIBLE
-         }
+        } else {
+            view.visibility = View.INVISIBLE
+        }
     }
 
-    private fun setHomeBanner(day : Int) {
+    private fun setHomeBanner(day: Int) {
 
         var flag: Int
 
-        if(day == -1 ){
-            flag = if(getLogin() && MainActivity().friendCnt != 0 ) 2
-                    else 1
+        if (day == -1) {
+            flag = if (getLogin() && MainActivity().friendCnt != 0) 2
+            else 1
         } else {
-            flag = when(day){
+            flag = when (day) {
                 0 -> 3
                 in 1..14 -> 4
                 in 15..21 -> 5
                 else -> 6
             }
 
-            if((1..2).random() == 2){
+            if ((1..2).random() == 2) {
                 flag = 2
             }
         }
@@ -233,7 +274,7 @@ class HomeFragment : Fragment() {
         binding.nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
         binding.nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserId()
 
-        if(getLogin()) {
+        if (getLogin()) {
             viewmodel.requestFriendList()
             viewmodel.requestComePlanList()
             viewmodel.requestLastPlanData()

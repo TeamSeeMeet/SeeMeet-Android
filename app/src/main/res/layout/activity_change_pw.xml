@@ -84,7 +84,7 @@
 
             <TextView
                 android:id="@+id/tv_newpw_warning"
-                warningPwtext="@{changePWviewModel.newPW}"
+                PW="@{changePWviewModel.newPW}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
@@ -134,8 +134,8 @@
 
             <TextView
                 android:id="@+id/tv_pw_warning"
-                etPw="@{changePWviewModel.newPW}"
-                warningCheckpwtext="@{changePWviewModel.checkPW}"
+                newPW="@{changePWviewModel.newPW}"
+                checkPW="@{changePWviewModel.checkPW}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"

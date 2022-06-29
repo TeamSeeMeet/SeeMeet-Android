@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
+import org.seemeet.seemeet.data.model.response.invitation.ConfirmedAndCanceld
 import org.seemeet.seemeet.databinding.FragmentNotiDoneBinding
 import org.seemeet.seemeet.ui.notification.adapter.NotiDoneListAdapter
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
@@ -22,6 +23,8 @@ class NotiDoneFragment : Fragment() {
     val binding get() = _binding!!
 
     private val viewmodel: NotiViewModel by activityViewModels()
+    private var doneListAdapter = NotiDoneListAdapter()
+    private lateinit var donelist: List<ConfirmedAndCanceld>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,8 +47,13 @@ class NotiDoneFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewmodel.requestAllInvitationList()
+        setDoneObserve()
+    }
+
     private fun setDoneAdapter() {
-        val doneListAdapter = NotiDoneListAdapter()
         binding.rvDoneList.adapter = doneListAdapter
         binding.rvDoneList.addItemDecoration(
             DividerItemDecoration(
@@ -71,6 +79,8 @@ class NotiDoneFragment : Fragment() {
                 } else {
                     binding.clNotiDoneNull.visibility = View.GONE
                 }
+                donelist = doneList
+                initItemClickListener()
             }
         }
 
@@ -100,6 +110,32 @@ class NotiDoneFragment : Fragment() {
                 binding.clNotiDoneNull.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun initItemClickListener(){
+        doneListAdapter.setOnItemClickListener{ _, pos ->
+            val id = donelist[pos].id
+            showDialog(id)
+        }
+    }
+
+    private fun showDialog(id:Int){
+        var dialogView = NotiDeleteDialogFragment()
+        val bundle = Bundle()
+
+        dialogView.arguments = bundle
+        dialogView.setButtonClickListener( object :  NotiDeleteDialogFragment.OnButtonClickListener {
+            override fun onCancelNoClicked() {
+            }
+
+            override fun onCancelYesClicked() {
+                viewmodel.deleteInvitation(id)
+                Toast.makeText(context, "약속이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                viewmodel.requestAllInvitationList()
+                setDoneObserve()
+            }
+        })
+        dialogView.show(childFragmentManager, "send wish checkbox time")
     }
 
     private fun setVisibility(view: View, visibility: Int){

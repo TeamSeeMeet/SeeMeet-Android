@@ -53,12 +53,7 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
     fun deletePlan(planId: Int) = viewModelScope.launch (Dispatchers.IO){
         try {
             RetrofitBuilder.planService.deletePlan(planId, SeeMeetSharedPreference.getToken())
-            Log.d("*******DeletedPlanId", planId.toString())
         } catch (e: HttpException) {
         }
-    }
-
-    fun deleteCanceled(){
-        // 취소된 약속 삭제
     }
 }

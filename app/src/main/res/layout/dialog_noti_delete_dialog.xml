@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+    </data>
+    <FrameLayout
+        tools:context=".ui.receive.ReceiveNoDiagloFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_receive_reject_dialog_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/cl_detail_dialog_bottom">
+
+                <TextView
+                    android:id="@+id/tv_detail_dialog_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/gray06"
+                    android:letterSpacing="-0.01"
+                    android:text="@string/noti_delete"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="25dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_detail_dialog_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="280:126"
+                android:background="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_receive_reject_dialog_top">
+
+                <TextView
+                    android:id="@+id/tv_detail_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginStart="24dp"
+                    android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                    android:letterSpacing="-0.01"
+                    android:text="@string/noti_delete_content"
+                    android:textColor="@color/gray05"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/btn_detail_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                    android:textStyle="normal"
+                    android:textSize="16sp"
+                    android:textColor="@color/gray06"
+                    android:letterSpacing="-0.01"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="6dp"
+                    android:paddingBottom="14dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="14dp"
+                    android:paddingTop="14dp"
+                    android:layout_marginTop="24dp"
+                    android:text="취소"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_delete"
+                    app:layout_constraintEnd_toStartOf="@id/btn_detail_yes"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <TextView
+                    android:id="@+id/btn_detail_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="6dp"
+                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                    android:gravity="center_horizontal"
+                    android:letterSpacing="-0.01"
+                    android:paddingStart="14dp"
+                    android:paddingTop="14dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="14dp"
+                    android:text="삭제"
+                    android:textColor="@color/pink01"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_delete" />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+</layout>
