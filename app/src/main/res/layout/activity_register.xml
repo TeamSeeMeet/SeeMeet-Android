@@ -98,7 +98,7 @@
 
                 <TextView
                     android:id="@+id/tv_warning_email"
-                    warningEmailtext="@{registerViewModel.registerEmail}"
+                    registerEmail="@{registerViewModel.registerEmail}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -152,7 +152,7 @@
 
                 <TextView
                     android:id="@+id/tv_warning_pw"
-                    warningPwtext="@{registerViewModel.registerPw}"
+                    PW="@{registerViewModel.registerPw}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -206,8 +206,8 @@
 
                 <TextView
                     android:id="@+id/tv_warning_checkpw"
-                    etPw="@{registerViewModel.registerPw}"
-                    warningCheckpwtext="@{registerViewModel.registerCheckpw}"
+                    newPW="@{registerViewModel.registerPw}"
+                    checkPW="@{registerViewModel.registerCheckpw}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
