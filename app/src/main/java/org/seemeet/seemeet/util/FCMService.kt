@@ -42,7 +42,7 @@ class FCMService : FirebaseMessagingService() {
 
     private fun sendDataMessage(data : MutableMap<String, String>){
         val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         intent.putExtra("pushPlan", true)
 
         val pendingIntent = PendingIntent.getActivity(
