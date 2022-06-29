@@ -55,12 +55,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="23dp"
-                    android:layout_marginEnd="80dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="24dp"
                     android:fontFamily="@font/spoqa_han_sans_neo_bold"
                     android:letterSpacing="-0.01"
-                    android:text="이름과 아이디를 입력하고\n회원가입을 완료해주세요"
-                    android:textAlignment="center"
+                    android:text="아직 회원가입을 완료하지 않았어요\n씨밋에서 사용할 이름과 아이디를\n입력해주세요"
                     android:textColor="@color/gray05"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -72,7 +71,7 @@
                     android:id="@+id/btn_gotoMyPage_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/spoqa_han_sans_neo_medium"
@@ -82,13 +81,13 @@
                     android:paddingTop="14dp"
                     android:paddingEnd="10dp"
                     android:paddingBottom="14dp"
-                    android:text="마이페이지로 이동"
-                    android:textColor="@color/gray06"
+                    android:text="확인"
+                    android:textColor="@color/pink01"
                     android:textSize="16sp"
                     android:textStyle="normal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                     app:layout_constraintTop_toBottomOf="@id/tv_detail_gotoMyPage" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_gotoMyPage" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
