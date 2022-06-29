@@ -12,7 +12,7 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/sv_first_apply"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:fillViewport="true"
         android:overScrollMode="never"
         app:layout_constraintEnd_toEndOf="parent"
@@ -297,9 +297,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_friend"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:overScrollMode="never"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="@+id/et_to_who"
                 app:layout_constraintStart_toStartOf="@+id/et_to_who"

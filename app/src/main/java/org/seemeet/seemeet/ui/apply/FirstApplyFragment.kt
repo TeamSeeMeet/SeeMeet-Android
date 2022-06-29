@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,10 +24,7 @@ import org.seemeet.seemeet.databinding.FragmentFirstApplyBinding
 import org.seemeet.seemeet.ui.apply.adapter.ApplyFriendAdapter
 import org.seemeet.seemeet.ui.viewmodel.ApplyViewModel
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
-import org.seemeet.seemeet.util.activeBtn
-import org.seemeet.seemeet.util.inactiveBtn
-import org.seemeet.seemeet.util.makeInVisible
-import org.seemeet.seemeet.util.makeVisible
+import org.seemeet.seemeet.util.*
 import retrofit2.HttpException
 
 class FirstApplyFragment : Fragment() {
@@ -100,6 +99,26 @@ class FirstApplyFragment : Fragment() {
     }
 
     private fun initClickListener() {
+
+        //rvFriend 높이 키보드 뺸 높이만큼 setting
+        setUpAsSoftKeyboard(binding.rvFriend)
+
+        //키패드 내리는 버튼 누를 경우 rvFriend 사라지게
+        binding.clFirstApply.viewTreeObserver.addOnGlobalLayoutListener {
+            if (binding.etToWho.hasFocus()) {
+                var mRootViewHeight = binding.clBg.rootView.height
+                var mRelativeWrapperHeight = binding.clFirstApply.height
+                if (mRootViewHeight - mRelativeWrapperHeight > dpToPx(200.0F)) {
+                    binding.rvFriend.makeVisible()
+                    setVisibility(false)
+                } else {
+                    binding.rvFriend.makeGone()
+                    setVisibility(true)
+                    //TODO: 포커스 나가게하기
+                }
+            }
+        }
+
         binding.svFirstApply.setOnTouchListener { _, event ->
             val view = activity?.currentFocus
             if (view == binding.etToWho) {
@@ -150,9 +169,9 @@ class FirstApplyFragment : Fragment() {
                 if (binding.chipGroup.childCount == 3) {
                     setVisibility(true)
                     binding.etToWho.isEnabled = false
+                    //todo 키보드 내리기
                 } else {
                     setVisibility(false)
-                    setHeightwithKeyboard(binding.rvFriend, binding.clBg)
                 }
                 if (binding.chipGroup.childCount == 0) {
                     viewModel.requestFriendList() //chip 개수가 0이면서 포커스 눌렀을 때 친구 리스트 통신 시작
@@ -281,7 +300,7 @@ class FirstApplyFragment : Fragment() {
                             friendEmail.toString() + friendId.toString() + friendName
                         )
                         adapter.addItem(
-                            FriendListData(friendEmail.toString(), friendId, friendName!!,null)
+                            FriendListData(friendEmail.toString(), friendId, friendName!!, null)
                         )
                         adapter.sortItem()
                         if (binding.chipGroup.childCount < 3) {
@@ -364,7 +383,7 @@ class FirstApplyFragment : Fragment() {
     // flag=false 이면 rv 숨기고 뒤에 배경이 보이게
     private fun setVisibility(flag: Boolean) {
         if (flag) {
-            binding.rvFriend.makeInVisible()
+            binding.rvFriend.makeGone()
             binding.clContentBg.visibility = View.VISIBLE
             binding.btnNext.visibility = View.VISIBLE
         } else {
@@ -374,28 +393,51 @@ class FirstApplyFragment : Fragment() {
         }
     }
 
-    companion object {
-        //키보드 높이 제외한 만큼 rv 높이 세팅, cl 높이도 똑같이 세팅
-        fun setHeightwithKeyboard(view: View, view2: View) {
-            view.viewTreeObserver.addOnGlobalLayoutListener {
-                val targetViewHeight = getTargetViewHeight(view)
-                val param = view.layoutParams as ViewGroup.MarginLayoutParams
-                param.height = targetViewHeight - 200
-                view.layoutParams = param
-            }
-            view2.viewTreeObserver.addOnGlobalLayoutListener {
-                val targetViewHeight2 = getTargetViewHeight(view)
-                val param2 = view2.layoutParams as ViewGroup.MarginLayoutParams
-                param2.height = targetViewHeight2
-                view2.layoutParams = param2
-            }
-        }
+    fun setUpAsSoftKeyboard(view: View) {
+        view.viewTreeObserver.addOnGlobalLayoutListener {
+            targetViewHeight = getTargetViewHeight(view)
 
-        //현재 뷰의 높이 구하는 함수
+            // screenMaxHeight, keyboardHeight 초기화
+            if (targetViewHeight > screenMaxHeight) screenMaxHeight = targetViewHeight
+            else keyboardHeight = screenMaxHeight - targetViewHeight
+
+            // 키보드 표시 여부에 따라 height 조정
+            val param = view.layoutParams as ViewGroup.MarginLayoutParams
+            param.height =
+                targetViewHeight - keyboardHeight + getStatusBarHeightDP(view.context) + dpToPx(
+                    58.0F
+                ).toInt()
+            view.layoutParams = param
+        }
+    }
+
+    fun dpToPx(valueInDp: Float): Float {
+        var metrics: DisplayMetrics = resources.displayMetrics
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, valueInDp, metrics)
+    }
+
+    companion object {
+        private var screenMaxHeight = 0
+        private var keyboardHeight = 0
+        var targetViewHeight = 0
+
+        //현재 뷰 높이 구하는 함수
         private fun getTargetViewHeight(view: View): Int {
             val targetView = Rect()
             view.getWindowVisibleDisplayFrame(targetView)
-            return targetView.bottom
+            return targetView.height()
+        }
+
+        /* 상단 상태바 높이 구하는 함수
+        계산 후 DP로 반환 */
+        fun getStatusBarHeightDP(context: Context): Int {
+            var result = 0
+            val resourceId: Int =
+                context.resources.getIdentifier("status_bar_height", "dimen", "android")
+            if (resourceId > 0) {
+                result = context.resources.getDimension(resourceId).toInt()
+            }
+            return result
         }
     }
 
