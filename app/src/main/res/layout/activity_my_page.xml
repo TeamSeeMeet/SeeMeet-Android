@@ -13,6 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".ui.mypage.MyPageActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,6 +40,7 @@
             android:id="@+id/cl_mypage_middle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,17 +58,28 @@
                     android:id="@+id/iv_mypage_profile"
                     android:layout_width="99dp"
                     android:layout_height="99dp"
+                    android:background="@color/white"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/ic_img_profile" />
 
                 <ImageView
                     android:id="@+id/btn_select_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
                     android:layout_gravity="bottom|right"
                     android:clickable="true"
                     android:visibility="invisible"
-                    app:srcCompat="@android:drawable/ic_menu_camera"
+                    app:srcCompat="@drawable/ic_camera_ellipse" />
+
+                <ImageView
+                    android:id="@+id/camera"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginBottom="7dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/ic_camera"
                     tools:ignore="TouchTargetSizeCheck" />
 
             </FrameLayout>
@@ -117,7 +130,6 @@
                 android:enabled="false"
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:inputType="textPersonName"
-                android:maxLength="6"
                 android:text="@={myPageviewModel.mypageName}"
                 android:textColor="@color/black"
                 android:textSize="16sp"

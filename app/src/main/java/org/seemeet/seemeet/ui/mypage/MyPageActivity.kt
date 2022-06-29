@@ -58,7 +58,7 @@ class MyPageActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.myPageviewModel = viewModel
         binding.lifecycleOwner = this
-        if(intent.getBooleanExtra("NoNameId", false))
+        if (intent.getBooleanExtra("NoNameId", false))
             BtnEdit()
         initSetting()
         statusObserver()
@@ -138,6 +138,7 @@ class MyPageActivity : AppCompatActivity() {
                 SeeMeetSharedPreference.setUserProfile(currentImageUrl)
                 binding.btnProfileEditOrSave.text = "프로필 사진 편집"
                 binding.btnSelectImage.visibility = View.INVISIBLE
+                binding.camera.visibility = View.INVISIBLE
                 profile_position = DEFAULT
             }
         }
@@ -195,6 +196,7 @@ class MyPageActivity : AppCompatActivity() {
                 DEFAULT -> {
                     binding.btnProfileEditOrSave.text = "프로필 사진 저장"
                     binding.btnSelectImage.visibility = View.VISIBLE
+                    binding.camera.visibility = View.VISIBLE
                     profile_position = ONEDITPROFILE
                 }
                 ONEDITPROFILE -> {
@@ -287,6 +289,7 @@ class MyPageActivity : AppCompatActivity() {
         if (SeeMeetSharedPreference.getUserProfile() == currentImageUrl) {
             binding.btnProfileEditOrSave.text = "프로필 사진 편집"
             binding.btnSelectImage.visibility = View.INVISIBLE
+            binding.camera.visibility = View.INVISIBLE
             profile_position = DEFAULT
         }
         // 사진이 변경된 경우 서버 통신
