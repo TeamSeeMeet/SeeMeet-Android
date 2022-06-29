@@ -15,6 +15,7 @@ import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.text.InputFilter
+import android.text.InputFilter.LengthFilter
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -185,7 +186,7 @@ class MyPageActivity : AppCompatActivity() {
                 return@InputFilter ""
             }
             null
-        }))
+        }, LengthFilter(5)))
 
         binding.backMypage.setOnClickListener {
             finish()
