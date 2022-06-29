@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.model.response.invitation.ConfirmedAndCanceld
 import org.seemeet.seemeet.databinding.FragmentNotiDoneBinding
-import org.seemeet.seemeet.ui.detail.DetailDialogFragment
 import org.seemeet.seemeet.ui.notification.adapter.NotiDoneListAdapter
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.ui.viewmodel.NotiViewModel
@@ -121,11 +120,11 @@ class NotiDoneFragment : Fragment() {
     }
 
     private fun showDialog(id:Int){
-        var dialogView = DetailDialogFragment()
+        var dialogView = NotiDeleteDialogFragment()
         val bundle = Bundle()
 
         dialogView.arguments = bundle
-        dialogView.setButtonClickListener( object :  DetailDialogFragment.OnButtonClickListener {
+        dialogView.setButtonClickListener( object :  NotiDeleteDialogFragment.OnButtonClickListener {
             override fun onCancelNoClicked() {
             }
 
