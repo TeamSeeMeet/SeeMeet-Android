@@ -3,7 +3,6 @@ package org.seemeet.seemeet.ui.main
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,16 +10,13 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.ktx.messaging
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
-import org.seemeet.seemeet.data.SeeMeetSharedPreference.getToken
 import org.seemeet.seemeet.databinding.ActivityMainBinding
 import org.seemeet.seemeet.ui.apply.ApplyActivity
 import org.seemeet.seemeet.ui.main.calendar.CalendarFragment
 import org.seemeet.seemeet.ui.main.home.HomeFragment
+import org.seemeet.seemeet.ui.mypage.MyPageActivity
 import org.seemeet.seemeet.ui.receive.DialogHomeNoLoginFragment
 import org.seemeet.seemeet.ui.registration.LoginMainActivity
 import org.seemeet.seemeet.ui.viewmodel.HomeViewModel
@@ -37,9 +33,9 @@ class MainActivity : AppCompatActivity() {
     private val calendarFragment by lazy { CalendarFragment() }
 
     //뒤로가기 연속 클릭 대기 시간
-    var mBackWait:Long = 0
-    var friendCnt : Int = 0
-    private val viewmodel : HomeViewModel by viewModels()
+    var mBackWait: Long = 0
+    var friendCnt: Int = 0
+    private val viewmodel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,11 +47,41 @@ class MainActivity : AppCompatActivity() {
         isPushIntent(null)
     }
 
-    private fun initView(){
-        //디바이스 크기에 딱 맞게 하기. (statusbar, navibar 높이 포함 _ 투명 statusbar를 위해)
-        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+    override fun onResume() {
+        super.onResume()
+        initCheck()
+    }
 
-        binding.clMainLayout.setPadding(0,0,0, getNaviBarHeight(this))
+    fun initCheck() {
+        //이메일로 가입 시 이름, 아이디 설정 안했을 경우 다이얼로그 띄우기
+        if (SeeMeetSharedPreference.getUserName() == "0") {
+            val dialogView = DialogGotoMyPageFragment()
+            val bundle = Bundle()
+
+            dialogView.arguments = bundle
+
+            dialogView.setButtonClickListener(object :
+                DialogGotoMyPageFragment.OnButtonClickListener {
+                override fun onGotoMyPageClicked() {
+                    val intent = Intent(this@MainActivity, MyPageActivity::class.java)
+                    intent.putExtra("NoNameId", true)
+                    this@MainActivity.startActivity(intent)
+                }
+            })
+            //다이얼로그 바깥 영역 눌렀을 떄 dismiss 막기
+            dialogView.isCancelable = false
+            dialogView.show(supportFragmentManager, "send wish checkbox time")
+        }
+    }
+
+    private fun initView() {
+        //디바이스 크기에 딱 맞게 하기. (statusbar, navibar 높이 포함 _ 투명 statusbar를 위해)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+
+        binding.clMainLayout.setPadding(0, 0, 0, getNaviBarHeight(this))
 
         //바텀 네비 높이 만큼 FragmentContainerView의 bottom에 마진 주기.
         binding.bnvMain.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
@@ -70,9 +96,9 @@ class MainActivity : AppCompatActivity() {
         //가운데 플로팅 버튼 클릭 시
         binding.fabMain.setOnClickListener {
 
-            if(SeeMeetSharedPreference.getLogin() && friendCnt != 0)
+            if (SeeMeetSharedPreference.getLogin() && friendCnt != 0)
                 ApplyActivity.start(this)
-            else if (!SeeMeetSharedPreference.getLogin()){
+            else if (!SeeMeetSharedPreference.getLogin()) {
                 setNoLoginDailog()
             } else {
                 CustomToast.createToast(applicationContext, "친구를 먼저 추가해보세요")?.show()
@@ -82,13 +108,13 @@ class MainActivity : AppCompatActivity() {
 
         //양 옆 네비게이션 버튼 클릭 시
         binding.bnvMain.setOnItemSelectedListener { item ->
-                when (item.itemId) {
-                    R.id.menu_home -> changeFragment(getString(R.string.label_home))
-                    //R.id.menu_apply -> ApplyActivity.start(this)
-                    R.id.menu_calendar -> changeFragment(getString(R.string.label_calendar))
-                }
-                true
+            when (item.itemId) {
+                R.id.menu_home -> changeFragment(getString(R.string.label_home))
+                //R.id.menu_apply -> ApplyActivity.start(this)
+                R.id.menu_calendar -> changeFragment(getString(R.string.label_calendar))
             }
+            true
+        }
         changeFragment(getString(R.string.label_home))
     }
 
@@ -118,11 +144,11 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    private fun setNoLoginDailog(){
+    private fun setNoLoginDailog() {
 
         val dialogView = DialogHomeNoLoginFragment()
         val context = this
-        dialogView.setButtonClickListener( object :  DialogHomeNoLoginFragment.OnButtonClickListener {
+        dialogView.setButtonClickListener(object : DialogHomeNoLoginFragment.OnButtonClickListener {
             override fun onCancelClicked() {
 
             }
@@ -137,8 +163,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setFriendListObserver() {
-        viewmodel.friendList.observe(this){
-                friendList ->
+        viewmodel.friendList.observe(this) { friendList ->
             Log.d("***********HOME_FRIEND_COUNT2", friendList.data.size.toString())
             friendCnt = friendList.data.size
         }
@@ -146,12 +171,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         // 뒤로가기 버튼 클릭
-        if(System.currentTimeMillis() - mBackWait < 2000 ) {
+        if (System.currentTimeMillis() - mBackWait < 2000) {
             finish()
             return
         } else {
             mBackWait = System.currentTimeMillis()
-            CustomToast.createToast(this,"뒤로가기 버튼을 한번 더 누르면 종료됩니다.")?.show()
+            CustomToast.createToast(this, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.")?.show()
         }
     }
 
