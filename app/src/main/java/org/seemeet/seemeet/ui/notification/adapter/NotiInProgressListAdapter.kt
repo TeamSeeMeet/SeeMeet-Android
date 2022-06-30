@@ -60,7 +60,14 @@ class NotiInProgressListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
             binding.cgSendFriendList.removeAllViews()
             inProgressData.guests.forEach {
                 binding.cgSendFriendList.addView(Chip(context).apply {
-                    text = it.username
+
+                    val name = it.username
+                    text = if(name.length > 3) {
+                        name.substring(0,2) + " ..."
+                    } else {
+                        it.username
+                    }
+
                     if (it.isResponse) {
                         setChipBackgroundColorResource(R.color.pink01)
                         setTextAppearance(R.style.chipTextWhiteStyle)
@@ -92,7 +99,14 @@ class NotiInProgressListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
             // 이름 칩그룹
             binding.cgReceiveFriendList.removeAllViews()
             binding.cgReceiveFriendList.addView(Chip(context).apply {
-                text = inProgressData.host.username
+
+                val name = inProgressData.host.username
+                text = if(name.length > 3) {
+                    name.substring(0,2) + " ..."
+                } else {
+                    inProgressData.host.username
+                }
+
                 setChipBackgroundColorResource(R.color.gray06)
                 setTextAppearance(R.style.chipTextWhiteStyle)
                 isCheckable = false
