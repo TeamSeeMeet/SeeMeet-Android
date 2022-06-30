@@ -273,6 +273,7 @@ class HomeFragment : Fragment() {
 
         binding.nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
         binding.nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserId()
+        binding.nvMypage.swPush.isChecked = SeeMeetSharedPreference.getPushOn()
 
         if (getLogin()) {
             viewmodel.requestFriendList()
