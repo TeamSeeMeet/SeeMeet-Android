@@ -60,6 +60,7 @@
             android:name=".ui.registration.RegisterActivity"
             android:screenOrientation="portrait"
             android:exported="false"
+            android:noHistory = "true"
             android:label="@string/title_activity_register"
             android:theme="@style/Theme.SeeMeet.NoActionBar" />
         <activity

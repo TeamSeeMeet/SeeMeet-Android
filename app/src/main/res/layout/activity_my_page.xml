@@ -57,7 +57,7 @@
                     android:layout_width="99dp"
                     android:layout_height="99dp"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/ic_img_list_null" />
+                    app:srcCompat="@drawable/ic_img_profile" />
 
                 <ImageView
                     android:id="@+id/btn_select_image"
@@ -110,8 +110,6 @@
 
             <EditText
                 android:id="@+id/et_mypage_name"
-                cursorPos="@{myPageviewModel.cursorPos}"
-                invalidCase="@{myPageviewModel.invalidCase}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -142,8 +140,8 @@
 
             <EditText
                 android:id="@+id/et_mypage_id"
-                cursorPos="@{myPageviewModel.cursorPos}"
-                upperCase="@{myPageviewModel.upperCase}"
+                IdCursorPos="@{myPageviewModel.id_cursorPos}"
+                IdUpperCase="@{myPageviewModel.id_upperCase}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
