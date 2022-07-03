@@ -14,6 +14,8 @@ import com.google.firebase.messaging.RemoteMessage
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.ui.main.MainActivity
+import org.seemeet.seemeet.ui.receive.ReceiveActivity
+import org.seemeet.seemeet.ui.send.SendActivity
 
 class FCMService : FirebaseMessagingService() {
 
@@ -41,9 +43,26 @@ class FCMService : FirebaseMessagingService() {
     }
 
     private fun sendDataMessage(data : MutableMap<String, String>){
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        intent.putExtra("pushPlan", true)
+        var intent = Intent(this, MainActivity::class.java)
+
+        if(data["title"].isNullOrBlank())
+            data["title"] = "SeeMeet"
+
+        data["id"]?.let {
+            if( "약속" in data["title"]!!){
+                intent = Intent(this, ReceiveActivity::class.java)
+                intent.putExtra("invitationId", data["id"]!!.toInt())
+            } else {
+                intent = Intent(this, SendActivity::class.java)
+                intent.putExtra("invitationId", data["id"]!!.toInt())
+            }
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+        } ?: let {
+            intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.putExtra("pushPlan", true)
+        }
 
         val pendingIntent = PendingIntent.getActivity(
             this, (System.currentTimeMillis()/1000).toInt(), intent, PendingIntent.FLAG_IMMUTABLE)
