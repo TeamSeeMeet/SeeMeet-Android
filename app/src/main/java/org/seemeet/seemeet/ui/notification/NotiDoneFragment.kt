@@ -54,7 +54,11 @@ class NotiDoneFragment : Fragment() {
     }
 
     private fun setDoneAdapter() {
+        //recyclerView 데이터 갱신 시 _ 깜빡임 방지.
+        doneListAdapter.setHasStableIds(true)
+
         binding.rvDoneList.adapter = doneListAdapter
+
         binding.rvDoneList.addItemDecoration(
             DividerItemDecoration(
                 context,

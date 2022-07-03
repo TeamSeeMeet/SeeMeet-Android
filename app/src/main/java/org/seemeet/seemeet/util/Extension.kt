@@ -1,10 +1,11 @@
 package org.seemeet.seemeet.util
 
-import android.app.Activity
 import android.content.Context
-import android.os.Build
+import android.content.res.Configuration
+import android.view.KeyCharacterMap
+import android.view.KeyEvent
 import android.view.View
-import android.view.WindowManager
+import android.view.ViewConfiguration
 import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.ColorRes
@@ -18,6 +19,7 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.time.temporal.WeekFields
 import java.util.*
+
 
 fun daysOfWeekFromLocale(): Array<DayOfWeek> {
     val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
@@ -165,11 +167,23 @@ fun getStatusBarHeight(context: Context): Int {
     }
 }
 
-fun getNaviBarHeight(context: Context): Int {
-    val resourceId: Int = context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
-    return if (resourceId > 0) {
-        context.resources.getDimensionPixelSize(resourceId)
-    } else {
-        0
+fun getNaviBarHeight(c: Context): Int {
+    val result = 0
+    val hasMenuKey = ViewConfiguration.get(c).hasPermanentMenuKey()
+    val hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK)
+
+    if (!hasMenuKey && !hasBackKey) {
+        //The device has a navigation bar
+        val orientation: Int = c.resources.configuration.orientation
+        val resourceId: Int = c.resources.getIdentifier(
+                if (orientation == Configuration.ORIENTATION_PORTRAIT) "navigation_bar_height" else "navigation_bar_width",
+                "dimen",
+                "android"
+            )
+
+        if (resourceId > 0) {
+            return c.resources.getDimensionPixelSize(resourceId)
+        }
     }
+    return result
 }
