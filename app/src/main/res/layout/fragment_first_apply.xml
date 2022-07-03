@@ -75,7 +75,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="text|textCapWords|textPersonName"
                 android:maxLines="1"
-                android:paddingLeft="46dp"
+                android:paddingStart="46dp"
                 android:scrollbars="horizontal"
                 android:singleLine="true"
                 android:textColorHint="@color/gray04"
@@ -113,7 +113,6 @@
                 android:layout_height="0dp"
                 android:fillViewport="true"
                 android:nestedScrollingEnabled="true"
-                android:paddingStart="4dp"
                 android:overScrollMode="never"
                 android:scrollbars="horizontal"
                 app:layout_constraintBottom_toBottomOf="@+id/et_to_who"
@@ -130,6 +129,7 @@
                         android:id="@+id/chipGroup"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingStart="4dp"
                         android:visibility="visible" />
                 </LinearLayout>
             </HorizontalScrollView>

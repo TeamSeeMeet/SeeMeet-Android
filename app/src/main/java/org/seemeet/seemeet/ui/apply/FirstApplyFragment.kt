@@ -217,7 +217,7 @@ class FirstApplyFragment : Fragment() {
             }
             adapter.setSearchWord(binding.etToWho.text.toString())
 
-            if (binding.etToWho.text.isNullOrBlank()) {
+            if (binding.etToWho.text.isNullOrBlank() && binding.chipGroup.childCount == 0) {
                 binding.tvWho.makeVisible()
             } else binding.tvWho.makeInVisible()
         }
@@ -267,6 +267,7 @@ class FirstApplyFragment : Fragment() {
         //친구 목록에서 버튼 클릭해서 들어왔을 경우
         if (friendName != null) {
             viewModel.requestFriendList() //친구 리스트 불러오는 서버 통신 시작
+            binding.tvWho.makeInVisible()
             //Chip 1개 생성
             binding.chipGroup.addView(
                 (layoutInflater.inflate(
@@ -282,32 +283,18 @@ class FirstApplyFragment : Fragment() {
                     this.setChipBackgroundColorResource(R.color.chipbackground) //container color
                     this.setTextAppearance(R.style.ChipTextAppearance) //글자 색, 글자 크기 적용
                     binding.etToWho.text.clear()
-                    binding.etToWho.setPadding(
-                        binding.etToWho.paddingLeft + dpToPx(96.0F).toInt(),
-                        0,
-                        0,
-                        0
-                    )
+                    setPaddingStartEnd(binding.etToWho, text.length * 13 + 60, "start")
 
                     //Chip의 x버튼 누를 경우
                     setOnCloseIconClickListener {
                         binding.chipGroup.removeView(this)
                         binding.etToWho.isEnabled = true
-                        binding.etToWho.setPadding(
-                            binding.etToWho.paddingLeft - dpToPx(96.0F).toInt(),
-                            0,
-                            0,
-                            0
-                        )
+                        setPaddingStartEnd(binding.etToWho, -(text.length * 13 + 60), "start")
                         if (isEmpty()) {
                             binding.btnNext.inactiveBtn(R.drawable.rectangle_gray02_10)
                         } else {
                             binding.btnNext.activeBtn()
                         }
-                        Log.d(
-                            "*******FRIEND INFO********",
-                            friendEmail.toString() + friendId.toString() + friendName
-                        )
                         adapter.addItem(
                             FriendListData(friendEmail.toString(), friendId, friendName!!, null)
                         )
@@ -315,6 +302,9 @@ class FirstApplyFragment : Fragment() {
                         if (binding.chipGroup.childCount < 3) {
                             binding.etToWho.isEnabled = true
                         }
+                        if (binding.chipGroup.childCount == 0) {
+                            binding.tvWho.makeVisible()
+                        } else binding.tvWho.makeInVisible()
                         //SecondApplyActivity로 넘겨줄 Array에서 제거
                         val fd = friendArr.filter { it.id == this.id }
                         friendArr.remove(fd[0])
@@ -328,7 +318,7 @@ class FirstApplyFragment : Fragment() {
             if (binding.chipGroup.childCount < 3) {
                 //Chip 3개가 꽉 차면 focus 나가기
                 if (binding.chipGroup.childCount == 2) {
-                    setPaddingEnd(binding.hsv, dpToPx(80.0F).toInt())
+                    setPaddingStartEnd(binding.hsv, dpToPx(80.0F).toInt(), "end")
                     binding.etToWho.clearFocus()
                 }
                 //Chip 1개 생성
@@ -346,23 +336,14 @@ class FirstApplyFragment : Fragment() {
                         this.setChipBackgroundColorResource(R.color.chipbackground) //container color
                         this.setTextAppearance(R.style.ChipTextAppearance) //글자 색, 글자 크기 적용
                         binding.etToWho.text.clear()
-                        binding.etToWho.setPadding(
-                            binding.etToWho.paddingLeft + dpToPx(96.0F).toInt(),
-                            0,
-                            0,
-                            0
-                        )
+
+                        setPaddingStartEnd(binding.etToWho, text.length * 13 + 60, "start")
 
                         //Chip의 x버튼 누를 경우
                         setOnCloseIconClickListener {
                             binding.chipGroup.removeView(this)
                             binding.etToWho.isEnabled = true
-                            binding.etToWho.setPadding(
-                                binding.etToWho.paddingLeft - dpToPx(96.0F).toInt(),
-                                0,
-                                0,
-                                0
-                            )
+                            setPaddingStartEnd(binding.etToWho, -(text.length * 13 + 60), "start")
                             if (isEmpty()) {
                                 binding.btnNext.inactiveBtn(R.drawable.rectangle_gray02_10)
                             } else {
@@ -374,9 +355,9 @@ class FirstApplyFragment : Fragment() {
                             adapter.sortItem()
                             if (binding.chipGroup.childCount < 3) {
                                 binding.etToWho.isEnabled = true
-                                setPaddingEnd(binding.hsv, dpToPx(0.0F).toInt())
+                                setPaddingStartEnd(binding.hsv, 0, "end")
                             }
-                            if (binding.chipGroup.childCount==0) {
+                            if (binding.chipGroup.childCount == 0) {
                                 binding.tvWho.makeVisible()
                             } else binding.tvWho.makeInVisible()
                             //SecondApplyActivity로 넘겨줄 리스트에서 제거
@@ -436,8 +417,12 @@ class FirstApplyFragment : Fragment() {
         }
     }
 
-    fun setPaddingEnd(view: View, end: Int) {
-        view.setPaddingRelative(0, 0, end, 0)
+    fun setPaddingStartEnd(view: View, value: Int, se: String) {
+        if (se == "start") {
+            view.setPaddingRelative(
+                binding.etToWho.paddingStart + dpToPx(value.toFloat()).toInt(), 0, 0, 0
+            )
+        } else view.setPaddingRelative(0, 0, value, 0)
     }
 
     fun dpToPx(valueInDp: Float): Float {
