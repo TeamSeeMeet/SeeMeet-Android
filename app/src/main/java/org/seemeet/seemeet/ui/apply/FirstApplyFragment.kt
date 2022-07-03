@@ -253,7 +253,6 @@ class FirstApplyFragment : Fragment() {
             if (!binding.etToWho.text.isNullOrBlank()) {
                 binding.etToWho.text.clear()
             }
-            binding.tvWho.makeVisible()
             binding.etToWho.clearFocus()
             setVisibility(true)
             false
@@ -283,13 +282,23 @@ class FirstApplyFragment : Fragment() {
                     this.setChipBackgroundColorResource(R.color.chipbackground) //container color
                     this.setTextAppearance(R.style.ChipTextAppearance) //글자 색, 글자 크기 적용
                     binding.etToWho.text.clear()
-                    binding.etToWho.setPadding(binding.etToWho.paddingLeft + dpToPx(96.0F).toInt(), 0, 0, 0)
+                    binding.etToWho.setPadding(
+                        binding.etToWho.paddingLeft + dpToPx(96.0F).toInt(),
+                        0,
+                        0,
+                        0
+                    )
 
                     //Chip의 x버튼 누를 경우
                     setOnCloseIconClickListener {
                         binding.chipGroup.removeView(this)
                         binding.etToWho.isEnabled = true
-                        binding.etToWho.setPadding(binding.etToWho.paddingLeft - dpToPx(96.0F).toInt(), 0, 0, 0)
+                        binding.etToWho.setPadding(
+                            binding.etToWho.paddingLeft - dpToPx(96.0F).toInt(),
+                            0,
+                            0,
+                            0
+                        )
                         if (isEmpty()) {
                             binding.btnNext.inactiveBtn(R.drawable.rectangle_gray02_10)
                         } else {
@@ -315,6 +324,7 @@ class FirstApplyFragment : Fragment() {
 
         //RecyclerView의 아이템 하나를 클릭했을 때
         adapter.setOnItemClickListener { friendData ->
+            binding.tvWho.makeInVisible()
             if (binding.chipGroup.childCount < 3) {
                 //Chip 3개가 꽉 차면 focus 나가기
                 if (binding.chipGroup.childCount == 2) {
@@ -336,13 +346,23 @@ class FirstApplyFragment : Fragment() {
                         this.setChipBackgroundColorResource(R.color.chipbackground) //container color
                         this.setTextAppearance(R.style.ChipTextAppearance) //글자 색, 글자 크기 적용
                         binding.etToWho.text.clear()
-                        binding.etToWho.setPadding(binding.etToWho.paddingLeft + dpToPx(96.0F).toInt(), 0, 0, 0)
+                        binding.etToWho.setPadding(
+                            binding.etToWho.paddingLeft + dpToPx(96.0F).toInt(),
+                            0,
+                            0,
+                            0
+                        )
 
                         //Chip의 x버튼 누를 경우
                         setOnCloseIconClickListener {
                             binding.chipGroup.removeView(this)
                             binding.etToWho.isEnabled = true
-                            binding.etToWho.setPadding(binding.etToWho.paddingLeft - dpToPx(96.0F).toInt(), 0, 0, 0)
+                            binding.etToWho.setPadding(
+                                binding.etToWho.paddingLeft - dpToPx(96.0F).toInt(),
+                                0,
+                                0,
+                                0
+                            )
                             if (isEmpty()) {
                                 binding.btnNext.inactiveBtn(R.drawable.rectangle_gray02_10)
                             } else {
@@ -356,6 +376,9 @@ class FirstApplyFragment : Fragment() {
                                 binding.etToWho.isEnabled = true
                                 setPaddingEnd(binding.hsv, dpToPx(0.0F).toInt())
                             }
+                            if (binding.chipGroup.childCount==0) {
+                                binding.tvWho.makeVisible()
+                            } else binding.tvWho.makeInVisible()
                             //SecondApplyActivity로 넘겨줄 리스트에서 제거
                             val fd = friendArr.filter { it.id == this.id }
                             friendArr.remove(fd[0])
@@ -413,8 +436,8 @@ class FirstApplyFragment : Fragment() {
         }
     }
 
-    fun setPaddingEnd(view: View, end: Int){
-        view.setPaddingRelative(0,0,end,0)
+    fun setPaddingEnd(view: View, end: Int) {
+        view.setPaddingRelative(0, 0, end, 0)
     }
 
     fun dpToPx(valueInDp: Float): Float {

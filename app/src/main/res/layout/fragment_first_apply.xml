@@ -114,6 +114,8 @@
                 android:fillViewport="true"
                 android:nestedScrollingEnabled="true"
                 android:paddingStart="4dp"
+                android:overScrollMode="never"
+                android:scrollbars="horizontal"
                 app:layout_constraintBottom_toBottomOf="@+id/et_to_who"
                 app:layout_constraintStart_toEndOf="@+id/iv_search"
                 app:layout_constraintTop_toTopOf="@+id/et_to_who">
@@ -128,7 +130,6 @@
                         android:id="@+id/chipGroup"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scrollbars="horizontal"
                         android:visibility="visible" />
                 </LinearLayout>
             </HorizontalScrollView>
