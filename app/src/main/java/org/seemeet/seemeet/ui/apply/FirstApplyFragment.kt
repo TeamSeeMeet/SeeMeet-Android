@@ -318,6 +318,7 @@ class FirstApplyFragment : Fragment() {
             if (binding.chipGroup.childCount < 3) {
                 //Chip 3개가 꽉 차면 focus 나가기
                 if (binding.chipGroup.childCount == 2) {
+                    setPaddingEnd(binding.hsv, dpToPx(80.0F).toInt())
                     binding.etToWho.clearFocus()
                 }
                 //Chip 1개 생성
@@ -353,6 +354,7 @@ class FirstApplyFragment : Fragment() {
                             adapter.sortItem()
                             if (binding.chipGroup.childCount < 3) {
                                 binding.etToWho.isEnabled = true
+                                setPaddingEnd(binding.hsv, dpToPx(0.0F).toInt())
                             }
                             //SecondApplyActivity로 넘겨줄 리스트에서 제거
                             val fd = friendArr.filter { it.id == this.id }
@@ -409,6 +411,10 @@ class FirstApplyFragment : Fragment() {
                 ).toInt()
             view.layoutParams = param
         }
+    }
+
+    fun setPaddingEnd(view: View, end: Int){
+        view.setPaddingRelative(0,0,end,0)
     }
 
     fun dpToPx(valueInDp: Float): Float {
