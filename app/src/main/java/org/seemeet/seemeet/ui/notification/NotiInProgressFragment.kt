@@ -39,10 +39,15 @@ class NotiInProgressFragment : Fragment() {
             setVisibility(binding.clNotiInProgressNull, View.VISIBLE)
             binding.tvInProgressNum.text = "0"
         }
+
     }
 
     private fun setInProgressAdapter() {
         val inProgressListAdapter = NotiInProgressListAdapter()
+
+        //recyclerView 데이터 갱신 시 _ 깜빡임 방지.
+        inProgressListAdapter.setHasStableIds(true)
+
         binding.rvInProgressList.adapter = inProgressListAdapter
         binding.tvInProgressNum.text = "${inProgressListAdapter.itemCount}"
     }

@@ -42,8 +42,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setBottomNavigation()
         setFriendListObserver()
-
         initView()
+
+        isPushIntent(null)
     }
 
     override fun onResume() {
@@ -181,23 +182,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        Log.d("************main_newIntent1", intent.toString())
+
         if (intent != null) {
-            val push = intent.getBooleanExtra("pushPlan", false)
-            Log.d("************main_newIntent2", push.toString())
-            if (push) {
-                binding.bnvMain.menu.getItem(2).isChecked = true
-                val bundle = Bundle()
-                bundle.putBoolean("tomorrow", true)
-
-                val calFragment = CalendarFragment()
-                calFragment.arguments = bundle
-
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fcv_main, calFragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
+            isPushIntent(intent)
         }
     }
 
@@ -205,6 +192,29 @@ class MainActivity : AppCompatActivity() {
         fun start(context: Context) {
             val intent = Intent(context, MainActivity::class.java)
             context.startActivity(intent)
+        }
+    }
+
+
+    private fun isPushIntent(pending : Intent?){
+
+        val push = pending?.getBooleanExtra("pushPlan", false) ?: let {
+            intent.getBooleanExtra("pushPlan", false)
+        }
+
+        Log.d("************main_newIntent2", push.toString())
+        if (push) {
+            binding.bnvMain.menu.getItem(2).isChecked = true
+            val bundle = Bundle()
+            bundle.putBoolean("tomorrow", true)
+
+            val calFragment = CalendarFragment()
+            calFragment.arguments = bundle
+
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fcv_main, calFragment)
+                .addToBackStack(null)
+                .commit()
         }
     }
 }

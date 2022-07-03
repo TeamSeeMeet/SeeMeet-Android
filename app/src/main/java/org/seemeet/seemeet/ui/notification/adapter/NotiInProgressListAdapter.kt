@@ -44,6 +44,8 @@ class NotiInProgressListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         }
     }
 
+    override fun getItemId(position: Int): Long = position.toLong()
+
     inner class NotiInProgressViewHolder1(private val binding: ItemNotificationSendBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(inProgressData: Invitation) {

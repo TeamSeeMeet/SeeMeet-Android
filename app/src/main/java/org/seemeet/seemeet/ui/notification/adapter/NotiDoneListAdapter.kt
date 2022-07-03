@@ -32,6 +32,8 @@ class NotiDoneListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         (holder as NotiDoneViewHolder).bind(doneList[position])
     }
 
+    override fun getItemId(position: Int): Long = position.toLong()
+
     inner class NotiDoneViewHolder(private val binding: ItemNotificationDoneBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(doneData: ConfirmedAndCanceld) {

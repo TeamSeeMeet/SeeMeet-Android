@@ -132,6 +132,7 @@ class LoginMainActivity : AppCompatActivity() {
         SeeMeetSharedPreference.setSocialLogin(true)
         SeeMeetSharedPreference.setUserName(list.username)
         SeeMeetSharedPreference.setUserProfile(list.imgLink.toString())
+        SeeMeetSharedPreference.setPushOn(list.push)
     }
 
     private fun getFireBaseInstanceId(){
