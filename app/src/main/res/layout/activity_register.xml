@@ -58,7 +58,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_content"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="257dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_seemeet_start">
@@ -206,8 +208,8 @@
 
                 <TextView
                     android:id="@+id/tv_warning_checkpw"
-                    newPW="@{registerViewModel.registerPw}"
                     checkPW="@{registerViewModel.registerCheckpw}"
+                    newPW="@{registerViewModel.registerPw}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -217,38 +219,6 @@
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/et_email_register"
                     app:layout_constraintTop_toBottomOf="@+id/et_checkpw" />
-
-                <View
-                    android:id="@+id/view_line"
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="163dp"
-                    android:background="@color/gray02"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_warning_checkpw" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_register_next"
-                    etCheckpw="@{registerViewModel.registerCheckpw}"
-                    etEmail="@{registerViewModel.registerEmail}"
-                    etPw="@{registerViewModel.registerPw}"
-                    warningCheckpw="@{registerViewModel.tvWarningCheckpw}"
-                    warningEmail="@{registerViewModel.tvWarningEmail}"
-                    warningPw="@{registerViewModel.tvWarningPw}"
-                    android:layout_width="0dp"
-                    android:layout_height="53dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/rectangle_gray02_10"
-                    android:clickable="false"
-                    android:enabled="false"
-                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
-                    android:text="@string/register_next"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@+id/et_pw"
-                    app:layout_constraintStart_toStartOf="@+id/et_pw"
-                    app:layout_constraintTop_toBottomOf="@+id/view_line" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -273,6 +243,50 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <View
+                    android:id="@+id/view_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/gray02"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_register_next"
+                    etCheckpw="@{registerViewModel.registerCheckpw}"
+                    etEmail="@{registerViewModel.registerEmail}"
+                    etPw="@{registerViewModel.registerPw}"
+                    warningCheckpw="@{registerViewModel.tvWarningCheckpw}"
+                    warningEmail="@{registerViewModel.tvWarningEmail}"
+                    warningPw="@{registerViewModel.tvWarningPw}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="28dp"
+                    android:background="@drawable/rectangle_gray02_10"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                    android:text="@string/register_next"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_line" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
