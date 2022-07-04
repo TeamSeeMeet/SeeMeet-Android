@@ -134,10 +134,10 @@ class HomeFragment : Fragment() {
     private fun changePushOption() {
         if (binding.nvMypage.swPush.isChecked) {
             SeeMeetSharedPreference.setPushOn(true)
-            viewmodel.setPushNotification(true, getToken())
-        } else {
+            viewmodel.setPushNotification(true, SeeMeetSharedPreference.getUserFb())
+        }else{
             SeeMeetSharedPreference.setPushOn(false)
-            viewmodel.setPushNotification(false, getToken())
+            viewmodel.setPushNotification(false, SeeMeetSharedPreference.getUserFb())
         }
     }
 
@@ -273,6 +273,7 @@ class HomeFragment : Fragment() {
 
         binding.nvMypage.tvMypageLogin.text = SeeMeetSharedPreference.getUserName()
         binding.nvMypage.tvEmail.text = SeeMeetSharedPreference.getUserId()
+        binding.nvMypage.swPush.isChecked = SeeMeetSharedPreference.getPushOn()
 
         if (getLogin()) {
             viewmodel.requestFriendList()

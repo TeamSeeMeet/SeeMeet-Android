@@ -49,6 +49,7 @@ class MyPageActivity : AppCompatActivity() {
     private var nameId_position = DEFAULT
     var currentImageUrl: String? = SeeMeetSharedPreference.getUserProfile()
     var prev_etId: String? = SeeMeetSharedPreference.getUserId()
+
     private val viewModel: MyPageViewModel by viewModels()
     private val binding: ActivityMyPageBinding by lazy {
         ActivityMyPageBinding.inflate(layoutInflater)
@@ -251,6 +252,9 @@ class MyPageActivity : AppCompatActivity() {
                 }
 
                 override fun onLogoutYesClicked() {
+                    //fcm 토큰 null 처리
+                    viewModel.requestPushTokenNull()
+
                     SeeMeetSharedPreference.clearStorage()
                     val intent = Intent(this@MyPageActivity, MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //기존에 쌓여있던 액티비티를 삭제
@@ -274,6 +278,8 @@ class MyPageActivity : AppCompatActivity() {
                 override fun onResignYesClicked() {
                     //탈퇴 서버 연결
                     viewModel.requestMyPageWithdrawal()
+                    //fcm 토큰 null 처리
+                    viewModel.requestPushTokenNull()
                     SeeMeetSharedPreference.clearStorage()
                     val intent = Intent(this@MyPageActivity, MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //기존에 쌓여있던 액티비티를 삭제

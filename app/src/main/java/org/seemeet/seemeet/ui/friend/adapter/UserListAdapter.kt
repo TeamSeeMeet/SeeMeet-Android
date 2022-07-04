@@ -35,6 +35,7 @@ class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
             Glide.with(itemView)
                 .load(data.imgLink)
                 .fallback(R.drawable.ic_img_profile)
+                .circleCrop()
                 .into(binding.ivProfileImage)
 
             // 친구 신청 보내기

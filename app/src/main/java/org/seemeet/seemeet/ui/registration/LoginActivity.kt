@@ -43,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun statusObserver() {
         viewModel.loginList.observe(this, Observer { list ->
+
             if (list.data.user.username.isNullOrEmpty() && list.data.user.nickname.isNullOrEmpty()) {
                 SeeMeetSharedPreference.setUserName("0")
             } else {
@@ -146,6 +147,7 @@ class LoginActivity : AppCompatActivity() {
         SeeMeetSharedPreference.setUserId(data.user.nickname ?: "")
         SeeMeetSharedPreference.setLogin(true)
         SeeMeetSharedPreference.setUserProfile(data.user.imgLink.toString())
+        SeeMeetSharedPreference.setPushOn(data.user.push)
     }
 
     private fun isNullOrBlank(): Boolean {
