@@ -89,7 +89,10 @@ class SecondApplyActivity : AppCompatActivity() {
             finish()
         }
         binding.btnAdd.setOnClickListener {
-            addSelectedDate()
+            if (checkStartEndTime())
+                addSelectedDate()
+            else
+                CustomToast.createToast(this, "종료시간을 확인해주세요")!!.show()
         }
     }
 
@@ -242,6 +245,10 @@ class SecondApplyActivity : AppCompatActivity() {
             binding.tvEmptyPromise.visibility = View.GONE
             binding.rvCalendarEvent.visibility = View.VISIBLE
         }
+    }
+
+    private fun checkStartEndTime(): Boolean {
+        return applyStartTime < applyEndTime
     }
 
     private fun addSelectedDate() {
