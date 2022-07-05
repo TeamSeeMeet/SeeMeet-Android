@@ -27,6 +27,7 @@ import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 import org.seemeet.seemeet.util.*
 import retrofit2.HttpException
 
+
 class FirstApplyFragment : Fragment() {
 
     private var _binding: FragmentFirstApplyBinding? = null
@@ -49,7 +50,6 @@ class FirstApplyFragment : Fragment() {
         _binding = FragmentFirstApplyBinding.inflate(layoutInflater)
 
         super.onCreate(savedInstanceState)
-
         //ApplyActivity에서 값 받아오기
         arguments?.let {
             friendId = it.getInt("id")
@@ -166,25 +166,24 @@ class FirstApplyFragment : Fragment() {
 
         binding.etToWho.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                if (binding.chipGroup.childCount == 3) {
-                    setVisibility(true)
-                    binding.etToWho.isEnabled = false
-                    //todo 키보드 내리기
-                } else {
+                if (binding.chipGroup.childCount != 3) {
                     setVisibility(false)
-                }
-                if (binding.chipGroup.childCount == 0) {
-                    viewModel.requestFriendList() //chip 개수가 0이면서 포커스 눌렀을 때 친구 리스트 통신 시작
-                    friendPos = -1 //친구 목록에서 버튼 클릭해서 들어왔는데 바로 그 칩 하나를 삭제하고 포커스 눌렀을 경우 버그 해결
-                } else {
-                    if (friendPos != -1 && !err) {
-                        adapter.removeItem(friendPos)
-                        friendPos = -1
+                    if (binding.chipGroup.childCount == 0) {
+                        viewModel.requestFriendList() //chip 개수가 0이면서 포커스 눌렀을 때 친구 리스트 통신 시작
+                        friendPos = -1 //친구 목록에서 버튼 클릭해서 들어왔는데 바로 그 칩 하나를 삭제하고 포커스 눌렀을 경우 버그 해결
+                    } else {
+                        if (friendPos != -1 && !err) {
+                            adapter.removeItem(friendPos)
+                            friendPos = -1
+                        }
+                        if (binding.chipGroup.childCount == 1 && err)
+                            viewModel.requestFriendList()
                     }
-                    if (binding.chipGroup.childCount == 1 && err)
-                        viewModel.requestFriendList()
                 }
             } else {
+                val imm =
+                    context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(binding.etToWho.windowToken, 0)
                 setVisibility(true)
                 if (!binding.etToWho.text.isNullOrBlank()) {
                     binding.etToWho.text.clear()
@@ -257,6 +256,20 @@ class FirstApplyFragment : Fragment() {
             setVisibility(true)
             false
         }
+    }
+
+    /**
+     * Hiding keyboard after every button press
+     */
+    private fun hideKeyboard() {
+        val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+        //Find the currently focused view, so we can grab the correct window token from it.
+        var view: View = binding.etToWho
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = View(context)
+        }
+        imm!!.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun makeChip() {
