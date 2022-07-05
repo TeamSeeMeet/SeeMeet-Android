@@ -58,8 +58,9 @@ class RegisterActivity : AppCompatActivity() {
             var message = ""
             when (it.second) {
                 BaseViewModel.FetchState.BAD_INTERNET -> {
-                    binding.clContent.visibility = View.INVISIBLE
-                    binding.clNetworkError.visibility = View.VISIBLE
+                    binding.clContent.makeInVisible()
+                    binding.clNetworkError.makeVisible()
+                    binding.clBottom.makeInVisible()
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {
                     val error = (it.first as HttpException)
@@ -68,8 +69,9 @@ class RegisterActivity : AppCompatActivity() {
                     }"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    binding.clContent.visibility = View.INVISIBLE
-                    binding.clNetworkError.visibility = View.VISIBLE
+                    binding.clContent.makeInVisible()
+                    binding.clNetworkError.makeVisible()
+                    binding.clBottom.makeInVisible()
                 }
                 else -> {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
