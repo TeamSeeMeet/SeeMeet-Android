@@ -114,7 +114,6 @@ class FirstApplyFragment : Fragment() {
                 } else {
                     binding.rvFriend.makeGone()
                     setVisibility(true)
-                    //TODO: 포커스 나가게하기
                 }
             }
         }
@@ -184,7 +183,9 @@ class FirstApplyFragment : Fragment() {
                 val imm =
                     context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(binding.etToWho.windowToken, 0)
+                CustomToast.createToast(requireContext(), "함께할 친구는 3명까지만 선택할 수 있어요!")!!.show()
                 setVisibility(true)
+                binding.etToWho.isEnabled = false
                 if (!binding.etToWho.text.isNullOrBlank()) {
                     binding.etToWho.text.clear()
                 }
@@ -256,20 +257,6 @@ class FirstApplyFragment : Fragment() {
             setVisibility(true)
             false
         }
-    }
-
-    /**
-     * Hiding keyboard after every button press
-     */
-    private fun hideKeyboard() {
-        val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-        //Find the currently focused view, so we can grab the correct window token from it.
-        var view: View = binding.etToWho
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
-        if (view == null) {
-            view = View(context)
-        }
-        imm!!.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun makeChip() {
