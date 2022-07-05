@@ -3,7 +3,10 @@ package org.seemeet.seemeet.ui.apply.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.model.response.friend.FriendListData
 import org.seemeet.seemeet.databinding.ItemApplySearchFriendBinding
 
@@ -33,6 +36,14 @@ class ApplyFriendAdapter : RecyclerView.Adapter<ApplyFriendAdapter.ApplyFriendVi
     inner class ApplyFriendViewHolder(private val binding: ItemApplySearchFriendBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: FriendListData) {
+            if (data.imgLink == "null" || data.imgLink.isNullOrEmpty()) {
+                Glide.with(itemView).load(R.drawable.ic_img_profile).circleCrop()
+                    .into(binding.ivApplyProfile)
+            } else {
+                Glide.with(itemView).load(data.imgLink!!.toUri()).circleCrop()
+                    .into(binding.ivApplyProfile)
+            }
+
             binding.tvApplyName.text = data.username
             val pos = adapterPosition
             if (pos != RecyclerView.NO_POSITION) {
