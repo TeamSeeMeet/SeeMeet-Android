@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,24 +10,18 @@
             type="org.seemeet.seemeet.ui.viewmodel.RegisterViewModel" />
     </data>
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_all"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".ui.registration.LoginActivity">
 
-            <ImageView
-                android:id="@+id/iv_register_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_btn_back_48"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_seemeet_start"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_seemeet_start" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_top"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/tv_seemeet_start"
@@ -55,230 +49,271 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_x" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_content"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
+            <ImageView
+                android:id="@+id/iv_register_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_btn_back_48"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_seemeet_start">
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                <TextView
-                    android:id="@+id/tv_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
-                    android:text="@string/email"
-                    android:textColor="@color/gray06"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/et_email_register"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/selector_apply_search"
-                    android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                    android:hint="@string/email"
-                    android:inputType="none|textEmailAddress"
-                    android:paddingStart="12dp"
-                    android:text="@={registerViewModel.registerEmail}"
-                    android:textColor="@color/gray06"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_id" />
-
-                <TextView
-                    android:id="@+id/tv_warning_email"
-                    registerEmail="@{registerViewModel.registerEmail}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                    android:text="@={registerViewModel.tvWarningEmail}"
-                    android:textColor="@color/red"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/et_email_register"
-                    app:layout_constraintTop_toBottomOf="@+id/et_email_register" />
-
-                <TextView
-                    android:id="@+id/tv_pw"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp"
-                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
-                    android:text="@string/pw"
-                    android:textColor="@color/gray06"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/tv_id"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_warning_email" />
-
-                <EditText
-                    android:id="@+id/et_pw"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/selector_apply_search"
-                    android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                    android:hint="@string/pw"
-                    android:inputType="textPassword"
-                    android:maxLength="16"
-                    android:paddingStart="12dp"
-                    android:text="@={registerViewModel.registerPw}"
-                    android:textColor="@color/gray06"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="@+id/et_email_register"
-                    app:layout_constraintStart_toStartOf="@+id/et_email_register"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_pw" />
-
-                <ImageView
-                    android:id="@+id/iv_pw_show_hidden"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@+id/et_pw"
-                    app:layout_constraintEnd_toEndOf="@+id/et_pw"
-                    app:layout_constraintTop_toTopOf="@+id/et_pw"
-                    app:srcCompat="@drawable/ic_pw_hidden" />
-
-                <TextView
-                    android:id="@+id/tv_warning_pw"
-                    PW="@{registerViewModel.registerPw}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                    android:text="@={registerViewModel.tvWarningPw}"
-                    android:textColor="@color/red"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/et_email_register"
-                    app:layout_constraintTop_toBottomOf="@+id/et_pw" />
-
-                <TextView
-                    android:id="@+id/tv_checkpw"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp"
-                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
-                    android:text="@string/register_checkpw"
-                    android:textColor="@color/gray06"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/tv_pw"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_warning_pw" />
-
-                <EditText
-                    android:id="@+id/et_checkpw"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/selector_apply_search"
-                    android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                    android:hint="@string/register_checkpw"
-                    android:inputType="textPassword"
-                    android:maxLength="16"
-                    android:paddingStart="12dp"
-                    android:text="@={registerViewModel.registerCheckpw}"
-                    android:textColor="@color/gray06"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="@+id/et_pw"
-                    app:layout_constraintStart_toStartOf="@+id/et_pw"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_checkpw" />
-
-                <ImageView
-                    android:id="@+id/iv_checkpw_show_hidden"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@+id/et_checkpw"
-                    app:layout_constraintEnd_toEndOf="@+id/et_checkpw"
-                    app:layout_constraintTop_toTopOf="@+id/et_checkpw"
-                    app:srcCompat="@drawable/ic_pw_hidden" />
-
-                <TextView
-                    android:id="@+id/tv_warning_checkpw"
-                    newPW="@{registerViewModel.registerPw}"
-                    checkPW="@{registerViewModel.registerCheckpw}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                    android:text="@={registerViewModel.tvWarningCheckpw}"
-                    android:textColor="@color/red"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/et_email_register"
-                    app:layout_constraintTop_toBottomOf="@+id/et_checkpw" />
-
-                <View
-                    android:id="@+id/view_line"
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="163dp"
-                    android:background="@color/gray02"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_warning_checkpw" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_register_next"
-                    etCheckpw="@{registerViewModel.registerCheckpw}"
-                    etEmail="@{registerViewModel.registerEmail}"
-                    etPw="@{registerViewModel.registerPw}"
-                    warningCheckpw="@{registerViewModel.tvWarningCheckpw}"
-                    warningEmail="@{registerViewModel.tvWarningEmail}"
-                    warningPw="@{registerViewModel.tvWarningPw}"
-                    android:layout_width="0dp"
-                    android:layout_height="53dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/rectangle_gray02_10"
-                    android:clickable="false"
-                    android:enabled="false"
-                    android:fontFamily="@font/spoqa_han_sans_neo_medium"
-                    android:text="@string/register_next"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@+id/et_pw"
-                    app:layout_constraintStart_toStartOf="@+id/et_pw"
-                    app:layout_constraintTop_toBottomOf="@+id/view_line" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_top">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_network_error"
+                android:id="@+id/cl_all"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/cl_all"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_seemeet_start">
+                android:layout_height="match_parent"
+                tools:context=".ui.registration.RegisterActivity">
 
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_error_network"
+                    android:paddingBottom="257dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <TextView
+                        android:id="@+id/tv_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                        android:text="@string/email"
+                        android:textColor="@color/gray06"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/et_email_register"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/selector_apply_search"
+                        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                        android:hint="@string/email"
+                        android:inputType="none|textEmailAddress"
+                        android:paddingStart="12dp"
+                        android:text="@={registerViewModel.registerEmail}"
+                        android:textColor="@color/gray06"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_id" />
+
+                    <TextView
+                        android:id="@+id/tv_warning_email"
+                        registerEmail="@{registerViewModel.registerEmail}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                        android:text="@={registerViewModel.tvWarningEmail}"
+                        android:textColor="@color/red"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="@+id/et_email_register"
+                        app:layout_constraintTop_toBottomOf="@+id/et_email_register" />
+
+                    <TextView
+                        android:id="@+id/tv_pw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                        android:text="@string/pw"
+                        android:textColor="@color/gray06"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_id"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_warning_email" />
+
+                    <EditText
+                        android:id="@+id/et_pw"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/selector_apply_search"
+                        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                        android:hint="@string/pw"
+                        android:inputType="textPassword"
+                        android:maxLength="16"
+                        android:paddingStart="12dp"
+                        android:text="@={registerViewModel.registerPw}"
+                        android:textColor="@color/gray06"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@+id/et_email_register"
+                        app:layout_constraintStart_toStartOf="@+id/et_email_register"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_pw" />
+
+                    <ImageView
+                        android:id="@+id/iv_pw_show_hidden"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/et_pw"
+                        app:layout_constraintEnd_toEndOf="@+id/et_pw"
+                        app:layout_constraintTop_toTopOf="@+id/et_pw"
+                        app:srcCompat="@drawable/ic_pw_hidden" />
+
+                    <TextView
+                        android:id="@+id/tv_warning_pw"
+                        PW="@{registerViewModel.registerPw}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                        android:text="@={registerViewModel.tvWarningPw}"
+                        android:textColor="@color/red"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="@+id/et_email_register"
+                        app:layout_constraintTop_toBottomOf="@+id/et_pw" />
+
+                    <TextView
+                        android:id="@+id/tv_checkpw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                        android:text="@string/register_checkpw"
+                        android:textColor="@color/gray06"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@+id/tv_pw"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_warning_pw" />
+
+                    <EditText
+                        android:id="@+id/et_checkpw"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/selector_apply_search"
+                        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                        android:hint="@string/register_checkpw"
+                        android:inputType="textPassword"
+                        android:maxLength="16"
+                        android:paddingStart="12dp"
+                        android:text="@={registerViewModel.registerCheckpw}"
+                        android:textColor="@color/gray06"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@+id/et_pw"
+                        app:layout_constraintStart_toStartOf="@+id/et_pw"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_checkpw" />
+
+                    <ImageView
+                        android:id="@+id/iv_checkpw_show_hidden"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/et_checkpw"
+                        app:layout_constraintEnd_toEndOf="@+id/et_checkpw"
+                        app:layout_constraintTop_toTopOf="@+id/et_checkpw"
+                        app:srcCompat="@drawable/ic_pw_hidden" />
+
+                    <TextView
+                        android:id="@+id/tv_warning_checkpw"
+                        checkPW="@{registerViewModel.registerCheckpw}"
+                        newPW="@{registerViewModel.registerPw}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                        android:text="@={registerViewModel.tvWarningCheckpw}"
+                        android:textColor="@color/red"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="@+id/et_email_register"
+                        app:layout_constraintTop_toBottomOf="@+id/et_checkpw" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_network_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_error_network"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <View
+                android:id="@+id/view_line"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/gray02"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_register_next"
+                etCheckpw="@{registerViewModel.registerCheckpw}"
+                etEmail="@{registerViewModel.registerEmail}"
+                etPw="@{registerViewModel.registerPw}"
+                warningCheckpw="@{registerViewModel.tvWarningCheckpw}"
+                warningEmail="@{registerViewModel.tvWarningEmail}"
+                warningPw="@{registerViewModel.tvWarningPw}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="28dp"
+                android:background="@drawable/rectangle_gray02_10"
+                android:clickable="false"
+                android:enabled="false"
+                android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                android:text="@string/register_next"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_line" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

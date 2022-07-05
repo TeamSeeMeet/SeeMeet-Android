@@ -26,16 +26,32 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_img_seemeet_logo_symbol_typo_square" />
 
-        <ImageView
-            android:id="@+id/kakao_logo"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:id="@+id/fl_kakao"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
-            android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_logo"
-            app:srcCompat="@drawable/ic_kakao_login" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_logo">
+
+            <ImageView
+                android:id="@+id/kakao_logo"
+                android:layout_width="328dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="true"
+                app:srcCompat="@drawable/ic_kakao_login" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="24dp"
+                android:layout_height="23dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="102dp"
+                android:layout_marginTop="1dp"
+                app:srcCompat="@drawable/ic_kakaotalk" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/tv_email_register"
@@ -51,7 +67,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_line"
-            app:layout_constraintTop_toBottomOf="@+id/kakao_logo" />
+            app:layout_constraintTop_toBottomOf="@+id/fl_kakao" />
 
         <TextView
             android:id="@+id/tv_line"

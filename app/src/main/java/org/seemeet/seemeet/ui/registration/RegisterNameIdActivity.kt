@@ -126,7 +126,7 @@ class RegisterNameIdActivity : AppCompatActivity() {
                 return@InputFilter ""
             }
             null
-        }))
+        }, InputFilter.LengthFilter(5)))
 
         binding.etId.setFilters(arrayOf(InputFilter { src, start, end, dest, dstart, dend ->
             for (i in start until end) {
