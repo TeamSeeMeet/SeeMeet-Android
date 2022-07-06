@@ -45,6 +45,8 @@ class SecondApplyActivity : AppCompatActivity() {
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
 
+    private var start = true
+
     private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.KOREA)
     private val dayFormatter = DateTimeFormatter.ofPattern("EEE", Locale.KOREA)
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM", Locale.KOREA)
@@ -86,7 +88,21 @@ class SecondApplyActivity : AppCompatActivity() {
 
     private fun initClickListener() {
         binding.ivX.setOnClickListener {
-            finish()
+            val dialogView = ApplyBackDialogFragment()
+            val bundle = Bundle()
+
+            dialogView.arguments = bundle
+
+            dialogView.setButtonClickListener(object :
+                ApplyBackDialogFragment.OnButtonClickListener {
+                override fun onCancelNoClicked() {
+                }
+                override fun onCancelYesClicked() {
+                    finish()
+                    backPressed()
+                }
+            })
+            dialogView.show(supportFragmentManager, "send wish checkbox time")
         }
         binding.btnAdd.setOnClickListener {
             if (checkStartEndTime())
@@ -94,6 +110,28 @@ class SecondApplyActivity : AppCompatActivity() {
             else
                 CustomToast.createToast(this, "종료시간을 확인해주세요")!!.show()
         }
+    }
+
+    fun backPressed(){
+        super.onBackPressed()
+    }
+
+    override fun onBackPressed() {
+        val dialogView = ApplyBackDialogFragment()
+        val bundle = Bundle()
+
+        dialogView.arguments = bundle
+
+        dialogView.setButtonClickListener(object :
+            ApplyBackDialogFragment.OnButtonClickListener {
+            override fun onCancelNoClicked() {
+            }
+            override fun onCancelYesClicked() {
+                finish()
+                backPressed()
+            }
+        })
+        dialogView.show(supportFragmentManager, "send wish checkbox time")
     }
 
     private fun setObserveViewModel() {
@@ -106,6 +144,10 @@ class SecondApplyActivity : AppCompatActivity() {
         }
         viewModel.calendarEventMap.observe(this) {
             binding.calendar.notifyCalendarChanged()
+            if (start) {
+                selectDate(today)
+                start = false
+            }
         }
     }
 
@@ -127,13 +169,9 @@ class SecondApplyActivity : AppCompatActivity() {
             setup(currentMonth.minusMonths(0), currentMonth.plusMonths(100), daysOfWeek.first())
             scrollToDate(today)
         }
-        binding.calendar.post {
-            selectDate(today)
-        }
 
         binding.calendar.dayBinder =
             object : DayBinder<PickerDateViewContainer> {
-
                 override fun create(view: View) = PickerDateViewContainer(view) { day ->
                     if (day.owner == DayOwner.THIS_MONTH) {
                         if (day.date.isAfter(today) || day.date.isEqual(today))

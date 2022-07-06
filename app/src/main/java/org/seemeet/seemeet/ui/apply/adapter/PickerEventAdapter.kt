@@ -1,16 +1,19 @@
 package org.seemeet.seemeet.ui.apply.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.seemeet.seemeet.data.model.response.calendar.InvitationPlan
 import org.seemeet.seemeet.databinding.ItemPickerEventBinding
+import org.seemeet.seemeet.util.BindingRecyclerViewAdapter
 
 class PickerEventAdapter() :
-    RecyclerView.Adapter<PickerEventAdapter.ViewHolder>() {
+    RecyclerView.Adapter<PickerEventAdapter.ViewHolder>(),
+    BindingRecyclerViewAdapter<List<InvitationPlan>> {
 
-    val eventList = mutableListOf<InvitationPlan>()
+    var eventList = mutableListOf<InvitationPlan>()
     private var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,5 +40,11 @@ class PickerEventAdapter() :
                 invitationPlan = event
             }
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun setData(data: List<InvitationPlan>) {
+        eventList = data.toMutableList()
+        notifyDataSetChanged()
     }
 }

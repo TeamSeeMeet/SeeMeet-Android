@@ -252,6 +252,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="20dp"
                         android:orientation="vertical"
+                        data="@{secondApplyViewModel.selectedEventList}"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
