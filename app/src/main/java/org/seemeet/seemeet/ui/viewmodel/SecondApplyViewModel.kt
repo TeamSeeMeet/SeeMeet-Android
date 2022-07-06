@@ -1,8 +1,6 @@
 package org.seemeet.seemeet.ui.viewmodel
 
 import android.util.Log
-import androidx.databinding.InverseMethod
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,7 +23,7 @@ class SecondApplyViewModel(
     val title = title
     val desc = desc
 
-    private val _calendarEventMap = MutableLiveData(listOf(InvitationPlan()).groupBy { it.date })
+    private val _calendarEventMap = MutableLiveData<Map<String, List<InvitationPlan>>>()
     val calendarEventMap: LiveData<Map<String, List<InvitationPlan>>>
         get() = _calendarEventMap
 
@@ -66,16 +64,13 @@ class SecondApplyViewModel(
     }
 
     fun tryApply() {
-        Log.d(TAG, "test0")
         val dateList = mutableListOf<String>()
         val startTimeList = mutableListOf<String>()
         val endTimeList = mutableListOf<String>()
 
         if (selectedDateList.value.isNullOrEmpty()) {
-            Log.d(TAG, "test11")
             return
         } else {
-            Log.d(TAG, "test1")
             selectedDateList.value!!.forEach {
                 dateList.add(it.date)
                 startTimeList.add(it.start)
@@ -97,7 +92,6 @@ class SecondApplyViewModel(
                     ob
                 )
                 _applyStatus.value = true
-                Log.d(TAG, "test2")
             } catch (e: Exception) {
                 _applyStatus.value = false
                 Log.d(TAG, e.toString())
