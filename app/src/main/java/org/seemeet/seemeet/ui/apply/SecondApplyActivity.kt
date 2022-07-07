@@ -95,9 +95,7 @@ class SecondApplyActivity : AppCompatActivity() {
 
             dialogView.setButtonClickListener(object :
                 ApplyBackDialogFragment.OnButtonClickListener {
-                override fun onCancelNoClicked() {
-                }
-                override fun onCancelYesClicked() {
+                override fun onCancelOutClicked() {
                     finish()
                     backPressed()
                 }
@@ -112,7 +110,7 @@ class SecondApplyActivity : AppCompatActivity() {
         }
     }
 
-    fun backPressed(){
+    fun backPressed() {
         super.onBackPressed()
     }
 
@@ -124,9 +122,7 @@ class SecondApplyActivity : AppCompatActivity() {
 
         dialogView.setButtonClickListener(object :
             ApplyBackDialogFragment.OnButtonClickListener {
-            override fun onCancelNoClicked() {
-            }
-            override fun onCancelYesClicked() {
+            override fun onCancelOutClicked() {
                 finish()
                 backPressed()
             }
