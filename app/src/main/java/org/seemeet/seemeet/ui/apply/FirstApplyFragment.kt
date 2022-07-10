@@ -74,7 +74,7 @@ class FirstApplyFragment : Fragment() {
             var message = ""
             when (it.second) {
                 BaseViewModel.FetchState.BAD_INTERNET -> {
-                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                    message = "인터넷 연결을 확인해주세요"
                     err = true
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {

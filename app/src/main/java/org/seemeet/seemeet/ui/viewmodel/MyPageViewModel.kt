@@ -39,6 +39,10 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
     val profileStatus: LiveData<Int>
         get() = _profileStatus
 
+    private val _withdrawalStatus = MutableLiveData<Boolean>(false)
+    val withdrawalStatus: LiveData<Boolean>
+        get() = _withdrawalStatus
+
     fun requestMypageProfile(body: MultipartBody.Part) {
         RetrofitBuilder.mypageService.postProfile(
             SeeMeetSharedPreference.getToken(),
@@ -77,6 +81,7 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
                 SeeMeetSharedPreference.getToken()
             )
         )
+        _withdrawalStatus.value = true
     }
 
     //fcm 토큰 삭제 요청

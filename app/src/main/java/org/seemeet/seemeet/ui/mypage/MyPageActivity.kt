@@ -103,7 +103,7 @@ class MyPageActivity : AppCompatActivity() {
             var message = ""
             when (it.second) {
                 BaseViewModel.FetchState.BAD_INTERNET -> {
-                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                    message = "인터넷 연결을 확인해주세요"
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {
                     val error = (it.first as HttpException)
@@ -114,7 +114,7 @@ class MyPageActivity : AppCompatActivity() {
                     }
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
-                    message = "호스트를 확인할 수 없습니다. 네트워크 연결을 확인해주세요"
+                    message = "인터넷 연결을 확인해주세요"
                 }
                 else -> {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
@@ -134,7 +134,7 @@ class MyPageActivity : AppCompatActivity() {
 
         viewModel.profileStatus.observe(this) {
             if (it == 0) {
-                Toast.makeText(this, "소켓 오류 / 서버와 연결에 실패하였습니다.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "인터넷 연결을 확인해주세요", Toast.LENGTH_LONG).show()
             } else if (it == 1) {
                 CustomToast.createToast(this, "프로필 사진이 변경되었습니다")!!.show()
                 SeeMeetSharedPreference.setUserProfile(currentImageUrl)
@@ -142,6 +142,16 @@ class MyPageActivity : AppCompatActivity() {
                 binding.btnSelectImage.visibility = View.INVISIBLE
                 binding.camera.visibility = View.INVISIBLE
                 profile_position = DEFAULT
+            }
+        }
+
+        viewModel.withdrawalStatus.observe(this) {
+            if (it) {
+                viewModel.requestPushTokenNull()
+                SeeMeetSharedPreference.clearStorage()
+                val intent = Intent(this@MyPageActivity, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //기존에 쌓여있던 액티비티를 삭제
+                this@MyPageActivity.startActivity(intent)
             }
         }
 
@@ -278,12 +288,6 @@ class MyPageActivity : AppCompatActivity() {
                 override fun onResignYesClicked() {
                     //탈퇴 서버 연결
                     viewModel.requestMyPageWithdrawal()
-                    //fcm 토큰 null 처리
-                    viewModel.requestPushTokenNull()
-                    SeeMeetSharedPreference.clearStorage()
-                    val intent = Intent(this@MyPageActivity, MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //기존에 쌓여있던 액티비티를 삭제
-                    this@MyPageActivity.startActivity(intent)
                 }
             })
             dialogView.show(supportFragmentManager, "send wish checkbox time")
