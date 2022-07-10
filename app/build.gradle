@@ -21,7 +21,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 
-        buildConfigField ("String", "KAKAO_APP_KEY", properties.get('KAKAO_APP_KEY'))
+        buildConfigField ("String", "KAKAO_APP_KEY", "\"${properties.get('KAKAO_APP_KEY')}\"")
         manifestPlaceholders = [KAKAO_APP_KEY: properties.get('KAKAO_APP_KEY')]
     }
 
