@@ -310,7 +310,7 @@ class MyPageActivity : AppCompatActivity() {
             val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
             viewModel.requestMypageProfile(body = body)
-            CustomToast.createToast(this, "사진을 변경 중입니다. 조금만 기다려주세요!")!!.show()
+            //CustomToast.createToast(this, "사진을 변경 중입니다. 조금만 기다려주세요!")!!.show()
         }
     }
 
