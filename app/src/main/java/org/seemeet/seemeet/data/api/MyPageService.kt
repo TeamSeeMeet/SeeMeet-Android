@@ -12,10 +12,10 @@ import retrofit2.http.*
 interface MyPageService {
     @Multipart
     @POST("user/upload")
-    fun postProfile(
+    suspend fun postProfile(
         @Header("accesstoken") token: String,
         @Part file: MultipartBody.Part
-    ): Call<ResponseMyPageProfile>
+    ): ResponseMyPageProfile
 
     @PUT("user/password")
     suspend fun putChangePW(

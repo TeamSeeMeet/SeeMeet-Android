@@ -133,9 +133,7 @@ class MyPageActivity : AppCompatActivity() {
         }
 
         viewModel.profileStatus.observe(this) {
-            if (it == 0) {
-                Toast.makeText(this, "소켓 오류 / 서버와 연결에 실패하였습니다.", Toast.LENGTH_LONG).show()
-            } else if (it == 1) {
+            if (it) {
                 CustomToast.createToast(this, "프로필 사진이 변경되었습니다")!!.show()
                 SeeMeetSharedPreference.setUserProfile(currentImageUrl)
                 binding.btnProfileEditOrSave.text = "프로필 사진 편집"

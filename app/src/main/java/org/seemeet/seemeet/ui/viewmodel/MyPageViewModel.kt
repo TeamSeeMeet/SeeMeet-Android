@@ -10,13 +10,9 @@ import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.api.RetrofitBuilder
 import org.seemeet.seemeet.data.model.request.mypage.RequestChangePush
 import org.seemeet.seemeet.data.model.request.register.RequestRegisterNameId
-import org.seemeet.seemeet.data.model.response.mypage.ResponseMyPageProfile
 import org.seemeet.seemeet.data.model.response.register.ResponseRegisterNameId
 import org.seemeet.seemeet.data.model.response.withdrawal.ResponseWithdrawal
 import org.seemeet.seemeet.ui.registration.RegisterNameIdActivity
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MyPageViewModel(application: Application) : BaseViewModel(application) {
 
@@ -35,26 +31,16 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
     val mypageStatus: LiveData<Boolean>
         get() = _mypageStatus
 
-    private val _profileStatus = MutableLiveData<Int>(-1)
-    val profileStatus: LiveData<Int>
+    private val _profileStatus = MutableLiveData<Boolean>(false)
+    val profileStatus: LiveData<Boolean>
         get() = _profileStatus
 
-    fun requestMypageProfile(body: MultipartBody.Part) {
+    fun requestMypageProfile(body: MultipartBody.Part) = viewModelScope.launch(exceptionHandler) {
         RetrofitBuilder.mypageService.postProfile(
             SeeMeetSharedPreference.getToken(),
             body
-        ).enqueue(object : Callback<ResponseMyPageProfile> {
-            override fun onFailure(call: Call<ResponseMyPageProfile>, t: Throwable) {
-                _profileStatus.value = 0
-            }
-
-            override fun onResponse(
-                call: Call<ResponseMyPageProfile>,
-                response: Response<ResponseMyPageProfile>
-            ) {
-                _profileStatus.value = 1
-            }
-        })
+        )
+        _profileStatus.value = true
     }
 
     fun requestMyPageNameIdList(
