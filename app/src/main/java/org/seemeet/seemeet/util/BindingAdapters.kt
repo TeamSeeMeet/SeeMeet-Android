@@ -382,4 +382,13 @@ object BindingAdapters {
             editText.setSelection(cursorPos)
         }
     }
+
+    //마이페이지, 회원가입에서 이름 변경 시 불가능한 문자 입력할 때 커서 위치 조정
+    @JvmStatic
+    @BindingAdapter("nameCursorPos", "nameInvalidCase")
+    fun invalidName_cursor(editText: EditText, cursorPos: Int, invalidCase: Boolean) {
+        if (invalidCase == true) {
+            editText.setSelection(cursorPos - 1)
+        }
+    }
 }

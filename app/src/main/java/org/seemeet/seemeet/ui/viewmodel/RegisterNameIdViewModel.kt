@@ -18,8 +18,10 @@ class RegisterNameIdViewModel(application: Application) : BaseViewModel(applicat
     val registerName = MutableLiveData("")
     val tvWarningId = MutableLiveData("")
     val registerId = MutableLiveData("")
+    val name_cursorPos = MutableLiveData(0)
     val id_cursorPos = MutableLiveData(0)
     val id_upperCase = MutableLiveData(false)
+    val name_invalidCase = MutableLiveData(false)
     val status = MutableLiveData<Boolean>(false)
 
     private val _registerStatus = MutableLiveData<Boolean>(false)
