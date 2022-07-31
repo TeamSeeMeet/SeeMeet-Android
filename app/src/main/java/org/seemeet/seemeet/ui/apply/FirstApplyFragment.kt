@@ -104,10 +104,10 @@ class FirstApplyFragment : Fragment() {
         setUpAsSoftKeyboard(binding.rvFriend)
 
         //키패드 내리는 버튼 누를 경우 rvFriend 사라지게
-        binding.clFirstApply.viewTreeObserver.addOnGlobalLayoutListener {
+        binding.svFirstApply.viewTreeObserver.addOnGlobalLayoutListener {
             if (binding.etToWho.hasFocus()) {
                 var mRootViewHeight = binding.clBg.rootView.height
-                var mRelativeWrapperHeight = binding.clFirstApply.height
+                var mRelativeWrapperHeight = binding.svFirstApply.height
                 if (mRootViewHeight - mRelativeWrapperHeight > dpToPx(200.0F)) {
                     binding.rvFriend.makeVisible()
                     setVisibility(false)
@@ -410,7 +410,7 @@ class FirstApplyFragment : Fragment() {
             // 키보드 표시 여부에 따라 height 조정
             val param = view.layoutParams as ViewGroup.MarginLayoutParams
             param.height =
-                targetViewHeight - keyboardHeight + getStatusBarHeightDP(view.context) + dpToPx(
+                targetViewHeight - keyboardHeight + getStatusBarHeight(view.context) + dpToPx(
                     58.0F
                 ).toInt()
             view.layoutParams = param
@@ -440,18 +440,6 @@ class FirstApplyFragment : Fragment() {
             val targetView = Rect()
             view.getWindowVisibleDisplayFrame(targetView)
             return targetView.height()
-        }
-
-        /* 상단 상태바 높이 구하는 함수
-        계산 후 DP로 반환 */
-        fun getStatusBarHeightDP(context: Context): Int {
-            var result = 0
-            val resourceId: Int =
-                context.resources.getIdentifier("status_bar_height", "dimen", "android")
-            if (resourceId > 0) {
-                result = context.resources.getDimension(resourceId).toInt()
-            }
-            return result
         }
     }
 
