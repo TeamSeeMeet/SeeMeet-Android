@@ -65,7 +65,6 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
                 SeeMeetSharedPreference.getToken()
             )
         )
-        _withdrawalStatus.value = true
     }
 
     //fcm 토큰 삭제 요청
