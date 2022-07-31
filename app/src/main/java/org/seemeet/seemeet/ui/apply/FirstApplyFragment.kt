@@ -74,7 +74,7 @@ class FirstApplyFragment : Fragment() {
             var message = ""
             when (it.second) {
                 BaseViewModel.FetchState.BAD_INTERNET -> {
-                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                    message = "인터넷 연결을 확인해주세요"
                     err = true
                 }
                 BaseViewModel.FetchState.PARSE_ERROR -> {
@@ -183,9 +183,7 @@ class FirstApplyFragment : Fragment() {
                 val imm =
                     context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(binding.etToWho.windowToken, 0)
-                CustomToast.createToast(requireContext(), "함께할 친구는 3명까지만 선택할 수 있어요!")!!.show()
                 setVisibility(true)
-                binding.etToWho.isEnabled = false
                 if (!binding.etToWho.text.isNullOrBlank()) {
                     binding.etToWho.text.clear()
                 }
@@ -320,6 +318,8 @@ class FirstApplyFragment : Fragment() {
                 if (binding.chipGroup.childCount == 2) {
                     setPaddingStartEnd(binding.hsv, dpToPx(80.0F).toInt(), "end")
                     binding.etToWho.clearFocus()
+                    CustomToast.createToast(requireContext(), "함께할 친구는 3명까지만 선택할 수 있어요!")!!.show()
+                    binding.etToWho.isEnabled = false
                 }
                 //Chip 1개 생성
                 binding.chipGroup.addView(
