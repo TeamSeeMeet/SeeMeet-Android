@@ -11,7 +11,8 @@ object SeeMeetSharedPreference {
     private const val USER_NAME = "USER_NAME"
     private const val IS_LOGIN = "IS_LOGIN"
     private const val USER_FB = "USER_FB"
-    private const val TOKEN = "TOKEN"
+    private const val ACCESS_TOKEN = "ACCESS_TOKEN"
+    private const val REFRESH_TOKEN = "REFRESH_TOKEN"
     private const val USER_EMAIL = "USER_EMAIL"
     private const val IS_SOCIAL_LOGIN = "IS_SOCIAL_LOGIN"
     private const val USER_PROFILE = "USER_PROFILE"
@@ -58,14 +59,15 @@ object SeeMeetSharedPreference {
 
     fun getUserFb(): String = preferences.getString(USER_FB, "") ?: ""
 
-    fun setToken(value: String) {
+    fun setToken(accessToken: String, refreshToken : String) {
         preferences.edit {
-            putString(TOKEN, value)
+            putString(ACCESS_TOKEN, accessToken)
+            putString(REFRESH_TOKEN, refreshToken)
             apply()
         }
     }
 
-    fun getToken(): String = preferences.getString(TOKEN, "") ?: ""
+    fun getToken(): String = preferences.getString(ACCESS_TOKEN, "") ?: ""
 
 
     fun setLogin(value: Boolean) {
