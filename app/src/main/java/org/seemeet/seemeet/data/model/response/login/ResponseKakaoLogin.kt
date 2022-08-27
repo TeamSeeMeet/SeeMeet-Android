@@ -19,11 +19,6 @@ data class SocialData(
     val user: ExUser
 )
 
-data class Accesstoken(
-    @SerializedName("accesstoken")
-    val accessToken: String
-)
-
 data class ExUser(
     //@SerializedName("created_at")
     val createdAt: String,

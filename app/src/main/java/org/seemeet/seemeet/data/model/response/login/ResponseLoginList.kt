@@ -1,5 +1,7 @@
 package org.seemeet.seemeet.data.model.response.login
 
+import com.google.gson.annotations.SerializedName
+
 data class ResponseLoginList(
     val status: Int,
     val success: Boolean,
@@ -9,5 +11,8 @@ data class ResponseLoginList(
 
 data class Data(
     val user: ExUser,
-    val accesstoken: Accesstoken
+    @SerializedName("accesstoken")
+    val accessToken: String,
+    @SerializedName("refreshtoken")
+    val refreshToken: String
 )

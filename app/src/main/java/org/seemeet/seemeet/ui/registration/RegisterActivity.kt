@@ -40,7 +40,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun statusObserver() {
         viewModel.registerList.observe(this, Observer { list ->
-            SeeMeetSharedPreference.setToken(list.data.accesstoken.accessToken)
+            SeeMeetSharedPreference.setToken(list.data.accesstoken)
         })
 
         viewModel.status.observe(this, Observer { status ->
