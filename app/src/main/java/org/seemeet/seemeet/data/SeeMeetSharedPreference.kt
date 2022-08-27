@@ -69,6 +69,7 @@ object SeeMeetSharedPreference {
 
     fun getToken(): String = preferences.getString(ACCESS_TOKEN, "") ?: ""
 
+    fun getRefreshToken(): String = preferences.getString(REFRESH_TOKEN, "") ?: ""
 
     fun setLogin(value: Boolean) {
         preferences.edit {
