@@ -129,7 +129,7 @@ class HomeFragment : Fragment() {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("https://roomofsimon.notion.site/Seemeet-107c957d37b745858a4da44498dd4b7a")
+                        Uri.parse("https://be-simon.notion.site/Seemeet-107c957d37b745858a4da44498dd4b7a")
                     )
                 )
             }
@@ -138,7 +138,7 @@ class HomeFragment : Fragment() {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("https://roomofsimon.notion.site/Seemeet-6fbe99c20f0f47f8a2a23cb4c601bd12")
+                        Uri.parse("https://be-simon.notion.site/Seemeet-6fbe99c20f0f47f8a2a23cb4c601bd12")
                     )
                 )
             }
@@ -147,7 +147,7 @@ class HomeFragment : Fragment() {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("https://roomofsimon.notion.site/Seemeet-a1bd07c318d14a4e981ea047e1d450cc\n")
+                        Uri.parse("https://be-simon.notion.site/Seemeet-a1bd07c318d14a4e981ea047e1d450cc")
                     )
                 )
             }
