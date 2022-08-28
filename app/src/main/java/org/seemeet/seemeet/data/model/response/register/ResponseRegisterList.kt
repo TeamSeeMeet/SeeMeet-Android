@@ -1,7 +1,6 @@
 package org.seemeet.seemeet.data.model.response.register
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
 
 data class ResponseRegisterList(
     val status: Int,
@@ -22,7 +21,7 @@ data class UserInfo(
     val id: Int,
     val email: String?,
     val idFirebase: String?,
-    val username: String?,
+    val username: String,
     val isNoticed: Boolean,
     val createdAt: String,
     val updatedAt: String,
