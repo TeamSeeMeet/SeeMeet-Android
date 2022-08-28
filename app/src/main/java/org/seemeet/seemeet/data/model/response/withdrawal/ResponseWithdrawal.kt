@@ -1,7 +1,6 @@
 package org.seemeet.seemeet.data.model.response.withdrawal
 
-import org.seemeet.seemeet.data.model.response.login.Accesstoken
-import org.seemeet.seemeet.data.model.response.login.ExUser
+import org.seemeet.seemeet.data.model.response.register.UserInfo
 
 data class ResponseWithdrawal(
     val status: Int,
@@ -11,6 +10,5 @@ data class ResponseWithdrawal(
 )
 
 data class Data(
-    val user: ExUser,
-    val accesstoken: Accesstoken
+    val user: UserInfo
 )

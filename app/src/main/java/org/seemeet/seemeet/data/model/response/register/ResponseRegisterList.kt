@@ -1,6 +1,6 @@
 package org.seemeet.seemeet.data.model.response.register
 
-import org.seemeet.seemeet.data.model.response.login.Accesstoken
+import com.google.gson.annotations.SerializedName
 import java.util.*
 
 data class ResponseRegisterList(
@@ -11,20 +11,28 @@ data class ResponseRegisterList(
 )
 
 data class Data(
-    val user: UserInfo,
-    val accesstoken: Accesstoken
+    val newUser: UserInfo,
+    @SerializedName("accesstoken")
+    val accessToken: String,
+    @SerializedName("refreshtoken")
+    val refreshToken: String
 )
 
 data class UserInfo(
     val id: Int,
-    val email: String,
-    val idFirebase: String,
-    val username: String,
+    val email: String?,
+    val idFirebase: String?,
+    val username: String?,
     val isNoticed: Boolean,
-    val createdAt: Date,
-    val updatedAt: Date,
+    val createdAt: String,
+    val updatedAt: String,
     val isDeleted: Boolean,
     val provider: String,
-    val socialId: String,
-    val nickname: String
+    val socialId: String?,
+    val nickname: String?,
+    val imgLink: String?,
+    val push: Boolean,
+    val password: String,
+    val imgName: String?,
+    val fcm: String?
 )
