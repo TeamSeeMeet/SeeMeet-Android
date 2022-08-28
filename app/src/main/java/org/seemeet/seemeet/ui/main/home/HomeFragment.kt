@@ -1,6 +1,7 @@
 package org.seemeet.seemeet.ui.main.home
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,7 +18,6 @@ import com.bumptech.glide.Glide
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.SeeMeetSharedPreference.getLogin
-import org.seemeet.seemeet.data.SeeMeetSharedPreference.getToken
 import org.seemeet.seemeet.databinding.FragmentHomeBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
 import org.seemeet.seemeet.ui.friend.FriendActivity
@@ -116,8 +116,40 @@ class HomeFragment : Fragment() {
                 else MyPageActivity.start(requireContext())
             }
 
-            nvMypage.clMypageContent.setOnClickListener {
-                CustomToast.createToast(requireContext(), "아직 준비중인 서비스예요")?.show()
+            nvMypage.tvMypageNotice.setOnClickListener {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://be-simon.notion.site/Seemeet-4b19c31ed34b4429ae8348d8c2950437")
+                    )
+                )
+            }
+
+            nvMypage.tvMypageTermsOfUse.setOnClickListener {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://roomofsimon.notion.site/Seemeet-107c957d37b745858a4da44498dd4b7a")
+                    )
+                )
+            }
+
+            nvMypage.tvMypagePrivacyPolicy.setOnClickListener{
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://roomofsimon.notion.site/Seemeet-6fbe99c20f0f47f8a2a23cb4c601bd12")
+                    )
+                )
+            }
+
+            nvMypage.tvMypageOpenSource.setOnClickListener {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://roomofsimon.notion.site/Seemeet-a1bd07c318d14a4e981ea047e1d450cc\n")
+                    )
+                )
             }
 
             nvMypage.swPush.setOnClickListener {
@@ -135,7 +167,7 @@ class HomeFragment : Fragment() {
         if (binding.nvMypage.swPush.isChecked) {
             SeeMeetSharedPreference.setPushOn(true)
             viewmodel.setPushNotification(true, SeeMeetSharedPreference.getUserFb())
-        }else{
+        } else {
             SeeMeetSharedPreference.setPushOn(false)
             viewmodel.setPushNotification(false, SeeMeetSharedPreference.getUserFb())
         }
