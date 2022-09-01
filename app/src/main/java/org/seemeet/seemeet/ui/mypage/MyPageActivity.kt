@@ -14,8 +14,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
-import android.text.InputFilter
-import android.text.InputFilter.LengthFilter
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -33,7 +31,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
-import org.seemeet.seemeet.data.model.response.login.ExUser
+import org.seemeet.seemeet.data.model.response.register.UserInfo
 import org.seemeet.seemeet.databinding.ActivityMyPageBinding
 import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
@@ -554,7 +552,7 @@ class MyPageActivity : AppCompatActivity() {
     }
 
     // sharedPreference setting
-    private fun setSharedPreference(list: ExUser) {
+    private fun setSharedPreference(list: UserInfo) {
         SeeMeetSharedPreference.setUserId(list.nickname ?: return)
         SeeMeetSharedPreference.setUserName(list.username)
     }
@@ -623,7 +621,10 @@ class MyPageActivity : AppCompatActivity() {
         }
 
         fun isNameFormat(password: String): Boolean {
-            return Pattern.matches("^[ㄱ-ㅣ가-힣a-zA-Z|\u318D\u119E\u11A2\u2022\u2025a\u00B7\uFE55]*$", password)
+            return Pattern.matches(
+                "^[ㄱ-ㅣ가-힣a-zA-Z|\u318D\u119E\u11A2\u2022\u2025a\u00B7\uFE55]*$",
+                password
+            )
         }
 
         const val DEFAULT = 1

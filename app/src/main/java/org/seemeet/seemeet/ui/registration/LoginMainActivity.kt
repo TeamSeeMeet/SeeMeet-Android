@@ -111,7 +111,7 @@ class LoginMainActivity : AppCompatActivity() {
                     )
                 )
 
-                SeeMeetSharedPreference.setToken(body.data.accessToken.accessToken)
+                SeeMeetSharedPreference.setToken(body.data.accessToken,body.data.refreshToken)
                 // 이름,닉네임 입력 안했으면 입력화면으로 이동, 했으면 메인으로 이동
                 if (body.data.user.nickname.isNullOrEmpty()) {
                     RegisterNameIdActivity.start(this@LoginMainActivity)

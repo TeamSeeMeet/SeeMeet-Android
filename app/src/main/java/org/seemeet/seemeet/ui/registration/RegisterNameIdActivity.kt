@@ -14,7 +14,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
-import org.seemeet.seemeet.data.model.response.login.ExUser
+import org.seemeet.seemeet.data.model.response.register.UserInfo
 import org.seemeet.seemeet.databinding.ActivityRegisterNameIdActivityBinding
 import org.seemeet.seemeet.ui.main.MainActivity
 import org.seemeet.seemeet.ui.mypage.MyPageActivity
@@ -204,7 +204,7 @@ class RegisterNameIdActivity : AppCompatActivity() {
     }
 
     // sharedPreference setting
-    private fun setSharedPreference(list: ExUser) {
+    private fun setSharedPreference(list: UserInfo) {
         SeeMeetSharedPreference.setUserId(list.nickname ?: return)
         SeeMeetSharedPreference.setLogin(true)
         SeeMeetSharedPreference.setUserName(list.username)

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.MotionEvent
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -40,7 +39,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun statusObserver() {
         viewModel.registerList.observe(this, Observer { list ->
-            SeeMeetSharedPreference.setToken(list.data.accesstoken.accessToken)
+            SeeMeetSharedPreference.setToken(list.data.accessToken, list.data.refreshToken)
         })
 
         viewModel.status.observe(this, Observer { status ->
