@@ -1,5 +1,6 @@
 package org.seemeet.seemeet.data
 
+import android.util.Log
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -13,13 +14,13 @@ class AuthInterceptor() : Interceptor {
         val response = chain.proceed(originalRequest)
 
         if(response.code == UNAUTHORIZED_CODE && !isAuth(originalRequest)){
+            response.close()
             val refreshTokenRequest = originalRequest.newBuilder().get()
                 .url("${RetrofitBuilder.BASE_URL}auth/refresh")
                 .addHeader("accesstoken",SeeMeetSharedPreference.getToken())
                 .addHeader("refreshtoken",SeeMeetSharedPreference.getRefreshToken())
                 .build()
             val refreshTokenResponse = chain.proceed(refreshTokenRequest)
-
             if(refreshTokenResponse.isSuccessful) {
                 val gson = GsonBuilder().setLenient().create()
                 val refreshToken = gson.fromJson(

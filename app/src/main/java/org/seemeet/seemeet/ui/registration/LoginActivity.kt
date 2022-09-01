@@ -143,11 +143,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setSharedPreference(data: Data) {
-<<<<<<< HEAD
-        SeeMeetSharedPreference.setToken(data.accessToken,data.refreshToken)
-=======
         SeeMeetSharedPreference.setToken(data.accessToken, data.refreshToken)
->>>>>>> develop
         SeeMeetSharedPreference.setUserId(data.user.nickname ?: "")
         SeeMeetSharedPreference.setLogin(true)
         SeeMeetSharedPreference.setUserProfile(data.user.imgLink.toString())

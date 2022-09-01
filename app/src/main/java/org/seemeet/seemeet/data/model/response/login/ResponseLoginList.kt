@@ -1,10 +1,7 @@
 package org.seemeet.seemeet.data.model.response.login
 
 import com.google.gson.annotations.SerializedName
-<<<<<<< HEAD
-=======
 import org.seemeet.seemeet.data.model.response.register.UserInfo
->>>>>>> develop
 
 data class ResponseLoginList(
     val status: Int,
@@ -14,17 +11,9 @@ data class ResponseLoginList(
 )
 
 data class Data(
-<<<<<<< HEAD
-    val user: ExUser,
-=======
     val user: UserInfo,
->>>>>>> develop
     @SerializedName("accesstoken")
     val accessToken: String,
     @SerializedName("refreshtoken")
     val refreshToken: String
-<<<<<<< HEAD
 )
-=======
-)
->>>>>>> develop
