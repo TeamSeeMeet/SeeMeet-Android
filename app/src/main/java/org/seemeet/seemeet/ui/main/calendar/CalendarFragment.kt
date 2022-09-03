@@ -15,6 +15,7 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
 import org.seemeet.seemeet.R
+import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.databinding.FragmentCalendarBinding
 import org.seemeet.seemeet.ui.detail.DetailActivity
 import org.seemeet.seemeet.ui.viewmodel.CalendarViewModel
@@ -85,7 +86,7 @@ class CalendarFragment : Fragment() {
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        if (!isHidden) {
+        if (!isHidden && SeeMeetSharedPreference.getLogin()) {
             calendarViewModel.getCalendarDate(
                 "" + currentCalendarMonth.year,
                 "" + currentCalendarMonth.month
@@ -170,7 +171,8 @@ class CalendarFragment : Fragment() {
             binding.tvCurrentYear.text = it.yearMonth.year.toString() + "년"
             binding.tvCurrentMonth.text = monthTitleFormatter.format(it.yearMonth)
             currentCalendarMonth = it
-            calendarViewModel.getCalendarDate("" + it.year, "" + it.month)
+            if(SeeMeetSharedPreference.getLogin())
+                calendarViewModel.getCalendarDate("" + it.year, "" + it.month)
         }
     }
 
