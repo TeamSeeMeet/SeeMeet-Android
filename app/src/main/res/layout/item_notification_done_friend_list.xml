@@ -16,7 +16,7 @@
             android:paddingHorizontal="13dp"
             android:background="@drawable/rectangle_gray_line_radius_16"
             android:textColor="@color/gray04"
-            android:textSize="13sp"
+            android:textSize="13dp"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
         <!-- 여기에 보통 (item의 경우 adapter)에서 받은 데이터 값이 들어감 _ 아래에서 @{reminderData.~} 값으로 내용 삽입가능.-->
         <variable
@@ -31,34 +32,35 @@
 
         <TextView
             android:id="@+id/tv_home_reminder_dday"
+            setDday="@{comePlanData.date}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_pink_50"
-            android:paddingTop="2dp"
-            android:paddingHorizontal="15dp"
             android:orientation="vertical"
-            android:paddingBottom="3dp"
+            android:paddingHorizontal="15dp"
             android:paddingStart="15dp"
+            android:paddingTop="2dp"
             android:paddingEnd="15dp"
-            setDday="@{comePlanData.date}"
+            android:paddingBottom="3dp"
             android:textColor="@color/white"
-            tools:text="D-5"
+            android:textSize="14dp"
             app:layout_constraintBottom_toTopOf="@id/iv_home_reminder"
             app:layout_constraintEnd_toEndOf="@id/iv_home_reminder_bg"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_home_reminder_bg" />
+            app:layout_constraintTop_toTopOf="@id/iv_home_reminder_bg"
+            tools:text="D-5" />
 
         <ImageView
             android:id="@+id/iv_home_reminder"
-            android:src="@drawable/ic_home_reminder_together"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1:1"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="11dp"
             android:layout_marginStart="37dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="37dp"
+            android:layout_marginBottom="11dp"
+            android:src="@drawable/ic_home_reminder_together"
             app:layout_constraintBottom_toTopOf="@id/tv_home_reminder_name"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="@id/iv_home_reminder_bg"
             app:layout_constraintStart_toStartOf="@id/iv_home_reminder_bg"
             app:layout_constraintTop_toBottomOf="@id/tv_home_reminder_dday" />
@@ -67,39 +69,39 @@
             android:id="@+id/tv_home_reminder_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{comePlanData.invitationTitle}"
-            android:textSize="14sp"
-            tools:text="대방어 데이"
-            android:textColor="@color/gray06"
-            android:textAlignment="center"
-            android:letterSpacing="-0.08"
             android:layout_marginBottom="6dp"
-            android:ems="6"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:ems="6"
             android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:letterSpacing="-0.08"
+            android:maxLines="1"
+            android:text="@{comePlanData.invitationTitle}"
+            android:textAlignment="center"
+            android:textColor="@color/gray06"
+            android:textSize="14dp"
             app:layout_constraintBottom_toTopOf="@id/tv_home_reminder_detail"
             app:layout_constraintEnd_toEndOf="@+id/iv_home_reminder"
             app:layout_constraintStart_toStartOf="@+id/iv_home_reminder"
-            app:layout_constraintTop_toBottomOf="@id/iv_home_reminder" />
+            app:layout_constraintTop_toBottomOf="@id/iv_home_reminder"
+            tools:text="대방어 데이" />
 
         <TextView
             android:id="@+id/tv_home_reminder_detail"
+            setMonthDayDate="@{comePlanData.date}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="21dp"
-            setMonthDayDate="@{comePlanData.date}"
-            android:textSize="14sp"
-            tools:text="1월 15일"
-            android:textColor="@color/gray06"
-            android:textAlignment="center"
-            android:letterSpacing="-0.08"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:letterSpacing="-0.08"
+            android:textAlignment="center"
+            android:textColor="@color/gray06"
+            android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@id/iv_home_reminder_bg"
             app:layout_constraintEnd_toEndOf="@+id/tv_home_reminder_name"
             app:layout_constraintStart_toStartOf="@+id/tv_home_reminder_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_home_reminder_name" />
+            app:layout_constraintTop_toBottomOf="@id/tv_home_reminder_name"
+            tools:text="1월 15일" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,5 +7,6 @@
     app:closeIcon="@drawable/ic_friend_btn_remove"
     app:closeIconEnabled="true"
     app:closeIconEndPadding="-5dp"
+    android:textSize="14dp"
     app:closeIconSize="26dp"
     app:closeIconTint="@null" />

@@ -21,7 +21,7 @@
             android:fontFamily="@font/spoqa_han_sans_neo_bold"
             android:text="@string/noti_done"
             android:textColor="@color/gray06"
-            android:textSize="24sp"
+            android:textSize="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +33,7 @@
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:text="@string/noti_done2"
             android:textColor="@color/gray06"
-            android:textSize="24sp"
+            android:textSize="24dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_done"
             app:layout_constraintStart_toEndOf="@id/tv_done"
             app:layout_constraintTop_toTopOf="@+id/tv_done" />
@@ -47,7 +47,7 @@
             android:fontFamily="@font/din_pro_regular"
             android:text="@string/noti_num"
             android:textColor="@color/gray06"
-            android:textSize="24sp"
+            android:textSize="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/din_pro_bold"
             android:textColor="@color/pink"
-            android:textSize="24sp"
+            android:textSize="24dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_done_num2"
             app:layout_constraintEnd_toStartOf="@id/tv_done_num2"
             app:layout_constraintTop_toTopOf="@+id/tv_done_num2" />
@@ -92,6 +92,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:text="@string/noti_done_null"
+            android:textSize="16dp"
             android:textColor="@color/gray05"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/iv_done_null"

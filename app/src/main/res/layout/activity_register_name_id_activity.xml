@@ -36,10 +36,10 @@
                 android:layout_height="58dp"
                 android:fontFamily="@font/spoqa_han_sans_neo_bold"
                 android:gravity="center_vertical"
-                android:lineSpacingExtra="14sp"
+                android:lineSpacingExtra="14dp"
                 android:text="@string/startSeeMeet"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="18dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +66,7 @@
                 android:text="@string/register_text"
                 android:textAlignment="center"
                 android:textColor="@color/gray05"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_seemeet_start"
                 app:layout_constraintStart_toStartOf="@+id/tv_seemeet_start"
                 app:layout_constraintTop_toBottomOf="@+id/tv_seemeet_start" />
@@ -80,7 +80,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="@string/register_name"
                 android:textColor="@color/gray06"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -101,7 +101,7 @@
                 android:paddingStart="12dp"
                 android:text="@={registerNameIdviewModel.registerName}"
                 android:textColor="@color/gray06"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_name" />
@@ -114,7 +114,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="@string/register_id"
                 android:textColor="@color/gray06"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 app:layout_constraintStart_toStartOf="@+id/tv_name"
                 app:layout_constraintTop_toBottomOf="@+id/et_name" />
 
@@ -133,7 +133,7 @@
                 android:paddingStart="12dp"
                 android:text="@={registerNameIdviewModel.registerId}"
                 android:textColor="@color/gray06"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 app:layout_constraintEnd_toEndOf="@+id/et_name"
                 app:layout_constraintStart_toStartOf="@+id/et_name"
                 app:layout_constraintTop_toBottomOf="@+id/tv_id" />
@@ -146,7 +146,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="@={registerNameIdviewModel.tvWarningId}"
                 android:textColor="@color/red"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 app:layout_constraintStart_toStartOf="@+id/et_id"
                 app:layout_constraintTop_toBottomOf="@+id/et_id" />
 
@@ -164,7 +164,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="@string/register_start"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/et_id"
                 app:layout_constraintStart_toStartOf="@+id/et_id"
                 app:layout_constraintTop_toBottomOf="@+id/tv_warning_id" />
