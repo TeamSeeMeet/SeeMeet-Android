@@ -49,8 +49,10 @@ class NotiDoneFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewmodel.requestAllInvitationList()
-        setDoneObserve()
+        if(SeeMeetSharedPreference.getLogin()){
+            viewmodel.requestAllInvitationList()
+            setDoneObserve()
+        }
     }
 
     private fun setDoneAdapter() {
