@@ -1,18 +1,34 @@
 package org.seemeet.seemeet.data.api
 
 import com.google.gson.GsonBuilder
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import org.seemeet.seemeet.data.AuthInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitBuilder {
-    private const val BASE_URL = "http://3.34.126.253:3000/"
+    const val BASE_URL = "http://3.34.126.253:3000/"
+
+    private val authInterceptor : Interceptor = AuthInterceptor()
+
+    private val client = OkHttpClient.Builder()
+        .addInterceptor(authInterceptor)
+        .addInterceptor(
+            HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
+        )
+        .build()
 
     private val gson = GsonBuilder()
         .setLenient()
         .create()
 
-    val seeMeetRetrofit = Retrofit.Builder()
+    private val seeMeetRetrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
+        .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 

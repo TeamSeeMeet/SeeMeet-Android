@@ -59,7 +59,7 @@ object SeeMeetSharedPreference {
 
     fun getUserFb(): String = preferences.getString(USER_FB, "") ?: ""
 
-    fun setToken(accessToken: String, refreshToken: String) {
+    fun setToken(accessToken: String, refreshToken : String) {
         preferences.edit {
             putString(ACCESS_TOKEN, accessToken)
             putString(REFRESH_TOKEN, refreshToken)
@@ -68,6 +68,8 @@ object SeeMeetSharedPreference {
     }
 
     fun getToken(): String = preferences.getString(ACCESS_TOKEN, "") ?: ""
+
+    fun getRefreshToken(): String = preferences.getString(REFRESH_TOKEN, "") ?: ""
 
     fun setLogin(value: Boolean) {
         preferences.edit {
