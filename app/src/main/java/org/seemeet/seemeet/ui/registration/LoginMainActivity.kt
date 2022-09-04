@@ -131,7 +131,7 @@ class LoginMainActivity : AppCompatActivity() {
         SeeMeetSharedPreference.setLogin(true)
         SeeMeetSharedPreference.setSocialLogin(true)
         SeeMeetSharedPreference.setUserName(list.username)
-        SeeMeetSharedPreference.setUserProfile(list.imgLink.toString())
+        SeeMeetSharedPreference.setUserProfile(list.imgLink)
         SeeMeetSharedPreference.setPushOn(list.push)
     }
 
