@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import org.seemeet.seemeet.R
 import org.seemeet.seemeet.data.SeeMeetSharedPreference
 import org.seemeet.seemeet.data.SeeMeetSharedPreference.getLogin
@@ -144,12 +145,13 @@ class HomeFragment : Fragment() {
             }
 
             nvMypage.tvMypageOpenSource.setOnClickListener {
-                startActivity(
+                /*startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
                         Uri.parse("https://be-simon.notion.site/Seemeet-a1bd07c318d14a4e981ea047e1d450cc")
                     )
-                )
+                )*/
+                startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
             }
 
             nvMypage.swPush.setOnClickListener {
