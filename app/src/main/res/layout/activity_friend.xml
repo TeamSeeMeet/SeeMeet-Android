@@ -57,6 +57,7 @@
                 android:layout_marginTop="30dp"
                 android:background="@drawable/selector_search_friend"
                 android:hint="@string/friend_search"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:imeOptions="actionDone"
                 android:inputType="text"
                 android:maxLines="1"

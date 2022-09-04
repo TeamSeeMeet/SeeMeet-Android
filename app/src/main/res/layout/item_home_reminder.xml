@@ -36,6 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_pink_50"
+            android:fontFamily="@font/din_pro_bold"
             android:orientation="vertical"
             android:paddingHorizontal="15dp"
             android:paddingStart="15dp"

@@ -95,6 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:text="@string/first_apply_receive_friend"
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@+id/iv_search"

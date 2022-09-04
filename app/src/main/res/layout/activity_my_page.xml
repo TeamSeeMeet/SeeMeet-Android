@@ -101,6 +101,7 @@
                 android:layout_width="84dp"
                 android:layout_height="20dp"
                 android:background="@drawable/rectangle_gray06_6_line"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="프로필 사진 편집"
                 android:textSize="10dp"
                 app:layout_constraintEnd_toEndOf="parent"

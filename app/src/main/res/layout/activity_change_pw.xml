@@ -64,10 +64,11 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="-7dp"
                 android:ems="10"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
                 android:inputType="textPassword"
                 android:maxLength="16"
-                android:textSize="16dp"
                 android:text="@={changePWviewModel.newPW}"
+                android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_newpw"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_newpw" />
@@ -93,7 +94,7 @@
                 android:text="@={changePWviewModel.tvWarningPW}"
                 android:textColor="@color/pink01"
                 android:textSize="12dp"
-                app:layout_constraintStart_toStartOf="@+id/et_newpw"
+                app:layout_constraintEnd_toEndOf="@+id/et_newpw"
                 app:layout_constraintTop_toBottomOf="@+id/et_newpw" />
 
             <TextView
@@ -114,11 +115,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="-7dp"
-                android:textSize="16dp"
                 android:ems="10"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
                 android:inputType="textPassword"
                 android:maxLength="16"
                 android:text="@={changePWviewModel.checkPW}"
+                android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_check_pw"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/et_newpw" />
@@ -136,8 +138,8 @@
 
             <TextView
                 android:id="@+id/tv_pw_warning"
-                newPW="@{changePWviewModel.newPW}"
                 checkPW="@{changePWviewModel.checkPW}"
+                newPW="@{changePWviewModel.newPW}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"

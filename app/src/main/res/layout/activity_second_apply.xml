@@ -246,13 +246,13 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_calendar_event"
+                        data="@{secondApplyViewModel.selectedEventList}"
                         android:layout_width="match_parent"
                         android:layout_height="110dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="20dp"
                         android:orientation="vertical"
-                        data="@{secondApplyViewModel.selectedEventList}"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -387,6 +387,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
+                        android:fontFamily="@font/spoqa_han_sans_neo_medium"
                         android:text="하루 종일"
                         android:textColor="#fa555c"
                         android:textSize="14dp"

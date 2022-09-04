@@ -52,6 +52,7 @@
             android:background="@drawable/selector_search_friend"
             android:hint="@string/addfriend_id"
             android:imeOptions="actionDone"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:inputType="text"
             android:maxLines="1"
             android:paddingVertical="16dp"
