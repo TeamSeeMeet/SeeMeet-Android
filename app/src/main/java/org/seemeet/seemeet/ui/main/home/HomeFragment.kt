@@ -246,6 +246,7 @@ class HomeFragment : Fragment() {
                     }"
                 }
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    message = "인터넷 연결에 실패하였습니다. \n연결 확인 후 다시 시도 해주세요."
                     setViewVisible(binding.clErrorNetwork, true)
                     setViewVisible(binding.rvHomeReminder, false)
                 }
@@ -257,9 +258,8 @@ class HomeFragment : Fragment() {
             }
 
             Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
-
             if (message != "") {
-                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                 setViewVisible(binding.clHomeNoReminder, true)
             }
         }
