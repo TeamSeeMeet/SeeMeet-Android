@@ -87,14 +87,13 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     }
 
     //푸시알림 on/off 설정
-    fun setPushNotification(push: Boolean, fcm: String) = viewModelScope.launch(Dispatchers.IO) {
-        try {
-            _pushOn.postValue(
-                RetrofitBuilder.mypageService.postChangePush(
-                    getToken(),
-                    RequestChangePush(push, fcm)
-                ))
-        } catch (e: HttpException) {
-        }
+    fun setPushNotification(push: Boolean, fcm: String) = viewModelScope.launch(exceptionHandler) {
+
+        _pushOn.postValue(
+            RetrofitBuilder.mypageService.postChangePush(
+                getToken(),
+                RequestChangePush(push, fcm)
+            ))
+
     }
 }

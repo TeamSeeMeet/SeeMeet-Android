@@ -164,12 +164,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun changePushOption() {
-        if (binding.nvMypage.swPush.isChecked) {
-            SeeMeetSharedPreference.setPushOn(true)
-            viewmodel.setPushNotification(true, SeeMeetSharedPreference.getUserFb())
-        } else {
-            SeeMeetSharedPreference.setPushOn(false)
-            viewmodel.setPushNotification(false, SeeMeetSharedPreference.getUserFb())
+        if(SeeMeetSharedPreference.getLogin()) {
+            if (binding.nvMypage.swPush.isChecked) {
+                viewmodel.setPushNotification(true, SeeMeetSharedPreference.getUserFb())
+                SeeMeetSharedPreference.setPushOn(true)
+            } else {
+                viewmodel.setPushNotification(false, SeeMeetSharedPreference.getUserFb())
+                SeeMeetSharedPreference.setPushOn(false)
+            }
         }
     }
 
@@ -249,6 +251,7 @@ class HomeFragment : Fragment() {
                 }
                 else -> {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
+                    setViewVisible(binding.rvHomeReminder, false)
                 }
 
             }
