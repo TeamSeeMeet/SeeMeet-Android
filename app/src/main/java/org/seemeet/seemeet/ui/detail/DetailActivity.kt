@@ -30,25 +30,20 @@ class DetailActivity : AppCompatActivity() {
         viewModel.requestInvitationId(id)
         viewModel.requestInvitationDetail(id)
         initClickListener()
-        planDetailObserver()
-        canceledDetailObserver()
+        setListObserver()
     }
 
-    private fun planDetailObserver() {
-        val planId = intent.getIntExtra("planId", -1)
-        if(planId != 0){
-            onConfirmed()
-        }
-    }
-
-    private fun canceledDetailObserver(){
+    private fun setListObserver() {
         viewModel.canceledDetail.observe(this, Observer { canceledDetail ->
             canceledDetail.forEach {
                 if(it.data.isCanceled) {
                     onCanceled()
+                } else {
+                    onConfirmed()
                 }
             }
         })
+
     }
 
     private fun initClickListener() {

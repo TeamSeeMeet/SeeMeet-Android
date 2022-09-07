@@ -2,7 +2,6 @@ package org.seemeet.seemeet.ui.viewmodel
 
 import android.app.Application
 import android.text.Editable
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -16,7 +15,7 @@ import org.seemeet.seemeet.data.model.response.friend.ResponseAddFriendData
 import org.seemeet.seemeet.data.model.response.friend.ResponseUserList
 import retrofit2.HttpException
 
-class AddFriendViewModel(application: Application) : AndroidViewModel(application) {
+class AddFriendViewModel(application: Application) : BaseViewModel(application) {
     private val _userList = MutableLiveData<ResponseUserList>()
     val userList : LiveData<ResponseUserList>
         get() = _userList
@@ -27,17 +26,17 @@ class AddFriendViewModel(application: Application) : AndroidViewModel(applicatio
 
 
     //  유저 목록 요청하기
-    fun requestUserList(nickname: Editable) = viewModelScope.launch(Dispatchers.IO) {
-        try {
+    fun requestUserList(nickname: Editable) = viewModelScope.launch(exceptionHandler) {
+
             _userList.postValue(
                 RetrofitBuilder.friendService.searchUserList(
                     SeeMeetSharedPreference.getToken(),
                     RequestUserData(nickname.toString()),
                 )
             )
-        } catch (e: HttpException) {
+
         }
-    }
+
 
     // 친구 추가 요청하기
     fun requestAddFriend(nickname:String) = viewModelScope.launch(Dispatchers.IO) {

@@ -148,7 +148,7 @@
     <string name="first_apply_detail">약속 상세 내용</string>
     <string name="first_apply_next">다음</string>
 
-    <!-- apply Dialog -->
+<!-- apply Dialog -->
     <string name="apply_dialog_goback">작성중인 내용이 있어요</string>
     <string name="apply_dialog_goback2">여기서 나갈까요?</string>
     <string name="apply_dialog_out">나가기</string>

@@ -2,10 +2,12 @@ package org.seemeet.seemeet.ui.friend
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
@@ -14,6 +16,7 @@ import org.seemeet.seemeet.data.model.response.friend.UserListData
 import org.seemeet.seemeet.databinding.ActivityAddFriendBinding
 import org.seemeet.seemeet.ui.friend.adapter.UserListAdapter
 import org.seemeet.seemeet.ui.viewmodel.AddFriendViewModel
+import org.seemeet.seemeet.ui.viewmodel.BaseViewModel
 
 class AddFriendActivity : AppCompatActivity() {
     private var userAdapter = UserListAdapter()
@@ -58,6 +61,7 @@ class AddFriendActivity : AppCompatActivity() {
                 setVisibility(binding.tvSearchUserNull, View.VISIBLE)
                 setUserObserver()
                 setVisibility(binding.rvUserSearch, View.GONE)
+                setVisibility(binding.ivFriendNetwork, View.GONE)
             }
             handled
         }
@@ -76,6 +80,27 @@ class AddFriendActivity : AppCompatActivity() {
                 initItemClickListener()
             }
         })
+
+        viewModel.fetchState.observe(this) {
+            var message = ""
+            when (it.second) {
+                BaseViewModel.FetchState.BAD_INTERNET -> {
+                    message = "소켓 오류 / 서버와 연결에 실패하였습니다."
+                }
+                BaseViewModel.FetchState.WRONG_CONNECTION -> {
+                    setVisibility(binding.ivFriendNetwork, View.VISIBLE)
+                }
+                else -> {
+
+                }
+            }
+
+            Log.d("********NETWORK_ERROR_MESSAGE : ", it.first.message.toString())
+
+            if(message != ""){
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun initItemClickListener(){
