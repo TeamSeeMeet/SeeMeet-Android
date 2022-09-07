@@ -70,10 +70,12 @@
         <activity
             android:name=".ui.friend.AddFriendActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing"
             android:exported="false" />
         <activity
             android:name=".ui.friend.FriendActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing"
             android:exported="true" />
         <activity
             android:name=".ui.apply.ApplyActivity"
