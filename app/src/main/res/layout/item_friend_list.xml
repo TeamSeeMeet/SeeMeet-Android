@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:fontFamily="@font/spoqa_han_sans_neo_medium"
         app:layout_constraintBottom_toBottomOf="@+id/iv_profile_image"
         app:layout_constraintStart_toEndOf="@id/iv_profile_image"

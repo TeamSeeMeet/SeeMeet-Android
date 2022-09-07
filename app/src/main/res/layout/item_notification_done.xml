@@ -26,7 +26,7 @@
             android:layout_marginTop="14dp"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:textColor="@color/gray04"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +38,7 @@
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:text="@string/noti_day"
             android:textColor="@color/gray04"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintStart_toEndOf="@+id/tv_done_day_num"
             app:layout_constraintBottom_toBottomOf="@+id/tv_done_day_num"/>
 
@@ -50,7 +50,7 @@
             android:layout_marginStart="6dp"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:textColor="@color/pink"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_done_day"
             app:layout_constraintStart_toEndOf="@id/tv_done_day"
             app:layout_constraintTop_toTopOf="@id/tv_done_day" />
@@ -72,7 +72,7 @@
             android:fontFamily="@font/spoqa_han_sans_neo_bold"
             android:text="@{doneData.invitationTitle}"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="18dp"
             app:layout_constraintStart_toStartOf="@id/tv_done_day_num"
             app:layout_constraintTop_toBottomOf="@id/tv_done_day_num" />
 

@@ -34,7 +34,7 @@
             android:gravity="center_horizontal"
             android:text="@{checkboxData.date}"
             android:textColor="@color/gray06"
-            android:textSize="16sp"
+            android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="2021.12.23" />
@@ -50,7 +50,7 @@
             setStartTime="@{checkboxData.start}"
             setEndTime="@{checkboxData.end}"
             android:textColor="@color/gray06"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_receive_date"

@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        if (SeeMeetSharedPreference.getLogin() && SeeMeetSharedPreference.getUserProfile() != "null") {
+        if (SeeMeetSharedPreference.getLogin() && SeeMeetSharedPreference.getUserProfile() != null) {
             Glide.with(activity!!)
                 .load(SeeMeetSharedPreference.getUserProfile()!!.toUri())
                 .circleCrop()

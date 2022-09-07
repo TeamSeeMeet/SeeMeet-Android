@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.SeeMeet" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
@@ -32,40 +32,40 @@
 
     <style name="calendarChipTextPinkStyle">
         <item name="android:textColor">@color/pink01</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">12dp</item>
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:lineSpacingExtra">13sp</item>
+        <item name="android:lineSpacingExtra">13dp</item>
         <item name="android:letterSpacing">-0.01</item>
     </style>
 
     <style name="chipTextPinkStyle">
         <item name="android:textColor">@color/pink01</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
     </style>
 
     <style name="chipTextWhiteStyle">
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
     </style>
 
     <style name="chipTextWhiteStyle2">
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
     </style>
 
     <style name="chipTextGrayStyle">
         <item name="android:textColor">@color/gray04</item>
-        <item name="android:textSize">13sp</item>\
+        <item name="android:textSize">13dp</item>\
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
     </style>
 
     <style name="chipTextBlackStyle">
         <item name="android:textColor">@color/gray06</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">13dp</item>
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
     </style>
 
@@ -82,10 +82,15 @@
 
     <style name="ChipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
     </style>
+
     <style name="TimePickerTheme" parent="android:Widget.Material.Light.TimePicker">
         <item name="android:timePickerMode">spinner</item>
     </style>
 
+    <style name="tab_text" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16dp</item>
+    </style>
 </resources>

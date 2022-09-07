@@ -29,10 +29,10 @@
                 android:layout_height="58dp"
                 android:fontFamily="@font/spoqa_han_sans_neo_bold"
                 android:gravity="center_vertical"
-                android:lineSpacingExtra="14sp"
+                android:lineSpacingExtra="14dp"
                 android:text="@string/startSeeMeet"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="18dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +94,7 @@
                         android:fontFamily="@font/spoqa_han_sans_neo_medium"
                         android:text="@string/email"
                         android:textColor="@color/gray06"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -112,7 +112,7 @@
                         android:paddingStart="12dp"
                         android:text="@={registerViewModel.registerEmail}"
                         android:textColor="@color/gray06"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_id" />
@@ -126,7 +126,7 @@
                         android:fontFamily="@font/spoqa_han_sans_neo_regular"
                         android:text="@={registerViewModel.tvWarningEmail}"
                         android:textColor="@color/red"
-                        android:textSize="12sp"
+                        android:textSize="12dp"
                         app:layout_constraintStart_toStartOf="@+id/et_email_register"
                         app:layout_constraintTop_toBottomOf="@+id/et_email_register" />
 
@@ -138,7 +138,7 @@
                         android:fontFamily="@font/spoqa_han_sans_neo_medium"
                         android:text="@string/pw"
                         android:textColor="@color/gray06"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         app:layout_constraintStart_toStartOf="@+id/tv_id"
                         app:layout_constraintTop_toBottomOf="@+id/tv_warning_email" />
 
@@ -155,7 +155,7 @@
                         android:paddingStart="12dp"
                         android:text="@={registerViewModel.registerPw}"
                         android:textColor="@color/gray06"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         app:layout_constraintEnd_toEndOf="@+id/et_email_register"
                         app:layout_constraintStart_toStartOf="@+id/et_email_register"
                         app:layout_constraintTop_toBottomOf="@+id/tv_pw" />
@@ -180,7 +180,7 @@
                         android:fontFamily="@font/spoqa_han_sans_neo_regular"
                         android:text="@={registerViewModel.tvWarningPw}"
                         android:textColor="@color/red"
-                        android:textSize="12sp"
+                        android:textSize="12dp"
                         app:layout_constraintStart_toStartOf="@+id/et_email_register"
                         app:layout_constraintTop_toBottomOf="@+id/et_pw" />
 
@@ -192,7 +192,7 @@
                         android:fontFamily="@font/spoqa_han_sans_neo_medium"
                         android:text="@string/register_checkpw"
                         android:textColor="@color/gray06"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         app:layout_constraintStart_toStartOf="@+id/tv_pw"
                         app:layout_constraintTop_toBottomOf="@+id/tv_warning_pw" />
 
@@ -209,7 +209,7 @@
                         android:paddingStart="12dp"
                         android:text="@={registerViewModel.registerCheckpw}"
                         android:textColor="@color/gray06"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         app:layout_constraintEnd_toEndOf="@+id/et_pw"
                         app:layout_constraintStart_toStartOf="@+id/et_pw"
                         app:layout_constraintTop_toBottomOf="@+id/tv_checkpw" />
@@ -235,7 +235,7 @@
                         android:fontFamily="@font/spoqa_han_sans_neo_regular"
                         android:text="@={registerViewModel.tvWarningCheckpw}"
                         android:textColor="@color/red"
-                        android:textSize="12sp"
+                        android:textSize="12dp"
                         app:layout_constraintStart_toStartOf="@+id/et_email_register"
                         app:layout_constraintTop_toBottomOf="@+id/et_checkpw" />
 
@@ -307,7 +307,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_medium"
                 android:text="@string/register_next"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

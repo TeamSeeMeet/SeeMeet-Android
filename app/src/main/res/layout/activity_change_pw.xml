@@ -52,7 +52,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_bold"
                 android:text="새 비밀번호"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,9 +64,11 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="-7dp"
                 android:ems="10"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
                 android:inputType="textPassword"
                 android:maxLength="16"
                 android:text="@={changePWviewModel.newPW}"
+                android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_newpw"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_newpw" />
@@ -91,7 +93,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="@={changePWviewModel.tvWarningPW}"
                 android:textColor="@color/pink01"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 app:layout_constraintEnd_toEndOf="@+id/et_newpw"
                 app:layout_constraintTop_toBottomOf="@+id/et_newpw" />
 
@@ -103,7 +105,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_bold"
                 android:text="비밀번호 확인"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="@+id/tv_newpw"
                 app:layout_constraintTop_toBottomOf="@+id/tv_newpw" />
 
@@ -114,9 +116,11 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="-7dp"
                 android:ems="10"
+                android:fontFamily="@font/spoqa_han_sans_neo_bold"
                 android:inputType="textPassword"
                 android:maxLength="16"
                 android:text="@={changePWviewModel.checkPW}"
+                android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_check_pw"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/et_newpw" />
@@ -134,15 +138,15 @@
 
             <TextView
                 android:id="@+id/tv_pw_warning"
-                newPW="@{changePWviewModel.newPW}"
                 checkPW="@{changePWviewModel.checkPW}"
+                newPW="@{changePWviewModel.newPW}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="@={changePWviewModel.tvWarningCheckPW}"
                 android:textColor="@color/pink01"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 app:layout_constraintStart_toStartOf="@+id/et_check_pw"
                 app:layout_constraintTop_toBottomOf="@+id/et_check_pw" />
 
@@ -156,7 +160,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="저장"
                 android:textColor="@color/gray06"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_pw_warning" />
 

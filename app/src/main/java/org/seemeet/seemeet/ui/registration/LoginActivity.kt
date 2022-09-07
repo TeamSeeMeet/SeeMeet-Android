@@ -146,7 +146,7 @@ class LoginActivity : AppCompatActivity() {
         SeeMeetSharedPreference.setToken(data.accessToken, data.refreshToken)
         SeeMeetSharedPreference.setUserId(data.user.nickname ?: "")
         SeeMeetSharedPreference.setLogin(true)
-        SeeMeetSharedPreference.setUserProfile(data.user.imgLink.toString())
+        SeeMeetSharedPreference.setUserProfile(data.user.imgLink)
         SeeMeetSharedPreference.setPushOn(data.user.push)
     }
 

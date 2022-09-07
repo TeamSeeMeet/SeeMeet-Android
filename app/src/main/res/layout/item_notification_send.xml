@@ -32,7 +32,7 @@
             android:fontFamily="@font/spoqa_han_sans_neo_bold"
             android:text="@{inProgressData.invitationTitle}"
             android:textColor="@color/pink"
-            android:textSize="18sp"
+            android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,7 +43,7 @@
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             setNotiDay="@{inProgressData.createdAt}"
             android:textColor="@color/gray04"
-            android:textSize="13sp"
+            android:textSize="13dp"
             app:layout_constraintBottom_toBottomOf="@id/tv_send"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_send" />
@@ -56,7 +56,7 @@
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             setNotiSendMsg="@{inProgressData.guests}"
             android:textColor="@color/gray06"
-            android:textSize="16sp"
+            android:textSize="16dp"
             app:layout_constraintStart_toStartOf="@id/tv_send"
             app:layout_constraintTop_toBottomOf="@id/tv_send" />
 

@@ -316,6 +316,10 @@ class MyPageActivity : AppCompatActivity() {
                 override fun onResignYesClicked() {
                     //탈퇴 서버 연결
                     viewModel.requestMyPageWithdrawal()
+                    SeeMeetSharedPreference.clearStorage()
+                    val intent = Intent(this@MyPageActivity, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) //기존에 쌓여있던 액티비티를 삭제
+                    this@MyPageActivity.startActivity(intent)
                 }
             })
             dialogView.show(supportFragmentManager, "send wish checkbox time")

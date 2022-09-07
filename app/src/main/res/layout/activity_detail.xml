@@ -23,7 +23,7 @@
             android:layout_marginBottom="17dp"
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +65,7 @@
                 android:layout_marginTop="26dp"
                 android:fontFamily="@font/spoqa_han_sans_neo_bold"
                 android:textColor="@color/gray06"
-                android:textSize="22sp"
+                android:textSize="22dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -76,7 +76,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/din_pro_regular"
                 android:textColor="@color/gray06"
-                android:textSize="18sp"
+                android:textSize="18dp"
                 app:layout_constraintStart_toStartOf="@+id/tv_detail_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_detail_title" />
 
@@ -120,7 +120,7 @@
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/spoqa_han_sans_neo_bold"
                     android:textColor="@color/gray06"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:layout_constraintStart_toStartOf="@id/cl_detail_letter"
                     app:layout_constraintTop_toTopOf="@id/cl_detail_letter" />
 
@@ -144,9 +144,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
                         android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                        android:lineSpacingExtra="10sp"
+                        android:lineSpacingExtra="10dp"
                         android:textColor="@color/gray06"
-                        android:textSize="14sp" />
+                        android:textSize="14dp" />
                 </androidx.core.widget.NestedScrollView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -159,7 +159,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_bold"
                 android:text="@string/detail_host"
                 android:textColor="@color/gray04"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 app:layout_constraintStart_toStartOf="@+id/cl_detail_letter"
                 app:layout_constraintTop_toBottomOf="@id/cl_detail_letter" />
 
@@ -171,7 +171,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_bold"
                 android:text="@string/detail_divider"
                 android:textColor="@color/gray04"
-                android:textSize="15sp"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_detail_host"
                 app:layout_constraintStart_toEndOf="@+id/tv_detail_host"
                 app:layout_constraintTop_toTopOf="@+id/tv_detail_host" />
@@ -184,7 +184,7 @@
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/spoqa_han_sans_neo_bold"
                 android:textColor="@color/gray06"
-                android:textSize="15sp"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_detail_host_divider"
                 app:layout_constraintStart_toEndOf="@+id/tv_detail_host_divider"
                 app:layout_constraintTop_toTopOf="@+id/tv_detail_host_divider" />
@@ -210,7 +210,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_medium"
                 android:text="@string/detail_delete"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -20,7 +20,7 @@
             android:layout_marginVertical="30dp"
             android:text="@string/noti_in_progress"
             android:textColor="@color/gray06"
-            android:textSize="24sp"
+            android:textSize="24dp"
             android:fontFamily="@font/spoqa_han_sans_neo_bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="@string/noti_in_progress2"
             android:textColor="@color/gray06"
-            android:textSize="24sp"
+            android:textSize="24dp"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             app:layout_constraintBottom_toBottomOf="@+id/tv_inProgress"
             app:layout_constraintStart_toEndOf="@id/tv_inProgress"
@@ -47,7 +47,7 @@
             android:fontFamily="@font/din_pro_regular"
             android:text="@string/noti_num"
             android:textColor="@color/gray06"
-            android:textSize="24sp"
+            android:textSize="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,7 +58,7 @@
             android:fontFamily="@font/din_pro_bold"
             tools:text="@string/noti_in_progress_num"
             android:textColor="@color/pink"
-            android:textSize="24sp"
+            android:textSize="24dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_inProgress_num2"
             app:layout_constraintEnd_toStartOf="@id/tv_inProgress_num2"
             app:layout_constraintTop_toTopOf="@+id/tv_inProgress_num2" />
@@ -94,6 +94,7 @@
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:text="@string/noti_in_progress_null"
             android:textColor="@color/gray05"
+            android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/iv_inProgress_null"
             app:layout_constraintHorizontal_chainStyle="packed"

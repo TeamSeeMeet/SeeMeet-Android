@@ -18,7 +18,7 @@
         android:gravity="center"
         android:text="일"
         android:textColor="@color/black"
-        android:textSize="13sp" />
+        android:textSize="13dp" />
 
     <TextView
         android:id="@+id/tv_mon"
@@ -29,7 +29,7 @@
         android:gravity="center"
         android:text="월"
         android:textColor="@color/black"
-        android:textSize="13sp" />
+        android:textSize="13dp" />
 
     <TextView
         android:id="@+id/tv_tue"
@@ -40,7 +40,7 @@
         android:gravity="center"
         android:text="화"
         android:textColor="@color/black"
-        android:textSize="13sp" />
+        android:textSize="13dp" />
 
     <TextView
         android:id="@+id/tv_wed"
@@ -51,7 +51,7 @@
         android:gravity="center"
         android:text="수"
         android:textColor="@color/black"
-        android:textSize="13sp" />
+        android:textSize="13dp" />
 
     <TextView
         android:id="@+id/tv_thu"
@@ -62,7 +62,7 @@
         android:gravity="center"
         android:text="목"
         android:textColor="@color/black"
-        android:textSize="13sp" />
+        android:textSize="13dp" />
 
     <TextView
         android:id="@+id/tv_fri"
@@ -73,7 +73,7 @@
         android:gravity="center"
         android:text="금"
         android:textColor="@color/black"
-        android:textSize="13sp" />
+        android:textSize="13dp" />
 
     <TextView
         android:id="@+id/tv_sat"
@@ -84,6 +84,6 @@
         android:gravity="center"
         android:text="토"
         android:textColor="@color/black"
-        android:textSize="13sp" />
+        android:textSize="13dp" />
 
 </LinearLayout>

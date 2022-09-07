@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="org.seemeet.seemeet.ui.viewmodel.ReceiveViewModel" />
@@ -25,9 +26,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
+                android:src="@drawable/ic_btn_back48"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/ic_btn_back48"
                 tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -36,11 +37,11 @@
             android:id="@+id/nsv_recieve"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:overScrollMode="never"
-            android:scrollbars="none"
             android:fadeScrollbars="false"
             android:fillViewport="true"
             android:orientation="vertical"
+            android:overScrollMode="never"
+            android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_recieve_top">
 
@@ -58,53 +59,53 @@
                         android:id="@+id/tv_recieve_top"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/spoqa_han_sans_neo_bold"
-                        android:textStyle="bold"
-                        android:textSize="14sp"
-                        android:textColor="@color/orange"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="18sp"
-                        android:text="@string/receive_top_msg"
-                        android:layout_marginTop="28dp"
                         android:layout_marginStart="16dp"
+                        android:layout_marginTop="28dp"
+                        android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="18dp"
+                        android:text="@string/receive_top_msg"
+                        android:textColor="@color/orange"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_recieve_top_dear1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/spoqa_han_sans_neo_bold"
-                        android:textSize="28sp"
-                        android:textColor="@color/gray06"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="8sp"
-                        android:text="@{viewModel.receiveInvitationData.invitation.host.username}"
-                        tools:text="김준희"
                         android:layout_marginStart="16dp"
+                        android:fontFamily="@font/spoqa_han_sans_neo_bold"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="8dp"
+                        android:text="@{viewModel.receiveInvitationData.invitation.host.username}"
+                        android:textColor="@color/gray06"
+                        android:textSize="28dp"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_recieve_top"
-                        app:layout_constraintStart_toStartOf="parent"/>
+                        tools:text="김준희" />
 
                     <TextView
                         android:id="@+id/tv_recieve_top_dear2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                        android:textSize="24sp"
-                        android:textColor="@color/gray06"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="8sp"
-                        android:text="@string/receive_top_who_msg"
                         android:layout_marginStart="1dp"
+                        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                        android:letterSpacing="-0.01"
+                        android:lineSpacingExtra="8dp"
+                        android:text="@string/receive_top_who_msg"
+                        android:textColor="@color/gray06"
+                        android:textSize="24dp"
                         app:layout_constraintBottom_toBottomOf="@id/tv_recieve_top_dear1"
-                        app:layout_constraintStart_toEndOf="@id/tv_recieve_top_dear1"/>
+                        app:layout_constraintStart_toEndOf="@id/tv_recieve_top_dear1" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/img_illust_11"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="24dp"
+                        android:src="@drawable/img_illust_11"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="ContentDescription" />
@@ -122,13 +123,13 @@
                         android:id="@+id/cl_recieve_letter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="225dp"
-                        app:layout_constraintDimensionRatio="328:225"
-                        android:background="@drawable/bg_receive_content_card"
                         android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
                         android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/bg_receive_content_card"
+                        android:minHeight="225dp"
                         android:paddingBottom="10dp"
+                        app:layout_constraintDimensionRatio="328:225"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -140,41 +141,41 @@
                             android:layout_marginStart="19dp"
                             android:layout_marginTop="15dp"
                             android:layout_marginEnd="13dp"
-                            app:layout_constraintTop_toTopOf="@id/cl_recieve_letter"
-                            app:layout_constraintStart_toStartOf="@id/cl_recieve_letter"
-                            app:layout_constraintEnd_toEndOf="@id/cl_recieve_letter"
                             android:fontFamily="@font/spoqa_han_sans_neo_bold"
-                            android:textSize="14sp"
-                            android:textColor="@color/gray06"
                             android:letterSpacing="-0.01"
-                            android:lineSpacingExtra="18sp"
-                            android:text ="@{viewModel.receiveInvitationData.invitation.invitationTitle}"
-                            tools:text="가나다라마바사아자차가나다라마바사아자차"/>
+                            android:lineSpacingExtra="18dp"
+                            android:text="@{viewModel.receiveInvitationData.invitation.invitationTitle}"
+                            android:textColor="@color/gray06"
+                            android:textSize="14dp"
+                            app:layout_constraintEnd_toEndOf="@id/cl_recieve_letter"
+                            app:layout_constraintStart_toStartOf="@id/cl_recieve_letter"
+                            app:layout_constraintTop_toTopOf="@id/cl_recieve_letter"
+                            tools:text="가나다라마바사아자차가나다라마바사아자차" />
 
                         <androidx.core.widget.NestedScrollView
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            app:layout_constraintTop_toTopOf="@id/tv_recieve_letter_title"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:overScrollMode="never"
-                            android:scrollbars="none"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="50dp"
+                            android:layout_marginEnd="20dp"
                             android:fadeScrollbars="false"
                             android:fillViewport="true"
                             android:orientation="vertical"
-                            android:layout_marginStart="25dp"
-                            android:layout_marginEnd="20dp"
-                            android:layout_marginTop="50dp">
+                            android:overScrollMode="never"
+                            android:scrollbars="none"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tv_recieve_letter_title">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                                android:textSize="14sp"
-                                android:textColor="@color/gray06"
                                 android:letterSpacing="-0.01"
-                                android:lineSpacingExtra="10sp"
+                                android:lineSpacingExtra="10dp"
                                 android:text="@{viewModel.receiveInvitationData.invitation.invitationDesc}"
-                                tools:text="야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들"/>
+                                android:textColor="@color/gray06"
+                                android:textSize="14dp"
+                                tools:text="야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들아 대방어먹자야그들" />
 
                         </androidx.core.widget.NestedScrollView>
 
@@ -193,16 +194,16 @@
                             android:id="@+id/tv_recieve_together"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/receive_together_msg"
-                            android:fontFamily="@font/spoqa_han_sans_neo_medium"
-                            android:textStyle="normal"
-                            android:textSize="16sp"
-                            android:textColor="#1c1c1c"
-                            android:letterSpacing="-0.01"
-                            android:lineSpacingExtra="14sp"
                             android:layout_marginStart="16dp"
+                            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+                            android:letterSpacing="-0.01"
+                            android:lineSpacingExtra="14dp"
+                            android:text="@string/receive_together_msg"
+                            android:textColor="#1c1c1c"
+                            android:textSize="16dp"
+                            android:textStyle="normal"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.chip.ChipGroup
                             android:id="@+id/cg_recieve"
@@ -210,7 +211,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginEnd="16dp"
-                            app:layout_constraintTop_toBottomOf="@id/tv_recieve_together"/>
+                            app:layout_constraintTop_toBottomOf="@id/tv_recieve_together" />
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -218,8 +219,8 @@
                             android:layout_marginTop="10dp"
                             android:src="@drawable/line_dddddd"
                             app:layout_constraintTop_toBottomOf="@id/cg_recieve"
-                            tools:layout_editor_absoluteX="16dp"
-                            tools:ignore="ContentDescription" />
+                            tools:ignore="ContentDescription"
+                            tools:layout_editor_absoluteX="16dp" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -238,15 +239,15 @@
                             android:id="@+id/tv_recieve_checkbox_msg"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                            android:letterSpacing="-0.01"
+                            android:textColor="@color/gray06"
+                            android:textSize="20dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:setWordPinkBoldAllText="@{@string/receive_choice_msg}"
                             app:setPinkBoldText="@{@string/receive_choice_msg_bold}"
-                            tools:text="@string/receive_choice_msg"
-                            android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                            android:textSize="20sp"
-                            android:textColor="@color/gray06"
-                            android:letterSpacing="-0.01"/>
+                            app:setWordPinkBoldAllText="@{@string/receive_choice_msg}"
+                            tools:text="@string/receive_choice_msg" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_receive_checkbox"
@@ -256,11 +257,11 @@
                             android:orientation="vertical"
                             android:overScrollMode="never"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_recieve_checkbox_msg"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            tools:listitem="@layout/item_receive_checkbox"/>
+                            tools:listitem="@layout/item_receive_checkbox" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -278,9 +279,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:background="@color/gray01"
+                        app:layout_constraintBottom_toTopOf="@id/cl_receive_buttons"
                         app:layout_constraintDimensionRatio="18:13"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toTopOf="@id/cl_receive_buttons">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
                             android:id="@+id/tv_receive_click_day"
@@ -288,12 +289,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
-                            tools:text="21.12.03"
                             android:fontFamily="@font/din_pro_bold"
-                            android:textSize="20sp"
                             android:textColor="@color/black"
+                            android:textSize="20dp"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="21.12.03" />
 
                         <TextView
                             android:id="@+id/tv_receive_s_msg"
@@ -303,8 +304,10 @@
                             android:layout_marginTop="0dp"
                             android:layout_marginEnd="0dp"
                             android:layout_marginBottom="0dp"
+                            android:fontFamily="@font/spoqa_han_sans_neo_regular"
                             android:text="@string/receive_choose_msg"
                             android:textColor="@color/gray04"
+                            android:textSize="20dp"
                             android:visibility="visible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -317,10 +320,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:layout_marginBottom="20dp"
-                            android:overScrollMode="never"
-                            android:paddingHorizontal="20dp"
                             android:clipToPadding="false"
                             android:orientation="horizontal"
+                            android:overScrollMode="never"
+                            android:paddingHorizontal="20dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_receive_click_day"
@@ -340,34 +343,36 @@
                             android:id="@+id/btn_receive_no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:background="@drawable/rectangle_gray04_10"
-                            android:paddingStart="60dp"
-                            android:paddingEnd="60dp"
-                            android:paddingTop="13dp"
-                            android:paddingBottom="13dp"
-                            android:layout_marginTop="15dp"
-                            android:textColor="@color/white"
                             android:layout_marginStart="0dp"
+                            android:layout_marginTop="15dp"
                             android:layout_marginEnd="0dp"
+                            android:background="@drawable/rectangle_gray04_10"
+                            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                            android:paddingStart="60dp"
+                            android:paddingTop="13dp"
+                            android:paddingEnd="60dp"
+                            android:paddingBottom="13dp"
                             android:text="@string/receive_btn_no"
-                            app:layout_constraintEnd_toStartOf="@id/btn_receive_yes"
+                            android:textColor="@color/white"
+                            android:textSize="16dp"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/btn_receive_yes"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btn_receive_yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rectangle_gray02_10"
-                            android:text="@string/receive_btn_yes"
+                            android:fontFamily="@font/spoqa_han_sans_neo_regular"
                             android:paddingStart="60dp"
-                            android:paddingEnd="60dp"
                             android:paddingTop="13dp"
+                            android:paddingEnd="60dp"
                             android:paddingBottom="13dp"
+                            android:text="@string/receive_btn_yes"
                             android:textColor="@color/white"
-                            android:textSize="14sp"
+                            android:textSize="16dp"
                             app:layout_constraintBottom_toBottomOf="@id/btn_receive_no"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_chainStyle="spread"
@@ -382,14 +387,14 @@
         </androidx.core.widget.NestedScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_error_network"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:id="@+id/cl_error_network"
             android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <include layout="@layout/view_error_network"/>
+            <include layout="@layout/view_error_network" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

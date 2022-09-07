@@ -98,11 +98,12 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_profile_edit_or_save"
-                android:layout_width="84sp"
-                android:layout_height="20sp"
+                android:layout_width="84dp"
+                android:layout_height="20dp"
                 android:background="@drawable/rectangle_gray06_6_line"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="프로필 사진 편집"
-                android:textSize="10sp"
+                android:textSize="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fl_img" />
@@ -116,7 +117,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_bold"
                 android:text="이름"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_profile_edit_or_save" />
 
@@ -128,7 +129,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_bold"
                 android:text="아이디"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="@+id/tvname"
                 app:layout_constraintTop_toBottomOf="@+id/tvname" />
 
@@ -146,7 +147,7 @@
                 android:maxLength="5"
                 android:text="@={myPageviewModel.mypageName}"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/fl_img"
                 app:layout_constraintTop_toTopOf="@+id/tvname" />
@@ -177,7 +178,7 @@
                 android:maxLength="16"
                 android:text="@={myPageviewModel.mypageId}"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/et_mypage_name"
                 app:layout_constraintStart_toStartOf="@+id/et_mypage_name"
                 app:layout_constraintTop_toTopOf="@+id/tvid" />
@@ -205,7 +206,7 @@
                 android:padding="20dp"
                 android:text="취소"
                 android:textColor="@color/gray03"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_edit_or_save"
                 app:layout_constraintEnd_toStartOf="@+id/btn_edit_or_save"
@@ -222,7 +223,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="수정"
                 android:textColor="@color/gray06"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -264,6 +265,7 @@
                     android:fontFamily="@font/spoqa_han_sans_neo_medium"
                     android:text="비밀번호 변경"
                     android:textColor="@color/gray05"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -290,6 +292,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_medium"
                 android:text="로그아웃"
                 android:textColor="@color/gray04"
+                android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/btn_resign"
@@ -304,6 +307,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_medium"
                 android:text="회원탈퇴"
                 android:textColor="@color/gray04"
+                android:textSize="16dp"
                 app:layout_constraintEnd_toStartOf="@+id/btn_logout"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"

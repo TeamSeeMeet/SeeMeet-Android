@@ -96,7 +96,7 @@ object SeeMeetSharedPreference {
         }
     }
 
-    fun getUserProfile(): String? = preferences.getString(USER_PROFILE, "")
+    fun getUserProfile(): String? = preferences.getString(USER_PROFILE, null)
     fun clearStorage(): Boolean {
         return preferences.edit().clear().commit()
     }
