@@ -83,6 +83,7 @@ class FriendActivity : AppCompatActivity() {
                 BaseViewModel.FetchState.WRONG_CONNECTION -> {
                     setVisibility(binding.clFriendNull, View.GONE)
                     setVisibility(binding.ivFriendNetwork, View.VISIBLE)
+                    setVisibility(binding.rvFriend, View.GONE)
                 }
                 else -> {
                     message = "통신에 실패하였습니다.\n ${it.first.message}"
