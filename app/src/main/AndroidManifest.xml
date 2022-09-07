@@ -107,7 +107,7 @@
 
                 <data
                     android:host="oauth"
-                    android:scheme="kakaodd007f7a846c9820327e87437f55d3ba" />
+                    android:scheme="kakao${KAKAO_APP_KEY}" />
             </intent-filter>
         </activity> <!-- FCM: Disable auto-init 토큰 자동 초기화 방지. -->
         <meta-data
