@@ -2,6 +2,7 @@ package org.seemeet.seemeet.ui.registration
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -54,6 +55,24 @@ class LoginMainActivity : AppCompatActivity() {
         binding.tvEmailLogin.setOnClickListener {
             val nextIntent = Intent(this, LoginActivity::class.java)
             startActivity(nextIntent)
+        }
+
+        binding.mypageInfo2.setOnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://be-simon.notion.site/Seemeet-6fbe99c20f0f47f8a2a23cb4c601bd12")
+                )
+            )
+        }
+
+        binding.mypageInfo4.setOnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://be-simon.notion.site/Seemeet-107c957d37b745858a4da44498dd4b7a")
+                )
+            )
         }
     }
 
