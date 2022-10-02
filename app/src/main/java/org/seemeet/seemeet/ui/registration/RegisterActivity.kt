@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.MotionEvent
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -47,6 +46,7 @@ class RegisterActivity : AppCompatActivity() {
             if (status) {
                 val intent = Intent(this, RegisterNameIdActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY) //스택에 남지 않게
+                intent.putExtra("NAME", "")
                 startActivity(intent)
             } else {
                 binding.etEmailRegister.requestFocus()
