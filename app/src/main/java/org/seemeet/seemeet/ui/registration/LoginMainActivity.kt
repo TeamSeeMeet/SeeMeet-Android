@@ -76,13 +76,12 @@ class LoginMainActivity : AppCompatActivity() {
     private val kakaoLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (token != null) {
             Log.d("kakaoLogin", "카카오계정 로그인 성공 ${token.accessToken}")
-            trySeeMeetSocialLogin(token.accessToken)
             // 사용자 정보 가져오기
             userApiClient.me { user, error ->
                 if (error != null) {
                     Log.d("kakaoLogin", "카카오계정 사용자 정보 가져오기 실패")
                 } else if (user != null) {
-                    user.id
+                    trySeeMeetSocialLogin(token.accessToken, user.kakaoAccount?.name ?: "")
                     Log.d(
                         "kakaoLogin",
                         "카카오계정 사용자 정보 가져오기 성공\n" +
@@ -100,7 +99,7 @@ class LoginMainActivity : AppCompatActivity() {
         }
     }
 
-    private fun trySeeMeetSocialLogin(socialToken: String) {
+    private fun trySeeMeetSocialLogin(socialToken: String , name : String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val body = RetrofitBuilder.loginService.postKakaoLogin(
@@ -114,7 +113,7 @@ class LoginMainActivity : AppCompatActivity() {
                 SeeMeetSharedPreference.setToken(body.data.accessToken,body.data.refreshToken)
                 // 이름,닉네임 입력 안했으면 입력화면으로 이동, 했으면 메인으로 이동
                 if (body.data.user.nickname.isNullOrEmpty()) {
-                    RegisterNameIdActivity.start(this@LoginMainActivity)
+                    RegisterNameIdActivity.start(this@LoginMainActivity, name)
                 } else {
                     MainActivity.start(this@LoginMainActivity)
                     setSharedPreference(body.data.user)

@@ -19,7 +19,6 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
     private val _MyPageNameIdList = MutableLiveData<ResponseRegisterNameId>()
     val MyPageNameIdList: LiveData<ResponseRegisterNameId>
         get() = _MyPageNameIdList
-    private val _MyPageWithdrawalList = MutableLiveData<ResponseWithdrawal>()
     val mypageName = MutableLiveData("")
     val mypageId = MutableLiveData("")
     val warning = MutableLiveData("")
@@ -28,6 +27,10 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
     val id_cursorPos = MutableLiveData(0)
     val name_invalidCase = MutableLiveData(false)
     val id_upperCase = MutableLiveData(false)
+
+    private val _withdrawalStatus = MutableLiveData<Boolean>(false)
+    val withdrawalStatus: LiveData<Boolean>
+        get() = _withdrawalStatus
 
     private val _mypageStatus = MutableLiveData<Boolean>(false)
     val mypageStatus: LiveData<Boolean>
@@ -60,11 +63,11 @@ class MyPageViewModel(application: Application) : BaseViewModel(application) {
 
     fun requestMyPageWithdrawal(
     ) = viewModelScope.launch(exceptionHandler) {
-        _MyPageWithdrawalList.postValue(
-            RetrofitBuilder.withdrawalService.putWithdrawal(
-                SeeMeetSharedPreference.getToken()
-            )
+        RetrofitBuilder.withdrawalService.putWithdrawal(
+            SeeMeetSharedPreference.getToken()
         )
+        _withdrawalStatus.value = true
+
     }
 
     //fcm 토큰 삭제 요청

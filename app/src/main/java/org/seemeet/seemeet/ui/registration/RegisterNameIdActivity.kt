@@ -228,6 +228,7 @@ class RegisterNameIdActivity : AppCompatActivity() {
     }
 
     companion object {
+        const val NAME = "NAME"
         fun isNumberFormat(password: String): Boolean {
             return Pattern.matches("^[0-9]*\$", password)
         }
@@ -244,8 +245,9 @@ class RegisterNameIdActivity : AppCompatActivity() {
             return Pattern.matches("^[.]*\$", password)
         }
 
-        fun start(context: Context) {
+        fun start(context: Context , name : String) {
             val intent = Intent(context, RegisterNameIdActivity::class.java)
+            intent.putExtra(NAME, name ?: "")
             context.startActivity(intent)
         }
     }
