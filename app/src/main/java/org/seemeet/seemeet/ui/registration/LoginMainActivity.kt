@@ -100,7 +100,7 @@ class LoginMainActivity : AppCompatActivity() {
                 if (error != null) {
                     Log.d("kakaoLogin", "카카오계정 사용자 정보 가져오기 실패")
                 } else if (user != null) {
-                    trySeeMeetSocialLogin(token.accessToken, user.kakaoAccount?.name ?: "")
+                    trySeeMeetSocialLogin(token.accessToken, user.kakaoAccount?.profile?.nickname ?: "")
                     Log.d(
                         "kakaoLogin",
                         "카카오계정 사용자 정보 가져오기 성공\n" +
