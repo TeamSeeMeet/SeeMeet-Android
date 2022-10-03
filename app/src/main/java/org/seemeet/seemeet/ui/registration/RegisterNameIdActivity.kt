@@ -30,14 +30,23 @@ class RegisterNameIdActivity : AppCompatActivity() {
     private val viewModel: RegisterNameIdViewModel by viewModels()
     var prev_etName: String? = ""
     var prev_etId: String? = ""
+    var name: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.registerNameIdviewModel = viewModel
         binding.lifecycleOwner = this
+        initName()
         statusObserver()
         initClickListener()
+    }
+
+    private fun initName(){
+        name = intent.getStringExtra(NAME)!!
+        if(name!=""){
+            viewModel.registerName.value = name
+        }
     }
 
     private fun statusObserver() {

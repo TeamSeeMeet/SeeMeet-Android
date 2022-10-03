@@ -2,6 +2,7 @@ package org.seemeet.seemeet.ui.registration
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -55,6 +56,24 @@ class LoginMainActivity : AppCompatActivity() {
             val nextIntent = Intent(this, LoginActivity::class.java)
             startActivity(nextIntent)
         }
+
+        binding.mypageInfo2.setOnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://be-simon.notion.site/Seemeet-6fbe99c20f0f47f8a2a23cb4c601bd12")
+                )
+            )
+        }
+
+        binding.mypageInfo4.setOnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://be-simon.notion.site/Seemeet-107c957d37b745858a4da44498dd4b7a")
+                )
+            )
+        }
     }
 
     private fun getKaKaoToken() {
@@ -81,7 +100,7 @@ class LoginMainActivity : AppCompatActivity() {
                 if (error != null) {
                     Log.d("kakaoLogin", "카카오계정 사용자 정보 가져오기 실패")
                 } else if (user != null) {
-                    trySeeMeetSocialLogin(token.accessToken, user.kakaoAccount?.name ?: "")
+                    trySeeMeetSocialLogin(token.accessToken, user.kakaoAccount?.profile?.nickname ?: "")
                     Log.d(
                         "kakaoLogin",
                         "카카오계정 사용자 정보 가져오기 성공\n" +
